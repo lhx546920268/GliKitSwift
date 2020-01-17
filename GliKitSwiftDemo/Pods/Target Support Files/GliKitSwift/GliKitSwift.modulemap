@@ -1,0 +1,6 @@
+framework module GliKitSwift {
+  umbrella header "GliKitSwift-umbrella.h"
+
+  export *
+  module * { export * }
+}

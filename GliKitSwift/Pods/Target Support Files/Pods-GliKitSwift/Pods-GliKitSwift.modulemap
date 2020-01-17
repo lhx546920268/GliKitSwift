@@ -1,0 +1,6 @@
+framework module Pods_GliKitSwift {
+  umbrella header "Pods-GliKitSwift-umbrella.h"
+
+  export *
+  module * { export * }
+}

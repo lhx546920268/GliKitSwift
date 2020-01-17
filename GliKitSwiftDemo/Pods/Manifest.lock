@@ -1,0 +1,31 @@
+PODS:
+  - Alamofire (4.9.1)
+  - GliKitSwift (0.0.1):
+    - Alamofire
+    - Kingfisher
+    - SnapKit
+  - Kingfisher (4.10.1)
+  - SnapKit (4.2.0)
+
+DEPENDENCIES:
+  - GliKitSwift (from `../GliKitSwift`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - Kingfisher
+    - SnapKit
+
+EXTERNAL SOURCES:
+  GliKitSwift:
+    :path: "../GliKitSwift"
+
+SPEC CHECKSUMS:
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  GliKitSwift: 97e046d2b4632177997615a83e4fbdbc6d9a0363
+  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+
+PODFILE CHECKSUM: 2b3fc8242d3ab3ae6858e4c7b8f3b9f4ccf79f18
+
+COCOAPODS: 1.6.0.beta.2

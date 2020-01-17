@@ -1,2 +1,0 @@
-# GliKitSwift
-GliKit swift
