@@ -43,6 +43,14 @@ public extension String {
         
         return true
     }
+    
+    func substring(location: Int, length: Int) -> String {
+        
+        let from = self.index(self.startIndex, offsetBy: location)
+        let to = self.index(self.startIndex, offsetBy: location + length)
+        
+        return String(self[from ..< to])
+    }
 }
 
 public extension Character {

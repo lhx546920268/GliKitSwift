@@ -26,14 +26,14 @@ public extension UIColor {
     static var gkNavigationBarTintColor = UIColor.black
 
     ///分割线颜色
-    static var gkSeparatorColor = UIColor.init(white: 0.86, alpha: 1.0)
+    static var gkSeparatorColor = UIColor(white: 0.86, alpha: 1.0)
 
     ///app背景颜色 灰色那个
-    static var gkGrayBackgroundColor = UIColor.gkGrayBackgroundColor
+    static var gkGrayBackgroundColor = UIColor.gkColorFromHex("F2F2F2")
 
     ///骨架层背景颜色
-    @property(class, nonatomic, strong) UIColor *gkSkeletonBackgroundColor;
+    static var gkSkeletonBackgroundColor = UIColor(white: 0.9, alpha: 1.0)
 
     ///输入框placeholder 颜色
-    @property(class, nonatomic, strong) UIColor *gkPlaceholderColor;
+    static var gkPlaceholderColor = UIColor(white: 0.702, alpha: 1.0)
 }

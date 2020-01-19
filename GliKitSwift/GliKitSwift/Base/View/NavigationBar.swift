@@ -15,12 +15,13 @@ open class NavigationBar: UIView {
     public lazy var shadowView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.gkSeparatorColor;
-        [self addSubview:_shadowView];
+        addSubview(view)
+        view.snp.makeConstraints { (maker) in
+            maker.leading.trailing.bottom.equalTo(0)
+            maker.height.equalTo(UIApplication.gkSeparatorHeight)
+        }
         
-        [_shadowView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.leading.trailing.bottom.equalTo(self);
-            make.height.equalTo(UIApplication.gkSeparatorHeight);
-        }];
+        return view
     }()
 
     ///背景

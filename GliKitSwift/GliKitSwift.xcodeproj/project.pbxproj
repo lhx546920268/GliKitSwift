@@ -16,6 +16,15 @@
 		CEAE533123D159910073882E /* UIColor+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE533023D159910073882E /* UIColor+Theme.swift */; };
 		CEAE533423D1A6950073882E /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE533323D1A6950073882E /* UIColor+Utils.swift */; };
 		CEAE533623D1B3C50073882E /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE533523D1B3C50073882E /* String+Utils.swift */; };
+		CEB6D2C423D3ED7000457164 /* UIApplication+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB6D2C323D3ED7000457164 /* UIApplication+Theme.swift */; };
+		CEB6D2C623D3F08700457164 /* UIFont+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB6D2C523D3F08700457164 /* UIFont+Theme.swift */; };
+		CEB6D2C823D3F0CD00457164 /* UIImage+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB6D2C723D3F0CD00457164 /* UIImage+Theme.swift */; };
+		CEB6D2CA23D3F9BA00457164 /* SystemNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB6D2C923D3F9BA00457164 /* SystemNavigationBar.swift */; };
+		CEB6D2CD23D3FAD600457164 /* HttpTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB6D2CC23D3FAD600457164 /* HttpTask.swift */; };
+		CEB6D2CF23D440E900457164 /* HttpError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB6D2CE23D440E900457164 /* HttpError.swift */; };
+		CEB6D2D223D444CE00457164 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB6D2D123D444CE00457164 /* Log.swift */; };
+		CEB6D2D423D44EDA00457164 /* ThreadUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB6D2D323D44EDA00457164 /* ThreadUtils.swift */; };
+		CEB6D2D623D45B6D00457164 /* HttpMultiTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB6D2D523D45B6D00457164 /* HttpMultiTasks.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,6 +51,15 @@
 		CEAE533023D159910073882E /* UIColor+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Theme.swift"; sourceTree = "<group>"; };
 		CEAE533323D1A6950073882E /* UIColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
 		CEAE533523D1B3C50073882E /* String+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
+		CEB6D2C323D3ED7000457164 /* UIApplication+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Theme.swift"; sourceTree = "<group>"; };
+		CEB6D2C523D3F08700457164 /* UIFont+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Theme.swift"; sourceTree = "<group>"; };
+		CEB6D2C723D3F0CD00457164 /* UIImage+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Theme.swift"; sourceTree = "<group>"; };
+		CEB6D2C923D3F9BA00457164 /* SystemNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemNavigationBar.swift; sourceTree = "<group>"; };
+		CEB6D2CC23D3FAD600457164 /* HttpTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpTask.swift; sourceTree = "<group>"; };
+		CEB6D2CE23D440E900457164 /* HttpError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpError.swift; sourceTree = "<group>"; };
+		CEB6D2D123D444CE00457164 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		CEB6D2D323D44EDA00457164 /* ThreadUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadUtils.swift; sourceTree = "<group>"; };
+		CEB6D2D523D45B6D00457164 /* HttpMultiTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMultiTasks.swift; sourceTree = "<group>"; };
 		DF016891A7E05E1EDD44C01C /* Pods_GliKitSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GliKitSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -87,6 +105,8 @@
 		CE9E4C1A23D062A300C0F63D /* GliKitSwift */ = {
 			isa = PBXGroup;
 			children = (
+				CEB6D2D023D444A800457164 /* Public */,
+				CEB6D2CB23D3FABD00457164 /* Api */,
 				CEAE533223D1A6830073882E /* Category */,
 				CEAE532F23D159700073882E /* Theme */,
 				CE9E4C2223D063D000C0F63D /* Base */,
@@ -150,6 +170,7 @@
 			children = (
 				CE9E4C2923D0648C00C0F63D /* BaseContainer.swift */,
 				CEAE532D23D158BB0073882E /* NavigationBar.swift */,
+				CEB6D2C923D3F9BA00457164 /* SystemNavigationBar.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -158,6 +179,9 @@
 			isa = PBXGroup;
 			children = (
 				CEAE533023D159910073882E /* UIColor+Theme.swift */,
+				CEB6D2C323D3ED7000457164 /* UIApplication+Theme.swift */,
+				CEB6D2C523D3F08700457164 /* UIFont+Theme.swift */,
+				CEB6D2C723D3F0CD00457164 /* UIImage+Theme.swift */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
@@ -169,6 +193,25 @@
 				CEAE533523D1B3C50073882E /* String+Utils.swift */,
 			);
 			path = Category;
+			sourceTree = "<group>";
+		};
+		CEB6D2CB23D3FABD00457164 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				CEB6D2CC23D3FAD600457164 /* HttpTask.swift */,
+				CEB6D2CE23D440E900457164 /* HttpError.swift */,
+				CEB6D2D523D45B6D00457164 /* HttpMultiTasks.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
+		CEB6D2D023D444A800457164 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				CEB6D2D123D444CE00457164 /* Log.swift */,
+				CEB6D2D323D44EDA00457164 /* ThreadUtils.swift */,
+			);
+			path = Public;
 			sourceTree = "<group>";
 		};
 		F7878A2AFB7A54C192ADEDC2 /* Frameworks */ = {
@@ -263,13 +306,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEB6D2C423D3ED7000457164 /* UIApplication+Theme.swift in Sources */,
 				CEAE533623D1B3C50073882E /* String+Utils.swift in Sources */,
+				CEB6D2D223D444CE00457164 /* Log.swift in Sources */,
 				CEAE532E23D158BB0073882E /* NavigationBar.swift in Sources */,
 				CEAE532C23D14EDC0073882E /* UIViewController+SafeAreaCompatible.swift in Sources */,
+				CEB6D2D423D44EDA00457164 /* ThreadUtils.swift in Sources */,
 				CE9E4C2A23D0648C00C0F63D /* BaseContainer.swift in Sources */,
 				CEAE533123D159910073882E /* UIColor+Theme.swift in Sources */,
+				CEB6D2CA23D3F9BA00457164 /* SystemNavigationBar.swift in Sources */,
+				CEB6D2CD23D3FAD600457164 /* HttpTask.swift in Sources */,
+				CEB6D2CF23D440E900457164 /* HttpError.swift in Sources */,
+				CEB6D2C823D3F0CD00457164 /* UIImage+Theme.swift in Sources */,
 				CE9E4C1C23D062A300C0F63D /* GliKitSwift.swift in Sources */,
 				CE9E4C6823D071ED00C0F63D /* BaseViewController.swift in Sources */,
+				CEB6D2D623D45B6D00457164 /* HttpMultiTasks.swift in Sources */,
+				CEB6D2C623D3F08700457164 /* UIFont+Theme.swift in Sources */,
 				CEAE533423D1A6950073882E /* UIColor+Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -327,10 +379,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -381,9 +434,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
