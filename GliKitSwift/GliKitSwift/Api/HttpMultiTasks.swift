@@ -12,7 +12,7 @@ import UIKit
 open class HttpMultiTasks: NSObject {
     
     ///保存请求队列的单例
-    private static let sharedMultiTasks = Set<HttpMultiTasks>()
+    private static var sharedMultiTasks = Set<HttpMultiTasks>()
 
     ///当有一个任务失败时，是否取消所有任务
     public var shouldCancelAllTaskWhileOneFail = true
@@ -24,7 +24,7 @@ open class HttpMultiTasks: NSObject {
     public var completion: ((HttpMultiTasks, Bool) -> Void)?
     
     ///任务列表
-    private let tasks = Array<HttpTask>()
+    private var tasks = Array<HttpTask>()
 
     ///是否有请求失败
     private var hasFail = false
@@ -33,7 +33,7 @@ open class HttpMultiTasks: NSObject {
     private var concurrent = true
 
     ///对应任务
-    private var taskDictionary = NSMutableDictionary<String, HttpTask>()
+    private var taskDictionary = Dictionary<String, HttpTask>()
 
     ///添加任务 key 为HttpTask.name
     public func addTask(_ task: HttpTask) {
@@ -46,25 +46,101 @@ open class HttpMultiTasks: NSObject {
     ///   - key: 唯一标识符
     public func addTask(_ task: HttpTask, forKey key: String) {
         
+        tasks.append(task)
+        taskDictionary[key] = task
+        task.delegate = self
     }
 
     ///开始所有任务
     public func start() {
         
+        dispatchAsyncMainSafe {
+            self.concurrent = true
+            self.startTask()
+        }
     }
 
     ///串行执行所有任务，按照添加顺序来执行
     public func startSerially() {
         
+        dispatchAsyncMainSafe {
+            self.concurrent = false
+            self.startTask()
+        }
     }
 
     ///取消所有请求
     public func cancelAllTasks() {
-        
+        dispatchAsyncMainSafe {
+            for task in self.tasks {
+                task.cancel()
+            }
+            self.tasks.removeAll()
+            self.taskDictionary.removeAll()
+            HttpMultiTasks.sharedMultiTasks.remove(self)
+        }
     }
 
     ///获取某个请求
     public func taskForKey(_ key: String) -> HttpTask? {
         return taskDictionary[key]
+    }
+    
+    ///开始任务
+    private func startTask() {
+        HttpMultiTasks.sharedMultiTasks.insert(self)
+        hasFail = false
+        if self.concurrent {
+            for task in tasks {
+                task.start()
+            }
+        } else {
+            startNextTask()
+        }
+    }
+
+    ///开始执行下一个任务 串行时用到
+    private func startNextTask(){
+        tasks.first?.start()
+    }
+
+    ///任务完成
+    private func taskDiComplete(_ task: HttpTask, success: Bool) {
+        
+        tasks.remove(task)
+        if !success {
+            hasFail = true
+            if shouldCancelAllTaskWhileOneFail {
+                for task in tasks {
+                    task.cancel()
+                }
+                tasks.removeAll()
+            }
+        }
+        
+        if tasks.count == 0 {
+            completion?(self, hasFail)
+            taskDictionary.removeAll()
+            HttpMultiTasks.sharedMultiTasks.remove(self)
+        } else if !concurrent {
+            startNextTask()
+        }
+    }
+}
+
+extension HttpMultiTasks: HttpTaskDelegate {
+    
+    public func taskDidFail(_ task: HttpTask) {
+        
+    }
+    
+    public func taskDidSuccess(_ task: HttpTask) {
+        
+    }
+    
+    public func taskDidComplete(_ task: HttpTask) {
+        dispatchAsyncMainSafe {
+            self.taskDiComplete(task, success: task.isApiSuccess || (!task.isNetworkError && self.onlyFlagNetworkError))
+        }
     }
 }

@@ -25,7 +25,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = RootViewController()
         window?.makeKeyAndVisible()
 
-     
+        let view = UIView()
+        
+        if window == view {
+            
+        }
+        
+        window?.bbc = 20
+        window?.aac = 10
+        
+        print(window!.bbc!)
+        print(window!.aac!)
+        
         return true
     }
 
@@ -35,4 +46,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+extension UIView {
+    
+    var bbc: Int?{
+        set{
+            objc_setAssociatedObject(self, &UIView.key1, newValue, .OBJC_ASSOCIATION_RETAIN)
+        }
+        get{
+            objc_getAssociatedObject(self, &UIView.key1) as? Int
+        }
+    }
+    private static var key1 = 0
+    var aac: Int?{
+           set{
+               objc_setAssociatedObject(self, &UIView.key2, newValue, .OBJC_ASSOCIATION_RETAIN)
+           }
+           get{
+               objc_getAssociatedObject(self, &UIView.key2) as? Int
+           }
+       }
+       private static var key2 = 0
+}
 

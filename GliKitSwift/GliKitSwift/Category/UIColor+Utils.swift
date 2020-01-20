@@ -27,7 +27,13 @@ public extension UIColor {
         
         getRed(red, green: green, blue: blue, alpha: alpha)
         
-        return (red.pointee, green.pointee, blue.pointee, alpha.pointee)
+        let result = (red.pointee, green.pointee, blue.pointee, alpha.pointee)
+        red.deallocate()
+        green.deallocate()
+        blue.deallocate()
+        alpha.deallocate()
+        
+        return result
     }
     
     /**

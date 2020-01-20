@@ -33,7 +33,7 @@ public protocol HttpTaskDelegate: NSObjectProtocol {
 open class HttpTask: NSObject {
     
     ///保存请求队列的单例
-    private static let sharedTasks = Set<HttpTask>()
+    private static var sharedTasks = Set<HttpTask>()
     
     ///当前请求
     private var request: Request?
@@ -157,7 +157,9 @@ open class HttpTask: NSObject {
     open func onComplete(){
         
         // TODO: 要加loading
-        delegate?.taskDidComplete(self)
+        if !isCanceled {
+            delegate?.taskDidComplete(self)
+        }
         HttpTask.sharedTasks.remove(self)
     }
     
@@ -171,7 +173,7 @@ open class HttpTask: NSObject {
         
         guard requestURL != nil else {
             
-            GKLog("\(name) requestURL can not be nil")
+//            GKLog("\(name) requestURL can not be nil")
             onFail()
             return
         }
@@ -204,7 +206,7 @@ open class HttpTask: NSObject {
                             let result = value as! JSONResult
                             self?.processSuccessResult(result)
                         } else {
-                            self?.processError(HttpError.resultFormatError)
+//                            self?.processError(HttpError.resultFormatError)
                         }
                     } else {
                         self?.processError(response.error)
