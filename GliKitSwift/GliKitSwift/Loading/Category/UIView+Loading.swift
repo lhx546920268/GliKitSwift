@@ -71,7 +71,7 @@ public extension UIView {
     var gkPageLoadingView: PageLoadingContainer?{
         set{
             self.gkPageLoadingView?.removeFromSuperview()
-            objc_setAssociatedObject(self, &AssociatedKey.pageLoadingView, newValue, .OBJC_ASSOCIATION_RETAIN)
+            objc_setAssociatedObject(self, &AssociatedKey.pageLoadingView, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
             if let pageLoadView = newValue {
                 
@@ -93,7 +93,7 @@ public extension UIView {
     ///页面加载偏移量 default is UIEdgeInsetZero
     var gkPageLoadingViewInsets: UIEdgeInsets{
         set{
-            objc_setAssociatedObject(self, &AssociatedKey.pageLoadingViewInsets, newValue, .OBJC_ASSOCIATION_RETAIN)
+            objc_setAssociatedObject(self, &AssociatedKey.pageLoadingViewInsets, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         get{
             objc_getAssociatedObject(self, &AssociatedKey.pageLoadingViewInsets) as? UIEdgeInsets ?? UIEdgeInsets.zero
@@ -127,7 +127,7 @@ public extension UIView {
     ///点击失败页面回调
     var gkReloadCallback: (() -> Void)?{
         set{
-            objc_setAssociatedObject(self, &AssociatedKey.reloadCallback, newValue, .OBJC_ASSOCIATION_COPY)
+            objc_setAssociatedObject(self, &AssociatedKey.reloadCallback, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
         }
         get{
             objc_getAssociatedObject(self, &AssociatedKey.reloadCallback) as? () -> Void
@@ -138,7 +138,7 @@ public extension UIView {
     var  gkProgressHUD: ProgressHUDProtocol?{
         set{
             self.gkProgressHUD?.removeFromSuperview()
-            objc_setAssociatedObject(self, &AssociatedKey.progressHUD, newValue, .OBJC_ASSOCIATION_RETAIN)
+            objc_setAssociatedObject(self, &AssociatedKey.progressHUD, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         get{
             objc_getAssociatedObject(self, &AssociatedKey.progressHUD) as? ProgressHUDProtocol

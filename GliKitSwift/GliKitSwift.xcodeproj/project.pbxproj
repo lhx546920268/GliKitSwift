@@ -8,9 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		AA28FDD71423CE27F89606EC /* Pods_GliKitSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF016891A7E05E1EDD44C01C /* Pods_GliKitSwift.framework */; };
+		CE6996E523D7E0D500A99469 /* PartialPresentTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996E423D7E0D500A99469 /* PartialPresentTransitionDelegate.swift */; };
+		CE6996E723D7EC2C00A99469 /* PartialPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996E623D7EC2C00A99469 /* PartialPresentationController.swift */; };
+		CE6996E923D7F27B00A99469 /* PartialPresentTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996E823D7F27B00A99469 /* PartialPresentTransitionAnimator.swift */; };
+		CE6996EB23D81ED100A99469 /* UIViewControlelr+Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996EA23D81ED100A99469 /* UIViewControlelr+Transition.swift */; };
+		CE6996ED23D822AE00A99469 /* UIView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996EC23D822AE00A99469 /* UIView+Utils.swift */; };
+		CE6996EF23D8235E00A99469 /* NSObject+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996EE23D8235E00A99469 /* NSObject+Utils.swift */; };
+		CE6996F123D825E900A99469 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996F023D825E900A99469 /* UIViewController+Utils.swift */; };
 		CE9E4C1C23D062A300C0F63D /* GliKitSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E4C1B23D062A300C0F63D /* GliKitSwift.swift */; };
 		CE9E4C2A23D0648C00C0F63D /* BaseContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E4C2923D0648C00C0F63D /* BaseContainer.swift */; };
 		CE9E4C6823D071ED00C0F63D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E4C6723D071ED00C0F63D /* BaseViewController.swift */; };
+		CEA2CA3623D6856300826D29 /* UIViewController+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA2CA3523D6856300826D29 /* UIViewController+Loading.swift */; };
 		CEAE532C23D14EDC0073882E /* UIViewController+SafeAreaCompatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE532B23D14EDC0073882E /* UIViewController+SafeAreaCompatible.swift */; };
 		CEAE532E23D158BB0073882E /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE532D23D158BB0073882E /* NavigationBar.swift */; };
 		CEAE533123D159910073882E /* UIColor+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE533023D159910073882E /* UIColor+Theme.swift */; };
@@ -48,10 +56,18 @@
 /* Begin PBXFileReference section */
 		3B3029981CD3205D76C06BCE /* Pods-GliKitSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GliKitSwift.debug.xcconfig"; path = "Target Support Files/Pods-GliKitSwift/Pods-GliKitSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		7600BFF31AC3917776A2AD5D /* Pods-GliKitSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GliKitSwift.release.xcconfig"; path = "Target Support Files/Pods-GliKitSwift/Pods-GliKitSwift.release.xcconfig"; sourceTree = "<group>"; };
+		CE6996E423D7E0D500A99469 /* PartialPresentTransitionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialPresentTransitionDelegate.swift; sourceTree = "<group>"; };
+		CE6996E623D7EC2C00A99469 /* PartialPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialPresentationController.swift; sourceTree = "<group>"; };
+		CE6996E823D7F27B00A99469 /* PartialPresentTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialPresentTransitionAnimator.swift; sourceTree = "<group>"; };
+		CE6996EA23D81ED100A99469 /* UIViewControlelr+Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewControlelr+Transition.swift"; sourceTree = "<group>"; };
+		CE6996EC23D822AE00A99469 /* UIView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Utils.swift"; sourceTree = "<group>"; };
+		CE6996EE23D8235E00A99469 /* NSObject+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Utils.swift"; sourceTree = "<group>"; };
+		CE6996F023D825E900A99469 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		CE9E4C1823D062A300C0F63D /* libGliKitSwift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGliKitSwift.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE9E4C1B23D062A300C0F63D /* GliKitSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliKitSwift.swift; sourceTree = "<group>"; };
 		CE9E4C2923D0648C00C0F63D /* BaseContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseContainer.swift; sourceTree = "<group>"; };
 		CE9E4C6723D071ED00C0F63D /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		CEA2CA3523D6856300826D29 /* UIViewController+Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Loading.swift"; sourceTree = "<group>"; };
 		CEAE532B23D14EDC0073882E /* UIViewController+SafeAreaCompatible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+SafeAreaCompatible.swift"; sourceTree = "<group>"; };
 		CEAE532D23D158BB0073882E /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		CEAE533023D159910073882E /* UIColor+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Theme.swift"; sourceTree = "<group>"; };
@@ -96,6 +112,17 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		CE6996E323D7E0B700A99469 /* Transition */ = {
+			isa = PBXGroup;
+			children = (
+				CE6996E423D7E0D500A99469 /* PartialPresentTransitionDelegate.swift */,
+				CE6996E623D7EC2C00A99469 /* PartialPresentationController.swift */,
+				CE6996E823D7F27B00A99469 /* PartialPresentTransitionAnimator.swift */,
+				CE6996EA23D81ED100A99469 /* UIViewControlelr+Transition.swift */,
+			);
+			path = Transition;
+			sourceTree = "<group>";
+		};
 		CE9E4C0F23D062A300C0F63D = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +144,7 @@
 		CE9E4C1A23D062A300C0F63D /* GliKitSwift */ = {
 			isa = PBXGroup;
 			children = (
+				CE6996E323D7E0B700A99469 /* Transition */,
 				CEBEB52B23D5AB3D000B8CBF /* Utils */,
 				CEBEB52023D54B9D000B8CBF /* Loading */,
 				CEB6D2D023D444A800457164 /* Public */,
@@ -160,6 +188,8 @@
 			isa = PBXGroup;
 			children = (
 				CEAE532B23D14EDC0073882E /* UIViewController+SafeAreaCompatible.swift */,
+				CE6996EC23D822AE00A99469 /* UIView+Utils.swift */,
+				CE6996F023D825E900A99469 /* UIViewController+Utils.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -207,6 +237,7 @@
 				CEAE533523D1B3C50073882E /* String+Utils.swift */,
 				CEBEB51E23D54336000B8CBF /* Array+Utils.swift */,
 				CEBEB52723D58CC7000B8CBF /* Rect+Utils.swift */,
+				CE6996EE23D8235E00A99469 /* NSObject+Utils.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -243,6 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				CEBEB52923D59564000B8CBF /* UIView+Loading.swift */,
+				CEA2CA3523D6856300826D29 /* UIViewController+Loading.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -358,12 +390,17 @@
 			files = (
 				CEBEB52823D58CC7000B8CBF /* Rect+Utils.swift in Sources */,
 				CEB6D2C423D3ED7000457164 /* UIApplication+Theme.swift in Sources */,
+				CE6996F123D825E900A99469 /* UIViewController+Utils.swift in Sources */,
 				CEBEB51F23D54336000B8CBF /* Array+Utils.swift in Sources */,
+				CE6996ED23D822AE00A99469 /* UIView+Utils.swift in Sources */,
 				CEAE533623D1B3C50073882E /* String+Utils.swift in Sources */,
+				CE6996E523D7E0D500A99469 /* PartialPresentTransitionDelegate.swift in Sources */,
 				CEB6D2D223D444CE00457164 /* Log.swift in Sources */,
 				CEAE532E23D158BB0073882E /* NavigationBar.swift in Sources */,
 				CEBEB52423D54BB4000B8CBF /* PageLoadingContainer.swift in Sources */,
+				CEA2CA3623D6856300826D29 /* UIViewController+Loading.swift in Sources */,
 				CEAE532C23D14EDC0073882E /* UIViewController+SafeAreaCompatible.swift in Sources */,
+				CE6996E923D7F27B00A99469 /* PartialPresentTransitionAnimator.swift in Sources */,
 				CEB6D2D423D44EDA00457164 /* ThreadUtils.swift in Sources */,
 				CE9E4C2A23D0648C00C0F63D /* BaseContainer.swift in Sources */,
 				CEAE533123D159910073882E /* UIColor+Theme.swift in Sources */,
@@ -378,7 +415,10 @@
 				CEB6D2C623D3F08700457164 /* UIFont+Theme.swift in Sources */,
 				CEBEB52A23D59564000B8CBF /* UIView+Loading.swift in Sources */,
 				CEBEB52623D55F7A000B8CBF /* ProgressHUD.swift in Sources */,
+				CE6996EB23D81ED100A99469 /* UIViewControlelr+Transition.swift in Sources */,
+				CE6996EF23D8235E00A99469 /* NSObject+Utils.swift in Sources */,
 				CEAE533423D1A6950073882E /* UIColor+Utils.swift in Sources */,
+				CE6996E723D7EC2C00A99469 /* PartialPresentationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

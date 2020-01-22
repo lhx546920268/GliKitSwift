@@ -173,7 +173,7 @@ open class HttpTask: NSObject {
         
         guard requestURL != nil else {
             
-//            GKLog("\(name) requestURL can not be nil")
+            GKLog("\(name) requestURL can not be nil")
             onFail()
             return
         }
@@ -206,7 +206,7 @@ open class HttpTask: NSObject {
                             let result = value as! JSONResult
                             self?.processSuccessResult(result)
                         } else {
-//                            self?.processError(HttpError.resultFormatError)
+                            self?.processError(HttpError.resultFormatError)
                         }
                     } else {
                         self?.processError(response.error)
