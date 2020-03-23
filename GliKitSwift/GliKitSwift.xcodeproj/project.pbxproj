@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		AA28FDD71423CE27F89606EC /* Pods_GliKitSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF016891A7E05E1EDD44C01C /* Pods_GliKitSwift.framework */; };
+		CE160E1D242462BD008E7392 /* NavigationItemHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E1C242462BD008E7392 /* NavigationItemHelper.swift */; };
+		CE160E1F242471E7008E7392 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E1E242471E7008E7392 /* BaseViewModel.swift */; };
+		CE160E212424A350008E7392 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E202424A350008E7392 /* BaseNavigationController.swift */; };
 		CE6996E523D7E0D500A99469 /* PartialPresentTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996E423D7E0D500A99469 /* PartialPresentTransitionDelegate.swift */; };
 		CE6996E723D7EC2C00A99469 /* PartialPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996E623D7EC2C00A99469 /* PartialPresentationController.swift */; };
 		CE6996E923D7F27B00A99469 /* PartialPresentTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996E823D7F27B00A99469 /* PartialPresentTransitionAnimator.swift */; };
@@ -56,6 +59,9 @@
 /* Begin PBXFileReference section */
 		3B3029981CD3205D76C06BCE /* Pods-GliKitSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GliKitSwift.debug.xcconfig"; path = "Target Support Files/Pods-GliKitSwift/Pods-GliKitSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		7600BFF31AC3917776A2AD5D /* Pods-GliKitSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GliKitSwift.release.xcconfig"; path = "Target Support Files/Pods-GliKitSwift/Pods-GliKitSwift.release.xcconfig"; sourceTree = "<group>"; };
+		CE160E1C242462BD008E7392 /* NavigationItemHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationItemHelper.swift; sourceTree = "<group>"; };
+		CE160E1E242471E7008E7392 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		CE160E202424A350008E7392 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		CE6996E423D7E0D500A99469 /* PartialPresentTransitionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialPresentTransitionDelegate.swift; sourceTree = "<group>"; };
 		CE6996E623D7EC2C00A99469 /* PartialPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialPresentationController.swift; sourceTree = "<group>"; };
 		CE6996E823D7F27B00A99469 /* PartialPresentTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialPresentTransitionAnimator.swift; sourceTree = "<group>"; };
@@ -173,6 +179,7 @@
 		CE9E4C2323D063D000C0F63D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				CE160E1E242471E7008E7392 /* BaseViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -197,6 +204,7 @@
 		CE9E4C2623D063D000C0F63D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				CE160E1C242462BD008E7392 /* NavigationItemHelper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -205,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				CE9E4C6723D071ED00C0F63D /* BaseViewController.swift */,
+				CE160E202424A350008E7392 /* BaseNavigationController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -402,17 +411,20 @@
 				CEAE532C23D14EDC0073882E /* UIViewController+SafeAreaCompatible.swift in Sources */,
 				CE6996E923D7F27B00A99469 /* PartialPresentTransitionAnimator.swift in Sources */,
 				CEB6D2D423D44EDA00457164 /* ThreadUtils.swift in Sources */,
+				CE160E212424A350008E7392 /* BaseNavigationController.swift in Sources */,
 				CE9E4C2A23D0648C00C0F63D /* BaseContainer.swift in Sources */,
 				CEAE533123D159910073882E /* UIColor+Theme.swift in Sources */,
 				CEB6D2CA23D3F9BA00457164 /* SystemNavigationBar.swift in Sources */,
 				CEB6D2CD23D3FAD600457164 /* HttpTask.swift in Sources */,
 				CEB6D2CF23D440E900457164 /* HttpError.swift in Sources */,
 				CEB6D2C823D3F0CD00457164 /* UIImage+Theme.swift in Sources */,
+				CE160E1D242462BD008E7392 /* NavigationItemHelper.swift in Sources */,
 				CE9E4C1C23D062A300C0F63D /* GliKitSwift.swift in Sources */,
 				CE9E4C6823D071ED00C0F63D /* BaseViewController.swift in Sources */,
 				CEBEB52D23D5AB48000B8CBF /* KeyboardHelper.swift in Sources */,
 				CEB6D2D623D45B6D00457164 /* HttpMultiTasks.swift in Sources */,
 				CEB6D2C623D3F08700457164 /* UIFont+Theme.swift in Sources */,
+				CE160E1F242471E7008E7392 /* BaseViewModel.swift in Sources */,
 				CEBEB52A23D59564000B8CBF /* UIView+Loading.swift in Sources */,
 				CEBEB52623D55F7A000B8CBF /* ProgressHUD.swift in Sources */,
 				CE6996EB23D81ED100A99469 /* UIViewControlelr+Transition.swift in Sources */,

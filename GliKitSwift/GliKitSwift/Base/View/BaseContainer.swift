@@ -76,24 +76,30 @@ open class BaseContainer: UIView {
     ///固定在顶部的视图
     public var topView: UIView?{
         didSet{
-            oldValue?.removeFromSuperview()
-            layoutTopView()
+            if oldValue != self.topView {
+                oldValue?.removeFromSuperview()
+                layoutTopView()
+            }
         }
     }
 
     ///固定在底部的视图
     public var bottomView: UIView?{
         didSet{
-            oldValue?.removeFromSuperview()
-            layoutBottomView()
+            if oldValue != self.bottomView {
+                oldValue?.removeFromSuperview()
+                layoutBottomView()
+            }
         }
     }
 
     ///内容视图
     public var contentView: UIView?{
         didSet{
-            oldValue?.removeFromSuperview()
-            layoutConentView()
+            if oldValue != self.contentView {
+                oldValue?.removeFromSuperview()
+                layoutConentView()
+            }
         }
     }
 
@@ -151,7 +157,9 @@ extension BaseContainer {
      @param height 视图高度，GKWrapContent 为自适应
      */
     public func setTopView(topView: UIView?, height: CGFloat){
-        
+        if topView == self.topView {
+            return
+        }
         if topView != nil && height != wrapContent {
             topView?.snp.makeConstraints({ (maker) in
                 maker.height.equalTo(height)
