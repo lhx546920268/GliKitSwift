@@ -30,7 +30,7 @@ public extension UIViewController {
     }
     
     ///刷新数据
-    func gkReloadData(){
+    @objc func gkReloadData(){
         
     }
 

@@ -74,7 +74,7 @@ public extension UIColor {
      *@param alpha 透明度 0 ~ 1.0
      *@return 设置了透明度的颜色
      */
-    func gkColorWithAlpha(_ alpha: CGFloat) -> UIColor {
+    func gkColor(withAlpha alpha: CGFloat) -> UIColor {
         
         let argb = gkColorARGB()
         return UIColor(red: argb.red, green: argb.green, blue: argb.blue, alpha: alpha)

@@ -9,13 +9,13 @@
 import UIKit
 
 ///是否可以活动返回
-var interactivePopEnableKey = 0
+private var interactivePopEnableKey = 0
 
 ///是否显示返回按钮
-var showBackItemKey = 1
+private var showBackItemKey = 1
 
 ///导航栏按钮tintColor
-var tintColorKey = 2
+private var tintColorKey = 2
 
 // MARK: - Fetch
 
@@ -99,6 +99,34 @@ public extension UIViewController {
     var gkNavigationBarHeight: CGFloat{
         get{
             return self.navigationController?.navigationBar.frame.size.height ?? 0
+        }
+    }
+    
+    ///获取兼容的状态栏高度 比如有连接个人热点的时候状态栏的高度是不一样的 viewDidLayoutSubviews 获取
+    var gkCompatiableStatusHeight: CGFloat{
+        get{
+            var statusHeight = self.gkStatusBarHeight;
+            var safeAreaTop: CGFloat
+            
+            if #available(iOS 11, *) {
+                safeAreaTop = self.view.gkSafeAreaInsets.top
+            } else {
+                safeAreaTop = self.topLayoutGuide.length
+            }
+            
+            if let nav = self.navigationController {
+                if !nav.isNavigationBarHidden && nav.navigationBar.isTranslucent {
+                    if safeAreaTop > self.gkNavigationBarHeight {
+                        safeAreaTop -= self.gkNavigationBarHeight
+                    }
+                }
+            }
+            
+            if statusHeight != safeAreaTop {
+                statusHeight = 0
+            }
+            
+            return statusHeight;
         }
     }
 
@@ -191,8 +219,7 @@ public extension UIViewController{
     }
 
     ///返回
-    @objc
-    private func gkGoBack(){
+    @objc private func gkGoBack(){
         gkBack(animated: true)
     }
     
@@ -307,15 +334,16 @@ public extension UIViewController{
             if let btn = barItem.customView as? UIButton {
 
                 if btn.image(for: .normal) != nil {
-                    [btn gkSetTintColor:tintColor forState:UIControlStateNormal];
-                    [btn gkSetTintColor:[tintColor gkColorWithAlpha:0.3] forState:UIControlStateHighlighted];
                     
-                }else{
-                    [btn setTitleColor:tintColor forState:UIControlStateNormal];
-                    [btn setTitleColor:[tintColor gkColorWithAlpha:0.3] forState:UIControlStateHighlighted];
+                    btn.gkSetTintColor(tintColor, state: .normal)
+                    btn.gkSetTintColor(tintColor.gkColor(withAlpha: 0.3), state: .highlighted)
+                } else {
+                    
+                    btn.setTitleColor(tintColor, for: .normal)
+                    btn.setTitleColor(tintColor.gkColor(withAlpha: 0.3), for: .highlighted)
                 }
             }else{
-                item.customView.tintColor = tintColor;
+                barItem.customView?.tintColor = tintColor
             }
         }
     }
@@ -329,6 +357,16 @@ public extension UIViewController{
     */
     func gkSetNavigationBarItem(_ item: UIBarButtonItem, position: NavigationItemPosition){
         
+        self.gkSetTintColor(item: item)
+        item.customView?.gkWidth += UIApplication.gkNavigationBarMargin * 2
+        switch position {
+        case .left :
+            self.navigationItem.leftBarButtonItem = item
+        case .right:
+            self.navigationItem.rightBarButtonItem = item
+        default:
+            break
+        }
     }
 
     /**
@@ -338,8 +376,12 @@ public extension UIViewController{
     @param action 点击方法
     @return 按钮
     */
-    func gkSetLeftItem(title: String, action: Selector?){
+    func gkSetLeftItem(title: String, action: Selector?) -> UIBarButtonItem{
         
+        let item = self.gkBarItem(title: title, target: self, action: action)
+        self.gkSetNavigationBarItem(item, position: .left)
+  
+        return item
     }
     
     /**
@@ -349,8 +391,12 @@ public extension UIViewController{
     @param action 点击方法
     @return 按钮
     */
-    func gkSetLeftItem(image: UIImage, action: Selector?){
+    func gkSetLeftItem(image: UIImage, action: Selector?) -> UIBarButtonItem{
         
+        let item = self.gkBarItem(image: image, target: self, action: action)
+        self.gkSetNavigationBarItem(item, position: .left)
+        
+        return item
     }
 
     /**
@@ -360,8 +406,12 @@ public extension UIViewController{
     @param action 点击方法
     @return 按钮
     */
-    func gkSetLeftItem(systemItem: UIBarButtonItem.SystemItem, action: Selector?){
+    func gkSetLeftItem(systemItem: UIBarButtonItem.SystemItem, action: Selector?) -> UIBarButtonItem{
         
+        let item = self.gkBarItem(systemItem: systemItem, target: self, action: action)
+        self.gkSetNavigationBarItem(item, position: .left)
+        
+        return item
     }
 
     /**
@@ -370,8 +420,12 @@ public extension UIViewController{
     @param customView 自定义视图
     @return 按钮
     */
-    func gkSetLeftItem(customView: UIView){
+    func gkSetLeftItem(customView: UIView) -> UIBarButtonItem{
         
+        let item = self.gkBarItem(customView: customView)
+        self.gkSetNavigationBarItem(item, position: .left)
+        
+        return item
     }
     
     /**
@@ -381,8 +435,12 @@ public extension UIViewController{
     @param action 点击方法
     @return 按钮
     */
-    func gkSetRightItem(title: String, action: Selector?){
+    func gkSetRightItem(title: String, action: Selector?) -> UIBarButtonItem{
         
+        let item = self.gkBarItem(title: title, target: self, action: action)
+        self.gkSetNavigationBarItem(item, position: .right)
+        
+        return item
     }
 
     /**
@@ -392,8 +450,12 @@ public extension UIViewController{
     @param action 点击方法
     @return 按钮
     */
-    func gkSetRightItem(image: UIImage, action: Selector?){
+    func gkSetRightItem(image: UIImage, action: Selector?) -> UIBarButtonItem{
         
+        let item = self.gkBarItem(image: image, target: self, action: action)
+        self.gkSetNavigationBarItem(item, position: .right)
+        
+        return item
     }
     
     /**
@@ -403,8 +465,12 @@ public extension UIViewController{
     @param action 点击方法
     @return 按钮
     */
-    func gkSetRightItem(systemItem: UIBarButtonItem.SystemItem, action: Selector?){
+    func gkSetRightItem(systemItem: UIBarButtonItem.SystemItem, action: Selector?) -> UIBarButtonItem{
+     
+        let item = self.gkBarItem(systemItem: systemItem, target: self, action: action)
+        self.gkSetNavigationBarItem(item, position: .right)
         
+        return item
     }
     
     /**
@@ -413,24 +479,55 @@ public extension UIViewController{
     @param customView 自定义视图
     @return 按钮
     */
-    func gkSetRightItem(customView: UIView){
+    func gkSetRightItem(customView: UIView) -> UIBarButtonItem{
         
+        let item = self.gkBarItem(customView: customView)
+        self.gkSetNavigationBarItem(item, position: .right)
+        
+        return item
     }
 
     func gkBarItem(image: UIImage, target: Any?, action: Selector?) -> UIBarButtonItem{
         
+        var img = image
+        if image.renderingMode != .alwaysTemplate {
+            
+            img = image.withRenderingMode(.alwaysTemplate)
+        }
+        
+        let btn = UIButton(type: .custom)
+        btn.setImage(img, for: .normal)
+        if action != nil {
+            btn.addTarget(target, action: action!, for: .touchUpInside)
+        }
+        btn.gkSetTintColor(.gray, state: .disabled)
+        btn.frame = CGRect(x: 0, y: 0, width: image.size.width, height: 44)
+        
+        return UIBarButtonItem(customView: btn)
     }
     
     func gkBarItem(title: String, target: Any?, action: Selector?) -> UIBarButtonItem{
         
+        let btn = UIButton(type: .custom)
+        btn.setTitle(title, for: .normal)
+        btn.titleLabel?.font = UIFont.gkNavigationBarItemFont
+        btn.setTitleColor(.gray, for: .disabled)
+        if action != nil {
+            btn.addTarget(target, action: action!, for: .touchUpInside)
+        }
+        
+        let size = title.gkStringSize(font: UIFont.gkNavigationBarItemFont)
+        btn.frame = CGRect(x: 0, y: 0, width: size.width, height: 44)
+        
+        return UIBarButtonItem(customView: btn)
     }
     
     func gkBarItem(customView: UIView) -> UIBarButtonItem{
-        
+        return UIBarButtonItem(customView: customView)
     }
     
     func gkBarItem(systemItem: UIBarButtonItem.SystemItem, target: Any?, action: Selector?) -> UIBarButtonItem{
-        
+        return UIBarButtonItem(barButtonSystemItem: systemItem, target: target, action: action)
     }
 }
 

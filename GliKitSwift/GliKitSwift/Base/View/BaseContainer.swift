@@ -156,7 +156,7 @@ extension BaseContainer {
      @param topView 顶部视图
      @param height 视图高度，GKWrapContent 为自适应
      */
-    public func setTopView(topView: UIView?, height: CGFloat){
+    public func setTopView(_ topView: UIView?, height: CGFloat){
         if topView == self.topView {
             return
         }
@@ -174,7 +174,7 @@ extension BaseContainer {
      @param bottomView 底部视图
      @param height 视图高度，GKWrapContent 为自适应
      */
-    public func setBottomView(bottomView: UIView?, height: CGFloat){
+    public func setBottomView(_ bottomView: UIView?, height: CGFloat){
         
         if bottomView != nil && height != wrapContent {
             bottomView?.snp.makeConstraints({ (maker) in
