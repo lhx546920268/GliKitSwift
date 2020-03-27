@@ -9,30 +9,13 @@
 import UIKit
 
 ///控制视图的基类
-open class BaseViewController: UIViewController {
-    
-    open override func viewWillAppear(_ animated: Bool) {
-        
-    }
-    open override func viewDidAppear(_ animated: Bool) {
-        
-    }
-    open override func viewWillDisappear(_ animated: Bool) {
-        
-    }
-    open override func viewDidDisappear(_ animated: Bool) {
-        
-    }
-    
+open class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     
     ///关联的viewModel 如果有关联 调用viewModel对应方法
     open var viewModel: BaseViewModel?
 
     ///是否已计算出frame，使用约束时用到
     public private(set) var isViewDidLayoutSubviews = false
-
-    ///状态栏颜色
-    public var statusBarStyle = UIStatusBarStyle.default
 
     ///界面是否显示
     public private(set) var isDisplaying = false
@@ -48,13 +31,28 @@ open class BaseViewController: UIViewController {
         
     }
     
-    ///用来在delloc之前 要取消的请求
-    @property(nonatomic, strong) NSMutableSet<GKWeakObjectContainer*> *currentTasks;
-
-    ///点击回收键盘手势
-    @property(nonatomic, strong) UITapGestureRecognizer *;
-
+    // MARK: - 状态栏
     
+    ///状态栏颜色
+    public var statusBarStyle = UIStatusBarStyle.default{
+        didSet{
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+    
+    open override var preferredStatusBarStyle: UIStatusBarStyle{
+        get{
+            return self.statusBarStyle
+        }
+    }
+    
+    // MARK: - Task
+    
+    ///用来在delloc之前 要取消的请求
+    private lazy var currentTasks: Set<WeakObjectContainer> = {
+      
+        return Set()
+    }()
     
     // MARK: - 内容视图
 
@@ -96,10 +94,187 @@ open class BaseViewController: UIViewController {
     ///设置导航栏隐藏
     open func setNavigatonBarHidden(_ hidden: Bool, animated: Bool = false){
         
+        if animated {
+            if !hidden {
+                self.navigatonBar?.isHidden = hidden
+                if let systemBar = self.systemNavigationBar {
+                    
+                    systemBar.enable = !hidden
+                    self.navigationItemHelper.hiddenItem = hidden
+                }
+            }
+            
+            if self.navigatonBar != nil {
+                let height = self.gkStatusBarHeight + self.gkNavigationBarHeight
+                let animation = CABasicAnimation(keyPath: "position.y")
+                if hidden {
+                    animation.fromValue = height / 2.0
+                    animation.toValue = -height / 2.0
+                } else {
+                    animation.fromValue = -height / 2.0
+                    animation.toValue = height / 2.0
+                }
+                animation.duration = TimeInterval(UINavigationController.hideShowBarDuration)
+                animation.isRemovedOnCompletion = false
+                animation.fillMode = .forwards
+                self.navigatonBar!.layer.add(animation, forKey: "position")
+            } else {
+                
+                self.navigatonBar?.isHidden = hidden
+                self.navigatonBar?.layer.removeAnimation(forKey: "position")
+                if let systemBar = self.systemNavigationBar {
+                    
+                    systemBar.enable = !hidden
+                    self.navigationItemHelper.hiddenItem = hidden
+                } else {
+                    
+                    self.navigationController?.setNavigationBarHidden(hidden, animated: animated)
+                }
+            }
+        }
     }
+    
+    // MARK: - Init
+    
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibName, bundle: nibBundleOrNil)
+        
+        initParams()
+    }
+    
+    required public init?(coder: NSCoder) {
+        super.init(coder: coder)
+        
+        initParams()
+    }
+    
+    ///初始化
+    func initParams() {
+        
+        self.hidesBottomBarWhenPushed = true
+        self.modalPresentationStyle = .fullScreen
+        
+        if #available(iOS 13, *) {
+            self.overrideUserInterfaceStyle = .light
+        }
+    }
+    
+    // MARK: - View Life Cycle
 
+    open override func loadView() {
+        
+        //如果有 xib 则加载对应的xib
+        if Bundle.main.path(forResource: self.gkNameOfClass, ofType: "nib") != nil {
+            
+            self.view = Bundle.main.loadNibNamed(self.gkNameOfClass, owner: self, options: nil)?.last as? UIView
+        } else {
+            
+            self.container = BaseContainer(viewController: self)
+            if self.isShowAsDialog {
+                self.view = self.container
+            } else {
+                self.view = UIView()
+            }
+        }
+    }
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        self.viewModel?.viewWillAppear(animated)
+        self.systemNavigationBar?.enable = true
+    }
+    
+    open override func viewDidAppear(_ animated: Bool) {
+        
+        super.viewDidAppear(animated)
+        self.viewModel?.viewDidAppear(animated)
+        self.isDisplaying = true
+        self.displayTimes += 1
+        
+        if self.isFisrtDisplay {
+            self.viewDidFirstAppear(animated)
+        }
+    }
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        self.viewModel?.viewWillDisappear(animated)
+    }
+    
+    open override func viewDidDisappear(_ animated: Bool) {
+        
+        super.viewDidDisappear(animated)
+        self.viewModel?.viewDidDisappear(animated)
+    }
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //防止侧滑返回 取消时 导航栏出现3个小点
+        let backBarButtonItem = UIBarButtonItem()
+        backBarButtonItem.title = ""
+        self.navigationItem.backBarButtonItem = backBarButtonItem
+        
+        self.automaticallyAdjustsScrollViewInsets = false
+        self.navigationItem.hidesBackButton = true
+        
+        //显示自定义导航栏
+        if self.shouldCreateNavigationBar && (self.parent?.isKind(of: UINavigationController.self) ?? false) {
+            
+            let cls = self.navigationBarClass as? NavigationBar.Type
+            assert(cls != nil, "\(NSStringFromClass(self.classForCoder)) 的navigationBarClass 必须是 \(NSStringFromClass(NavigationBar.self)) 或其子类")
+            
+            self.navigatonBar = cls!.init()
+            self.view.addSubview(self.navigatonBar!)
+            
+            self.navigatonBar?.snp.makeConstraints({ (maker) in
+                maker.leading.trailing.top.equalTo(0)
+                maker.bottom.equalTo(self.gkSafeAreaLayoutGuideTop)
+            })
+        }
+        
+        if self.isShowAsDialog {
+            if self.container != nil {
+                self.container?.safeLayoutGuide = .none
+                
+                //当 self.view 不是 container时， container中的子视图布局完成不会调用 viewDidLayoutSubviews 要手动，否则在 viewDidLayoutSubviews中获取 self.contentView的大小时会失败
+                self.container?.layoutSubviewsCompletion = { [weak self] in
+                    self?.viewDidLayoutSubviews(shouldCallSuper: false)
+                }
+                self.view.addSubview(self.container!)
+            }
+        } else {
+            self.view.backgroundColor = .white
+            if let nav = self.navigationController {
+                if !self.gkShowBackItem && (nav.viewControllers.count > 1 || nav.presentingViewController != nil) {
+                    self.gkShowBackItem = true
+                }
+            }
+        }
+    }
+    
+    open override func viewDidLayoutSubviews() {
+        
+        self.viewDidLayoutSubviews(shouldCallSuper: true)
+    }
+    
+    private func viewDidLayoutSubviews(shouldCallSuper: Bool){
+        
+        if shouldCallSuper {
+            super.viewDidLayoutSubviews()
+        }
+        
+        self.isViewDidLayoutSubviews = true
+        if self.navigatonBar != nil {
+            self.view.bringSubviewToFront(self.navigatonBar!)
+        }
+    }
+    
+    deinit {
+        
+        cancelAllTasks()
     }
 
     // MARK: - 键盘
@@ -124,8 +299,29 @@ open class BaseViewController: UIViewController {
     
     ///回收键盘
     @objc private func handleDismissKeyboard(){
+        
         UIApplication.shared.keyWindow?.endEditing(true)
     }
+    
+    ///键盘高度改变
+    public override func keyboardWillChangeFrame(_ notification: Notification) {
+        
+        super.keyboardWillChangeFrame(notification)
+        
+        //弹出键盘，改变弹窗位置
+        if self.isShowAsDialog {
+            // TODO: 调整弹窗
+        }
+    }
+    
+    // MARK: - UIGestureRecognizerDelegate
+    
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
+        return self.view == touch.view
+    }
+    
+    // TODO: 空视图
 }
 
 ///内容视图
@@ -211,7 +407,7 @@ public extension BaseViewController{
      @param task 请求
      */
     func addCanceledTask(_ task: HttpTask){
-        
+        self.addCanceledTask(task, cancelTheSame: false)
     }
 
     /**
@@ -221,7 +417,8 @@ public extension BaseViewController{
      @param cancel 是否取消相同的任务 通过 task.name 来判断
      */
     func addCanceledTask(_ task: HttpTask, cancelTheSame cancel: Bool){
-        
+        self.removeInvalidTasks(cancelTheSame: cancel, name: task.name)
+        self.currentTasks.insert(WeakObjectContainer(weakObject: task))
     }
 
     /**
@@ -231,6 +428,47 @@ public extension BaseViewController{
      */
     func addCanceledTasks(_ tasks: HttpMultiTasks){
         
+        self.removeInvalidTasks(cancelTheSame: false, name: nil)
+        self.currentTasks.insert(WeakObjectContainer(weakObject: tasks))
+    }
+    
+    /**
+    添加需要取消的请求 在dealloc
+    
+    @param cancelTheSame 取消相同的请求
+    @param name 任务名称
+    */
+    private func removeInvalidTasks(cancelTheSame: Bool, name: String?){
+        
+        if self.currentTasks.count > 0 {
+            
+            var toRemoveTasks = Set<WeakObjectContainer>()
+            for obj in self.currentTasks {
+                
+                if obj.weakObject == nil {
+                    toRemoveTasks.insert(obj)
+                } else if let task = obj.weakObject as? HttpTask {
+                    if task.name == name {
+                        task.cancel()
+                        toRemoveTasks.insert(obj)
+                    }
+                }
+            }
+            
+            self.currentTasks.remove(toRemoveTasks)
+        }
+    }
+    
+    ///取消正在执行的请求
+    fileprivate func cancelAllTasks(){
+        
+        for obj in self.currentTasks {
+            if let task = obj.weakObject as? HttpTask {
+                task.cancel()
+            } else if let tasks = obj.weakObject as? HttpMultiTasks {
+                tasks.cancelAllTasks()
+            }
+        }
     }
 }
 
@@ -242,12 +480,5 @@ public extension BaseViewController{
      */
     @objc func setRouterParams(_ params: Dictionary<String, Any>?){
         
-    }
-}
-
-extension BaseViewController: UIGestureRecognizerDelegate{
-    
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        return self.view == touch.view
     }
 }

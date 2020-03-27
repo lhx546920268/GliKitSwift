@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CommonCrypto
 
 public extension String {
     
@@ -64,6 +65,47 @@ public extension String {
         let size = str.boundingRect(with: constraintSize, options: [.usesFontLeading, .usesLineFragmentOrigin], attributes: attributes, context: nil).size
         
         return CGSize(width: ceil(size.width), height: ceil(size.height))
+    }
+    
+    ///第一个字符
+    var gkFirstCharacter: Character?{
+        get{
+            if self.count > 0 {
+                return self[self.startIndex]
+            }
+            
+            return nil
+        }
+    }
+
+    ///最后一个字符
+    var gkLastCharacter: Character?{
+        get{
+            if self.count > 0 {
+                return self[self.endIndex]
+            }
+            
+            return nil
+        }
+    }
+    
+    ///获取md5字符串
+    var gkMD5String: String{
+        
+        let cStr = self.cString(using: .utf8)
+        
+        let length = Int(CC_MD5_DIGEST_LENGTH)
+        let result = UnsafeMutablePointer<UInt8>.allocate(capacity: length)
+        CC_MD5(cStr, CC_LONG(self.lengthOfBytes(using: .utf8)), result)
+
+        let md5 = NSMutableString()
+        for i in 0 ..< length {
+            md5.appendFormat("%02X", result[i])
+        }
+        
+        result.deallocate()
+        
+        return String(md5)
     }
 }
 
