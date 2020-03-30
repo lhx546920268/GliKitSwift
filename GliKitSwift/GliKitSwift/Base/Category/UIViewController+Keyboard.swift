@@ -17,7 +17,7 @@ public extension UIViewController{
     ///键盘是否隐藏
     private(set) var keyboardHidden: Bool{
         set{
-            objc_setAssociatedObject(self, &keyboardHiddenKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &keyboardHiddenKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         get{
             if let value = objc_getAssociatedObject(self, &keyboardHiddenKey) as? Bool {
@@ -30,7 +30,7 @@ public extension UIViewController{
     ///键盘大小
     private(set) var keyboardFrame: CGRect{
         set{
-            objc_setAssociatedObject(self, &keyboardFrameKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &keyboardFrameKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         get{
             if let value = objc_getAssociatedObject(self, &keyboardFrameKey) as? CGRect {

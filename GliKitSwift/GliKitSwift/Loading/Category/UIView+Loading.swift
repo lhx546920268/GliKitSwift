@@ -8,13 +8,10 @@
 
 import UIKit
 
-fileprivate struct AssociatedKey {
-    
-    static var pageLoadingView = 0
-    static var pageLoadingViewInsets = 0
-    static var reloadCallback = 0
-    static var progressHUD = 0
-}
+private var pageLoadingViewKey: UInt8 = 0
+private var pageLoadingViewInsetsKey: UInt8 = 0
+private var reloadCallbackKey: UInt8 = 0
+private var progressHUDKey: UInt8 = 0
 
 ///loading相关扩展
 public extension UIView {
@@ -71,7 +68,7 @@ public extension UIView {
     var gkPageLoadingView: PageLoadingContainer?{
         set{
             self.gkPageLoadingView?.removeFromSuperview()
-            objc_setAssociatedObject(self, &AssociatedKey.pageLoadingView, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &pageLoadingViewKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
             if let pageLoadView = newValue {
                 
@@ -86,17 +83,17 @@ public extension UIView {
             }
         }
         get{
-            objc_getAssociatedObject(self, &AssociatedKey.pageLoadingView) as? PageLoadingContainer
+            objc_getAssociatedObject(self, &pageLoadingViewKey) as? PageLoadingContainer
         }
     }
     
     ///页面加载偏移量 default is UIEdgeInsetZero
     var gkPageLoadingViewInsets: UIEdgeInsets{
         set{
-            objc_setAssociatedObject(self, &AssociatedKey.pageLoadingViewInsets, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &pageLoadingViewInsetsKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         get{
-            objc_getAssociatedObject(self, &AssociatedKey.pageLoadingViewInsets) as? UIEdgeInsets ?? UIEdgeInsets.zero
+            objc_getAssociatedObject(self, &pageLoadingViewInsetsKey) as? UIEdgeInsets ?? UIEdgeInsets.zero
         }
     }
 
@@ -127,10 +124,10 @@ public extension UIView {
     ///点击失败页面回调
     var gkReloadCallback: (() -> Void)?{
         set{
-            objc_setAssociatedObject(self, &AssociatedKey.reloadCallback, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
+            objc_setAssociatedObject(self, &reloadCallbackKey, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
         }
         get{
-            objc_getAssociatedObject(self, &AssociatedKey.reloadCallback) as? () -> Void
+            objc_getAssociatedObject(self, &reloadCallbackKey) as? () -> Void
         }
     }
 
@@ -138,10 +135,10 @@ public extension UIView {
     var  gkProgressHUD: ProgressHUDProtocol?{
         set{
             self.gkProgressHUD?.removeFromSuperview()
-            objc_setAssociatedObject(self, &AssociatedKey.progressHUD, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &progressHUDKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         get{
-            objc_getAssociatedObject(self, &AssociatedKey.progressHUD) as? ProgressHUDProtocol
+            objc_getAssociatedObject(self, &progressHUDKey) as? ProgressHUDProtocol
         }
     }
 

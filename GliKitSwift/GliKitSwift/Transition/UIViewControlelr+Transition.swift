@@ -8,12 +8,9 @@
 
 import UIKit
 
-fileprivate struct AssociatedKey {
-    
-    static var transitioningDelegate = 0
-    static var partialFrame = 0
-    static var partialFrameUseSafeArea = 0
-}
+private var transitioningDelegateKey: UInt8 = 0
+private var partialFrameKey: UInt8 = 0
+private var partialFrameUseSafeAreaKey: UInt8 = 0
 
 ///视图过渡扩展
 extension UIViewController {
@@ -22,11 +19,11 @@ extension UIViewController {
     var gkTransitioningDelegate: UIViewControllerTransitioningDelegate? {
         set{
             assert(self.isEqual(newValue), "gkTransitioningDelegate 不能设置为self，如果要设置成self，使用 transitioningDelegate")
-            objc_setAssociatedObject(self, &AssociatedKey.transitioningDelegate, gkTransitioningDelegate, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &transitioningDelegateKey, gkTransitioningDelegate, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             self.transitioningDelegate = gkTransitioningDelegate
         }
         get{
-            objc_getAssociatedObject(self, &AssociatedKey.transitioningDelegate) as? UIViewControllerTransitioningDelegate
+            objc_getAssociatedObject(self, &transitioningDelegateKey) as? UIViewControllerTransitioningDelegate
         }
     }
 
@@ -35,20 +32,20 @@ extension UIViewController {
     ///部分显示区域 子类可重写
     open var partialFrame: CGRect {
         set{
-            objc_setAssociatedObject(self, &AssociatedKey.partialFrame, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &partialFrameKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         get{
-            objc_getAssociatedObject(self, &AssociatedKey.partialFrame) as? CGRect ?? CGRect.zero
+            objc_getAssociatedObject(self, &partialFrameKey) as? CGRect ?? CGRect.zero
         }
     }
     
     ///是否需要自动加上安全区域
     open var partialFrameUseSafeArea: Bool {
         set{
-            objc_setAssociatedObject(self, &AssociatedKey.partialFrameUseSafeArea, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &partialFrameUseSafeAreaKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         get{
-            objc_getAssociatedObject(self, &AssociatedKey.partialFrameUseSafeArea) as? Bool ?? true
+            objc_getAssociatedObject(self, &partialFrameUseSafeAreaKey) as? Bool ?? true
         }
     }
 
@@ -61,12 +58,12 @@ extension UIViewController {
 
     ///从底部部分显示
     open func partialPresentFromBottom(){
-        
+        partialPresent(with: .fromBottom)
     }
 
     ///从顶部部分显示
     open func partialPresentFromTop(){
-        
+        partialPresent(with: .fromTop)
     }
     
     ///部分显示
@@ -77,12 +74,21 @@ extension UIViewController {
             
             switch animate {
             case .fromBottom :
-                frame.size.height += self.view
+                frame.size.height += self.view.gkSafeAreaInsets.bottom
+                
+            case .fromTop :
+                frame.size.height += self.view.gkSafeAreaInsets.top
+                
+                case .fromLeft :
+                frame.size.width += self.view.gkSafeAreaInsets.left
+                
+                case .fromRight :
+                frame.size.width += self.view.gkSafeAreaInsets.right
             default:
-                <#code#>
+                break
             }
         }
-        let delegate = PartialPresentTransitionDelegate(frame: <#T##CGRect#>)
+        let delegate = PartialPresentTransitionDelegate(frame: frame)
     }
 
     ///部分显示 可设置要显示的viewController、样式和大小

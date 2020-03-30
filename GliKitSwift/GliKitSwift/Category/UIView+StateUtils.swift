@@ -82,7 +82,7 @@ public extension UIView{
         
         if dic == nil {
             dic = NSMutableDictionary()
-            objc_setAssociatedObject(self, &backgroundColorKey, dic, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &backgroundColorKey, dic, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
         
         dic![state] = backgroundColor
@@ -116,7 +116,7 @@ public extension UIView{
          
          if dic == nil {
              dic = NSMutableDictionary()
-             objc_setAssociatedObject(self, &tintColorKey, dic, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+             objc_setAssociatedObject(self, &tintColorKey, dic, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
          }
          
          dic![state] = backgroundColor

@@ -59,7 +59,7 @@ public extension UIViewController {
     ///是否可以滑动返回 default 'YES'
     var gkInteractivePopEnable: Bool{
         set{
-            objc_setAssociatedObject(self, &interactivePopEnableKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &interactivePopEnableKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         get{
             if let enable = objc_getAssociatedObject(self, &interactivePopEnableKey) as? Bool {
@@ -200,7 +200,7 @@ public extension UIViewController{
                     self.navigationItem.leftBarButtonItems = nil;
                     self.navigationItem.hidesBackButton = true;
                 }
-                objc_setAssociatedObject(self, &showBackItemKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                objc_setAssociatedObject(self, &showBackItemKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             }
         }
         get{
@@ -303,7 +303,7 @@ public extension UIViewController{
     ///导航栏按钮tintColor，默认是 导航栏上的tintColor
     var gkTintColor: UIColor{
         set{
-            objc_setAssociatedObject(self, &tintColorKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &tintColorKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             self.gkTintColorDidChange()
         }
         get{

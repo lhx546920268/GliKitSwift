@@ -53,6 +53,9 @@
 		CECB37372429B1EB00C92687 /* DispatchQueue+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECB37362429B1EB00C92687 /* DispatchQueue+Utils.swift */; };
 		CECB37392429B52400C92687 /* Swizzlling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECB37382429B52400C92687 /* Swizzlling.swift */; };
 		CECB373C2429F44100C92687 /* WeakObjectContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECB373B2429F44100C92687 /* WeakObjectContainer.swift */; };
+		CEDAEEF12431EB7F00F03100 /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDAEEF02431EB7F00F03100 /* RefreshControl.swift */; };
+		CEDAEEF32431EEB000F03100 /* DefaultRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDAEEF22431EEB000F03100 /* DefaultRefreshControl.swift */; };
+		CEDAEEF52431F36D00F03100 /* UIScrollView+Refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDAEEF42431F36C00F03100 /* UIScrollView+Refresh.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -116,6 +119,9 @@
 		CECB37362429B1EB00C92687 /* DispatchQueue+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Utils.swift"; sourceTree = "<group>"; };
 		CECB37382429B52400C92687 /* Swizzlling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swizzlling.swift; sourceTree = "<group>"; };
 		CECB373B2429F44100C92687 /* WeakObjectContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakObjectContainer.swift; sourceTree = "<group>"; };
+		CEDAEEF02431EB7F00F03100 /* RefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshControl.swift; sourceTree = "<group>"; };
+		CEDAEEF22431EEB000F03100 /* DefaultRefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRefreshControl.swift; sourceTree = "<group>"; };
+		CEDAEEF42431F36C00F03100 /* UIScrollView+Refresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Refresh.swift"; sourceTree = "<group>"; };
 		DF016891A7E05E1EDD44C01C /* Pods_GliKitSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GliKitSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -268,6 +274,7 @@
 		CEA66568242DE4EB003D8E71 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				CEDAEEF42431F36C00F03100 /* UIScrollView+Refresh.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -278,6 +285,8 @@
 				CEA6656A242DE544003D8E71 /* DataControl.swift */,
 				CEA6656C242DF35C003D8E71 /* LoadMoreControl.swift */,
 				CEA6656E242E0867003D8E71 /* DefaultLoadMoreControl.swift */,
+				CEDAEEF02431EB7F00F03100 /* RefreshControl.swift */,
+				CEDAEEF22431EEB000F03100 /* DefaultRefreshControl.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -469,6 +478,7 @@
 				CE6996ED23D822AE00A99469 /* UIView+Utils.swift in Sources */,
 				CECB37372429B1EB00C92687 /* DispatchQueue+Utils.swift in Sources */,
 				CEA6656B242DE544003D8E71 /* DataControl.swift in Sources */,
+				CEDAEEF52431F36D00F03100 /* UIScrollView+Refresh.swift in Sources */,
 				CEAE533623D1B3C50073882E /* String+Utils.swift in Sources */,
 				CECB37352429916200C92687 /* UIView+StateUtils.swift in Sources */,
 				CE6996E523D7E0D500A99469 /* PartialPresentTransitionDelegate.swift in Sources */,
@@ -477,6 +487,7 @@
 				CEAE532E23D158BB0073882E /* NavigationBar.swift in Sources */,
 				CEA66562242D9BA0003D8E71 /* JSONSerialization+Utils.swift in Sources */,
 				CEBEB52423D54BB4000B8CBF /* PageLoadingContainer.swift in Sources */,
+				CEDAEEF32431EEB000F03100 /* DefaultRefreshControl.swift in Sources */,
 				CEA2CA3623D6856300826D29 /* UIViewController+Loading.swift in Sources */,
 				CEAE532C23D14EDC0073882E /* UIViewController+SafeAreaCompatible.swift in Sources */,
 				CE6996E923D7F27B00A99469 /* PartialPresentTransitionAnimator.swift in Sources */,
@@ -493,6 +504,7 @@
 				CEB6D2C823D3F0CD00457164 /* UIImage+Theme.swift in Sources */,
 				CE160E1D242462BD008E7392 /* NavigationItemHelper.swift in Sources */,
 				CE9E4C1C23D062A300C0F63D /* GliKitSwift.swift in Sources */,
+				CEDAEEF12431EB7F00F03100 /* RefreshControl.swift in Sources */,
 				CE9E4C6823D071ED00C0F63D /* BaseViewController.swift in Sources */,
 				CEBEB52D23D5AB48000B8CBF /* KeyboardHelper.swift in Sources */,
 				CEB6D2D623D45B6D00457164 /* HttpMultiTasks.swift in Sources */,

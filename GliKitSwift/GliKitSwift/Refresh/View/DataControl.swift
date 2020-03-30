@@ -12,7 +12,7 @@ import UIKit
 public typealias DataControlCallback = () -> Void
 
 ///UIScrollView 的滚动位置
-public let dataControlOffset = "contentOffset";
+public let dataControlOffset = "contentOffset"
 
 ///滑动状态
 public enum DataControlState{
@@ -87,7 +87,7 @@ open class DataControl: UIView {
     *@param scrollView x
     *@return 一个实例，frame和 scrollView的frame一样
     */
-    init(scrollView: UIScrollView){
+    required public init(scrollView: UIScrollView){
         
         super.init(frame: CGRect(x: 0, y: 0, width: scrollView.gkWidth, height: 0))
         self.scrollView = scrollView

@@ -13,6 +13,9 @@ let dataControlContentSize = "contentSize"
 
 ///上拉加载视图，如果contentSize.height 小于frame.size.height 将无法上拉加载
 open class LoadMoreControl: DataControl {
+    
+    ///加载更多的类
+    public static var loadMoreControlClass: AnyClass = DefaultRefreshControl.self
 
     ///到达底部时是否自动加载更多
     public var autoLoadMore = true
