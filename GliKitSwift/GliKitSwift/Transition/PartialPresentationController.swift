@@ -18,7 +18,7 @@ open class PartialPresentationController: UIPresentationController, UIGestureRec
     public private(set) lazy var backgroundView: UIView = {
         
         let view = UIView()
-        view.backgroundColor = transitionDelegate?.backgroundColor
+        view.backgroundColor = transitionDelegate?.props.backgroundColor
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
         tap.delegate = self
@@ -94,7 +94,7 @@ open class PartialPresentationController: UIPresentationController, UIGestureRec
     open override var frameOfPresentedViewInContainerView: CGRect{
         get{
             //弹窗大小位置
-            transitionDelegate?.frame ?? CGRect.zero
+            transitionDelegate?.props.frame ?? CGRect.zero
         }
     }
 
@@ -105,13 +105,11 @@ open class PartialPresentationController: UIPresentationController, UIGestureRec
     {
         if let delegate = transitionDelegate {
             
-            if delegate.tapBackgroundCallback != nil {
-                
-                delegate.tapBackgroundCallback!(delegate)
-            }else{
-                
-                if delegate.dismissWhenTapBackground {
-                    self.presentedViewController.dismiss(animated: true, completion: delegate.dismissCallback)
+            if delegate.props.cancelCallback != nil {
+                delegate.props.cancelCallback!()
+            } else {
+                if delegate.props.cancelable {
+                    self.presentedViewController.dismiss(animated: true, completion: delegate.props.dismissCallback)
                 }
             }
         }

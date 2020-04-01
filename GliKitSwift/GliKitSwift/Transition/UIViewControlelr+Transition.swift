@@ -9,8 +9,7 @@
 import UIKit
 
 private var transitioningDelegateKey: UInt8 = 0
-private var partialFrameKey: UInt8 = 0
-private var partialFrameUseSafeAreaKey: UInt8 = 0
+private var partialPresentPropsKey: UInt8 = 0
 
 ///视图过渡扩展
 extension UIViewController {
@@ -29,23 +28,16 @@ extension UIViewController {
 
     // MARK: - Partial present
 
-    ///部分显示区域 子类可重写
-    open var partialFrame: CGRect {
-        set{
-            objc_setAssociatedObject(self, &partialFrameKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
+    ///部分显示 属性
+    open var partialPresentProps: PartialPresentProps {
         get{
-            objc_getAssociatedObject(self, &partialFrameKey) as? CGRect ?? CGRect.zero
-        }
-    }
-    
-    ///是否需要自动加上安全区域
-    open var partialFrameUseSafeArea: Bool {
-        set{
-            objc_setAssociatedObject(self, &partialFrameUseSafeAreaKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-        get{
-            objc_getAssociatedObject(self, &partialFrameUseSafeAreaKey) as? Bool ?? true
+            var props = objc_getAssociatedObject(self, &partialPresentPropsKey) as? PartialPresentProps
+            if props == nil {
+                props = PartialPresentProps()
+                objc_setAssociatedObject(self, &partialPresentPropsKey, props, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            }
+            
+            return props!
         }
     }
 
@@ -58,66 +50,29 @@ extension UIViewController {
 
     ///从底部部分显示
     open func partialPresentFromBottom(){
-        partialPresent(with: .fromBottom)
+        partialPresentProps.transitionStyle = .fromBottom
+        partialPresent()
     }
 
     ///从顶部部分显示
     open func partialPresentFromTop(){
-        partialPresent(with: .fromTop)
+        partialPresentProps.transitionStyle = .fromTop
+        partialPresent()
     }
     
     ///部分显示
-    open func partialPresent(with animate: PartialPresentTransitionAnimate) {
+    open func partialPresent(with completion: (() -> Void)? = nil) {
         
-        var frame = partialFrame
-        if partialFrameUseSafeArea {
-            
-            switch animate {
-            case .fromBottom :
-                frame.size.height += self.view.gkSafeAreaInsets.bottom
-                
-            case .fromTop :
-                frame.size.height += self.view.gkSafeAreaInsets.top
-                
-                case .fromLeft :
-                frame.size.width += self.view.gkSafeAreaInsets.left
-                
-                case .fromRight :
-                frame.size.width += self.view.gkSafeAreaInsets.right
-            default:
-                break
-            }
+        let viewController = partialViewController
+        viewController.modalPresentationStyle = .custom
+        let props = partialPresentProps
+   
+        if(props.cornerRadius > 0){
+            let frame = props.frame
+            viewController.view.gkSetCornerRadius(props.cornerRadius, corners: props.corners, rect: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
         }
-        let delegate = PartialPresentTransitionDelegate(frame: frame)
-    }
-
-    ///部分显示 可设置要显示的viewController、样式和大小
-    - (void)partialPresentViewController:(UIViewController*) viewController style:(GKPresentTransitionStyle) style contentSize:(CGSize) contentSize;
-    
-    - (void)partialPresentFromBottom
-    {
-        CGSize size = self.partialContentSize;
-        size.height += self.gkCurrentViewController.view.gkSafeAreaInsets.bottom;
-        [self partialPresentWithStyle:GKPresentTransitionStyleCoverVerticalFromBottom contentSize:size];
-    }
-
-    - (void)partialPresentFromTop
-    {
-        CGSize size = self.partialContentSize;
-        size.height += self.gkStatusBarHeight;
-        [self partialPresentWithStyle:GKPresentTransitionStyleCoverVerticalFromTop contentSize:size];
-    }
-
-    - (void)partialPresentWithStyle:(GKPresentTransitionStyle) style contentSize:(CGSize) contentSize
-    {
-        [self partialPresentViewController:self.partialViewController style:style contentSize:contentSize];
-    }
-
-    - (void)partialPresentViewController:(UIViewController*) viewController style:(GKPresentTransitionStyle) style contentSize:(CGSize) contentSize
-    {
-        GKPartialPresentTransitionDelegate *delegate = [GKPartialPresentTransitionDelegate new];
-        delegate.transitionStyle = style;
-        delegate.partialContentSize = contentSize;
-        [delegate showViewController:viewController];
+        
+        let delegate = PartialPresentTransitionDelegate(props: props)
+        delegate.show(viewController, completion: completion)
     }
 }

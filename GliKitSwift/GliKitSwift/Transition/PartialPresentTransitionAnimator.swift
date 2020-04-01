@@ -12,95 +12,83 @@ import UIKit
 open class PartialPresentTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     ///关联的
-    public weak var transitionDelegate: PartialPresentTransitionDelegate?
+    public var props: PartialPresentProps!
+    
+    init(props: PartialPresentProps) {
+        self.props = props
+    }
     
     public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return transitionDelegate?.animateDuration ?? 0
+        return props.transitionDuration
     }
     
     public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         
         UIView.animate(withDuration: transitionDuration(using: transitionContext),
                        animations: animations(using: transitionContext)) { _ in
-            
-            transitionContext.completeTransition(true)
+                        
+                        transitionContext.completeTransition(true)
         }
     }
     
     ///获取对应的动画
     private func animations(using transitionContext: UIViewControllerContextTransitioning) -> (() -> Void) {
         
-        if let delegate = transitionDelegate {
-            
-            if delegate.animate == .custom {
-                if delegate.customAnimate != nil {
-                    return delegate.customAnimate!(transitionContext)
-                } else {
-                    GKLog("customAnimate must not be nil")
-                }
-            } else {
+        let fromViewController = transitionContext.viewController(forKey: .from)
+        let toViewController = transitionContext.viewController(forKey: .to)
+        
+        let containerView = transitionContext.containerView;
+        
+        //是否是弹出
+        let isPresenting = toViewController?.presentingViewController == fromViewController
+        
+        let frame = props.frame
+        if isPresenting {
+            if let toView = transitionContext.view(forKey: .to) {
                 
-                let fromViewController = transitionContext.viewController(forKey: .from)
-                let toViewController = transitionContext.viewController(forKey: .to)
-                
-                let containerView = transitionContext.containerView;
-
-                //是否是弹出
-                let isPresenting = toViewController?.presentingViewController == fromViewController
-
-                
-                if isPresenting {
-                    if let toView = transitionContext.view(forKey: .to) {
-                        
-                        var frame = delegate.frame
-                        switch delegate.animate {
-                        case .fromBottom :
-                            
-                            frame.origin.y = containerView.gkHeight
-                        case .fromTop :
-                            
-                            frame.origin.y = -frame.size.height
-                        case .fromLeft :
-                            
-                            frame.origin.x = -frame.size.width
-                        case .fromRight :
-                            
-                            frame.origin.x = containerView.gkWidth
-                        default:
-                            break
-                        }
-                        
-                        toView.frame = frame
-                        return {
-                            toView.frame = delegate.frame
-                        }
-                    }
-                } else {
+                switch props.transitionStyle {
                     
-                    if let fromView = transitionContext.view(forKey: .from) {
-                        
-                        var frame = fromView.frame
-                        switch delegate.animate {
-                        case .fromBottom :
-                            
-                            frame.origin.y = containerView.gkHeight
-                        case .fromTop :
-                            
-                            frame.origin.y = -frame.size.height
-                        case .fromLeft :
-                            
-                            frame.origin.x = -frame.size.width
-                        case .fromRight :
-                            
-                            frame.origin.x = containerView.gkWidth
-                        default:
-                            break
-                        }
-                        
-                        return {
-                            fromView.frame = frame
-                        }
-                    }
+                case .fromTop :
+                    toView.frame = frame.offsetBy(dx: 0, dy: -frame.maxY)
+                    
+                case .fromBottom :
+                    toView.frame = frame.offsetBy(dx: 0, dy: frame.maxY)
+                    
+                case .fromLeft :
+                    toView.frame = frame.offsetBy(dx: -frame.maxX, dy: 0)
+                    
+                case .fromRight :
+                    toView.frame = frame.offsetBy(dx: frame.maxX, dy: 0)
+                }
+                
+                containerView.addSubview(toView)
+                
+                return {
+                    toView.frame = frame
+                }
+            }
+        } else {
+            
+            if let fromView = transitionContext.view(forKey: .from) {
+                
+                var fromFrame = fromView.frame
+                switch props.transitionStyle {
+                    
+                case .fromTop :
+                    fromFrame = frame.offsetBy(dx: 0, dy: -frame.maxY)
+                    
+                case .fromBottom :
+                    fromFrame = frame.offsetBy(dx: 0, dy: frame.maxY)
+                    
+                case .fromLeft :
+                    fromFrame = frame.offsetBy(dx: -frame.maxX, dy: 0)
+                    
+                case .fromRight :
+                    fromFrame = frame.offsetBy(dx: frame.maxX, dy: 0)
+                }
+                
+                return {
+                    fromView.frame = fromFrame
                 }
             }
         }

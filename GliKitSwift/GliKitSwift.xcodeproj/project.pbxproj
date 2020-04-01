@@ -46,6 +46,10 @@
 		CEBEB52823D58CC7000B8CBF /* Rect+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBEB52723D58CC7000B8CBF /* Rect+Utils.swift */; };
 		CEBEB52A23D59564000B8CBF /* UIView+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBEB52923D59564000B8CBF /* UIView+Loading.swift */; };
 		CEBEB52D23D5AB48000B8CBF /* KeyboardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBEB52C23D5AB48000B8CBF /* KeyboardHelper.swift */; };
+		CEC478FB24344703007D51CE /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC478FA24344703007D51CE /* ScrollViewController.swift */; };
+		CEC478FD243475CE007D51CE /* ScrollViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC478FC243475CE007D51CE /* ScrollViewModel.swift */; };
+		CEC478FF24348128007D51CE /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC478FE24348128007D51CE /* PageViewController.swift */; };
+		CEC47902243481AC007D51CE /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC47901243481AC007D51CE /* MenuBar.swift */; };
 		CEC9C31C242AF2D50082E631 /* UIViewController+Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9C31B242AF2D50082E631 /* UIViewController+Dialog.swift */; };
 		CEC9C31E242AFCF60082E631 /* BaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9C31D242AFCF60082E631 /* BaseError.swift */; };
 		CEC9C320242B0A150082E631 /* UIViewController+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9C31F242B0A150082E631 /* UIViewController+Keyboard.swift */; };
@@ -112,6 +116,10 @@
 		CEBEB52723D58CC7000B8CBF /* Rect+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rect+Utils.swift"; sourceTree = "<group>"; };
 		CEBEB52923D59564000B8CBF /* UIView+Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Loading.swift"; sourceTree = "<group>"; };
 		CEBEB52C23D5AB48000B8CBF /* KeyboardHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHelper.swift; sourceTree = "<group>"; };
+		CEC478FA24344703007D51CE /* ScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewController.swift; sourceTree = "<group>"; };
+		CEC478FC243475CE007D51CE /* ScrollViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewModel.swift; sourceTree = "<group>"; };
+		CEC478FE24348128007D51CE /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		CEC47901243481AC007D51CE /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		CEC9C31B242AF2D50082E631 /* UIViewController+Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Dialog.swift"; sourceTree = "<group>"; };
 		CEC9C31D242AFCF60082E631 /* BaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseError.swift; sourceTree = "<group>"; };
 		CEC9C31F242B0A150082E631 /* UIViewController+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Keyboard.swift"; sourceTree = "<group>"; };
@@ -178,17 +186,18 @@
 		CE9E4C1A23D062A300C0F63D /* GliKitSwift */ = {
 			isa = PBXGroup;
 			children = (
-				CEA66567242DE4EB003D8E71 /* Refresh */,
+				CEC4790024348197007D51CE /* Menu */,
+				CEB6D2CB23D3FABD00457164 /* Api */,
+				CE9E4C2223D063D000C0F63D /* Base */,
+				CEAE533223D1A6830073882E /* Category */,
+				CE9E4C1B23D062A300C0F63D /* GliKitSwift.swift */,
+				CEBEB52023D54B9D000B8CBF /* Loading */,
 				CECB373A2429F43100C92687 /* Other */,
+				CEB6D2D023D444A800457164 /* Public */,
+				CEA66567242DE4EB003D8E71 /* Refresh */,
+				CEAE532F23D159700073882E /* Theme */,
 				CE6996E323D7E0B700A99469 /* Transition */,
 				CEBEB52B23D5AB3D000B8CBF /* Utils */,
-				CEBEB52023D54B9D000B8CBF /* Loading */,
-				CEB6D2D023D444A800457164 /* Public */,
-				CEB6D2CB23D3FABD00457164 /* Api */,
-				CEAE533223D1A6830073882E /* Category */,
-				CEAE532F23D159700073882E /* Theme */,
-				CE9E4C2223D063D000C0F63D /* Base */,
-				CE9E4C1B23D062A300C0F63D /* GliKitSwift.swift */,
 			);
 			path = GliKitSwift;
 			sourceTree = "<group>";
@@ -210,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				CE160E1E242471E7008E7392 /* BaseViewModel.swift */,
+				CEC478FC243475CE007D51CE /* ScrollViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -248,6 +258,8 @@
 			children = (
 				CE9E4C6723D071ED00C0F63D /* BaseViewController.swift */,
 				CE160E202424A350008E7392 /* BaseNavigationController.swift */,
+				CEC478FA24344703007D51CE /* ScrollViewController.swift */,
+				CEC478FE24348128007D51CE /* PageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -371,6 +383,14 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		CEC4790024348197007D51CE /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				CEC47901243481AC007D51CE /* MenuBar.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
 		CECB373A2429F43100C92687 /* Other */ = {
 			isa = PBXGroup;
 			children = (
@@ -485,6 +505,7 @@
 				CEB6D2D223D444CE00457164 /* Log.swift in Sources */,
 				CECB37392429B52400C92687 /* Swizzlling.swift in Sources */,
 				CEAE532E23D158BB0073882E /* NavigationBar.swift in Sources */,
+				CEC47902243481AC007D51CE /* MenuBar.swift in Sources */,
 				CEA66562242D9BA0003D8E71 /* JSONSerialization+Utils.swift in Sources */,
 				CEBEB52423D54BB4000B8CBF /* PageLoadingContainer.swift in Sources */,
 				CEDAEEF32431EEB000F03100 /* DefaultRefreshControl.swift in Sources */,
@@ -508,9 +529,12 @@
 				CE9E4C6823D071ED00C0F63D /* BaseViewController.swift in Sources */,
 				CEBEB52D23D5AB48000B8CBF /* KeyboardHelper.swift in Sources */,
 				CEB6D2D623D45B6D00457164 /* HttpMultiTasks.swift in Sources */,
+				CEC478FD243475CE007D51CE /* ScrollViewModel.swift in Sources */,
 				CEC9C320242B0A150082E631 /* UIViewController+Keyboard.swift in Sources */,
+				CEC478FB24344703007D51CE /* ScrollViewController.swift in Sources */,
 				CEB6D2C623D3F08700457164 /* UIFont+Theme.swift in Sources */,
 				CE160E1F242471E7008E7392 /* BaseViewModel.swift in Sources */,
+				CEC478FF24348128007D51CE /* PageViewController.swift in Sources */,
 				CEBEB52A23D59564000B8CBF /* UIView+Loading.swift in Sources */,
 				CEBEB52623D55F7A000B8CBF /* ProgressHUD.swift in Sources */,
 				CE6996EB23D81ED100A99469 /* UIViewControlelr+Transition.swift in Sources */,

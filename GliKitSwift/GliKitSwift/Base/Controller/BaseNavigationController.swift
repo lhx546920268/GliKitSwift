@@ -81,7 +81,7 @@ public class BaseNavigationController: UINavigationController, UINavigationContr
         if animated {
             self.interactivePopGestureRecognizer?.isEnabled = false
         }
-        super.popToRootViewController(animated: animated)
+        return super.popToRootViewController(animated: animated)
     }
     
     public override func popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
@@ -124,6 +124,8 @@ public class BaseNavigationController: UINavigationController, UINavigationContr
             self.isInteractivePop = true
             return true
         }
+        
+        return false
     }
 
     // MARK: - UIStatusBar

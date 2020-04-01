@@ -20,6 +20,7 @@ public extension UIScrollView{
      添加下拉刷新功能
      *@param handler 刷新回调方法
      */
+    @discardableResult
     func gkAddRefresh(callback: @escaping DataControlCallback) -> RefreshControl {
         
         var refreshControl = self.gkRefreshControl
@@ -85,6 +86,7 @@ public extension UIScrollView{
      添加加载更多
      *@param handler 加载回调
      */
+    @discardableResult
     func gkAddLoadMore(callback: @escaping DataControlCallback) -> LoadMoreControl{
         
         var loadMoreControl = self.gkLoadMoreControl

@@ -90,8 +90,7 @@ public extension UIColor {
             return nil
         }
         
-        var hex = hex.replacingOccurrences(of: "#", with: "")
-        hex = hex.lowercased()
+        let hex = hex.replacingOccurrences(of: "#", with: "").lowercased()
         
         let value: CGFloat = 255
         var alpha = 255

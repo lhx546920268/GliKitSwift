@@ -137,7 +137,7 @@ open class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Init
     
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibName, bundle: nibBundleOrNil)
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
         initParams()
     }
@@ -294,7 +294,9 @@ open class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleDismissKeyboard))
         tap.delegate = self
-        self.view .addGestureRecognizer(tap)
+        self.view.addGestureRecognizer(tap)
+        
+        return tap
     }()
     
     ///回收键盘

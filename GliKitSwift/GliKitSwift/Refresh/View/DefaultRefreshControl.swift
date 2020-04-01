@@ -34,7 +34,7 @@ open class DefaultRefreshControl: RefreshControl {
         return label
     }()
     
-    override func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         
         let margin = (criticalPoint - indicatorView.gkHeight) / 2
@@ -44,7 +44,7 @@ open class DefaultRefreshControl: RefreshControl {
     
     // MARK: - Super Method
     
-    override func onStateChange(_ state: DataControlState) {
+    override open func onStateChange(_ state: DataControlState) {
         
         super.onStateChange(state)
         switch state {
@@ -67,7 +67,7 @@ open class DefaultRefreshControl: RefreshControl {
         }
     }
     
-    override func stopLoading() {
+    override open func stopLoading() {
         
         super.stopLoading()
         indicatorView.stopAnimating()

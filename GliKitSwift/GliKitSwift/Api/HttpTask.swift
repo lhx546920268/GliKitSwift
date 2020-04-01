@@ -25,6 +25,8 @@ public protocol HttpTaskDelegate: NSObjectProtocol {
     func taskDidComplete(_ task: HttpTask)
 }
 
+///翻页起始页
+public let GKHttpFirstPage = 1
 
 /**
  单个http请求任务 子类可重写对应的方法

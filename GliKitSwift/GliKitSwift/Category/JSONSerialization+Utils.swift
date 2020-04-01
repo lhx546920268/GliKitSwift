@@ -132,5 +132,7 @@ public extension JSONSerialization{
                 }
             }
         }
+        
+        return nil
     }
 }

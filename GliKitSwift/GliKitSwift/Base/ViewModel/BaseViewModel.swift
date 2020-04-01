@@ -9,10 +9,10 @@
 import UIKit
 
 ///基础视图逻辑处理
-open class BaseViewModel {
+open class BaseViewModel: UIScrollView {
     
     ///绑定的viewController
-    public private(set) weak var viewController: BaseViewController?
+    open weak var viewController: UIScrollViewDelegate?
     
     ///加载数据是否需要显示 pageLoading default is 'YES'
     public var shouldShowPageLoading = true
