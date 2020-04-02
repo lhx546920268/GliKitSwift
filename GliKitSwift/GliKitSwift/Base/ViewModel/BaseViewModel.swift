@@ -9,14 +9,19 @@
 import UIKit
 
 ///基础视图逻辑处理
-open class BaseViewModel: UIScrollView {
-    
+open class BaseViewModel: NSObject {
+
     ///绑定的viewController
-    open weak var viewController: UIScrollViewDelegate?
+    private weak var _viewController: BaseViewController?
+    var viewController: BaseViewController?{
+        get{
+            _viewController
+        }
+    }
     
     ///加载数据是否需要显示 pageLoading default is 'YES'
     public var shouldShowPageLoading = true
-
+    
     /**
      构造方法
 
@@ -24,7 +29,7 @@ open class BaseViewModel: UIScrollView {
      @return 一个 GKBaseViewModel或其子类 实例
      */
     init(viewController: BaseViewController?) {
-        self.viewController = viewController
+        _viewController = viewController
     }
    
     ///关联的viewController会调用这里

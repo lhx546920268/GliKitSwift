@@ -11,6 +11,9 @@
 		CE160E1D242462BD008E7392 /* NavigationItemHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E1C242462BD008E7392 /* NavigationItemHelper.swift */; };
 		CE160E1F242471E7008E7392 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E1E242471E7008E7392 /* BaseViewModel.swift */; };
 		CE160E212424A350008E7392 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E202424A350008E7392 /* BaseNavigationController.swift */; };
+		CE52B0CA2435E81D00B85D8D /* MenuBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52B0C92435E81D00B85D8D /* MenuBarItem.swift */; };
+		CE52B0CC2435F2DB00B85D8D /* TabMenuBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52B0CB2435F2DB00B85D8D /* TabMenuBarItem.swift */; };
+		CE52B0CF2435F39800B85D8D /* GKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52B0CE2435F39800B85D8D /* GKButton.swift */; };
 		CE6996E523D7E0D500A99469 /* PartialPresentTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996E423D7E0D500A99469 /* PartialPresentTransitionDelegate.swift */; };
 		CE6996E723D7EC2C00A99469 /* PartialPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996E623D7EC2C00A99469 /* PartialPresentationController.swift */; };
 		CE6996E923D7F27B00A99469 /* PartialPresentTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996E823D7F27B00A99469 /* PartialPresentTransitionAnimator.swift */; };
@@ -80,6 +83,9 @@
 		CE160E1C242462BD008E7392 /* NavigationItemHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationItemHelper.swift; sourceTree = "<group>"; };
 		CE160E1E242471E7008E7392 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		CE160E202424A350008E7392 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		CE52B0C92435E81D00B85D8D /* MenuBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarItem.swift; sourceTree = "<group>"; };
+		CE52B0CB2435F2DB00B85D8D /* TabMenuBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuBarItem.swift; sourceTree = "<group>"; };
+		CE52B0CE2435F39800B85D8D /* GKButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GKButton.swift; sourceTree = "<group>"; };
 		CE6996E423D7E0D500A99469 /* PartialPresentTransitionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialPresentTransitionDelegate.swift; sourceTree = "<group>"; };
 		CE6996E623D7EC2C00A99469 /* PartialPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialPresentationController.swift; sourceTree = "<group>"; };
 		CE6996E823D7F27B00A99469 /* PartialPresentTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialPresentTransitionAnimator.swift; sourceTree = "<group>"; };
@@ -154,6 +160,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		CE52B0CD2435F38D00B85D8D /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				CE52B0CE2435F39800B85D8D /* GKButton.swift */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
 		CE6996E323D7E0B700A99469 /* Transition */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,6 +200,7 @@
 		CE9E4C1A23D062A300C0F63D /* GliKitSwift */ = {
 			isa = PBXGroup;
 			children = (
+				CE52B0CD2435F38D00B85D8D /* Widget */,
 				CEC4790024348197007D51CE /* Menu */,
 				CEB6D2CB23D3FABD00457164 /* Api */,
 				CE9E4C2223D063D000C0F63D /* Base */,
@@ -387,6 +402,8 @@
 			isa = PBXGroup;
 			children = (
 				CEC47901243481AC007D51CE /* MenuBar.swift */,
+				CE52B0C92435E81D00B85D8D /* MenuBarItem.swift */,
+				CE52B0CB2435F2DB00B85D8D /* TabMenuBarItem.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -495,6 +512,7 @@
 				CEB6D2C423D3ED7000457164 /* UIApplication+Theme.swift in Sources */,
 				CE6996F123D825E900A99469 /* UIViewController+Utils.swift in Sources */,
 				CEBEB51F23D54336000B8CBF /* Collection+Utils.swift in Sources */,
+				CE52B0CF2435F39800B85D8D /* GKButton.swift in Sources */,
 				CE6996ED23D822AE00A99469 /* UIView+Utils.swift in Sources */,
 				CECB37372429B1EB00C92687 /* DispatchQueue+Utils.swift in Sources */,
 				CEA6656B242DE544003D8E71 /* DataControl.swift in Sources */,
@@ -510,9 +528,11 @@
 				CEBEB52423D54BB4000B8CBF /* PageLoadingContainer.swift in Sources */,
 				CEDAEEF32431EEB000F03100 /* DefaultRefreshControl.swift in Sources */,
 				CEA2CA3623D6856300826D29 /* UIViewController+Loading.swift in Sources */,
+				CE52B0CC2435F2DB00B85D8D /* TabMenuBarItem.swift in Sources */,
 				CEAE532C23D14EDC0073882E /* UIViewController+SafeAreaCompatible.swift in Sources */,
 				CE6996E923D7F27B00A99469 /* PartialPresentTransitionAnimator.swift in Sources */,
 				CEB6D2D423D44EDA00457164 /* ThreadUtils.swift in Sources */,
+				CE52B0CA2435E81D00B85D8D /* MenuBarItem.swift in Sources */,
 				CE160E212424A350008E7392 /* BaseNavigationController.swift in Sources */,
 				CEA6656D242DF35C003D8E71 /* LoadMoreControl.swift in Sources */,
 				CE9E4C2A23D0648C00C0F63D /* BaseContainer.swift in Sources */,

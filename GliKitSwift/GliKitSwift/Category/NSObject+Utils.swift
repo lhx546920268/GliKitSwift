@@ -11,21 +11,21 @@ import Foundation
 ///可复制协议
 public protocol Copyable{
     
-    func copy() -> Self
+    func gkCopy() -> Self
 }
 
-extension Copyable where Self: NSObject{
+public extension Copyable where Self: NSObject{
     
-    func copy() -> Self{
+    func gkCopy() -> Self{
         
         let cls = self.classForCoder as? Self.Type
         let obj = cls!.init()
-        copy(cls, to: obj)
+        gkCopy(cls, to: obj)
         
         return obj
     }
     
-    private func copy(_ cls: AnyClass?, to object: Self){
+    private func gkCopy(_ cls: AnyClass?, to object: Self){
         
         if cls == NSObject.self {
             return
@@ -49,7 +49,7 @@ extension Copyable where Self: NSObject{
         if iVars != nil {
             free(iVars!)
         }
-        copy(cls?.superclass(), to: object)
+        gkCopy(cls?.superclass(), to: object)
     }
 }
 

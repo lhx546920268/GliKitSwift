@@ -12,7 +12,16 @@ import UIKit
 open class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     
     ///关联的viewModel 如果有关联 调用viewModel对应方法
-    open var viewModel: BaseViewModel?
+    private var _viewModel: BaseViewModel?
+    open var viewModel: BaseViewModel?{
+        get{
+            _viewModel
+        }
+    }
+    
+    func setViewModel(_ viewModel: BaseViewModel){
+        _viewModel = viewModel
+    }
 
     ///是否已计算出frame，使用约束时用到
     public private(set) var isViewDidLayoutSubviews = false
@@ -28,7 +37,7 @@ open class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
 
     ///第一次显示回调
     open func viewDidFirstAppear(_ animated: Bool){
-        
+
     }
     
     // MARK: - 状态栏

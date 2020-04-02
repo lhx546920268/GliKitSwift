@@ -20,10 +20,9 @@ open class ScrollViewController: BaseViewController, UIScrollViewDelegate {
         }
     }
     
-    ///关联的viewModel
-    public var scrollViewModel: ScrollViewModel?{
+    override open var viewModel: ScrollViewModel?{
         get{
-            self.viewModel as? ScrollViewModel
+            super.viewModel as? ScrollViewModel
         }
     }
 
@@ -178,7 +177,7 @@ public extension ScrollViewController{
     ///下拉刷新取消
     @objc func onRefeshCancel(){
         
-        scrollViewModel?.onRefeshCancel()
+        viewModel?.onRefeshCancel()
     }
 }
 
@@ -236,7 +235,7 @@ public extension ScrollViewController{
     ///加载更多取消
     @objc func onLoadMoreCancel(){
         
-        scrollViewModel?.onLoadMoreCancel()
+        viewModel?.onLoadMoreCancel()
     }
 }
 

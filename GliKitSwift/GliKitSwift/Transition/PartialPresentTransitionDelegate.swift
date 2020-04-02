@@ -150,6 +150,10 @@ open class PartialPresentTransitionDelegate: NSObject, UIViewControllerTransitio
     ///显示一个 视图
     public func show(_ viewController: UIViewController, completion: (() -> Void)? = nil){
         
+        if viewController.presentingViewController != nil {
+            return
+        }
+
         viewController.gkTransitioningDelegate = self
         if let rootViewController = UIApplication.shared.delegate?.window??.rootViewController {
             rootViewController.gkTopestPresentedViewController.present(viewController, animated: true, completion: completion)

@@ -42,28 +42,9 @@ public enum MenuBarStyle{
 
 ///菜单条基类 不要直接使用这个 继承，或者使用 TabMenuBar
 open class MenuBar: UIView, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
-
+    
     ///按钮容器
-    public private(set) lazy var collectionView: UICollectionView = {
-        
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        layout.scrollDirection = .horizontal
-        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = .clear
-        collectionView.scrollsToTop = false
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
-        self.didInitCollectionView(collectionView)
-        addSubview(collectionView)
-        
-        return collectionView
-    }()
+    public private(set) var collectionView: UICollectionView!
     
     ///内容间距
     public var contentInset = UIEdgeInsets.zero
@@ -111,7 +92,7 @@ open class MenuBar: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     ///内容宽度
     public var contentWidth: CGFloat{
         get{
-            
+            self.gkWidth - self.contentInset.left - self.contentInset.right
         }
     }
 
@@ -132,25 +113,95 @@ open class MenuBar: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     /**
      按钮信息 设置此值会导致菜单重新加载数据
      */
-    @property(nonatomic, copy, nullable) NSArray<GKMenuBarItem*> *items;
+    public var items: [MenuBarItem]?
+    
+    ///是否是点击按钮
+    private var isClickItem = false
+
+    ///是否已经可以计算item
+    private var measureEnable = false
 
     // MARK: - Init
-
+    
     /**
-     构造方法
-     *@param items 按钮信息
-     *@return 一个实例
-     */
-    - (instancetype)initWithItems:(nullable NSArray<GKMenuBarItem*> *) items;
+    构造方法
+    *@param frame 位置大小
+    *@param items 按钮信息
+    *@return 一个实例
+    */
+    public init(frame: CGRect = .zero, items: [MenuBarItem]) {
+        
+        self.items = items
+        super.init(frame: frame)
+    }
+    
+    required public init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    ///初始化
+    private func initViews(){
+        
+        backgroundColor = .white
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.scrollDirection = .horizontal
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        self.collectionView = collectionView
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .clear
+        collectionView.scrollsToTop = false
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        didInitCollectionView(collectionView)
+        addSubview(collectionView)
+    }
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if self.gkWidth > 0 && self.gkHeight > 0 && collectionView.bounds.size != self.bounds.size {
+            collectionView.frame = self.bounds
+            measureEnable = true
+            
+            reloadData()
+            layoutIndicator()
+        }
+    }
 
-    /**
-     构造方法
-     *@param frame 位置大小
-     *@param items 按钮信息
-     *@return 一个实例
-     */
-    - (instancetype)initWithFrame:(CGRect)frame items:(nullable NSArray<GKMenuBarItem*> *) items;
+    ///刷新数据
+    private func reloadData(){
+        
+        if(measureEnable){
+            measureItems()
+            collectionView.reloadData()
+        }
+    }
+    
+    ///测量item
+    private func measureItems(){
+        
+        if !measureEnable {
+            return
+        }
 
+        let totalWidth = onMeasureItems()
+        
+        switch style {
+        case .autoDetect :
+            currentStyle = totalWidth > self.contentWidth ? .fit : .fill
+            
+            default :
+            currentStyle = style
+        }
+        
+        measureCompletion?()
+    }
+    
     // MARK: - 子类重写
 
     /**
@@ -165,21 +216,25 @@ open class MenuBar: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
      子类计算 item大小
      @return 返回总宽度
      */
-    - (CGFloat)onMeasureItems;
+    open func onMeasureItems() -> CGFloat{
+        fatalError("子类必须实现 onMeasureItems")
+    }
 
-    /**
-     选中某个item
-     */
-    - (void)onSelectItemAtIndex:(NSUInteger) index oldIndex:(NSUInteger) oldIndex;
+    ///选中某个item
+    open func onSelectItemAt(_ index: Int, oldIndex: Int){
+        
+    }
 
     // MARK: - 设置
 
     /**
      *设置选中的菜单按钮
      *@param selectedIndex 菜单按钮下标
-     *@param flag 是否动画
+     *@param animated 是否动画
      */
-    - (void)setSelectedIndex:(NSUInteger) selectedIndex animated:(BOOL) flag;
+    open func setSelectedIndex(_ selectedIndex: Int, animated: Bool = false){
+        
+    }
 
     /**
      设置将要到某个item的偏移量比例
@@ -187,5 +242,136 @@ open class MenuBar: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
      @param percent 比例 0 ~ 1.0
      @param index 将要到的下标
      */
-    - (void)setPercent:(float) percent forIndex:(NSUInteger) index;
+    open func setPercent(_ percent: Float, for index: Int){
+        
+    }
+    
+    // MARK: - UICollectionViewDataSource
+    
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
+    
+    // MARK: - 分割线
+
+    open override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        //绘制分割线
+        if displayTopDivider || self.displayBottomDivider {
+            
+            if let context = UIGraphicsGetCurrentContext() {
+                context.saveGState()
+                
+                context.setStrokeColor(UIColor.gkSeparatorColor.cgColor)
+                context.setLineWidth(UIApplication.gkSeparatorHeight)
+                
+                let offset = UIApplication.gkSeparatorHeight / 2.0
+                
+                if displayTopDivider {
+                    context.move(to: CGPoint(x: 0, y: offset))
+                    context.addLine(to: CGPoint(x: rect.size.width, y: offset))
+                }
+                
+                if displayBottomDivider {
+                    context.move(to: CGPoint(x: 0, y: rect.size.height - offset))
+                    context.addLine(to: CGPoint(x: rect.size.width, y: rect.size.height - offset))
+                }
+                
+                context.strokePath()
+                context.restoreGState()
+            }
+        }
+    }
+
+    ///获取下划线x轴位置
+    private func indicatorXForIndex(_ index: Int) -> CGFloat{
+        
+        var x: CGFloat = 0
+        if let cell = itemForIndex(index), let item = items?[index] {
+            
+            if cell.frame != CGRect.zero {
+                x = cell.gkLeft + (cell.gkWidth - item.itemWidth) / 2.0;
+            } else {
+                x = contentInset.left;
+                var itemInterval: CGFloat = 0
+                if currentStyle == .fit {
+                    itemInterval = self.itemInterval
+                }
+                
+                for i in 0 ..< index {
+                    if let barItem = items?[i] {
+                        x += barItem.itemWidth + itemInterval
+                    }
+                }
+            }
+        }
+        
+        return x
+    }
+    
+
+    ///设置下划线的位置
+    private func layoutIndicator(animated: Bool = false){
+        
+        if !measureEnable {
+            return
+        }
+        
+        if indicatorHeight > 0 {
+            
+            if let item = items?[selectedIndex] {
+                var frame = indicator.frame
+                
+                frame.origin.x = indicatorXForIndex(selectedIndex)
+                frame.size.height = indicatorHeight;
+                frame.origin.y = self.gkHeight - indicatorHeight
+                
+                if currentStyle == .fill && indicatorShouldFill {
+                    frame.size.width = item.itemWidth
+                } else {
+                    frame.size.width = item.contentSize.width + itemPadding
+                }
+                
+                if animated {
+                    UIView.animate(withDuration: 0.25) {
+                        self.indicator.frame = frame
+                    }
+                } else {
+                    indicator.frame = frame
+                }
+            }
+        }
+    }
+    
+    ///滚动到可见位置
+    private func scrollToVisibleRect(animated: Bool = false){
+        
+        if selectedIndex >= items?.count ?? 0 || currentStyle != .fit || !measureEnable {
+            return
+        }
+        
+        collectionView.scrollToItem(at: IndexPath(item: selectedIndex, section: 0), at: .centeredHorizontally, animated: animated)
+    }
+
+    ///通过下标获取按钮
+    private func itemForIndex(_ index: Int) -> UICollectionViewCell? {
+        
+        if index >= items?.count ?? 0 || !measureEnable {
+            return nil
+        }
+        
+        let indexPath = IndexPath(item: index, section: 0)
+        var cell = collectionView.cellForItem(at: indexPath)
+        
+        if cell == nil {
+            cell = collectionView(collectionView, cellForItemAt: indexPath)
+        }
+        
+        return cell
+    }
 }

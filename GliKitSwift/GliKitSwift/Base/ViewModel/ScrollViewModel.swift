@@ -11,33 +11,36 @@ import UIKit
 ///带有下拉划线的基础视图逻辑处理
 open class ScrollViewModel: BaseViewModel {
     
-    ///关联的滑动视图
-    open weak var viewController: UITableViewDelegate?
-
+    override var viewController: ScrollViewController?{
+        get{
+            super.viewController as? ScrollViewController
+        }
+    }
+    
     //MARK: - Refresh
     
     ///是否正在刷新数据
     public var refreshing: Bool{
         get{
-            self.scrollViewController?.refreshing ?? false
+            self.viewController?.refreshing ?? false
         }
     }
     
     ///手动调用下拉刷新，会有下拉动画
     func startRefresh(){
 
-        self.scrollViewController?.stopRefresh()
+        self.viewController?.stopRefresh()
     }
 
     ///触发下拉刷新
     @objc func onRefesh(){
-        
+ 
     }
 
     ///结束下拉刷新
     func stopRefresh(success: Bool = true){
         
-        self.scrollViewController?.stopRefresh(success: success)
+        self.viewController?.stopRefresh(success: success)
     }
 
     ///下拉刷新取消
@@ -50,34 +53,34 @@ open class ScrollViewModel: BaseViewModel {
     ///当前第几页
     public var curPage: Int{
         set{
-            self.scrollViewController?.curPage = newValue
+            self.viewController?.curPage = newValue
         }
         get{
-            self.scrollViewController?.curPage ?? 0
+            self.viewController?.curPage ?? 0
         }
     }
 
     ///是否还有更多
     public var hasMore: Bool{
         set{
-            self.scrollViewController?.hasMore = newValue
+            self.viewController?.hasMore = newValue
         }
         get{
-            self.scrollViewController?.hasMore ?? false
+            self.viewController?.hasMore ?? false
         }
     }
 
     ///是否正在加载更多
     public var loadingMore: Bool{
         get{
-            return self.scrollViewController?.loadingMore ?? false
+            return self.viewController?.loadingMore ?? false
         }
     }
     
     ///手动加载更多，会有上拉动画
     func startLoadMore(){
         
-        self.scrollViewController?.startLoadMore()
+        self.viewController?.startLoadMore()
     }
 
     ///触发加载更多
@@ -88,13 +91,13 @@ open class ScrollViewModel: BaseViewModel {
     ///结束加载更多
     func stopLoadMore(hasMore: Bool){
         
-        self.scrollViewController?.stopLoadMore(hasMore: hasMore)
+        self.viewController?.stopLoadMore(hasMore: hasMore)
     }
     
     ///加载更多失败
     func stopLoadMoreWithFail(){
         
-        self.scrollViewController?.stopLoadMoreWithFail()
+        self.viewController?.stopLoadMoreWithFail()
     }
 
     ///加载更多取消
