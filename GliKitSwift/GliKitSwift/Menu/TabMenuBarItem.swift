@@ -26,31 +26,25 @@ class TabMenuBarItem: MenuBarItem {
     ///自定义视图
     public var customView: UIView?
 
-    /**
-     图标位置 default is 'GKButtonImagePositionLeft'
-     */
-    @property(nonatomic, assign) GKButtonImagePosition iconPosition;
+    ///图标位置
+    public var iconPosition = ButtonImagePosition.left
 
-    /**
-     按钮背景图片
-     */
-    @property(nonatomic, strong, nullable) UIImage *backgroundImage;
+    ///按钮背景图片
+    public var backgroundImage: UIImage?
 
-    /**
-     按钮边缘数据
-     */
-    @property(nonatomic, copy, nullable) NSString *badgeNumber;
+    ///按钮边缘数据
+    public var badgeNumber: String?
 
-    /**
-     标题偏移量
-     */
-    @property(nonatomic, assign) UIEdgeInsets titleInsets;
+    ///标题偏移量
+    public var titleInsets = UIEdgeInsets.zero
 
     /**
      构造方法
      *@param title 标题
      *@return 已初始化的 GKMenuBarItem
      */
-    + (instancetype)itemWithTitle:(NSString*) title;
-
+    init(title: String?) {
+        self.title = title
+        super.init()
+    }
 }

@@ -13,7 +13,7 @@ open class BaseViewModel: NSObject {
 
     ///绑定的viewController
     private weak var _viewController: BaseViewController?
-    var viewController: BaseViewController?{
+    open var viewController: BaseViewController?{
         get{
             _viewController
         }

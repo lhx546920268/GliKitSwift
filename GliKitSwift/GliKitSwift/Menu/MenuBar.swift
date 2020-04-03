@@ -110,9 +110,7 @@ open class MenuBar: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     ///代理回调
     public weak var delegate: MenuBarDelegate?
 
-    /**
-     按钮信息 设置此值会导致菜单重新加载数据
-     */
+    ///按钮信息 设置此值会导致菜单重新加载数据
     public var items: [MenuBarItem]?
     
     ///是否是点击按钮
@@ -129,10 +127,9 @@ open class MenuBar: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     *@param items 按钮信息
     *@return 一个实例
     */
-    public init(frame: CGRect = .zero, items: [MenuBarItem]) {
-        
-        self.items = items
+    public init(frame: CGRect = .zero, items: [MenuBarItem]?) {
         super.init(frame: frame)
+        self.items = items
     }
     
     required public init?(coder: NSCoder) {

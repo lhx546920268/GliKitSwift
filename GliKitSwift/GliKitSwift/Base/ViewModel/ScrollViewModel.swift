@@ -11,7 +11,7 @@ import UIKit
 ///带有下拉划线的基础视图逻辑处理
 open class ScrollViewModel: BaseViewModel {
     
-    override var viewController: ScrollViewController?{
+    override open var viewController: ScrollViewController?{
         get{
             super.viewController as? ScrollViewController
         }
