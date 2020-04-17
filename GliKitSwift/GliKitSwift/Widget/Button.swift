@@ -30,7 +30,7 @@ public enum ButtonImagePosition{
  自定义按钮  可设置按钮图标位置和间距，图标显示大小
  @warning UIControlContentHorizontalAlignmentFill 和 UIControlContentVerticalAlignmentFill 将忽略
  */
-class Button: UIButton {
+open class Button: UIButton {
     
     ///图标位置
     public var imagePosition = ButtonImagePosition.left{

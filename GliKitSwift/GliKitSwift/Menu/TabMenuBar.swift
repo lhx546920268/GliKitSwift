@@ -98,35 +98,119 @@ open class TabMenuBar: MenuBar {
         super.init(frame: frame, items: nil)
         self.titles = titles
     }
+    
+    required public init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    open override func didInitCollectionView(_ collectionView: UICollectionView) {
+        collectionView.registerClass(TabMenuBarCell.self)
+    }
+    
+    open override func onMeasureItems() -> CGFloat {
+        
+        var totalWidth: CGFloat = 0
+        
+        if let items = self.tabItems {
+            for i in items.indices {
+                let item = items[i]
+                var size = item.title?.gkStringSize(font: normalFont) ?? CGSize.zero
+                if item.icon != nil {
+                    size.width += item.icon!.size.width + item.iconPadding
+                    size.height = max(size.height, item.icon!.size.height)
+                }
+                item.contentSize = size
+                item.itemWidth = size.width + itemPadding
+                
+                totalWidth += item.itemWidth
+                if i != items.count - 1 {
+                    totalWidth += itemInterval
+                }
+            }
+        }
+        return totalWidth
+    }
 
-//
-//    //MARK: - 设置
-//
-//    /**
-//     *设置按钮边缘数字
-//     *@param badgeValue 边缘数字，大于99会显示99+，小于等于0则隐藏
-//     *@param index 按钮下标
-//     */
-//    - (void)setBadgeValue:(nullable NSString*) badgeValue forIndex:(NSUInteger) index;
-//
-//    /**
-//     *改变按钮标题
-//     *@param title 按钮标题
-//     *@param index 按钮下标
-//     */
-//    - (void)setTitle:(nullable NSString*) title forIndex:(NSUInteger) index;
-//
-//    /**
-//     *改变按钮图标
-//     *@param icon 按钮图标
-//     *@param index 按钮下标
-//     */
-//    - (void)setIcon:(nullable UIImage*) icon forIndex:(NSUInteger) index;
-//
-//    /**
-//     *改变选中按钮图标
-//     *@param icon 按钮图标
-//     *@param index 按钮下标
-//     */
-//    - (void)setSelectedIcon:(nullable UIImage*) icon forIndex:(NSUInteger) index;
+    // MARK: - UICollectionView delegate
+    
+    override public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TabMenuBarCell.gkNameOfClass, for: indexPath) as! TabMenuBarCell
+        
+        let item = tabItems![indexPath.item]
+        cell.button.setTitleColor(selectedTextColor, for: .selected)
+        cell.button.setTitleColor(normalTextColor, for: .normal)
+        cell.button.titleLabel?.font = selectedIndex == indexPath.item ? selectedFont : normalFont
+        
+        cell.item = item
+        cell.tick = selectedIndex == indexPath.item
+        cell.divider.isHidden = !displayItemDidvider || indexPath.item == tabItems!.count - 1 || currentStyle == .fit
+        
+        return cell
+    }
+
+    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let item = tabItems![indexPath.item]
+        if item.customView != nil {
+            tabDelegate?.menuBar(self, willDisplay: item.customView!, at: indexPath.item)
+        }
+    }
+
+    //MARK: - 设置
+
+    /**
+     *设置按钮边缘数字
+     *@param badgeValue 边缘数字，大于99会显示99+，小于等于0则隐藏
+     *@param index 按钮下标
+     */
+    public func setBadgeValue(_ badgeValue: String?, index: Int){
+        assert(index < self.items?.count ?? 0, "\(self.gkNameOfClass) setBadgeValue, index \(index) 已越界")
+        
+        if let item = self.items?[index] as? TabMenuBarItem {
+            item.badgeNumber = badgeValue
+            self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+        }
+    }
+
+    /**
+     *改变按钮标题
+     *@param title 按钮标题
+     *@param index 按钮下标
+     */
+    public func setTitle(_ title: String?, index: Int){
+        assert(index < self.items?.count ?? 0, "\(self.gkNameOfClass) setTitle, index \(index) 已越界")
+        
+        if let item = self.items?[index] as? TabMenuBarItem {
+            item.title = title
+            self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+        }
+    }
+
+    /**
+     *改变按钮图标
+     *@param icon 按钮图标
+     *@param index 按钮下标
+     */
+    public func setIcon(_ icon: UIImage?, index: Int){
+        assert(index < self.items?.count ?? 0, "\(self.gkNameOfClass) setIcon, index \(index) 已越界")
+        
+        if let item = self.items?[index] as? TabMenuBarItem {
+            item.icon = icon
+            self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+        }
+    }
+
+    /**
+     *改变选中按钮图标
+     *@param icon 按钮图标
+     *@param index 按钮下标
+     */
+    public func setSelectedIcon(_ icon: UIImage?, index: Int){
+        assert(index < self.items?.count ?? 0, "\(self.gkNameOfClass) setSelectedIcon, index \(index) 已越界")
+        
+        if let item = self.items?[index] as? TabMenuBarItem {
+            item.selectedIcon = icon
+            self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+        }
+    }
 }

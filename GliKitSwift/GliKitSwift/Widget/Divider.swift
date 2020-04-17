@@ -9,7 +9,7 @@
 import UIKit
 
 ///分割线 会自己设置高度 宽度和背景
-class Divider: UIView {
+open class Divider: UIView {
     
     ///是否是垂直的
     public private(set) var isVertical = false

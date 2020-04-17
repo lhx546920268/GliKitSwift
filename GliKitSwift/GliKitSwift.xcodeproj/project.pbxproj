@@ -26,6 +26,7 @@
 		CE6996ED23D822AE00A99469 /* UIView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996EC23D822AE00A99469 /* UIView+Utils.swift */; };
 		CE6996EF23D8235E00A99469 /* NSObject+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996EE23D8235E00A99469 /* NSObject+Utils.swift */; };
 		CE6996F123D825E900A99469 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996F023D825E900A99469 /* UIViewController+Utils.swift */; };
+		CE96AD2C243C0E1600A4FBAA /* Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE96AD2B243C0E1600A4FBAA /* Popover.swift */; };
 		CE9E4C1C23D062A300C0F63D /* GliKitSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E4C1B23D062A300C0F63D /* GliKitSwift.swift */; };
 		CE9E4C2A23D0648C00C0F63D /* BaseContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E4C2923D0648C00C0F63D /* BaseContainer.swift */; };
 		CE9E4C6823D071ED00C0F63D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E4C6723D071ED00C0F63D /* BaseViewController.swift */; };
@@ -65,6 +66,9 @@
 		CECB37372429B1EB00C92687 /* DispatchQueue+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECB37362429B1EB00C92687 /* DispatchQueue+Utils.swift */; };
 		CECB37392429B52400C92687 /* Swizzlling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECB37382429B52400C92687 /* Swizzlling.swift */; };
 		CECB373C2429F44100C92687 /* WeakObjectContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECB373B2429F44100C92687 /* WeakObjectContainer.swift */; };
+		CED1DFC5243DC8C700236BC1 /* UICollectionView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED1DFC4243DC8C700236BC1 /* UICollectionView+Utils.swift */; };
+		CED98AC724498BF300F3353F /* UIView+ Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED98AC624498BF300F3353F /* UIView+ Geometry.swift */; };
+		CED98AC92449B66700F3353F /* PopoverMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED98AC82449B66700F3353F /* PopoverMenu.swift */; };
 		CEDAEEF12431EB7F00F03100 /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDAEEF02431EB7F00F03100 /* RefreshControl.swift */; };
 		CEDAEEF32431EEB000F03100 /* DefaultRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDAEEF22431EEB000F03100 /* DefaultRefreshControl.swift */; };
 		CEDAEEF52431F36D00F03100 /* UIScrollView+Refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDAEEF42431F36C00F03100 /* UIScrollView+Refresh.swift */; };
@@ -103,6 +107,7 @@
 		CE6996EC23D822AE00A99469 /* UIView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Utils.swift"; sourceTree = "<group>"; };
 		CE6996EE23D8235E00A99469 /* NSObject+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Utils.swift"; sourceTree = "<group>"; };
 		CE6996F023D825E900A99469 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
+		CE96AD2B243C0E1600A4FBAA /* Popover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popover.swift; sourceTree = "<group>"; };
 		CE9E4C1823D062A300C0F63D /* libGliKitSwift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGliKitSwift.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE9E4C1B23D062A300C0F63D /* GliKitSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliKitSwift.swift; sourceTree = "<group>"; };
 		CE9E4C2923D0648C00C0F63D /* BaseContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseContainer.swift; sourceTree = "<group>"; };
@@ -143,6 +148,9 @@
 		CECB37362429B1EB00C92687 /* DispatchQueue+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Utils.swift"; sourceTree = "<group>"; };
 		CECB37382429B52400C92687 /* Swizzlling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swizzlling.swift; sourceTree = "<group>"; };
 		CECB373B2429F44100C92687 /* WeakObjectContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakObjectContainer.swift; sourceTree = "<group>"; };
+		CED1DFC4243DC8C700236BC1 /* UICollectionView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Utils.swift"; sourceTree = "<group>"; };
+		CED98AC624498BF300F3353F /* UIView+ Geometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+ Geometry.swift"; sourceTree = "<group>"; };
+		CED98AC82449B66700F3353F /* PopoverMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverMenu.swift; sourceTree = "<group>"; };
 		CEDAEEF02431EB7F00F03100 /* RefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshControl.swift; sourceTree = "<group>"; };
 		CEDAEEF22431EEB000F03100 /* DefaultRefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRefreshControl.swift; sourceTree = "<group>"; };
 		CEDAEEF42431F36C00F03100 /* UIScrollView+Refresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Refresh.swift"; sourceTree = "<group>"; };
@@ -266,6 +274,8 @@
 				CEC9C31B242AF2D50082E631 /* UIViewController+Dialog.swift */,
 				CEC9C31F242B0A150082E631 /* UIViewController+Keyboard.swift */,
 				CE0594C62437146200510AD2 /* UIView+AutoLayout.swift */,
+				CED1DFC4243DC8C700236BC1 /* UICollectionView+Utils.swift */,
+				CED98AC624498BF300F3353F /* UIView+ Geometry.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -419,6 +429,8 @@
 				CE52B0CB2435F2DB00B85D8D /* TabMenuBarItem.swift */,
 				CE0594C22437121900510AD2 /* TabMenuBarCell.swift */,
 				CE0594C824373D5D00510AD2 /* TabMenuBar.swift */,
+				CE96AD2B243C0E1600A4FBAA /* Popover.swift */,
+				CED98AC82449B66700F3353F /* PopoverMenu.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -527,6 +539,8 @@
 				CEB6D2C423D3ED7000457164 /* UIApplication+Theme.swift in Sources */,
 				CE6996F123D825E900A99469 /* UIViewController+Utils.swift in Sources */,
 				CEBEB51F23D54336000B8CBF /* Collection+Utils.swift in Sources */,
+				CED98AC724498BF300F3353F /* UIView+ Geometry.swift in Sources */,
+				CE96AD2C243C0E1600A4FBAA /* Popover.swift in Sources */,
 				CE52B0CF2435F39800B85D8D /* Button.swift in Sources */,
 				CE6996ED23D822AE00A99469 /* UIView+Utils.swift in Sources */,
 				CECB37372429B1EB00C92687 /* DispatchQueue+Utils.swift in Sources */,
@@ -565,11 +579,13 @@
 				CEDAEEF12431EB7F00F03100 /* RefreshControl.swift in Sources */,
 				CE9E4C6823D071ED00C0F63D /* BaseViewController.swift in Sources */,
 				CEBEB52D23D5AB48000B8CBF /* KeyboardHelper.swift in Sources */,
+				CED98AC92449B66700F3353F /* PopoverMenu.swift in Sources */,
 				CEB6D2D623D45B6D00457164 /* HttpMultiTasks.swift in Sources */,
 				CEC478FD243475CE007D51CE /* ScrollViewModel.swift in Sources */,
 				CEC9C320242B0A150082E631 /* UIViewController+Keyboard.swift in Sources */,
 				CEC478FB24344703007D51CE /* ScrollViewController.swift in Sources */,
 				CEB6D2C623D3F08700457164 /* UIFont+Theme.swift in Sources */,
+				CED1DFC5243DC8C700236BC1 /* UICollectionView+Utils.swift in Sources */,
 				CE160E1F242471E7008E7392 /* BaseViewModel.swift in Sources */,
 				CE0594C924373D5D00510AD2 /* TabMenuBar.swift in Sources */,
 				CEC478FF24348128007D51CE /* PageViewController.swift in Sources */,

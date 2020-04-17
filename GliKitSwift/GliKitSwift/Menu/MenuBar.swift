@@ -99,7 +99,15 @@ open class MenuBar: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     //MARK: - 其他
 
     ///当前选中的菜单按钮下标
-    public var selectedIndex: Int = 0
+    private var _selectedIndex: Int = 0
+    public var selectedIndex: Int{
+        set{
+            self.setSelectedIndex(newValue, animated: false)
+        }
+        get{
+            _selectedIndex
+        }
+    }
 
     ///设置 selectedIndex 是否调用代理
     public var callDelegateWhenSetSelectedIndex = false
@@ -109,6 +117,13 @@ open class MenuBar: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
 
     ///代理回调
     public weak var delegate: MenuBarDelegate?
+    
+    ///是否可以调用代理
+    private var callDelegateEnable: Bool {
+        get{
+            isClickItem || callDelegateWhenSetSelectedIndex
+        }
+    }
 
     ///按钮信息 设置此值会导致菜单重新加载数据
     public var items: [MenuBarItem]?
@@ -130,10 +145,12 @@ open class MenuBar: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     public init(frame: CGRect = .zero, items: [MenuBarItem]?) {
         super.init(frame: frame)
         self.items = items
+        initViews()
     }
     
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
+        initViews()
     }
     
     ///初始化
@@ -204,7 +221,6 @@ open class MenuBar: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     /**
      已经创建collectionView，将要addSubview
      */
-        
     open func didInitCollectionView(_ collectionView: UICollectionView){
         
     }
@@ -231,6 +247,33 @@ open class MenuBar: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
      */
     open func setSelectedIndex(_ selectedIndex: Int, animated: Bool = false){
         
+        if let items = self.items {
+            if selectedIndex >= items.count {
+                return
+            }
+            
+            if _selectedIndex == selectedIndex {
+                if callDelegateEnable {
+                    delegate?.menuBar?(self, didSelectHighlightedItemAt: selectedIndex)
+                }
+                return;
+            }
+            
+            let oldIndex = _selectedIndex
+            _selectedIndex = selectedIndex
+            
+            onSelectItemAt(_selectedIndex, oldIndex: oldIndex)
+            layoutIndicator(animated: animated)
+            scrollToVisibleRect(animated: animated)
+
+            if oldIndex < items.count && callDelegateEnable {
+                delegate?.menuBar?(self, didDeselectItemAt: oldIndex)
+            }
+            
+            if callDelegateEnable {
+                delegate?.menuBar?(self, didSelectItemAt: _selectedIndex)
+            }
+        }
     }
 
     /**
@@ -239,18 +282,69 @@ open class MenuBar: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
      @param percent 比例 0 ~ 1.0
      @param index 将要到的下标
      */
-    open func setPercent(_ percent: Float, for index: Int){
+    open func setPercent(_ percent: CGFloat, for index: Int){
         
+        if measureEnable && indicatorHeight > 0, let items = self.items {
+            
+            assert(index < items.count, "MenuBar setPercent: forIndex:，index \(index) 已越界")
+            
+            var percent = percent
+            if percent > 1.0 {
+                percent = 1.0
+            }else if percent < 0 {
+                percent = 0
+            }
+            
+            var frame = indicator.frame
+            
+            let x = indicatorXForIndex(_selectedIndex)
+            let offset = percent * (indicatorXForIndex(index) - x)
+            
+            let item1 = items[_selectedIndex]
+            let item2 = items[index]
+            
+            frame.origin.x = x + offset
+            frame.size.width = item1.itemWidth + (item2.itemWidth - item1.itemWidth) * percent
+            
+            indicator.frame = frame
+        }
     }
     
     // MARK: - UICollectionViewDataSource
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        if !measureEnable {
+            return 0
+        }
+        return items?.count ?? 0
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return contentInset
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let item = items![indexPath.item]
+        return CGSize(width: item.itemWidth, height: collectionView.gkHeight - contentInset.top - contentInset.bottom)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return currentStyle == .fill ? 0 : itemInterval
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        fatalError("\(self.gkNameOfClass) 必须重写 \(NSStringFromSelector(#function))")
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: false)
+        
+        let enable = delegate?.menuBar?(self, shouldSelectItemAt: indexPath.item) ?? true
+        if enable {
+            isClickItem = true
+            setSelectedIndex(indexPath.item, animated: true)
+            isClickItem = false
+        }
     }
     
     // MARK: - 分割线
