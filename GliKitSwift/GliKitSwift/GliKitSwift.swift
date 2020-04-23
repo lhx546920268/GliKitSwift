@@ -6,6 +6,15 @@
 //  Copyright © 2020 luohaixiong. All rights reserved.
 //
 
-class GliKitSwift {
+import UIKit
 
+public class GliKitSwift {
+
+    ///初始化 只调用一次
+    public class func initialize(){
+        DispatchQueue.once(token: "GliKitSwift.initialize"){
+            UIView.swizzleNavigationBarMargins()
+        }
+    }
 }
+

@@ -12,7 +12,7 @@ import UIKit
 @objc public protocol TabMenuBarDelegate: MenuBarDelegate{
     
     ///要显示自定义视图了 要自己调整位置
-    @objc func menuBar(_ menu: TabMenuBar, willDisplay customView: UIView, at index: Int)
+    @objc optional func menuBar(_ menu: TabMenuBar, willDisplay customView: UIView, at index: Int)
 }
 
 ///条形菜单 当菜单按钮数量过多时，可滑动查看更多的按钮
@@ -152,7 +152,7 @@ open class TabMenuBar: MenuBar {
     public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let item = tabItems![indexPath.item]
         if item.customView != nil {
-            tabDelegate?.menuBar(self, willDisplay: item.customView!, at: indexPath.item)
+            tabDelegate?.menuBar?(self, willDisplay: item.customView!, at: indexPath.item)
         }
     }
 

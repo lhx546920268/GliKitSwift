@@ -21,7 +21,7 @@ open class Divider: UIView {
         initParams()
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         
         super.init(coder: coder)
         isVertical = self.gkWidthLayoutConstraint != nil

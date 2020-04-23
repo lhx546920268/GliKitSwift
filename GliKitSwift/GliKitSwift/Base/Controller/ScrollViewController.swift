@@ -100,6 +100,17 @@ open class ScrollViewController: BaseViewController, UIScrollViewDelegate {
     
     // MARK: - UIScrollViewDelegate
     
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    }
+    
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        
+    }
+    
+    public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+    }
     // TODO: Page
 //    - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 //    {

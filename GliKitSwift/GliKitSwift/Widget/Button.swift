@@ -59,7 +59,7 @@ open class Button: UIButton {
         }
     }
     
-    override var intrinsicContentSize: CGSize{
+    override open var intrinsicContentSize: CGSize{
         get{
             var size = super.intrinsicContentSize
             
@@ -87,7 +87,7 @@ open class Button: UIButton {
         }
     }
     
-    override func imageRect(forContentRect contentRect: CGRect) -> CGRect {
+    override open func imageRect(forContentRect contentRect: CGRect) -> CGRect {
         
         var rect = super.imageRect(forContentRect: contentRect)
         
@@ -124,7 +124,7 @@ open class Button: UIButton {
         return setup(rect: rect, contentRect: contentRect, anotherSize: titleSize, insets: self.imageEdgeInsets, padding: padding, position: position)
     }
     
-    override func titleRect(forContentRect contentRect: CGRect) -> CGRect {
+    override open func titleRect(forContentRect contentRect: CGRect) -> CGRect {
         
         let rect = super.titleRect(forContentRect: contentRect)
         

@@ -17,7 +17,8 @@ open class PopoverMenuItem: NSObject{
     ///按钮图标
     public var icon: UIImage?
     
-    public override init(title: String?, icon: UIImage?) {
+    public init(title: String?, icon: UIImage?) {
+     
         super.init()
         self.title = title
         self.icon = icon
@@ -25,7 +26,7 @@ open class PopoverMenuItem: NSObject{
 }
 
 ///弹窗按钮cell
-open class GKPopoverMenuCell: UITableViewCell{
+open class PopoverMenuCell: UITableViewCell{
     
     ///按钮
     public lazy var button: Button = {
@@ -57,7 +58,7 @@ open class GKPopoverMenuCell: UITableViewCell{
         
         return divider
     }()
-
+    
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -85,302 +86,174 @@ open class GKPopoverMenuCell: UITableViewCell{
 /**
  弹窗菜单 contentInsets 将设成 0
  */
-open class PopoverMenu: Popover {
-
+open class PopoverMenu: Popover, UITableViewDataSource, UITableViewDelegate {
+    
     ///字体颜色
     public var textColor: UIColor = .black
-
+    
     ///字体
     public var font = UIFont.systemFont(ofSize: 13)
-
+    
     ///选中背景颜色
     public var selectedBackgroundColor = UIColor(white: 0.95, alpha: 1.0)
-
+    
     ///图标和按钮的间隔
     public var iconTitleInterval: CGFloat = 0
-
+    
     ///菜单行高
     public var rowHeight: CGFloat = 30
-
+    
     ///菜单宽度 会根据按钮标题宽度，按钮图标和 内容边距获取宽度
     public var menuWidth: CGFloat = 0
-
-    /**
-     cell 内容边距 default is '(0, 15.0, 0, 15.0)' ，只有left和right生效
-     */
-    @property(nonatomic, assign) UIEdgeInsets cellContentInsets;
-
-    /**
-     分割线颜色 default is 'GKSeparatorColor'
-     */
-    @property(nonatomic, strong) UIColor *separatorColor;
-
-    /**
-     cell 分割线间距 default is '(0, 0, 0, 0)' ，只有left和right生效
-     */
-    @property(nonatomic, assign) UIEdgeInsets separatorInsets;
-
-    /**
-     按钮信息
-     */
-    @property(nonatomic, strong, nonnull) NSArray<GKPopoverMenuItem*> *menuItems;
-
-    /**
-     标题
-     */
-    @property(nonatomic, copy) NSArray<NSString*> *titles;
-
-    /**
-     点击某个按钮回调
-     */
-    @property(nonatomic, copy, nullable) void(^selectHandler)(NSInteger index);
-
-    /**
-     代理
-     */
-    @property(nonatomic, weak, nullable) id<GKPopoverMenuDelegate> delegate;
     
-   - (instancetype)initWithFrame:(CGRect)frame
-   {
-       self = [super initWithFrame:frame];
-       if(self){
-           self.contentInsets = UIEdgeInsetsZero;
-           _cellContentInsets = UIEdgeInsetsMake(0, 15, 0, 15);
-           _textColor = [UIColor blackColor];
-           _font = [UIFont systemFontOfSize:13];
-           _selectedBackgroundColor = [UIColor colorWithWhite:0.95 alpha:1.0];
-           _rowHeight = 30;
-           _separatorColor = UIColor.gkSeparatorColor;
-           _iconTitleInterval = 0.0;
-       }
-       
-       return self;
-   }
-
-   - (void)initContentView
-   {
-       if(!_tableView){
-           _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-           _tableView.rowHeight = _rowHeight;
-           _tableView.separatorColor = _separatorColor;
-           _tableView.dataSource = self;
-           _tableView.delegate = self;
-           _tableView.backgroundColor = [UIColor clearColor];
-           _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-           _tableView.scrollEnabled = NO;
-           self.contentView = _tableView;
-       }
-       _tableView.frame = CGRectMake(0, 0, [self getMenuWidth], _menuItems.count * _rowHeight);
-   }
-
-   - (void)reloadData
-   {
-       if(self.tableView){
-           _tableView.frame = CGRectMake(0, 0, [self getMenuWidth], _menuItems.count * _rowHeight);
-           [self.tableView reloadData];
-           [self redraw];
-       }
-   }
-
-   ///通过标题获取菜单宽度
-   - (CGFloat)getMenuWidth
-   {
-       if(_menuWidth == 0){
-           CGFloat contentWidth = 0;
-           for(GKPopoverMenuItem *item in self.menuItems){
-               CGSize size = [item.title gkStringSizeWithFont:_font contraintWith:UIScreen.gkScreenWidth];
-               contentWidth = MAX(contentWidth, size.width + item.icon.size.width + _iconTitleInterval);
-           }
-           
-           return contentWidth + _cellContentInsets.left + _cellContentInsets.right;
-       }else{
-           return _menuWidth;
-       }
-   }
-
-   // MARK: - Property
-
-   - (void)setTextColor:(UIColor *)textColor
-   {
-       if(![_textColor isEqualToColor:textColor]){
-           if(!textColor)
-               textColor = [UIColor blackColor];
-           _textColor = textColor;
-           [self.tableView reloadData];
-       }
-   }
-
-   - (void)setFont:(UIFont *)font
-   {
-       if(![_font isEqualToFont:font]){
-           if(!font)
-               font = [UIFont systemFontOfSize:13];
-           _font = font;
-           [self.tableView reloadData];
-       }
-   }
-
-   - (void)setSelectedBackgroundColor:(UIColor *)selectedBackgroundColor
-   {
-       if(![_selectedBackgroundColor isEqualToColor:selectedBackgroundColor]){
-           if(!selectedBackgroundColor)
-               selectedBackgroundColor = [UIColor colorWithWhite:0.95 alpha:1.0];
-           _selectedBackgroundColor = selectedBackgroundColor;
-           [self.tableView reloadData];
-       }
-   }
-
-   - (void)setSeparatorColor:(UIColor *)separatorColor
-   {
-       if(![_separatorColor isEqualToColor:separatorColor]){
-           if(!separatorColor)
-               separatorColor = UIColor.gkSeparatorColor;
-           _separatorColor = separatorColor;
-           [self.tableView reloadData];
-       }
-   }
-
-   - (void)setSeparatorInsets:(UIEdgeInsets)separatorInsets
-   {
-       if(!UIEdgeInsetsEqualToEdgeInsets(_separatorInsets, separatorInsets)){
-           _separatorInsets = separatorInsets;
-           [self.tableView reloadData];
-       }
-   }
-
-   - (void)setRowHeight:(CGFloat)rowHeight
-   {
-       if(_rowHeight != rowHeight){
-           _rowHeight = rowHeight;
-           [self reloadData];
-       }
-   }
-
-   - (void)setMenuWidth:(CGFloat)menuWidth
-   {
-       if(_menuWidth != menuWidth){
-           _menuWidth = menuWidth;
-           [self reloadData];
-       }
-   }
-
-   - (void)setIconTitleInterval:(CGFloat)iconTitleInterval
-   {
-       if(_iconTitleInterval != iconTitleInterval){
-           _iconTitleInterval = iconTitleInterval;
-           [self reloadData];
-       }
-   }
-
-   - (void)setCellContentInsets:(UIEdgeInsets)cellContentInsets
-   {
-       if(!UIEdgeInsetsEqualToEdgeInsets(_cellContentInsets, cellContentInsets)){
-           _cellContentInsets = cellContentInsets;
-           [self reloadData];
-       }
-   }
-
-   - (void)setMenuItems:(NSArray<GKPopoverMenuItem *> *)menuItems
-   {
-       if(_menuItems != menuItems){
-           _menuItems = menuItems;
-           [self reloadData];
-       }
-   }
-
-   - (void)setTitles:(NSArray<NSString *> *)titles
-   {
-       if(titles.count == 0){
-           return;
-       }
-       NSMutableArray *items = [NSMutableArray arrayWithCapacity:titles.count];
-       for(NSString *title in titles){
-           [items addObject:[GKPopoverMenuItem infoWithTitle:title icon:nil]];
-       }
-       self.menuItems = items;
-   }
-
-   - (NSArray<NSString*>*)titles
-   {
-       if(_menuItems.count == 0){
-           return nil;
-       }
-       NSMutableArray *titles = [NSMutableArray arrayWithCapacity:_menuItems.count];
-       for(GKPopoverMenuItem *item in _menuItems){
-           if(item.title == nil){
-               [titles addObject:@""];
-           }else{
-               [titles addObject:item.title];
-           }
-       }
-       return titles;
-   }
-
-   #pragma mark- UITableView delegate
-
-   - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-   {
-       return _menuItems.count;
-   }
-
-   - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-   {
-       static NSString *cellIdentifier = @"cell";
-       
-       GKPopoverMenuCell *cell = [[GKPopoverMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-       if(cell == nil){
-           cell = [[GKPopoverMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-       }
-       
-       cell.selectedBackgroundView.backgroundColor = _selectedBackgroundColor;
-       cell.button.titleLabel.font = _font;
-       [cell.button setTitleColor:_textColor forState:UIControlStateNormal];
-       cell.button.tintColor = _textColor;
-       cell.button.gkLeftLayoutConstraint.constant = _cellContentInsets.left;
-       cell.button.gkRightLayoutConstraint.constant = _cellContentInsets.right;
-       
-       GKPopoverMenuItem *item = [_menuItems objectAtIndex:indexPath.row];
-       [cell.button setTitle:item.title forState:UIControlStateNormal];
-       [cell.button setImage:item.icon forState:UIControlStateNormal];
-       
-       cell.divider.hidden = indexPath.row == _menuItems.count - 1;
-       cell.divider.backgroundColor = _separatorColor;
-       cell.divider.gkLeftLayoutConstraint.constant = _separatorInsets.left;
-       cell.divider.gkRightLayoutConstraint.constant = _separatorInsets.right;
-       
-       cell.button.imagePadding = _iconTitleInterval;
-       
-       return cell;
-   }
-
-   - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-   {
-       [cell setSeparatorInset:UIEdgeInsetsZero];
-       
-       if([cell respondsToSelector:@selector(setLayoutMargins:)]){
-           [cell setLayoutMargins:UIEdgeInsetsZero];
-       }
-   }
-
-   - (void)layoutSubviews
-   {
-       [super layoutSubviews];
-       [self.tableView setSeparatorInset:UIEdgeInsetsZero];
-       
-       if([self.tableView respondsToSelector:@selector(setLayoutMargins:)]){
-           [self.tableView setLayoutMargins:UIEdgeInsetsZero];
-       }
-   }
-
-   - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-   {
-       [tableView deselectRowAtIndexPath:indexPath animated:YES];
-       
-       if([self.delegate respondsToSelector:@selector(popoverMenu:didSelectAtIndex:)]){
-           [self.delegate popoverMenu:self didSelectAtIndex:indexPath.row];
-       }
-       !self.selectHandler ?: self.selectHandler(indexPath.row);
-       [self dismissAnimated:YES];
-   }
-
+    /// cell 内容边距 只有left和right生效
+    public var cellContentInsets = UIEdgeInsets(0, 15, 0, 15)
+    
+    ///分割线颜色
+    public var separatorColor = UIColor.gkSeparatorColor
+    
+    ///cell 分割线间距 只有left和right生效
+    public var separatorInsets = UIEdgeInsets.zero
+    
+    ///按钮信息
+    public var menuItems: Array<PopoverMenuItem>?{
+        didSet{
+            if self.superview != nil {
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    ///标题
+    public var titles: Array<String>?{
+        set{
+            if let titles = newValue {
+                var items = Array<PopoverMenuItem>()
+                for title in titles {
+                    items.append(PopoverMenuItem(title: title, icon: nil))
+                }
+                self.menuItems = items;
+            } else {
+                self.menuItems = nil
+            }
+        }
+        get{
+            if let items = self.menuItems {
+                var titles = Array<String>()
+                for item in items {
+                    if let title = item.title {
+                        titles.append(title)
+                    } else {
+                        titles.append("")
+                    }
+                }
+                return titles
+            } else {
+                return nil
+            }
+        }
+    }
+    
+    ///点击某个按钮回调
+    public var selectItemCallback: ((Int) -> Void)?
+    
+    ///菜单代理
+    private var menuDelegate: PopoverMenuDelegate?{
+        get{
+            self.delegate as? PopoverMenuDelegate
+        }
+    }
+    
+    ///按钮列表
+    private lazy var tableView: UITableView = {
+        
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.rowHeight = self.rowHeight
+        tableView.separatorColor = self.separatorColor
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
+        tableView.isScrollEnabled = false
+        tableView.registerClass(cls: PopoverMenuCell.self)
+        
+        return tableView
+    }()
+    
+    open override func initContentView() {
+        
+        contentView = tableView
+        if let items = menuItems {
+            tableView.frame = CGRect(0, 0, getMenuWidth(), CGFloat(items.count) * rowHeight)
+        }
+    }
+    
+    ///刷新数据
+    private func reloadData(){
+        
+        if window != nil, let items = menuItems {
+            tableView.frame = CGRect(0, 0, getMenuWidth(), CGFloat(items.count) * rowHeight)
+            tableView.reloadData()
+            redraw()
+        }
+    }
+    
+    ///通过标题获取菜单宽度
+    private func getMenuWidth() -> CGFloat {
+        
+        if menuWidth == 0 {
+            var contentWidth: CGFloat = 0
+            if let items = menuItems {
+                for item in items {
+                    if let title = item.title {
+                        let size = title.gkStringSize(font: font, with: UIScreen.gkWidth)
+                        contentWidth = max(contentWidth, size.width + (item.icon?.size.width ?? 0) + iconTitleInterval)
+                    }
+                }
+            }
+            return contentWidth + cellContentInsets.width
+        } else {
+            return menuWidth
+        }
+    }
+    
+    // MARK: - UITableViewDelegate
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return menuItems?.count ?? 0
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: PopoverMenuCell.gkNameOfClass, for: indexPath) as! PopoverMenuCell
+        
+        cell.selectedBackgroundView?.backgroundColor = selectedBackgroundColor
+        cell.button.titleLabel?.font = font
+        cell.button.setTitleColor(textColor, for: .normal)
+        cell.button.tintColor = textColor
+        cell.button.gkLeftLayoutConstraint?.constant = cellContentInsets.left
+        cell.button.gkRightLayoutConstraint?.constant = cellContentInsets.right
+        
+        let item = menuItems![indexPath.row]
+        cell.button.setTitle(item.title, for: .normal)
+        cell.button.setImage(item.icon, for: .normal)
+        
+        cell.divider.isHidden = indexPath.row == menuItems!.count - 1
+        cell.divider.backgroundColor = separatorColor
+        cell.divider.gkLeftLayoutConstraint?.constant = separatorInsets.left
+        cell.divider.gkRightLayoutConstraint?.constant = separatorInsets.right
+        
+        cell.button.imagePadding = iconTitleInterval
+        
+        return cell
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        menuDelegate?.popoverMenu?(self, didSelectAt: indexPath.row)
+        
+        selectItemCallback?(indexPath.row)
+        dismiss(animated: true)
+    }
 }
