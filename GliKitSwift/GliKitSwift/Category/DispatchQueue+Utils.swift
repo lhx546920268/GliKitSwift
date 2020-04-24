@@ -13,7 +13,7 @@ public extension DispatchQueue{
     private static var onceTokens = [String]()
     
     ///只执行一次 类似 objc的
-    public class func once(token: String, block: () -> Void){
+    class func once(token: String, block: () -> Void){
         
         objc_sync_enter(self)
         defer{

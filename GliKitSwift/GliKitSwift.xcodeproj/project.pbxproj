@@ -19,6 +19,9 @@
 		CE52B0CA2435E81D00B85D8D /* MenuBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52B0C92435E81D00B85D8D /* MenuBarItem.swift */; };
 		CE52B0CC2435F2DB00B85D8D /* TabMenuBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52B0CB2435F2DB00B85D8D /* TabMenuBarItem.swift */; };
 		CE52B0CF2435F39800B85D8D /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52B0CE2435F39800B85D8D /* Button.swift */; };
+		CE58C65A24527796006A654E /* UITableView+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE58C65924527796006A654E /* UITableView+EmptyView.swift */; };
+		CE58C66B2452D0E2006A654E /* UICollectionView+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE58C66A2452D0E2006A654E /* UICollectionView+EmptyView.swift */; };
+		CE58C66D2452EFC8006A654E /* UIApplication+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE58C66C2452EFC8006A654E /* UIApplication+Utils.swift */; };
 		CE6996E523D7E0D500A99469 /* PartialPresentTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996E423D7E0D500A99469 /* PartialPresentTransitionDelegate.swift */; };
 		CE6996E723D7EC2C00A99469 /* PartialPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996E623D7EC2C00A99469 /* PartialPresentationController.swift */; };
 		CE6996E923D7F27B00A99469 /* PartialPresentTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996E823D7F27B00A99469 /* PartialPresentTransitionAnimator.swift */; };
@@ -110,6 +113,9 @@
 		CE52B0C92435E81D00B85D8D /* MenuBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarItem.swift; sourceTree = "<group>"; };
 		CE52B0CB2435F2DB00B85D8D /* TabMenuBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuBarItem.swift; sourceTree = "<group>"; };
 		CE52B0CE2435F39800B85D8D /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		CE58C65924527796006A654E /* UITableView+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+EmptyView.swift"; sourceTree = "<group>"; };
+		CE58C66A2452D0E2006A654E /* UICollectionView+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+EmptyView.swift"; sourceTree = "<group>"; };
+		CE58C66C2452EFC8006A654E /* UIApplication+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Utils.swift"; sourceTree = "<group>"; };
 		CE6996E423D7E0D500A99469 /* PartialPresentTransitionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialPresentTransitionDelegate.swift; sourceTree = "<group>"; };
 		CE6996E623D7EC2C00A99469 /* PartialPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialPresentationController.swift; sourceTree = "<group>"; };
 		CE6996E823D7F27B00A99469 /* PartialPresentTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialPresentTransitionAnimator.swift; sourceTree = "<group>"; };
@@ -390,6 +396,7 @@
 				CEA66561242D9BA0003D8E71 /* JSONSerialization+Utils.swift */,
 				CE0594C02436C53900510AD2 /* NSAttributedString+Utils.swift */,
 				CED4CB72245186B800369B04 /* ConversionUtils.swift */,
+				CE58C66C2452EFC8006A654E /* UIApplication+Utils.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -428,6 +435,8 @@
 				CEBE0964244EFDAD0016EEFA /* UIView+EmptyView.swift */,
 				CED4CB7424519F7100369B04 /* UIViewController+EmptyView.swift */,
 				CED4CB762451A01500369B04 /* UIScrollView+EmptyView.swift */,
+				CE58C65924527796006A654E /* UITableView+EmptyView.swift */,
+				CE58C66A2452D0E2006A654E /* UICollectionView+EmptyView.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -607,8 +616,10 @@
 				CE6996E523D7E0D500A99469 /* PartialPresentTransitionDelegate.swift in Sources */,
 				CEB6D2D223D444CE00457164 /* Log.swift in Sources */,
 				CECB37392429B52400C92687 /* Swizzlling.swift in Sources */,
+				CE58C66B2452D0E2006A654E /* UICollectionView+EmptyView.swift in Sources */,
 				CEAE532E23D158BB0073882E /* NavigationBar.swift in Sources */,
 				CEC47902243481AC007D51CE /* MenuBar.swift in Sources */,
+				CE58C66D2452EFC8006A654E /* UIApplication+Utils.swift in Sources */,
 				CEA66562242D9BA0003D8E71 /* JSONSerialization+Utils.swift in Sources */,
 				CEBEB52423D54BB4000B8CBF /* PageLoadingContainer.swift in Sources */,
 				CEDAEEF32431EEB000F03100 /* DefaultRefreshControl.swift in Sources */,
@@ -617,6 +628,7 @@
 				CE52B0CC2435F2DB00B85D8D /* TabMenuBarItem.swift in Sources */,
 				CEAE532C23D14EDC0073882E /* UIViewController+SafeAreaCompatible.swift in Sources */,
 				CE6996E923D7F27B00A99469 /* PartialPresentTransitionAnimator.swift in Sources */,
+				CE58C65A24527796006A654E /* UITableView+EmptyView.swift in Sources */,
 				CEB6D2D423D44EDA00457164 /* ThreadUtils.swift in Sources */,
 				CE52B0CA2435E81D00B85D8D /* MenuBarItem.swift in Sources */,
 				CE160E212424A350008E7392 /* BaseNavigationController.swift in Sources */,

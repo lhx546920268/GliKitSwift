@@ -8,8 +8,8 @@
 
 import UIKit
 
-private var backgroundColorKey = 0
-private var tintColorKey = 1
+private var backgroundColorKey: UInt8 = 0
+private var tintColorKey: UInt8 = 0
 
 ///状态 不支持多个状态并存，disable > highlighted > selected > normal 目前只对 UIButton UILabel UIImageView 有用
 public extension UIView{

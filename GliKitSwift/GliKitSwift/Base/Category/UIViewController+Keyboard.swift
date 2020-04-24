@@ -8,8 +8,8 @@
 
 import UIKit
 
-private var keyboardHiddenKey = 0
-private var keyboardFrameKey = 1
+private var keyboardHiddenKey: UInt8 = 0
+private var keyboardFrameKey: UInt8 = 0
 
 ///键盘相关扩展
 public extension UIViewController{

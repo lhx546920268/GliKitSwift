@@ -59,7 +59,7 @@ open class PageViewController: ScrollViewController, TabMenuBarDelegate {
     ///当前scrollView 大小
     private var scrollViewSize: CGSize = .zero
     
-    override func initViews() {
+    override open func initViews() {
         
         if shouldUseMenuBar && shouldSetMenuBarTopView {
             container?.setTopView(menuBar, height: menuBarHeight)
@@ -150,7 +150,7 @@ open class PageViewController: ScrollViewController, TabMenuBarDelegate {
     
     // MARK: - Layout
     
-    override func viewDidLayoutSubviews() {
+    override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         if let scrollView = self.scrollView {
@@ -208,7 +208,7 @@ open class PageViewController: ScrollViewController, TabMenuBarDelegate {
     
     // MARK: - TabMenuBarDelegate
     
-    func menuBar(_ menuBar: MenuBar, didSelectItemAt index: Int) {
+    public func menuBar(_ menuBar: MenuBar, didSelectItemAt index: Int) {
         
         scrollView?.setContentOffset(CGPoint(CGFloat(index) * scrollViewSize.width, 0), animated: false)
         currentPage = index
@@ -217,7 +217,7 @@ open class PageViewController: ScrollViewController, TabMenuBarDelegate {
     
     // MARK: - UIScrollViewDelegate
 
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    override public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         
         beginOffset = scrollView.contentOffset
         setScrollEnabled(false)
@@ -225,7 +225,7 @@ open class PageViewController: ScrollViewController, TabMenuBarDelegate {
         super.scrollViewWillBeginDragging(scrollView)
     }
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    override public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         layoutVisiablePages()
         

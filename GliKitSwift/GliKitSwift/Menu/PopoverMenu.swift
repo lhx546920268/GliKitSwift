@@ -175,7 +175,7 @@ open class PopoverMenu: Popover, UITableViewDataSource, UITableViewDelegate {
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.isScrollEnabled = false
-        tableView.registerClass(cls: PopoverMenuCell.self)
+        tableView.registerClass(PopoverMenuCell.self)
         
         return tableView
     }()
