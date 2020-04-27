@@ -67,6 +67,7 @@
 		CEC478FD243475CE007D51CE /* ScrollViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC478FC243475CE007D51CE /* ScrollViewModel.swift */; };
 		CEC478FF24348128007D51CE /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC478FE24348128007D51CE /* PageViewController.swift */; };
 		CEC47902243481AC007D51CE /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC47901243481AC007D51CE /* MenuBar.swift */; };
+		CEC6AF4B2456DA01006B22BB /* UIView+XibUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC6AF4A2456DA01006B22BB /* UIView+XibUtils.swift */; };
 		CEC9C31C242AF2D50082E631 /* UIViewController+Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9C31B242AF2D50082E631 /* UIViewController+Dialog.swift */; };
 		CEC9C31E242AFCF60082E631 /* BaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9C31D242AFCF60082E631 /* BaseError.swift */; };
 		CEC9C320242B0A150082E631 /* UIViewController+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9C31F242B0A150082E631 /* UIViewController+Keyboard.swift */; };
@@ -162,6 +163,7 @@
 		CEC478FC243475CE007D51CE /* ScrollViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewModel.swift; sourceTree = "<group>"; };
 		CEC478FE24348128007D51CE /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		CEC47901243481AC007D51CE /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
+		CEC6AF4A2456DA01006B22BB /* UIView+XibUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+XibUtils.swift"; sourceTree = "<group>"; };
 		CEC9C31B242AF2D50082E631 /* UIViewController+Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Dialog.swift"; sourceTree = "<group>"; };
 		CEC9C31D242AFCF60082E631 /* BaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseError.swift; sourceTree = "<group>"; };
 		CEC9C31F242B0A150082E631 /* UIViewController+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Keyboard.swift"; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				CEBE0959244ED5EA0016EEFA /* UITableView+Utils.swift */,
 				CED4CB6E245177C700369B04 /* UIView+NavigationBarUtils.swift */,
 				CED4CB702451839000369B04 /* UINavigationItem+Utils.swift */,
+				CEC6AF4A2456DA01006B22BB /* UIView+XibUtils.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -636,6 +639,7 @@
 				CE9E4C2A23D0648C00C0F63D /* BaseContainer.swift in Sources */,
 				CEAE533123D159910073882E /* UIColor+Theme.swift in Sources */,
 				CEB6D2CA23D3F9BA00457164 /* SystemNavigationBar.swift in Sources */,
+				CEC6AF4B2456DA01006B22BB /* UIView+XibUtils.swift in Sources */,
 				CEC9C31C242AF2D50082E631 /* UIViewController+Dialog.swift in Sources */,
 				CEA6656F242E0867003D8E71 /* DefaultLoadMoreControl.swift in Sources */,
 				CEB6D2CD23D3FAD600457164 /* HttpTask.swift in Sources */,

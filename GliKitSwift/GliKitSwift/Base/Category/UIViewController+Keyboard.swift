@@ -10,6 +10,7 @@ import UIKit
 
 private var keyboardHiddenKey: UInt8 = 0
 private var keyboardFrameKey: UInt8 = 0
+private var keyboardAnimationDurationKey: UInt8 = 0
 
 ///键盘相关扩展
 public extension UIViewController{
@@ -39,6 +40,19 @@ public extension UIViewController{
             return CGRect.zero
         }
     }
+    
+    ///键盘动画时长
+    private(set) var keyboardAnimationDuration: TimeInterval{
+        set{
+            objc_setAssociatedObject(self, &keyboardAnimationDurationKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+        get{
+            if let value = objc_getAssociatedObject(self, &keyboardAnimationDurationKey) as? TimeInterval {
+                return value
+            }
+            return 0.25
+        }
+    }
 
     ///添加键盘监听
     func addKeyboardNotification(){
@@ -61,6 +75,13 @@ public extension UIViewController{
     ///键盘高度改变
     @objc func keyboardWillChangeFrame(_ notification: Notification){
         
+        if let userInfo = notification.userInfo, !self.keyboardHidden {
+            self.keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect ?? .zero
+            self.keyboardAnimationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0.25
+        }else{
+            self.keyboardFrame = .zero
+            self.keyboardAnimationDuration = 0.25
+        }
     }
     
     @objc func keyboardDidChangeFrame(_ notification: Notification){

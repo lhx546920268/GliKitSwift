@@ -55,7 +55,7 @@ public extension UIViewController {
         
         return nil
     }
-
+    
     ///是否可以滑动返回 default 'YES'
     var gkInteractivePopEnable: Bool{
         set{
@@ -68,7 +68,7 @@ public extension UIViewController {
             return true
         }
     }
-
+    
     ///状态栏高度
     var gkStatusBarHeight: CGFloat{
         get{
@@ -94,7 +94,7 @@ public extension UIViewController {
             return height;
         }
     }
-
+    
     ///导航栏高度
     var gkNavigationBarHeight: CGFloat{
         get{
@@ -129,7 +129,7 @@ public extension UIViewController {
             return statusHeight;
         }
     }
-
+    
     ///选项卡高度
     var gkTabBarHeight: CGFloat{
         get{
@@ -140,7 +140,7 @@ public extension UIViewController {
             }
         }
     }
-
+    
     ///工具条高度
     var gkToolBarHeight: CGFloat{
         get{
@@ -162,7 +162,7 @@ public extension UIViewController {
             }
         }
     }
-
+    
     ///获取最底层的 presentingViewController
     var gkRootPresentingViewController: UIViewController{
         get{
@@ -187,7 +187,7 @@ public extension UIViewController {
 }
 
 public extension UIViewController{
-
+    
     ///显示返回按钮
     var gkShowBackItem: Bool{
         set{
@@ -210,14 +210,14 @@ public extension UIViewController{
             return false
         }
     }
-
+    
     ///返回按钮
     var gkBackBarButtonItem: UIBarButtonItem?{
         get{
             return self.navigationItem.leftBarButtonItem
         }
     }
-
+    
     ///返回
     @objc private func gkGoBack(){
         gkBack(animated: true)
@@ -247,7 +247,7 @@ public extension UIViewController{
     func gkBackToRootViewController(animated: Bool = true, completion:(() -> Void)? = nil){
         
         self.gkBeforeBack()
-
+        
         //是present出来的
         if self.presentingViewController != nil {
             let root = self.gkRootPresentingViewController
@@ -325,14 +325,14 @@ public extension UIViewController{
         self.gkSetTintColor(item: self.navigationItem.leftBarButtonItem)
         self.gkSetTintColor(item: self.navigationItem.rightBarButtonItem)
     }
-
+    
     ///设置item tintColor
     func gkSetTintColor(item: UIBarButtonItem?){
         
         if let barItem = item {
             let tintColor = self.gkTintColor
             if let btn = barItem.customView as? UIButton {
-
+                
                 if btn.image(for: .normal) != nil {
                     
                     btn.gkSetTintColor(tintColor, state: .normal)
@@ -348,13 +348,13 @@ public extension UIViewController{
         }
     }
     
-
+    
     /**
-    设置导航栏按钮
-
-    @param item 按钮
-    @param position 位置
-    */
+     设置导航栏按钮
+     
+     @param item 按钮
+     @param position 位置
+     */
     func gkSetNavigationBarItem(_ item: UIBarButtonItem, position: NavigationItemPosition){
         
         self.gkSetTintColor(item: item)
@@ -368,29 +368,29 @@ public extension UIViewController{
             break
         }
     }
-
-    /**
-    设置导航栏左边按钮
     
-    @param title 按钮标题
-    @param action 点击方法
-    @return 按钮
-    */
+    /**
+     设置导航栏左边按钮
+     
+     @param title 按钮标题
+     @param action 点击方法
+     @return 按钮
+     */
     func gkSetLeftItem(title: String, action: Selector?) -> UIBarButtonItem{
         
         let item = self.gkBarItem(title: title, target: self, action: action)
         self.gkSetNavigationBarItem(item, position: .left)
-  
+        
         return item
     }
     
     /**
-    设置导航栏左边按钮
-    
-    @param image 按钮图标
-    @param action 点击方法
-    @return 按钮
-    */
+     设置导航栏左边按钮
+     
+     @param image 按钮图标
+     @param action 点击方法
+     @return 按钮
+     */
     func gkSetLeftItem(image: UIImage, action: Selector?) -> UIBarButtonItem{
         
         let item = self.gkBarItem(image: image, target: self, action: action)
@@ -398,14 +398,14 @@ public extension UIViewController{
         
         return item
     }
-
-    /**
-    设置导航栏左边按钮
     
-    @param systemItem 系统按钮图标
-    @param action 点击方法
-    @return 按钮
-    */
+    /**
+     设置导航栏左边按钮
+     
+     @param systemItem 系统按钮图标
+     @param action 点击方法
+     @return 按钮
+     */
     func gkSetLeftItem(systemItem: UIBarButtonItem.SystemItem, action: Selector?) -> UIBarButtonItem{
         
         let item = self.gkBarItem(systemItem: systemItem, target: self, action: action)
@@ -413,13 +413,13 @@ public extension UIViewController{
         
         return item
     }
-
-    /**
-    设置导航栏左边按钮
     
-    @param customView 自定义视图
-    @return 按钮
-    */
+    /**
+     设置导航栏左边按钮
+     
+     @param customView 自定义视图
+     @return 按钮
+     */
     func gkSetLeftItem(customView: UIView) -> UIBarButtonItem{
         
         let item = self.gkBarItem(customView: customView)
@@ -429,12 +429,12 @@ public extension UIViewController{
     }
     
     /**
-    设置导航栏右边按钮
-    
-    @param title 按钮标题
-    @param action 点击方法
-    @return 按钮
-    */
+     设置导航栏右边按钮
+     
+     @param title 按钮标题
+     @param action 点击方法
+     @return 按钮
+     */
     func gkSetRightItem(title: String, action: Selector?) -> UIBarButtonItem{
         
         let item = self.gkBarItem(title: title, target: self, action: action)
@@ -442,14 +442,14 @@ public extension UIViewController{
         
         return item
     }
-
-    /**
-    设置导航栏右边按钮
     
-    @param image 按钮图标
-    @param action 点击方法
-    @return 按钮
-    */
+    /**
+     设置导航栏右边按钮
+     
+     @param image 按钮图标
+     @param action 点击方法
+     @return 按钮
+     */
     func gkSetRightItem(image: UIImage, action: Selector?) -> UIBarButtonItem{
         
         let item = self.gkBarItem(image: image, target: self, action: action)
@@ -459,14 +459,14 @@ public extension UIViewController{
     }
     
     /**
-    设置导航栏右边按钮
-    
-    @param systemItem 系统按钮图标
-    @param action 点击方法
-    @return 按钮
-    */
-    func gkSetRightItem(systemItem: UIBarButtonItem.SystemItem, action: Selector?) -> UIBarButtonItem{
+     设置导航栏右边按钮
      
+     @param systemItem 系统按钮图标
+     @param action 点击方法
+     @return 按钮
+     */
+    func gkSetRightItem(systemItem: UIBarButtonItem.SystemItem, action: Selector?) -> UIBarButtonItem{
+        
         let item = self.gkBarItem(systemItem: systemItem, target: self, action: action)
         self.gkSetNavigationBarItem(item, position: .right)
         
@@ -474,11 +474,11 @@ public extension UIViewController{
     }
     
     /**
-    设置导航栏右边按钮
-    
-    @param customView 自定义视图
-    @return 按钮
-    */
+     设置导航栏右边按钮
+     
+     @param customView 自定义视图
+     @return 按钮
+     */
     func gkSetRightItem(customView: UIView) -> UIBarButtonItem{
         
         let item = self.gkBarItem(customView: customView)
@@ -486,7 +486,7 @@ public extension UIViewController{
         
         return item
     }
-
+    
     func gkBarItem(image: UIImage, target: Any?, action: Selector?) -> UIBarButtonItem{
         
         var img = image
@@ -621,31 +621,44 @@ public extension NSObject {
     
     /// 打开一个viewController ，如果有存在navigationController, 则使用系统的push，没有则使用自定义的push
     /// - Parameters:
-    ///   - viewControlelr: 要push 的视图控制器
+    ///   - viewController: 要push 的视图控制器
     ///   - toReplacedViewControlelrs: 要替换掉的controller
-    static func gkPushViewController(_ viewControlelr: UIViewController, replace toReplacedViewControlelrs: [UIViewController]?){
+    static func gkPushViewController(_ viewController: UIViewController, replace toReplacedViewControlelrs: [UIViewController]?){
         
-        let parentViewControlelr = self.gkCurrentViewController
-        
-        var nav = parentViewControlelr.navigationController
-        if parentViewControlelr is UINavigationController {
-            nav = parentViewControlelr as? UINavigationController
-        }
-        if nav != nil {
+        if let nav = self.gkCurrentNavigationController {
             if toReplacedViewControlelrs?.count ?? 0 > 0{
-                var viewControllers = nav!.viewControllers
+                var viewControllers = nav.viewControllers
                 viewControllers.removeAll { vc -> Bool in
                     toReplacedViewControlelrs!.contains(vc)
                 }
-                viewControllers.append(viewControlelr)
+                viewControllers.append(viewController)
                 
-                nav!.setViewControllers(viewControllers, animated: true)
+                nav.setViewControllers(viewControllers, animated: true)
             }else{
-                nav!.pushViewController(viewControlelr, animated: true)
+                nav.pushViewController(viewController, animated: true)
             }
+        }else{
+            GKLog("There is no navigationController")
+        }
+    }
+    
+    func gkPush(with viewController: UIViewController, replace toReplacedViewControlelrs: [UIViewController]?){
+        NSObject.gkPushViewController(viewController, replace: toReplacedViewControlelrs)
+    }
+    
+    /// 替换当前 页面，如果有存在navigationController, 则替换成功
+    /// - Parameter viewController: 要push 的视图控制器
+    static func gkReplace(with viewController: UIViewController){
+        
+        if let nav = self.gkCurrentNavigationController {
+            var viewControllers = nav.viewControllers
+            viewControllers.removeLast()
+            viewControllers.append(viewController)
+            
+            nav.setViewControllers(viewControllers, animated: true)
             
         }else{
-            // TODO:
+            GKLog("There is no navigationController")
         }
     }
 }
