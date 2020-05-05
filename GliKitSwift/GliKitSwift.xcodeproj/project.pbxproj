@@ -86,6 +86,7 @@
 		CEDAEEF12431EB7F00F03100 /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDAEEF02431EB7F00F03100 /* RefreshControl.swift */; };
 		CEDAEEF32431EEB000F03100 /* DefaultRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDAEEF22431EEB000F03100 /* DefaultRefreshControl.swift */; };
 		CEDAEEF52431F36D00F03100 /* UIScrollView+Refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDAEEF42431F36C00F03100 /* UIScrollView+Refresh.swift */; };
+		CEDB8D612461119F0056A3F6 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDB8D602461119F0056A3F6 /* Date+Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -182,6 +183,7 @@
 		CEDAEEF02431EB7F00F03100 /* RefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshControl.swift; sourceTree = "<group>"; };
 		CEDAEEF22431EEB000F03100 /* DefaultRefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRefreshControl.swift; sourceTree = "<group>"; };
 		CEDAEEF42431F36C00F03100 /* UIScrollView+Refresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Refresh.swift"; sourceTree = "<group>"; };
+		CEDB8D602461119F0056A3F6 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
 		DF016891A7E05E1EDD44C01C /* Pods_GliKitSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GliKitSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -400,6 +402,7 @@
 				CE0594C02436C53900510AD2 /* NSAttributedString+Utils.swift */,
 				CED4CB72245186B800369B04 /* ConversionUtils.swift */,
 				CE58C66C2452EFC8006A654E /* UIApplication+Utils.swift */,
+				CEDB8D602461119F0056A3F6 /* Date+Utils.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -610,6 +613,7 @@
 				CE52B0CF2435F39800B85D8D /* Button.swift in Sources */,
 				CE6996ED23D822AE00A99469 /* UIView+Utils.swift in Sources */,
 				CECB37372429B1EB00C92687 /* DispatchQueue+Utils.swift in Sources */,
+				CEDB8D612461119F0056A3F6 /* Date+Utils.swift in Sources */,
 				CEA6656B242DE544003D8E71 /* DataControl.swift in Sources */,
 				CEDAEEF52431F36D00F03100 /* UIScrollView+Refresh.swift in Sources */,
 				CEAE533623D1B3C50073882E /* String+Utils.swift in Sources */,
