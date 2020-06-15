@@ -11,7 +11,7 @@ DEPENDENCIES:
   - GliKitSwift (from `../GliKitSwift`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - Kingfisher
     - SnapKit
@@ -28,4 +28,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 2b3fc8242d3ab3ae6858e4c7b8f3b9f4ccf79f18
 
-COCOAPODS: 1.6.0.beta.2
+COCOAPODS: 1.9.1
