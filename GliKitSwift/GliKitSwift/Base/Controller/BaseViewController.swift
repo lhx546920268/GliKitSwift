@@ -226,7 +226,11 @@ open class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
         backBarButtonItem.title = ""
         self.navigationItem.backBarButtonItem = backBarButtonItem
         
-        self.automaticallyAdjustsScrollViewInsets = false
+        if #available(iOS 11.0, *) {
+            
+        } else {
+            self.automaticallyAdjustsScrollViewInsets = false
+        }
         self.navigationItem.hidesBackButton = true
         
         //显示自定义导航栏

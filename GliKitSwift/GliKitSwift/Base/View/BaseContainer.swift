@@ -21,7 +21,7 @@ public struct SafeLayoutGuide: OptionSet {
         self.rawValue = rawValue
     }
     
-    public static let none = SafeLayoutGuide(rawValue: 0)
+    public static let none = SafeLayoutGuide([])
     
     public static let top = SafeLayoutGuide(rawValue: 1)
     
@@ -44,7 +44,7 @@ public struct OverlayArea: OptionSet {
     }
     
     ///都不遮住 header 和 footer会看到得到
-    public static let none = OverlayArea(rawValue: 0)
+    public static let none = OverlayArea([])
     
     ///pageloading视图将遮住header
     public static let pageLoadingTop = OverlayArea(rawValue: 1 << 1)
@@ -68,9 +68,7 @@ public struct OverlayArea: OptionSet {
     public static let all = OverlayArea(rawValue: top.rawValue | bottom.rawValue)
 }
 
-/**
- 基础容器视图
- */
+///基础容器视图
 open class BaseContainer: UIView {
     
     ///固定在顶部的视图
@@ -201,25 +199,25 @@ extension BaseContainer {
                 if viewController != nil && safeLayoutGuide.contains(.top) {
                     maker.top.equalTo(viewController!.gkSafeAreaLayoutGuideTop)
                 } else {
-                    maker.top.equalTo(snp_top)
+                    maker.top.equalTo(snp.top)
                 }
                 
                 if viewController != nil && safeLayoutGuide.contains(.left) {
                     maker.leading.equalTo(viewController!.gkSafeAreaLayoutGuideLeft)
                 } else {
-                    maker.leading.equalTo(snp_leading)
+                    maker.leading.equalTo(snp.leading)
                 }
                 
                 if viewController != nil && safeLayoutGuide.contains(.right) {
                     maker.trailing.equalTo(viewController!.gkSafeAreaLayoutGuideRight)
                 } else {
-                    maker.trailing.equalTo(snp_trailing)
+                    maker.trailing.equalTo(snp.trailing)
                 }
             }
             
             if contentView != nil {
                 contentView!.snp.updateConstraints { (maker) in
-                    maker.top.equalTo(topView!.snp_bottom)
+                    maker.top.equalTo(topView!.snp.bottom)
                 }
             }
             
@@ -230,7 +228,7 @@ extension BaseContainer {
                     if viewController != nil && safeLayoutGuide.contains(.top) {
                         maker.top.equalTo(viewController!.gkSafeAreaLayoutGuideTop)
                     } else {
-                        maker.top.equalTo(snp_top)
+                        maker.top.equalTo(snp.top)
                     }
                 }
             }
@@ -254,25 +252,25 @@ extension BaseContainer {
                 if viewController != nil && safeLayoutGuide.contains(.bottom) {
                     maker.bottom.equalTo(viewController!.gkSafeAreaLayoutGuideBottom)
                 } else {
-                    maker.top.equalTo(snp_bottom)
+                    maker.top.equalTo(snp.bottom)
                 }
                 
                 if viewController != nil && safeLayoutGuide.contains(.left) {
                     maker.leading.equalTo(viewController!.gkSafeAreaLayoutGuideLeft)
                 } else {
-                    maker.leading.equalTo(snp_leading)
+                    maker.leading.equalTo(snp.leading)
                 }
                 
                 if viewController != nil && safeLayoutGuide.contains(.right) {
                     maker.trailing.equalTo(viewController!.gkSafeAreaLayoutGuideRight)
                 } else {
-                    maker.trailing.equalTo(snp_trailing)
+                    maker.trailing.equalTo(snp.trailing)
                 }
             }
             
             if contentView != nil {
                 contentView!.snp.updateConstraints { (maker) in
-                    maker.bottom.equalTo(bottomView!.snp_top)
+                    maker.bottom.equalTo(bottomView!.snp.top)
                 }
             }
             
@@ -283,7 +281,7 @@ extension BaseContainer {
                     if viewController != nil && safeLayoutGuide.contains(.bottom) {
                         maker.bottom.equalTo(viewController!.gkSafeAreaLayoutGuideBottom)
                     } else {
-                        maker.bottom.equalTo(snp_bottom)
+                        maker.bottom.equalTo(snp.bottom)
                     }
                 }
             }
@@ -306,32 +304,32 @@ extension BaseContainer {
                 if viewController != nil && safeLayoutGuide.contains(.left) {
                     maker.leading.equalTo(viewController!.gkSafeAreaLayoutGuideLeft)
                 } else {
-                    maker.leading.equalTo(snp_leading)
+                    maker.leading.equalTo(snp.leading)
                 }
                 
                 if viewController != nil && safeLayoutGuide.contains(.right) {
                     maker.trailing.equalTo(viewController!.gkSafeAreaLayoutGuideRight)
                 } else {
-                    maker.trailing.equalTo(snp_trailing)
+                    maker.trailing.equalTo(snp.trailing)
                 }
                 
                 if topView != nil {
-                    maker.top.equalTo(topView!.snp_bottom)
+                    maker.top.equalTo(topView!.snp.bottom)
                 } else {
                     if viewController != nil && safeLayoutGuide.contains(.top) {
                         maker.top.equalTo(viewController!.gkSafeAreaLayoutGuideTop)
                     } else {
-                        maker.top.equalTo(snp_top)
+                        maker.top.equalTo(snp.top)
                     }
                 }
                 
                 if bottomView != nil {
-                    maker.bottom.equalTo(bottomView!.snp_top)
+                    maker.bottom.equalTo(bottomView!.snp.top)
                 } else {
                     if viewController != nil && safeLayoutGuide.contains(.bottom) {
                         maker.bottom.equalTo(viewController!.gkSafeAreaLayoutGuideBottom)
                     } else {
-                        maker.bottom.equalTo(snp_bottom)
+                        maker.bottom.equalTo(snp.bottom)
                     }
                 }
             }

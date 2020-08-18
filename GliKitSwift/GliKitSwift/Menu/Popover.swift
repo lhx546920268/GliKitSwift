@@ -86,9 +86,9 @@ open class Popover: UIView, UIGestureRecognizerDelegate {
     }
     
     ///圆角
-    public var cornerRadius: CGFloat = 0 {
+    public var popoverCornerRadius: CGFloat = 0 {
         didSet{
-            if oldValue != self.cornerRadius {
+            if oldValue != self.popoverCornerRadius {
                 setNeedsDisplay()
             }
         }

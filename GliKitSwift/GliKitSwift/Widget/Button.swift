@@ -8,6 +8,29 @@
 
 import UIKit
 
+@propertyWrapper
+public struct NeedLayoutWrapper<T: Equatable> {
+    
+    weak var view: UIView?
+    private var value: T
+    
+    public var wrappedValue: T {
+        set{
+            if value != newValue {
+                value = newValue
+                view?.setNeedsLayout()
+            }
+        }
+        get{
+            value
+        }
+    }
+
+    public init(wrappedValue: T) {
+        value = wrappedValue
+    }
+}
+
 /**
  Button 图标位置
  */
@@ -33,30 +56,31 @@ public enum ButtonImagePosition{
 open class Button: UIButton {
     
     ///图标位置
-    public var imagePosition = ButtonImagePosition.left{
-        didSet{
-            if oldValue != self.imagePosition {
-                setNeedsLayout()
-            }
-        }
-    }
+    @NeedLayoutWrapper
+    public var imagePosition: ButtonImagePosition = .left
     
     ///图标和文字间隔
-    public var imagePadding: CGFloat = 0{
-        didSet{
-            if oldValue != self.imagePadding {
-                setNeedsLayout()
-            }
-        }
-    }
+    @NeedLayoutWrapper
+    public var imagePadding: CGFloat = 0
     
     ///图标大小
-    public var imageSize = CGSize.zero{
-        didSet{
-            if oldValue != self.imageSize {
-                setNeedsLayout()
-            }
-        }
+    @NeedLayoutWrapper
+    public var imageSize: CGSize = CGSize.zero
+    
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        initParams()
+    }
+    
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        initParams()
+    }
+    
+    private func initParams(){
+        _imagePosition.view = self
+        _imagePadding.view = self
+        _imageSize.view = self
     }
     
     override open var intrinsicContentSize: CGSize{

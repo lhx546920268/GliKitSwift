@@ -7,7 +7,7 @@
   "license": "MIT",
   "authors": "luohaixiong",
   "platforms": {
-    "ios": "9.0"
+    "ios": "10.0"
   },
   "source": {
     "git": "https://github.com/lhx546920268/GliKitSwift.git",

@@ -293,7 +293,7 @@ public struct NavigationItemPosition: OptionSet {
         self.rawValue = rawValue
     }
     
-    public static let left = NavigationItemPosition(rawValue: 0)
+    public static let left = NavigationItemPosition([])
     
     public static let right = NavigationItemPosition(rawValue: 1)
 }

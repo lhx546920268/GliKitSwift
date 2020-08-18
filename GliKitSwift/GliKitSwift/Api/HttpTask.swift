@@ -43,34 +43,53 @@ open class HttpTask: NSObject {
     // MARK: - http参数
     
     ///请求超时
-    public var timeoutInterval: Double = 15
+    public var timeoutInterval: TimeInterval = 15
     
     ///默认get
-    public var httpMethod = HTTPMethod.get
+    open var httpMethod: HTTPMethod{
+        get{
+            .get
+        }
+    }
     
     ///请求链接
-    public var requestURL: String?
+    open var requestURL: String{
+        get{
+            ""
+        }
+    }
     
     ///请求头
-    public var headers: HTTPHeaders?
+    open var headers: HTTPHeaders?{
+        get{
+            nil
+        }
+    }
     
     ///请求参数
-    public var params: Parameters?
+    open var params: Parameters?{
+        get{
+            nil
+        }
+    }
     
     ///文件
-    public var files: Dictionary<String, String>?
-    
+    open var files: Dictionary<String, String>?{
+        get{
+            nil
+        }
+    }
     
     // MARK: - 状态
     
     ///是否正在执行
-    func isExecuting() -> Bool {
-        return false
+    public var isExecuting: Bool {
+        return request?.isResumed ?? false
     }
     
     ///是否暂停
-    func isSuspended() -> Bool {
-        return false
+    public var isSuspended: Bool {
+        return request?.isSuspended ?? false
     }
     
     ///是否是自己取消
@@ -134,7 +153,8 @@ open class HttpTask: NSObject {
     open func onStart(){
         HttpTask.sharedTasks.insert(self)
         if shouldShowloadingHUD {
-            // TODO: 要加loading
+            UIApplication.shared.keyWindow?.endEditing(true)
+            view?.gkShowProgressHUD(delay: loadingHUDDelay)
         }
     }
     
@@ -158,10 +178,11 @@ open class HttpTask: NSObject {
     /// 请求完成 无论是 失败 成功 或者取消
     open func onComplete(){
         
-        // TODO: 要加loading
-        if !isCanceled {
-            delegate?.taskDidComplete(self)
+        if shouldShowloadingHUD {
+            view?.gkDismissProgress()
         }
+        delegate?.taskDidComplete(self)
+        request = nil
         HttpTask.sharedTasks.remove(self)
     }
     
@@ -169,61 +190,62 @@ open class HttpTask: NSObject {
     
     /// 开始请求
     open func start(){
-        if isExecuting() {
-            return
+        DispatchQueue.synchronized(token: self) {
+            if isExecuting || isCanceled {
+                return
+            }
+            
+            onStart()
+            createRequestIfNeeded()
+            request?.resume()
         }
-        
-        guard requestURL != nil else {
-            
-            GKLog("\(name) requestURL can not be nil")
-            onFail()
-            return
-        }
-        
-        onStart()
-        if let uploadFiles = files, uploadFiles.count > 0 {
-            
-            Alamofire.upload(multipartFormData: { formdata in
+    }
+    
+    ///创建请求
+    private func createRequestIfNeeded() {
+        if request == nil {
+            let completion: (Alamofire.AFDataResponse<Any>) -> Void = { [weak self] (response: AFDataResponse<Any>) in
                 
-                for (key, filePath) in uploadFiles {
-                    formdata.append(URL(fileURLWithPath: filePath), withName: key)
-                }
-          
-            }, to: requestURL!, headers: headers, encodingCompletion: { [weak self] result in
-                switch result {
-                case .success(let request, _, _) :
-                    self?.request = request
-                case .failure(let error) :
-                    self?.processError(error)
-                }
-            })
-            
-        } else {
-            request = Alamofire.request(requestURL!, method: httpMethod, parameters: params, headers: headers).responseJSON { [weak self] response in
-                
-                if self != nil {
-                    if response.result.isSuccess {
-                        let value = response.result.value
+                if let self = self {
+                    
+                    if case .success(let value) = response.result {
                         if value is JSONResult {
                             let result = value as! JSONResult
-                            self?.processSuccessResult(result)
+                            self.processSuccessResult(result)
                         } else {
-                            self?.processError(HttpError.resultFormatError)
+                            self.processError(HttpError.resultFormatError)
                         }
                     } else {
-                        self?.processError(response.error)
+                        self.processError(response.error)
                     }
                 }
+            }
+            if let uploadFiles = files, uploadFiles.count > 0 {
+                
+                request = AF.upload(multipartFormData: { formData in
+                    for (key, filePath) in uploadFiles {
+                        formData.append(URL(fileURLWithPath: filePath), withName: key)
+                    }
+                }, to: requestURL, headers: headers).responseJSON(completionHandler: completion)
+            } else {
+                
+                request = AF.request(requestURL, method: httpMethod, parameters: params, headers: headers).responseJSON(completionHandler: completion)
             }
         }
     }
     
     /// 取消
     open func cancel(){
-        if(isSuspended() || isExecuting()){
-            isCanceled = true
-            request?.cancel()
-            onComplete()
+        DispatchQueue.synchronized(token: self) {
+            if(!isCanceled){
+                isCanceled = true
+                
+                if isExecuting || isSuspended {
+                    request?.cancel()
+                }
+                
+                onComplete()
+            }
         }
     }
     
@@ -275,17 +297,27 @@ open class HttpTask: NSObject {
         onSuccess()
         delegate?.taskDidSuccess(self)
         
-        successCallback?(self)
-        onComplete()
+        DispatchQueue.main.safeAsync { [weak self] in
+            if let self = self {
+                if !self.isCanceled {
+                    self.successCallback?(self)
+                    self.onComplete()
+                }
+            }
+        }
     }
     
     ///请求失败
     public func requestDidFail() {
-        willFailCallback?(self)
-        onFail()
-        failCallback?(self)
-        delegate?.taskDidFail(self)
-        onComplete()
+        DispatchQueue.main.safeAsync { [weak self] in
+            if let self = self {
+                self.willFailCallback?(self)
+                self.onFail()
+                self.failCallback?(self)
+                self.delegate?.taskDidFail(self)
+                self.onComplete()
+            }
+        }
     }
 }
 

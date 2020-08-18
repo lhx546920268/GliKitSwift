@@ -40,7 +40,7 @@ public extension UIViewController{
             if #available(iOS 11, *) {
                 return self.view.safeAreaLayoutGuide
             }else{
-                return self.view.snp_leading
+                return self.view.snp.leading
             }
         }
     }
@@ -51,7 +51,7 @@ public extension UIViewController{
             if #available(iOS 11, *) {
                 return self.view.safeAreaLayoutGuide
             }else{
-                return self.view.snp_trailing
+                return self.view.snp.trailing
             }
         }
     }

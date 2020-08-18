@@ -21,7 +21,7 @@ Pod::Spec.new do |spec|
 
   spec.author             = "luohaixiong"
 
-  spec.platform     = :ios, "9.0"
+  spec.platform     = :ios, "10.0"
 
   spec.source = { :git => "https://github.com/lhx546920268/GliKitSwift.git", :tag => "v#{spec.version}" }
   spec.source_files  = "GliKitSwift/**/*.{swift}"

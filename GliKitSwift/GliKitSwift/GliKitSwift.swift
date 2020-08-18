@@ -8,6 +8,8 @@
 
 import UIKit
 
+public typealias VoidClosure = () -> Void
+
 public class GliKitSwift {
 
     ///初始化 只调用一次

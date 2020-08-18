@@ -16,6 +16,8 @@
 		CE160E1D242462BD008E7392 /* NavigationItemHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E1C242462BD008E7392 /* NavigationItemHelper.swift */; };
 		CE160E1F242471E7008E7392 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E1E242471E7008E7392 /* BaseViewModel.swift */; };
 		CE160E212424A350008E7392 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E202424A350008E7392 /* BaseNavigationController.swift */; };
+		CE3E8C1F24C54F48001A66EC /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3E8C1E24C54F48001A66EC /* BannerView.swift */; };
+		CE3E8C2124C56F07001A66EC /* CountDownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3E8C2024C56F07001A66EC /* CountDownTimer.swift */; };
 		CE52B0CA2435E81D00B85D8D /* MenuBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52B0C92435E81D00B85D8D /* MenuBarItem.swift */; };
 		CE52B0CC2435F2DB00B85D8D /* TabMenuBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52B0CB2435F2DB00B85D8D /* TabMenuBarItem.swift */; };
 		CE52B0CF2435F39800B85D8D /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52B0CE2435F39800B85D8D /* Button.swift */; };
@@ -112,6 +114,8 @@
 		CE160E1C242462BD008E7392 /* NavigationItemHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationItemHelper.swift; sourceTree = "<group>"; };
 		CE160E1E242471E7008E7392 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		CE160E202424A350008E7392 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		CE3E8C1E24C54F48001A66EC /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
+		CE3E8C2024C56F07001A66EC /* CountDownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownTimer.swift; sourceTree = "<group>"; };
 		CE52B0C92435E81D00B85D8D /* MenuBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarItem.swift; sourceTree = "<group>"; };
 		CE52B0CB2435F2DB00B85D8D /* TabMenuBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuBarItem.swift; sourceTree = "<group>"; };
 		CE52B0CE2435F39800B85D8D /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -213,6 +217,7 @@
 			children = (
 				CE52B0CE2435F39800B85D8D /* Button.swift */,
 				CE0594C42437137B00510AD2 /* Divider.swift */,
+				CE3E8C1E24C54F48001A66EC /* BannerView.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -508,6 +513,7 @@
 			isa = PBXGroup;
 			children = (
 				CECB373B2429F44100C92687 /* WeakObjectContainer.swift */,
+				CE3E8C2024C56F07001A66EC /* CountDownTimer.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -548,7 +554,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = luohaixiong;
 				TargetAttributes = {
 					CE9E4C1723D062A300C0F63D = {
@@ -664,6 +670,7 @@
 				CEB6D2C623D3F08700457164 /* UIFont+Theme.swift in Sources */,
 				CED1DFC5243DC8C700236BC1 /* UICollectionView+Utils.swift in Sources */,
 				CE160E1F242471E7008E7392 /* BaseViewModel.swift in Sources */,
+				CE3E8C1F24C54F48001A66EC /* BannerView.swift in Sources */,
 				CE0594C924373D5D00510AD2 /* TabMenuBar.swift in Sources */,
 				CEC478FF24348128007D51CE /* PageViewController.swift in Sources */,
 				CEBE0965244EFDAD0016EEFA /* UIView+EmptyView.swift in Sources */,
@@ -680,6 +687,7 @@
 				CECB373C2429F44100C92687 /* WeakObjectContainer.swift in Sources */,
 				CE0594C72437146200510AD2 /* UIView+AutoLayout.swift in Sources */,
 				CE6996E723D7EC2C00A99469 /* PartialPresentationController.swift in Sources */,
+				CE3E8C2124C56F07001A66EC /* CountDownTimer.swift in Sources */,
 				CED4CB7524519F7100369B04 /* UIViewController+EmptyView.swift in Sources */,
 				CEC9C31E242AFCF60082E631 /* BaseError.swift in Sources */,
 				CED4CB712451839000369B04 /* UINavigationItem+Utils.swift in Sources */,
@@ -715,6 +723,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -739,7 +748,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -776,6 +785,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -794,7 +804,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "";

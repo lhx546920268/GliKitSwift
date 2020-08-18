@@ -11,9 +11,9 @@ import UIKit
 public extension UIView {
     
     ///通过xib加载 xib的名称必须和类的名称一致
-    static func loadFromNib<T: UIView>() -> T?{
+    static func loadFromNib() -> UIView?{
         
-        return Bundle.main.loadNibNamed(self.gkNameOfClass, owner: nil, options: nil)?.last as? T
+        return Bundle.main.loadNibNamed(self.gkNameOfClass, owner: nil, options: nil)?.last as? UIView
     }
     
     ///删除所有子视图

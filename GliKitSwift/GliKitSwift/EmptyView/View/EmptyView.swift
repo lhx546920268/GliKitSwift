@@ -54,7 +54,7 @@ open class EmptyView: UIView {
                         self.contentView.removeConstraint(constraint)
                     }
                     _textLabel?.snp.makeConstraints({ (make) in
-                        make.top.equalTo(iconImageView.snp_bottom).offset(10)
+                        make.top.equalTo(iconImageView.snp.bottom).offset(10)
                     })
                 }else{
                     
@@ -90,7 +90,7 @@ open class EmptyView: UIView {
                         if let constraint = _iconImageView?.gkBottomLayoutConstraint {
                             self.contentView.removeConstraint(constraint)
                         }
-                        make.top.equalTo(_iconImageView!.snp_bottom).offset(10)
+                        make.top.equalTo(_iconImageView!.snp.bottom).offset(10)
                     } else {
                         make.top.equalTo(0)
                     }

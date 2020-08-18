@@ -182,7 +182,7 @@ open class PageLoadingContentView: UIView {
         
         addSubview(textLabel)
         textLabel.snp.makeConstraints { maker in
-            maker.leading.equalTo(indicatorView.snp_trailing).offset(5)
+            maker.leading.equalTo(indicatorView.snp.trailing).offset(5)
             maker.trailing.top.bottom.equalTo(0)
         }
     }
@@ -227,7 +227,7 @@ open class PageErrorContentView: UIView {
         addSubview(textLabel)
         textLabel.snp.makeConstraints { maker in
             maker.leading.trailing.bottom.equalTo(0)
-            maker.top.equalTo(imageView.snp_bottom).offset(25)
+            maker.top.equalTo(imageView.snp.bottom).offset(25)
         }
     }
 }

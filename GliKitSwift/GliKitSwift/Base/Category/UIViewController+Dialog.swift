@@ -529,7 +529,11 @@ public extension UIViewController{
             }
             self.dialogBackgroundView = view
             
-            self.automaticallyAdjustsScrollViewInsets = false
+            if #available(iOS 11.0, *) {
+                
+            } else {
+                self.automaticallyAdjustsScrollViewInsets = false
+            }
             self.view.backgroundColor = .clear
         }
     }

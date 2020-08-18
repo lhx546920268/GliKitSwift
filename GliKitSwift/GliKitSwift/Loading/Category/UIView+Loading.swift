@@ -143,7 +143,7 @@ public extension UIView {
     }
 
     ///显示hud
-    func gkShowProgressHUD(text: String, status: ProgressHUDStatus = .success, delay: Double = 0, in view: UIView? = nil){
+    func gkShowProgressHUD(text: String? = nil, status: ProgressHUDStatus = .success, delay: Double = 0, in view: UIView? = nil){
         
         let keyboardWindow = UIApplication.shared.windows.last
         var targetView = view ?? self
