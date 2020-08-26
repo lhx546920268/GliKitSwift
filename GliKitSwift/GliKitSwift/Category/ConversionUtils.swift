@@ -8,6 +8,7 @@
 
 import UIKit
 
+///值转换扩展
 public extension BinaryFloatingPoint{
     
     var intValue: Int{

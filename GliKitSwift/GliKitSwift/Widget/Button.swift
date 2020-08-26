@@ -8,29 +8,6 @@
 
 import UIKit
 
-@propertyWrapper
-public struct NeedLayoutWrapper<T: Equatable> {
-    
-    weak var view: UIView?
-    private var value: T
-    
-    public var wrappedValue: T {
-        set{
-            if value != newValue {
-                value = newValue
-                view?.setNeedsLayout()
-            }
-        }
-        get{
-            value
-        }
-    }
-
-    public init(wrappedValue: T) {
-        value = wrappedValue
-    }
-}
-
 /**
  Button 图标位置
  */

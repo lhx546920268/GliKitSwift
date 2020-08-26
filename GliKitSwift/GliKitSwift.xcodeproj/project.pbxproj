@@ -16,6 +16,9 @@
 		CE160E1D242462BD008E7392 /* NavigationItemHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E1C242462BD008E7392 /* NavigationItemHelper.swift */; };
 		CE160E1F242471E7008E7392 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E1E242471E7008E7392 /* BaseViewModel.swift */; };
 		CE160E212424A350008E7392 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E202424A350008E7392 /* BaseNavigationController.swift */; };
+		CE2A23EA24F5F680004C5E66 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2A23E924F5F680004C5E66 /* PageView.swift */; };
+		CE2A23ED24F60520004C5E66 /* NeedLayoutWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2A23EC24F60520004C5E66 /* NeedLayoutWrapper.swift */; };
+		CE2A23EF24F60570004C5E66 /* RangeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2A23EE24F60570004C5E66 /* RangeWrapper.swift */; };
 		CE3E8C1F24C54F48001A66EC /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3E8C1E24C54F48001A66EC /* BannerView.swift */; };
 		CE3E8C2124C56F07001A66EC /* CountDownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3E8C2024C56F07001A66EC /* CountDownTimer.swift */; };
 		CE52B0CA2435E81D00B85D8D /* MenuBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52B0C92435E81D00B85D8D /* MenuBarItem.swift */; };
@@ -114,6 +117,9 @@
 		CE160E1C242462BD008E7392 /* NavigationItemHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationItemHelper.swift; sourceTree = "<group>"; };
 		CE160E1E242471E7008E7392 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		CE160E202424A350008E7392 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		CE2A23E924F5F680004C5E66 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
+		CE2A23EC24F60520004C5E66 /* NeedLayoutWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedLayoutWrapper.swift; sourceTree = "<group>"; };
+		CE2A23EE24F60570004C5E66 /* RangeWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeWrapper.swift; sourceTree = "<group>"; };
 		CE3E8C1E24C54F48001A66EC /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
 		CE3E8C2024C56F07001A66EC /* CountDownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownTimer.swift; sourceTree = "<group>"; };
 		CE52B0C92435E81D00B85D8D /* MenuBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarItem.swift; sourceTree = "<group>"; };
@@ -212,12 +218,22 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		CE2A23EB24F6050C004C5E66 /* Wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				CE2A23EC24F60520004C5E66 /* NeedLayoutWrapper.swift */,
+				CE2A23EE24F60570004C5E66 /* RangeWrapper.swift */,
+			);
+			path = Wrapper;
+			sourceTree = "<group>";
+		};
 		CE52B0CD2435F38D00B85D8D /* Widget */ = {
 			isa = PBXGroup;
 			children = (
 				CE52B0CE2435F39800B85D8D /* Button.swift */,
 				CE0594C42437137B00510AD2 /* Divider.swift */,
 				CE3E8C1E24C54F48001A66EC /* BannerView.swift */,
+				CE2A23E924F5F680004C5E66 /* PageView.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -254,6 +270,7 @@
 		CE9E4C1A23D062A300C0F63D /* GliKitSwift */ = {
 			isa = PBXGroup;
 			children = (
+				CE2A23EB24F6050C004C5E66 /* Wrapper */,
 				CEBE095F244EF76E0016EEFA /* EmptyView */,
 				CE52B0CD2435F38D00B85D8D /* Widget */,
 				CEC4790024348197007D51CE /* Menu */,
@@ -616,6 +633,7 @@
 				CEBEB51F23D54336000B8CBF /* Collection+Utils.swift in Sources */,
 				CED98AC724498BF300F3353F /* UIView+ Geometry.swift in Sources */,
 				CE96AD2C243C0E1600A4FBAA /* Popover.swift in Sources */,
+				CE2A23ED24F60520004C5E66 /* NeedLayoutWrapper.swift in Sources */,
 				CE52B0CF2435F39800B85D8D /* Button.swift in Sources */,
 				CE6996ED23D822AE00A99469 /* UIView+Utils.swift in Sources */,
 				CECB37372429B1EB00C92687 /* DispatchQueue+Utils.swift in Sources */,
@@ -651,6 +669,7 @@
 				CEB6D2CA23D3F9BA00457164 /* SystemNavigationBar.swift in Sources */,
 				CEC6AF4B2456DA01006B22BB /* UIView+XibUtils.swift in Sources */,
 				CEC9C31C242AF2D50082E631 /* UIViewController+Dialog.swift in Sources */,
+				CE2A23EA24F5F680004C5E66 /* PageView.swift in Sources */,
 				CEA6656F242E0867003D8E71 /* DefaultLoadMoreControl.swift in Sources */,
 				CEB6D2CD23D3FAD600457164 /* HttpTask.swift in Sources */,
 				CEB6D2CF23D440E900457164 /* HttpError.swift in Sources */,
@@ -675,6 +694,7 @@
 				CEC478FF24348128007D51CE /* PageViewController.swift in Sources */,
 				CEBE0965244EFDAD0016EEFA /* UIView+EmptyView.swift in Sources */,
 				CED4CB772451A01500369B04 /* UIScrollView+EmptyView.swift in Sources */,
+				CE2A23EF24F60570004C5E66 /* RangeWrapper.swift in Sources */,
 				CEBE095A244ED5EA0016EEFA /* UITableView+Utils.swift in Sources */,
 				CEBEB52A23D59564000B8CBF /* UIView+Loading.swift in Sources */,
 				CE0594C32437121900510AD2 /* TabMenuBarCell.swift in Sources */,
