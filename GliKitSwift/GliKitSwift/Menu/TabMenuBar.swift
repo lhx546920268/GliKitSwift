@@ -33,7 +33,7 @@ open class TabMenuBar: MenuBar {
     public var _selectedFont: UIFont?
     public var selectedFont: UIFont?{
         get{
-            return _selectedFont != nil ? _selectedFont : self.normalFont
+            _selectedFont != nil ? _selectedFont : self.normalFont
         }
         set{
             _selectedFont = newValue
@@ -73,16 +73,12 @@ open class TabMenuBar: MenuBar {
     
     ///按钮信息 设置此值会导致菜单重新加载数据
     private var tabItems: [TabMenuBarItem]?{
-        get{
-            super.items as? [TabMenuBarItem]
-        }
+        super.items as? [TabMenuBarItem]
     }
     
     ///代理
     private var tabDelegate: TabMenuBarDelegate?{
-        get{
-            super.delegate as? TabMenuBarDelegate
-        }
+        super.delegate as? TabMenuBarDelegate
     }
 
 

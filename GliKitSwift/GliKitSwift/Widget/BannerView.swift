@@ -117,16 +117,12 @@ open class BannerView: UIView, UICollectionViewDataSource, UICollectionViewDeleg
 
     ///是否在拖动
     public var isDragging: Bool{
-        get{
-            self.collectionView.isDragging
-        }
+        self.collectionView.isDragging
     }
 
     ///是否在减速
     public var isDecelerating: Bool{
-        get{
-            self.collectionView.isDecelerating
-        }
+        self.collectionView.isDecelerating
     }
 
     ///数量

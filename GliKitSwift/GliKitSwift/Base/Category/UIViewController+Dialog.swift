@@ -97,12 +97,10 @@ public extension UIViewController{
     
     ///关联的窗口
     var dialogWindow: UIWindow?{
-        get{
-            if dialogShouldUseNewWindow {
-                return UIApplication.shared.dialogWindow
-            } else {
-                return UIApplication.shared.delegate?.window as? UIWindow
-            }
+        if dialogShouldUseNewWindow {
+            return UIApplication.shared.dialogWindow
+        } else {
+            return UIApplication.shared.delegate?.window as? UIWindow
         }
     }
     
@@ -129,15 +127,13 @@ public extension UIViewController{
     
     ///点击背景手势
     var tapDialogBackgroundGestureRecognizer: UITapGestureRecognizer{
-        get{
-            var tap = objc_getAssociatedObject(self, &tapDialogBackgroundGestureRecognizerKey) as? UITapGestureRecognizer
-            if tap == nil {
-                tap = UITapGestureRecognizer(target: self, action: #selector(dismissDialog))
-                objc_setAssociatedObject(self, &tapDialogBackgroundGestureRecognizerKey, tap, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            }
-            
-            return tap!
+        var tap = objc_getAssociatedObject(self, &tapDialogBackgroundGestureRecognizerKey) as? UITapGestureRecognizer
+        if tap == nil {
+            tap = UITapGestureRecognizer(target: self, action: #selector(dismissDialog))
+            objc_setAssociatedObject(self, &tapDialogBackgroundGestureRecognizerKey, tap, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
+        
+        return tap!
     }
     
     ///弹窗是否需要动画

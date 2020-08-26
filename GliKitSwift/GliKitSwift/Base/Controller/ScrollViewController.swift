@@ -21,9 +21,7 @@ open class ScrollViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     override open var viewModel: ScrollViewModel?{
-        get{
-            super.viewModel as? ScrollViewModel
-        }
+        super.viewModel as? ScrollViewModel
     }
 
     ///滑动时是否隐藏键盘
@@ -40,9 +38,7 @@ open class ScrollViewController: BaseViewController, UIScrollViewDelegate {
 
     ///是否已初始化
     public var isInit: Bool{
-        get{
-            self.scrollView?.superview != nil
-        }
+        self.scrollView?.superview != nil
     }
 
     ///初始化视图 默认不做任何事 ，子类按需实现该方法
@@ -148,9 +144,7 @@ public extension ScrollViewController{
     
     ///下拉刷新视图
     var refreshControl: RefreshControl?{
-        get{
-            self.scrollView?.gkRefreshControl
-        }
+        self.scrollView?.gkRefreshControl
     }
 
     ///手动调用下拉刷新，会有下拉动画
@@ -197,9 +191,7 @@ public extension ScrollViewController{
     
     ///加载更多时的指示视图
     var loadMoreControl: LoadMoreControl?{
-        get{
-            self.scrollView?.gkLoadMoreControl
-        }
+        self.scrollView?.gkLoadMoreControl
     }
     
     ///手动加载更多，会有上拉动画

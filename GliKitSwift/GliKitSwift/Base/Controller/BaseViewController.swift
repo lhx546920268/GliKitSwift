@@ -14,9 +14,7 @@ open class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     ///关联的viewModel 如果有关联 调用viewModel对应方法
     private var _viewModel: BaseViewModel?
     open var viewModel: BaseViewModel?{
-        get{
-            _viewModel
-        }
+        _viewModel
     }
     
     func setViewModel(_ viewModel: BaseViewModel){
@@ -50,9 +48,7 @@ open class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle{
-        get{
-            return self.statusBarStyle
-        }
+        self.statusBarStyle
     }
     
     // MARK: - Task
@@ -81,13 +77,11 @@ open class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
 
     ///系统导航栏
     public var systemNavigationBar: SystemNavigationBar?{
-        get{
-            if let bar = self.navigationController?.navigationBar as? SystemNavigationBar {
-                return bar
-            }
-            
-            return nil;
+        if let bar = self.navigationController?.navigationBar as? SystemNavigationBar {
+            return bar
         }
+        
+        return nil
     }
 
     ///是否要创建自定义导航栏
@@ -95,9 +89,7 @@ open class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
 
     ///自定义导航栏类
     open var navigationBarClass: AnyClass{
-        get{
-            return NavigationBar.self
-        }
+        NavigationBar.self
     }
 
     ///设置导航栏隐藏
@@ -348,7 +340,7 @@ public extension BaseViewController{
             self.container?.topView = newValue
         }
         get{
-            return self.container?.topView
+            self.container?.topView
         }
     }
     
@@ -358,7 +350,7 @@ public extension BaseViewController{
             self.container?.bottomView = newValue
         }
         get{
-            return self.container?.bottomView
+            self.container?.bottomView
         }
     }
     
@@ -368,7 +360,7 @@ public extension BaseViewController{
             self.container?.contentView = newValue
         }
         get{
-            return self.container?.contentView
+            self.container?.contentView
         }
     }
 

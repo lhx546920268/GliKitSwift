@@ -47,37 +47,27 @@ open class HttpTask: NSObject {
     
     ///默认get
     open var httpMethod: HTTPMethod{
-        get{
-            .get
-        }
+        .get
     }
     
     ///请求链接
     open var requestURL: String{
-        get{
-            ""
-        }
+        ""
     }
     
     ///请求头
     open var headers: HTTPHeaders?{
-        get{
-            nil
-        }
+        nil
     }
     
     ///请求参数
     open var params: Parameters?{
-        get{
-            nil
-        }
+        nil
     }
     
     ///文件
     open var files: Dictionary<String, String>?{
-        get{
-            nil
-        }
+        nil
     }
     
     // MARK: - 状态

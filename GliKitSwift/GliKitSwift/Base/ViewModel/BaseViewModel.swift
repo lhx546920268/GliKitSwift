@@ -14,9 +14,7 @@ open class BaseViewModel: NSObject {
     ///绑定的viewController
     private weak var _viewController: BaseViewController?
     open var viewController: BaseViewController?{
-        get{
-            _viewController
-        }
+        _viewController
     }
     
     ///加载数据是否需要显示 pageLoading default is 'YES'

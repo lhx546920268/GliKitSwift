@@ -159,9 +159,7 @@ open class PopoverMenu: Popover, UITableViewDataSource, UITableViewDelegate {
     
     ///菜单代理
     private var menuDelegate: PopoverMenuDelegate?{
-        get{
-            self.delegate as? PopoverMenuDelegate
-        }
+        self.delegate as? PopoverMenuDelegate
     }
     
     ///按钮列表

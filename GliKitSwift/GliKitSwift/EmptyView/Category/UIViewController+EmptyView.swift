@@ -13,9 +13,7 @@ public extension UIViewController {
 
     ///空视图
     var gkEmptyView: EmptyView?{
-        get{
-            return self.view.gkEmptyView
-        }
+        self.view.gkEmptyView
     }
 
     ///设置显示空视图

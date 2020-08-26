@@ -12,18 +12,14 @@ import UIKit
 open class ScrollViewModel: BaseViewModel {
     
     override open var viewController: ScrollViewController?{
-        get{
-            super.viewController as? ScrollViewController
-        }
+        super.viewController as? ScrollViewController
     }
     
     //MARK: - Refresh
     
     ///是否正在刷新数据
     public var refreshing: Bool{
-        get{
-            self.viewController?.refreshing ?? false
-        }
+        self.viewController?.refreshing ?? false
     }
     
     ///手动调用下拉刷新，会有下拉动画
@@ -72,9 +68,7 @@ open class ScrollViewModel: BaseViewModel {
 
     ///是否正在加载更多
     public var loadingMore: Bool{
-        get{
-            return self.viewController?.loadingMore ?? false
-        }
+        return self.viewController?.loadingMore ?? false
     }
     
     ///手动加载更多，会有上拉动画

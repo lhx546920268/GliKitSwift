@@ -158,28 +158,24 @@ open class PageView: UIView, UIScrollViewDelegate {
     
     ///获取页面大小
     private var pageSize: CGFloat {
-        get{
-            switch scrollDirection {
-                
-            case .horizontal :
-                return floor(ratio * gkWidth)
-            case .vertical :
-                return floor(ratio * gkHeight)
-            case .none :
-                return 0
-            }
+        switch scrollDirection {
+            
+        case .horizontal :
+            return floor(ratio * gkWidth)
+        case .vertical :
+            return floor(ratio * gkHeight)
+        case .none :
+            return 0
         }
     }
     
     ///当前要显示的item数量
     private var numberOfNeededItems: Int {
-        get{
-            var count = numberOfItems
-            if(shouldScrollInfinitely){
-                count += 4
-            }
-            return count
+        var count = numberOfItems
+        if(shouldScrollInfinitely){
+            count += 4
         }
+        return count
     }
     
     ///计时器

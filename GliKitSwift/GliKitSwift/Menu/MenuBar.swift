@@ -91,9 +91,7 @@ open class MenuBar: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
 
     ///内容宽度
     public var contentWidth: CGFloat{
-        get{
-            self.gkWidth - self.contentInset.left - self.contentInset.right
-        }
+        self.gkWidth - self.contentInset.left - self.contentInset.right
     }
 
     //MARK: - 其他
@@ -120,9 +118,7 @@ open class MenuBar: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     
     ///是否可以调用代理
     private var callDelegateEnable: Bool {
-        get{
-            isClickItem || callDelegateWhenSetSelectedIndex
-        }
+        isClickItem || callDelegateWhenSetSelectedIndex
     }
 
     ///按钮信息 设置此值会导致菜单重新加载数据

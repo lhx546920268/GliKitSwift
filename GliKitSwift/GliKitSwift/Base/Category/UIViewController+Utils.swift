@@ -71,117 +71,101 @@ public extension UIViewController {
     
     ///状态栏高度
     var gkStatusBarHeight: CGFloat{
-        get{
-            var height: CGFloat = 0;
-            if #available(iOS 13.0, *) {
-                if let statusBarManager = UIApplication.shared.delegate?.window??.windowScene?.statusBarManager {
-                    height = statusBarManager.statusBarFrame.size.height
-                }
+        var height: CGFloat = 0;
+        if #available(iOS 13.0, *) {
+            if let statusBarManager = UIApplication.shared.delegate?.window??.windowScene?.statusBarManager {
+                height = statusBarManager.statusBarFrame.size.height
             }
-            
-            if height == 0 {
-                height = UIApplication.shared.statusBarFrame.size.height
-            }
-            
-            if height == 0 {
-                if (UIApplication.shared.delegate?.window??.gkSafeAreaInsets.bottom ?? 0) > 0 {
-                    height = 44;
-                }else{
-                    height = 20;
-                }
-            }
-            
-            return height;
         }
+        
+        if height == 0 {
+            height = UIApplication.shared.statusBarFrame.size.height
+        }
+        
+        if height == 0 {
+            if (UIApplication.shared.delegate?.window??.gkSafeAreaInsets.bottom ?? 0) > 0 {
+                height = 44;
+            }else{
+                height = 20;
+            }
+        }
+        
+        return height;
     }
     
     ///导航栏高度
     var gkNavigationBarHeight: CGFloat{
-        get{
-            return self.navigationController?.navigationBar.frame.size.height ?? 0
-        }
+        self.navigationController?.navigationBar.frame.size.height ?? 0
     }
     
     ///获取兼容的状态栏高度 比如有连接个人热点的时候状态栏的高度是不一样的 viewDidLayoutSubviews 获取
     var gkCompatiableStatusHeight: CGFloat{
-        get{
-            var statusHeight = self.gkStatusBarHeight;
-            var safeAreaTop: CGFloat
-            
-            if #available(iOS 11, *) {
-                safeAreaTop = self.view.gkSafeAreaInsets.top
-            } else {
-                safeAreaTop = self.topLayoutGuide.length
-            }
-            
-            if let nav = self.navigationController {
-                if !nav.isNavigationBarHidden && nav.navigationBar.isTranslucent {
-                    if safeAreaTop > self.gkNavigationBarHeight {
-                        safeAreaTop -= self.gkNavigationBarHeight
-                    }
+        var statusHeight = self.gkStatusBarHeight;
+        var safeAreaTop: CGFloat
+        
+        if #available(iOS 11, *) {
+            safeAreaTop = self.view.gkSafeAreaInsets.top
+        } else {
+            safeAreaTop = self.topLayoutGuide.length
+        }
+        
+        if let nav = self.navigationController {
+            if !nav.isNavigationBarHidden && nav.navigationBar.isTranslucent {
+                if safeAreaTop > self.gkNavigationBarHeight {
+                    safeAreaTop -= self.gkNavigationBarHeight
                 }
             }
-            
-            if statusHeight != safeAreaTop {
-                statusHeight = 0
-            }
-            
-            return statusHeight;
         }
+        
+        if statusHeight != safeAreaTop {
+            statusHeight = 0
+        }
+        
+        return statusHeight;
     }
     
     ///选项卡高度
     var gkTabBarHeight: CGFloat{
-        get{
-            if let tabBarController = self.tabBarController {
-                return tabBarController.tabBar.bounds.size.height;
-            }else{
-                return 49 + (UIApplication.shared.delegate?.window??.gkSafeAreaInsets.bottom ?? 0);
-            }
+        if let tabBarController = self.tabBarController {
+            return tabBarController.tabBar.bounds.size.height;
+        }else{
+            return 49 + (UIApplication.shared.delegate?.window??.gkSafeAreaInsets.bottom ?? 0);
         }
     }
     
     ///工具条高度
     var gkToolBarHeight: CGFloat{
-        get{
-            if let tooBar = self.navigationController?.toolbar {
-                return tooBar.bounds.size.height;
-            }else{
-                return 44 + (UIApplication.shared.delegate?.window??.gkSafeAreaInsets.bottom ?? 0);
-            }
+        if let tooBar = self.navigationController?.toolbar {
+            return tooBar.bounds.size.height;
+        }else{
+            return 44 + (UIApplication.shared.delegate?.window??.gkSafeAreaInsets.bottom ?? 0);
         }
     }
     
     ///获取最上层的 presentedViewController
     var gkTopestPresentedViewController: UIViewController{
-        get{
-            if self.presentedViewController != nil {
-                return self.presentingViewController!.gkTopestPresentedViewController
-            }else{
-                return self
-            }
+        if self.presentedViewController != nil {
+            return self.presentingViewController!.gkTopestPresentedViewController
+        }else{
+            return self
         }
     }
     
     ///获取最底层的 presentingViewController
     var gkRootPresentingViewController: UIViewController{
-        get{
-            if self.presentingViewController != nil {
-                return self.presentingViewController!.gkRootPresentingViewController
-            }else{
-                return self
-            }
+        if self.presentingViewController != nil {
+            return self.presentingViewController!.gkRootPresentingViewController
+        }else{
+            return self
         }
     }
     
     ///创建导航栏并返回
     var gkCreateWithNavigationController: UINavigationController{
-        get{
-            if let nav = self.navigationController {
-                return nav
-            }else{
-                return BaseNavigationController(rootViewController: self);
-            }
+        if let nav = self.navigationController {
+            return nav
+        }else{
+            return BaseNavigationController(rootViewController: self);
         }
     }
 }
@@ -213,9 +197,7 @@ public extension UIViewController{
     
     ///返回按钮
     var gkBackBarButtonItem: UIBarButtonItem?{
-        get{
-            return self.navigationItem.leftBarButtonItem
-        }
+        self.navigationItem.leftBarButtonItem
     }
     
     ///返回
@@ -537,84 +519,74 @@ public extension NSObject {
     
     ///获取当前显示的UIViewController
     static var gkCurrentViewController: UIViewController{
-        get{
+        //刚开始启动 不一定是tabBar
+        let rootViewController = UIApplication.shared.delegate!.window!!.rootViewController!
+        
+        if !(rootViewController is UITabBarController) {
             
-            //刚开始启动 不一定是tabBar
-            let rootViewController = UIApplication.shared.delegate!.window!!.rootViewController!
-            
-            if !(rootViewController is UITabBarController) {
+            if rootViewController is UINavigationController {
+                let nav = rootViewController as! UINavigationController
                 
-                if rootViewController is UINavigationController {
-                    let nav = rootViewController as! UINavigationController
-                    
-                    return nav.viewControllers.last ?? nav
-                } else {
-                    return rootViewController
-                }
+                return nav.viewControllers.last ?? nav
             } else {
-                
-                let tab = rootViewController as! UITabBarController
-                var parentedViewControlelr = tab.gkTopestPresentedViewController
-                if parentedViewControlelr.isEqual(tab) {
-                    parentedViewControlelr = tab.selectedViewController!
-                }
-                
-                if parentedViewControlelr is UINavigationController {
-                    let nav = parentedViewControlelr as! UINavigationController
-                    return nav.viewControllers.last ?? nav
-                } else {
-                    return parentedViewControlelr
-                }
+                return rootViewController
+            }
+        } else {
+            
+            let tab = rootViewController as! UITabBarController
+            var parentedViewControlelr = tab.gkTopestPresentedViewController
+            if parentedViewControlelr.isEqual(tab) {
+                parentedViewControlelr = tab.selectedViewController!
+            }
+            
+            if parentedViewControlelr is UINavigationController {
+                let nav = parentedViewControlelr as! UINavigationController
+                return nav.viewControllers.last ?? nav
+            } else {
+                return parentedViewControlelr
             }
         }
     }
     
     var gkCurrentNavigationController: UINavigationController?{
-        get{
-            NSObject.gkCurrentNavigationController
-        }
+        NSObject.gkCurrentNavigationController
     }
     
     ///获取当前显示的 UINavigationController 如果是部分present出来的，则忽略
     static var gkCurrentNavigationController: UINavigationController?{
-        get{
+        //刚开始启动 不一定是tabBar
+        let rootViewController = UIApplication.shared.delegate!.window!!.rootViewController!
+        
+        if !(rootViewController is UITabBarController) {
             
-            //刚开始启动 不一定是tabBar
-            let rootViewController = UIApplication.shared.delegate!.window!!.rootViewController!
-            
-            if !(rootViewController is UITabBarController) {
-                
-                if rootViewController is UINavigationController {
-                    return rootViewController as? UINavigationController
-                } else {
-                    return rootViewController.navigationController
-                }
+            if rootViewController is UINavigationController {
+                return rootViewController as? UINavigationController
             } else {
-                
-                let tab = rootViewController as! UITabBarController
-                var parentedViewControlelr = tab.gkTopestPresentedViewController
-                
-                if parentedViewControlelr.gkTransitioningDelegate?.isKind(of: PartialPresentTransitionDelegate.classForCoder()) ?? false {
-                    parentedViewControlelr = parentedViewControlelr.presentingViewController!
-                }
-                
-                if parentedViewControlelr.isEqual(tab) {
-                    parentedViewControlelr = tab.selectedViewController!
-                }
-                
-                if parentedViewControlelr is UINavigationController {
-                    return parentedViewControlelr as? UINavigationController
-                } else {
-                    return parentedViewControlelr.navigationController
-                }
+                return rootViewController.navigationController
+            }
+        } else {
+            
+            let tab = rootViewController as! UITabBarController
+            var parentedViewControlelr = tab.gkTopestPresentedViewController
+            
+            if parentedViewControlelr.gkTransitioningDelegate?.isKind(of: PartialPresentTransitionDelegate.classForCoder()) ?? false {
+                parentedViewControlelr = parentedViewControlelr.presentingViewController!
+            }
+            
+            if parentedViewControlelr.isEqual(tab) {
+                parentedViewControlelr = tab.selectedViewController!
+            }
+            
+            if parentedViewControlelr is UINavigationController {
+                return parentedViewControlelr as? UINavigationController
+            } else {
+                return parentedViewControlelr.navigationController
             }
         }
     }
     
     var gkCurrentViewController: UIViewController{
-        get{
-            NSObject.gkCurrentViewController
-        }
+        NSObject.gkCurrentViewController
     }
     
     // MARK: - push

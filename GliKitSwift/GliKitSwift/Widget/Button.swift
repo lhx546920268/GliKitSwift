@@ -61,31 +61,29 @@ open class Button: UIButton {
     }
     
     override open var intrinsicContentSize: CGSize{
-        get{
-            var size = super.intrinsicContentSize
+        var size = super.intrinsicContentSize
+        
+        if self.shouldChange() {
+            let imageSize = self.currentImageSize()
+            let titleSize = self.currentTitleSize()
             
-            if self.shouldChange() {
-                let imageSize = self.currentImageSize()
-                let titleSize = self.currentTitleSize()
+            var width = size.width
+            var height = size.height
+            
+            switch self.imagePosition {
+            case .left, .right :
+                width = imageSize.width + self.imagePadding + titleSize.width + self.contentEdgeInsets.left + self.contentEdgeInsets.right
+                height = max(imageSize.height, titleSize.height) + self.contentEdgeInsets.top + self.contentEdgeInsets.bottom
                 
-                var width = size.width
-                var height = size.height
-                
-                switch self.imagePosition {
-                case .left, .right :
-                    width = imageSize.width + self.imagePadding + titleSize.width + self.contentEdgeInsets.left + self.contentEdgeInsets.right
-                    height = max(imageSize.height, titleSize.height) + self.contentEdgeInsets.top + self.contentEdgeInsets.bottom
-                    
-                case .top, .bottom :
-                    width = max(imageSize.width, titleSize.width) + self.contentEdgeInsets.left + self.contentEdgeInsets.right
-                    height = imageSize.height + self.imagePadding + titleSize.height + self.contentEdgeInsets.top + self.contentEdgeInsets.bottom
-                }
-                
-                size = CGSize(width: width, height: height)
+            case .top, .bottom :
+                width = max(imageSize.width, titleSize.width) + self.contentEdgeInsets.left + self.contentEdgeInsets.right
+                height = imageSize.height + self.imagePadding + titleSize.height + self.contentEdgeInsets.top + self.contentEdgeInsets.bottom
             }
             
-            return size
+            size = CGSize(width: width, height: height)
         }
+        
+        return size
     }
     
     override open func imageRect(forContentRect contentRect: CGRect) -> CGRect {

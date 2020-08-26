@@ -131,14 +131,10 @@ public class BaseNavigationController: UINavigationController, UINavigationContr
     // MARK: - UIStatusBar
     
     public override var preferredStatusBarStyle: UIStatusBarStyle{
-        get{
-            return UIApplication.gkStatusBarStyle
-        }
+        UIApplication.gkStatusBarStyle
     }
     
     public override var childForStatusBarStyle: UIViewController?{
-        get{
-            return self.topViewController
-        }
+        self.topViewController
     }
 }

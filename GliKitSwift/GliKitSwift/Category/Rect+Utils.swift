@@ -123,22 +123,16 @@ public extension UIScreen {
     
     ///获取屏幕宽度
     static var gkWidth: CGFloat{
-        get{
-            self.main.bounds.size.width
-        }
+        self.main.bounds.size.width
     }
 
     ///获取屏幕高度
     static var gkHeight: CGFloat{
-        get{
-            self.main.bounds.size.height
-        }
+        self.main.bounds.size.height
     }
 
     ///获取屏幕大小
     static var gkSize: CGSize{
-        get{
-            self.main.bounds.size
-        }
+        self.main.bounds.size
     }
 }

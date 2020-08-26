@@ -48,9 +48,7 @@ open class TableViewController: ScrollViewController, UITableViewDataSource, UIT
     
     ///tableView类，必须是UITableView 或者其子类
     public var tableViewClass: AnyClass{
-        get{
-            UITableView.self
-        }
+        UITableView.self
     }
     
     open override func viewDidLayoutSubviews() {

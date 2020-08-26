@@ -101,11 +101,9 @@ internal extension UINavigationItem {
     
     ///获取修正间距的item
     private var fixedBarButtonItem: UIBarButtonItem{
-        get{
-            let item = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-            item.width = UIScreen.main.scale == 2 ? -16 : -20
-            return item
-        }
+        let item = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        item.width = UIScreen.main.scale == 2 ? -16 : -20
+        return item
     }
     
     ///判断是否需要修正

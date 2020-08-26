@@ -16,47 +16,37 @@ public extension UIView{
     
     ///状态背景
     var gkBackgroundColorsForState: NSMutableDictionary?{
-        get{
-            return objc_getAssociatedObject(self, &backgroundColorKey) as? NSMutableDictionary
-        }
+        objc_getAssociatedObject(self, &backgroundColorKey) as? NSMutableDictionary
     }
 
     ///状态tintColor
     var gkTintColorsForState: NSMutableDictionary?{
-        get{
-            return objc_getAssociatedObject(self, &tintColorKey) as? NSMutableDictionary
-        }
+        return objc_getAssociatedObject(self, &tintColorKey) as? NSMutableDictionary
     }
 
     ///获取当前背景颜色
     var gkCurrentBackgroundColor: UIColor?{
-        get{
-            var color = self.gkBackgroundColorsForState?[UIControl.State.normal] as? UIColor
-            
-            if color == nil {
-                color = self.backgroundColor
-            }
-            return color
+        var color = self.gkBackgroundColorsForState?[UIControl.State.normal] as? UIColor
+        
+        if color == nil {
+            color = self.backgroundColor
         }
+        return color
     }
 
     ///获取当前 tintColor
     var gkCurrentTintColor: UIColor{
-        get{
-            var color = self.gkTintColorsForState?[UIControl.State.normal] as? UIColor
-            
-            if color == nil {
-                color = self.tintColor
-            }
-            return color!
+        var color = self.gkTintColorsForState?[UIControl.State.normal] as? UIColor
+        
+        if color == nil {
+            color = self.tintColor
         }
+        return color!
     }
 
     ///当前状态
     @objc var gkState: UIControl.State{
-        get{
-            return .normal
-        }
+        .normal
     }
     
     ///状态改变

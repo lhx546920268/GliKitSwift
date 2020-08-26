@@ -60,14 +60,10 @@ public extension UIEdgeInsets{
     }
     
     var width: CGFloat{
-        get{
-            left + right
-        }
+        left + right
     }
     
     var height: CGFloat{
-        get{
-            top + bottom
-        }
+        top + bottom
     }
 }

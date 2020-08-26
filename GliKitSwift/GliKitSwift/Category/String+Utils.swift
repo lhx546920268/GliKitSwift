@@ -69,24 +69,20 @@ public extension String {
     
     ///第一个字符
     var gkFirstCharacter: Character?{
-        get{
-            if self.count > 0 {
-                return self[self.startIndex]
-            }
-            
-            return nil
+        if self.count > 0 {
+            return self[self.startIndex]
         }
+        
+        return nil
     }
 
     ///最后一个字符
     var gkLastCharacter: Character?{
-        get{
-            if self.count > 0 {
-                return self[self.endIndex]
-            }
-            
-            return nil
+        if self.count > 0 {
+            return self[self.endIndex]
         }
+        
+        return nil
     }
     
     ///获取md5字符串

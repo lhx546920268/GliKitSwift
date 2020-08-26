@@ -40,8 +40,6 @@ internal extension UIView {
     
     ///是否自己的导航栏
     var gkIsAppNavigationBar: Bool{
-        get{
-            return self.gkNameOfClass == UIView.NavigationBarContentViewName && superview?.classForCoder === SystemNavigationBar.self
-        }
+        self.gkNameOfClass == UIView.NavigationBarContentViewName && superview?.classForCoder === SystemNavigationBar.self
     }
 }

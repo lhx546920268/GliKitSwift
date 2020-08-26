@@ -36,71 +36,67 @@ open class EmptyView: UIView {
     ///图标
     private var _iconImageView: UIImageView?
     public var iconImageView: UIImageView{
-        get{
-            if _iconImageView == nil {
-                let iconImageView = UIImageView()
-                iconImageView.contentMode = .scaleAspectFit
-                self.contentView.addSubview(iconImageView)
-                
-                iconImageView.snp.makeConstraints { (make) in
-                    make.leading.greaterThanOrEqualTo(0)
-                    make.trailing.lessThanOrEqualTo(0)
-                    make.centerX.top.equalTo(0)
-                }
-                
-                
-                if _textLabel != nil {
-                    if let constraint = _textLabel?.gkTopLayoutConstraint {
-                        self.contentView.removeConstraint(constraint)
-                    }
-                    _textLabel?.snp.makeConstraints({ (make) in
-                        make.top.equalTo(iconImageView.snp.bottom).offset(10)
-                    })
-                }else{
-                    
-                    iconImageView.snp.makeConstraints { (make) in
-                        make.bottom.equalTo(0)
-                    }
-                }
-                _iconImageView = iconImageView
+        if _iconImageView == nil {
+            let iconImageView = UIImageView()
+            iconImageView.contentMode = .scaleAspectFit
+            self.contentView.addSubview(iconImageView)
+            
+            iconImageView.snp.makeConstraints { (make) in
+                make.leading.greaterThanOrEqualTo(0)
+                make.trailing.lessThanOrEqualTo(0)
+                make.centerX.top.equalTo(0)
             }
             
-            return _iconImageView!
+            
+            if _textLabel != nil {
+                if let constraint = _textLabel?.gkTopLayoutConstraint {
+                    self.contentView.removeConstraint(constraint)
+                }
+                _textLabel?.snp.makeConstraints({ (make) in
+                    make.top.equalTo(iconImageView.snp.bottom).offset(10)
+                })
+            }else{
+                
+                iconImageView.snp.makeConstraints { (make) in
+                    make.bottom.equalTo(0)
+                }
+            }
+            _iconImageView = iconImageView
         }
+        
+        return _iconImageView!
     }
 
     
     ///文字信息
     private var _textLabel: UILabel?
     public var textLabel: UILabel{
-        get{
-            if _textLabel == nil {
-                let textLabel = UILabel()
-                textLabel.backgroundColor = .clear
-                textLabel.textColor = UIColor.gkColorFromHex("aeaeae")
-                textLabel.font = UIFont.systemFont(ofSize: 14)
-                textLabel.textAlignment = .center
-                textLabel.numberOfLines = 0
-                self.contentView.addSubview(textLabel)
-                
-                
-                let exist = _iconImageView != nil
-                textLabel.snp.makeConstraints { (make) in
-                    if exist {
-                        if let constraint = _iconImageView?.gkBottomLayoutConstraint {
-                            self.contentView.removeConstraint(constraint)
-                        }
-                        make.top.equalTo(_iconImageView!.snp.bottom).offset(10)
-                    } else {
-                        make.top.equalTo(0)
-                    }
-                    make.leading.trailing.bottom.equalTo(0)
-                }
-                _textLabel = textLabel
-            }
+        if _textLabel == nil {
+            let textLabel = UILabel()
+            textLabel.backgroundColor = .clear
+            textLabel.textColor = UIColor.gkColorFromHex("aeaeae")
+            textLabel.font = UIFont.systemFont(ofSize: 14)
+            textLabel.textAlignment = .center
+            textLabel.numberOfLines = 0
+            self.contentView.addSubview(textLabel)
             
-            return _textLabel!
+            
+            let exist = _iconImageView != nil
+            textLabel.snp.makeConstraints { (make) in
+                if exist {
+                    if let constraint = _iconImageView?.gkBottomLayoutConstraint {
+                        self.contentView.removeConstraint(constraint)
+                    }
+                    make.top.equalTo(_iconImageView!.snp.bottom).offset(10)
+                } else {
+                    make.top.equalTo(0)
+                }
+                make.leading.trailing.bottom.equalTo(0)
+            }
+            _textLabel = textLabel
         }
+        
+        return _textLabel!
     }
 
 

@@ -27,24 +27,22 @@ public extension UIView {
     
     ///判断是否存在约束
     var gkExistConstraints: Bool{
-        get{
-            if self.constraints.count > 0{
-                return true
-            }
+        if self.constraints.count > 0{
+            return true
+        }
+        
+        if let contraints = self.superview?.constraints {
             
-            if let contraints = self.superview?.constraints {
-                
-                if contraints.count > 0 {
-                    for constraint in contraints {
-                        if constraint.firstItem === self || constraint.secondItem === self {
-                            return true
-                        }
+            if contraints.count > 0 {
+                for constraint in contraints {
+                    if constraint.firstItem === self || constraint.secondItem === self {
+                        return true
                     }
                 }
             }
-            
-            return false
         }
+        
+        return false
     }
     
     ///清空约束
@@ -75,71 +73,54 @@ public extension UIView {
     
     ///获取高度约束 返回当前优先级最高的
     var gkHeightLayoutConstraint: NSLayoutConstraint?{
-        get{
-            return gkLayoutConstraint(forAttribute: .height)
-        }
+        gkLayoutConstraint(forAttribute: .height)
     }
     
     ///获取宽度约束 返回当前优先级最高的
     var gkWidthLayoutConstraint: NSLayoutConstraint?{
-        get{
-            return gkLayoutConstraint(forAttribute: .width)
-        }
+        return gkLayoutConstraint(forAttribute: .width)
     }
     
     ///获取左边距约束 返回当前优先级最高的
     var gkLeftLayoutConstraint: NSLayoutConstraint?{
-        get{
-            if let constraint = gkLayoutConstraint(forAttribute: .leading) {
-                return constraint
-            } else {
-                return gkLayoutConstraint(forAttribute: .left)
-            }
+        if let constraint = gkLayoutConstraint(forAttribute: .leading) {
+            return constraint
+        } else {
+            return gkLayoutConstraint(forAttribute: .left)
         }
     }
     
     ///获取右边距约束 返回当前优先级最高的
     var gkRightLayoutConstraint: NSLayoutConstraint?{
-        get{
-            if let constraint = gkLayoutConstraint(forAttribute: .trailing) {
-                return constraint
-            } else {
-                return gkLayoutConstraint(forAttribute: .right)
-            }
+        if let constraint = gkLayoutConstraint(forAttribute: .trailing) {
+            return constraint
+        } else {
+            return gkLayoutConstraint(forAttribute: .right)
         }
     }
     
     ///获取顶部距约束 返回当前优先级最高的
     var gkTopLayoutConstraint: NSLayoutConstraint?{
-        get{
-            return gkLayoutConstraint(forAttribute: .top)
-        }
+        gkLayoutConstraint(forAttribute: .top)
     }
     
     ///获取底部距约束 返回当前优先级最高的
     var gkBottomLayoutConstraint: NSLayoutConstraint?{
-        get{
-            return gkLayoutConstraint(forAttribute: .bottom)
-        }
+        return gkLayoutConstraint(forAttribute: .bottom)
     }
     
     ///获取水平居中约束 返回当前优先级最高的
     var gkCenterXLayoutConstraint: NSLayoutConstraint?{
-        get{
-            return gkLayoutConstraint(forAttribute: .centerX)
-        }
+        return gkLayoutConstraint(forAttribute: .centerX)
     }
     
     ///获取垂直居中约束 返回当前优先级最高的
     var gkCenterYLayoutConstraint: NSLayoutConstraint?{
-        get{
-            return gkLayoutConstraint(forAttribute: .centerY)
-        }
+        return gkLayoutConstraint(forAttribute: .centerY)
     }
     
     ///获取对应约束
     func gkLayoutConstraint(forAttribute attribute: NSLayoutConstraint.Attribute, secondItem: AnyObject? = nil) -> NSLayoutConstraint?{
-        
         
         //符合条件的，可能有多个，取最高优先级的 忽略其子类
         var matchs = [NSLayoutConstraint]()

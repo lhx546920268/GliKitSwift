@@ -14,19 +14,17 @@ open class PageViewController: ScrollViewController, TabMenuBarDelegate {
     ///顶部菜单 当 shouldUseMenuBar = NO，return nil
     private var _menuBar: TabMenuBar?
     public var menuBar: TabMenuBar?{
-        get{
-            if !shouldUseMenuBar {
-                return nil
-            }
-            if _menuBar == nil {
-                let menuBar = TabMenuBar(titles: nil)
-                menuBar.contentInset = UIEdgeInsets(0, menuBar.itemPadding, 0, menuBar.itemPadding)
-                menuBar.delegate = self
-                _menuBar = menuBar
-            }
-            
-            return _menuBar;
+        if !shouldUseMenuBar {
+            return nil
         }
+        if _menuBar == nil {
+            let menuBar = TabMenuBar(titles: nil)
+            menuBar.contentInset = UIEdgeInsets(0, menuBar.itemPadding, 0, menuBar.itemPadding)
+            menuBar.delegate = self
+            _menuBar = menuBar
+        }
+        
+        return _menuBar;
     }
     
     ///是否需要用菜单 menuBar
