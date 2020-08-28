@@ -33,6 +33,9 @@ public extension UIColor {
 
     ///骨架层背景颜色
     static var gkSkeletonBackgroundColor = UIColor(white: 0.9, alpha: 1.0)
+    
+    ///高亮灰色背景颜色
+    static var gkHighlightedBackgroundColor = UIColor(white: 0.9, alpha: 1.0)
 
     ///输入框placeholder 颜色
     static var gkPlaceholderColor = UIColor(white: 0.702, alpha: 1.0)

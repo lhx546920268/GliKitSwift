@@ -31,9 +31,7 @@ open class CountDownTimer {
     
     ///是否是无限的
     public var isInfinite: Bool {
-        get{
-            timeToCountDown == CountDownTimer.countDownInfinite
-        }
+        timeToCountDown == CountDownTimer.countDownInfinite
     }
     
     ///倒计时是否马上开始 默认 是 timeInterval 后只需第一次回调

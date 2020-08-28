@@ -21,6 +21,12 @@
 		CE2A23EF24F60570004C5E66 /* RangeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2A23EE24F60570004C5E66 /* RangeWrapper.swift */; };
 		CE3E8C1F24C54F48001A66EC /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3E8C1E24C54F48001A66EC /* BannerView.swift */; };
 		CE3E8C2124C56F07001A66EC /* CountDownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3E8C2024C56F07001A66EC /* CountDownTimer.swift */; };
+		CE416DCA24F7415C0078A4FB /* AlertProps.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE416DC924F7415C0078A4FB /* AlertProps.swift */; };
+		CE416DCC24F786FD0078A4FB /* AlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE416DCB24F786FD0078A4FB /* AlertAction.swift */; };
+		CE416DD024F78CEF0078A4FB /* AlertHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE416DCF24F78CEF0078A4FB /* AlertHeader.swift */; };
+		CE416DD224F78E460078A4FB /* AlertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE416DD124F78E460078A4FB /* AlertCell.swift */; };
+		CE416DD424F78F9A0078A4FB /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE416DD324F78F9A0078A4FB /* AlertController.swift */; };
+		CE416DD624F79C280078A4FB /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE416DD524F79C280078A4FB /* UIImage+Utils.swift */; };
 		CE52B0CA2435E81D00B85D8D /* MenuBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52B0C92435E81D00B85D8D /* MenuBarItem.swift */; };
 		CE52B0CC2435F2DB00B85D8D /* TabMenuBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52B0CB2435F2DB00B85D8D /* TabMenuBarItem.swift */; };
 		CE52B0CF2435F39800B85D8D /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52B0CE2435F39800B85D8D /* Button.swift */; };
@@ -122,6 +128,12 @@
 		CE2A23EE24F60570004C5E66 /* RangeWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeWrapper.swift; sourceTree = "<group>"; };
 		CE3E8C1E24C54F48001A66EC /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
 		CE3E8C2024C56F07001A66EC /* CountDownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownTimer.swift; sourceTree = "<group>"; };
+		CE416DC924F7415C0078A4FB /* AlertProps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertProps.swift; sourceTree = "<group>"; };
+		CE416DCB24F786FD0078A4FB /* AlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertAction.swift; sourceTree = "<group>"; };
+		CE416DCF24F78CEF0078A4FB /* AlertHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHeader.swift; sourceTree = "<group>"; };
+		CE416DD124F78E460078A4FB /* AlertCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCell.swift; sourceTree = "<group>"; };
+		CE416DD324F78F9A0078A4FB /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		CE416DD524F79C280078A4FB /* UIImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Utils.swift"; sourceTree = "<group>"; };
 		CE52B0C92435E81D00B85D8D /* MenuBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarItem.swift; sourceTree = "<group>"; };
 		CE52B0CB2435F2DB00B85D8D /* TabMenuBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuBarItem.swift; sourceTree = "<group>"; };
 		CE52B0CE2435F39800B85D8D /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -227,6 +239,42 @@
 			path = Wrapper;
 			sourceTree = "<group>";
 		};
+		CE416DC524F741330078A4FB /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				CE416DC624F741330078A4FB /* Controller */,
+				CE416DC724F741330078A4FB /* Model */,
+				CE416DC824F741330078A4FB /* View */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
+		CE416DC624F741330078A4FB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CE416DD324F78F9A0078A4FB /* AlertController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		CE416DC724F741330078A4FB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CE416DC924F7415C0078A4FB /* AlertProps.swift */,
+				CE416DCB24F786FD0078A4FB /* AlertAction.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CE416DC824F741330078A4FB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE416DCF24F78CEF0078A4FB /* AlertHeader.swift */,
+				CE416DD124F78E460078A4FB /* AlertCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		CE52B0CD2435F38D00B85D8D /* Widget */ = {
 			isa = PBXGroup;
 			children = (
@@ -270,6 +318,7 @@
 		CE9E4C1A23D062A300C0F63D /* GliKitSwift */ = {
 			isa = PBXGroup;
 			children = (
+				CE416DC524F741330078A4FB /* Alert */,
 				CE2A23EB24F6050C004C5E66 /* Wrapper */,
 				CEBE095F244EF76E0016EEFA /* EmptyView */,
 				CE52B0CD2435F38D00B85D8D /* Widget */,
@@ -425,6 +474,7 @@
 				CED4CB72245186B800369B04 /* ConversionUtils.swift */,
 				CE58C66C2452EFC8006A654E /* UIApplication+Utils.swift */,
 				CEDB8D602461119F0056A3F6 /* Date+Utils.swift */,
+				CE416DD524F79C280078A4FB /* UIImage+Utils.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -460,11 +510,11 @@
 		CEBE0960244EF76E0016EEFA /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				CEBE0964244EFDAD0016EEFA /* UIView+EmptyView.swift */,
-				CED4CB7424519F7100369B04 /* UIViewController+EmptyView.swift */,
+				CE58C66A2452D0E2006A654E /* UICollectionView+EmptyView.swift */,
 				CED4CB762451A01500369B04 /* UIScrollView+EmptyView.swift */,
 				CE58C65924527796006A654E /* UITableView+EmptyView.swift */,
-				CE58C66A2452D0E2006A654E /* UICollectionView+EmptyView.swift */,
+				CEBE0964244EFDAD0016EEFA /* UIView+EmptyView.swift */,
+				CED4CB7424519F7100369B04 /* UIViewController+EmptyView.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -645,12 +695,14 @@
 				CECB37352429916200C92687 /* UIView+StateUtils.swift in Sources */,
 				CE0594C52437137B00510AD2 /* Divider.swift in Sources */,
 				CE6996E523D7E0D500A99469 /* PartialPresentTransitionDelegate.swift in Sources */,
+				CE416DD224F78E460078A4FB /* AlertCell.swift in Sources */,
 				CEB6D2D223D444CE00457164 /* Log.swift in Sources */,
 				CECB37392429B52400C92687 /* Swizzlling.swift in Sources */,
 				CE58C66B2452D0E2006A654E /* UICollectionView+EmptyView.swift in Sources */,
 				CEAE532E23D158BB0073882E /* NavigationBar.swift in Sources */,
 				CEC47902243481AC007D51CE /* MenuBar.swift in Sources */,
 				CE58C66D2452EFC8006A654E /* UIApplication+Utils.swift in Sources */,
+				CE416DCC24F786FD0078A4FB /* AlertAction.swift in Sources */,
 				CEA66562242D9BA0003D8E71 /* JSONSerialization+Utils.swift in Sources */,
 				CEBEB52423D54BB4000B8CBF /* PageLoadingContainer.swift in Sources */,
 				CEDAEEF32431EEB000F03100 /* DefaultRefreshControl.swift in Sources */,
@@ -660,9 +712,11 @@
 				CEAE532C23D14EDC0073882E /* UIViewController+SafeAreaCompatible.swift in Sources */,
 				CE6996E923D7F27B00A99469 /* PartialPresentTransitionAnimator.swift in Sources */,
 				CE58C65A24527796006A654E /* UITableView+EmptyView.swift in Sources */,
+				CE416DCA24F7415C0078A4FB /* AlertProps.swift in Sources */,
 				CEB6D2D423D44EDA00457164 /* ThreadUtils.swift in Sources */,
 				CE52B0CA2435E81D00B85D8D /* MenuBarItem.swift in Sources */,
 				CE160E212424A350008E7392 /* BaseNavigationController.swift in Sources */,
+				CE416DD024F78CEF0078A4FB /* AlertHeader.swift in Sources */,
 				CEA6656D242DF35C003D8E71 /* LoadMoreControl.swift in Sources */,
 				CE9E4C2A23D0648C00C0F63D /* BaseContainer.swift in Sources */,
 				CEAE533123D159910073882E /* UIColor+Theme.swift in Sources */,
@@ -696,6 +750,7 @@
 				CED4CB772451A01500369B04 /* UIScrollView+EmptyView.swift in Sources */,
 				CE2A23EF24F60570004C5E66 /* RangeWrapper.swift in Sources */,
 				CEBE095A244ED5EA0016EEFA /* UITableView+Utils.swift in Sources */,
+				CE416DD424F78F9A0078A4FB /* AlertController.swift in Sources */,
 				CEBEB52A23D59564000B8CBF /* UIView+Loading.swift in Sources */,
 				CE0594C32437121900510AD2 /* TabMenuBarCell.swift in Sources */,
 				CEBEB52623D55F7A000B8CBF /* ProgressHUD.swift in Sources */,
@@ -705,6 +760,7 @@
 				CEAE533423D1A6950073882E /* UIColor+Utils.swift in Sources */,
 				CEBE095C244EEC160016EEFA /* TableViewController.swift in Sources */,
 				CECB373C2429F44100C92687 /* WeakObjectContainer.swift in Sources */,
+				CE416DD624F79C280078A4FB /* UIImage+Utils.swift in Sources */,
 				CE0594C72437146200510AD2 /* UIView+AutoLayout.swift in Sources */,
 				CE6996E723D7EC2C00A99469 /* PartialPresentationController.swift in Sources */,
 				CE3E8C2124C56F07001A66EC /* CountDownTimer.swift in Sources */,

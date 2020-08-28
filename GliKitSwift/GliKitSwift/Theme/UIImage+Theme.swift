@@ -54,4 +54,7 @@ public extension UIImage {
     }
     
     private static var _gkNavigationBarBackIcon: UIImage?
+    
+    ///生成图片的scale
+    public static var gkImageScale: CGFloat = 2.0
 }

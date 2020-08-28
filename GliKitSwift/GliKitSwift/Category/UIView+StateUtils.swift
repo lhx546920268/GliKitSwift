@@ -26,7 +26,7 @@ public extension UIView{
 
     ///获取当前背景颜色
     var gkCurrentBackgroundColor: UIColor?{
-        var color = self.gkBackgroundColorsForState?[UIControl.State.normal] as? UIColor
+        var color = self.gkBackgroundColorsForState?[self.gkState] as? UIColor
         
         if color == nil {
             color = self.backgroundColor
@@ -36,7 +36,7 @@ public extension UIView{
 
     ///获取当前 tintColor
     var gkCurrentTintColor: UIColor{
-        var color = self.gkTintColorsForState?[UIControl.State.normal] as? UIColor
+        var color = self.gkTintColorsForState?[self.gkState] as? UIColor
         
         if color == nil {
             color = self.tintColor

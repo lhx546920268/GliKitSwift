@@ -74,15 +74,11 @@ open class PartialPresentationController: UIPresentationController, UIGestureRec
     }
 
     open override var shouldPresentInFullscreen: Bool{
-        get{
-            false
-        }
+        false
     }
     
     open override var shouldRemovePresentersView: Bool{
-        get{
-            false
-        }
+        false
     }
 
     open override func containerViewDidLayoutSubviews() {
@@ -92,10 +88,8 @@ open class PartialPresentationController: UIPresentationController, UIGestureRec
     }
     
     open override var frameOfPresentedViewInContainerView: CGRect{
-        get{
-            //弹窗大小位置
-            transitionDelegate?.props.frame ?? CGRect.zero
-        }
+        //弹窗大小位置
+        transitionDelegate?.props.frame ?? CGRect.zero
     }
 
     // MARK: - Action

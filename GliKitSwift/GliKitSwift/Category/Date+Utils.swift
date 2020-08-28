@@ -33,50 +33,36 @@ public extension Date{
     
     ///获取当前时间的 秒
     var gkSecond: Int{
-        get{
-            Calendar.current.component(.second, from: self)
-        }
+        Calendar.current.component(.second, from: self)
     }
     
     ///获取当前时间的 分
     var gkMinute: Int{
-        get{
-            Calendar.current.component(.minute, from: self)
-        }
+        Calendar.current.component(.minute, from: self)
     }
     
     ///获取当前时间的 小时
     var gkHour: Int{
-        get{
-            Calendar.current.component(.hour, from: self)
-        }
+        Calendar.current.component(.hour, from: self)
     }
     
     ///获取当前时间的 日期
     var gkDay: Int{
-        get{
-            Calendar.current.component(.day, from: self)
-        }
+        Calendar.current.component(.day, from: self)
     }
     
     ///获取当前时间的 月份
     var gkMonth: Int{
-        get{
-            Calendar.current.component(.month, from: self)
-        }
+        Calendar.current.component(.month, from: self)
     }
     
     ///获取当前时间的 年份
     var gkYear: Int{
-        get{
-            Calendar.current.component(.year, from: self)
-        }
+        Calendar.current.component(.year, from: self)
     }
     
     ///获取当前时间的 星期几 1-7 星期日 到星期六
     var gkWeekday: Int{
-        get{
-            Calendar.current.component(.weekday, from: self)
-        }
+        Calendar.current.component(.weekday, from: self)
     }
 }

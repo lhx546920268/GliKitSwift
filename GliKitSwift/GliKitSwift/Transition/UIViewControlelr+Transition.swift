@@ -30,22 +30,18 @@ extension UIViewController {
 
     ///部分显示 属性
     open var partialPresentProps: PartialPresentProps {
-        get{
-            var props = objc_getAssociatedObject(self, &partialPresentPropsKey) as? PartialPresentProps
-            if props == nil {
-                props = PartialPresentProps()
-                objc_setAssociatedObject(self, &partialPresentPropsKey, props, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            }
-            
-            return props!
+        var props = objc_getAssociatedObject(self, &partialPresentPropsKey) as? PartialPresentProps
+        if props == nil {
+            props = PartialPresentProps()
+            objc_setAssociatedObject(self, &partialPresentPropsKey, props, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
+        
+        return props!
     }
 
     ///返回要显示的viewController 默认是self
     open var partialViewController: UIViewController{
-        get{
-            self
-        }
+        self
     }
 
     ///从底部部分显示

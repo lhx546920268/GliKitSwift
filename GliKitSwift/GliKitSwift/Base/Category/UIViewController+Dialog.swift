@@ -324,7 +324,7 @@ public extension UIViewController{
     }
     
     ///隐藏
-    @objc func dismissDialog(animated: Bool = true, completion: DialogCompletion?){
+    @objc func dismissDialog(animated: Bool = true, completion: DialogCompletion? = nil){
         
         self.dialogWillDismissCallback?(animated)
         UIApplication.shared.keyWindow?.endEditing(true)

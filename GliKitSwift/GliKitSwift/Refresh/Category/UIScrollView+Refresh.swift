@@ -69,15 +69,13 @@ public extension UIScrollView{
             }
         }
         get{
-            return objc_getAssociatedObject(self, &refreshControlKey) as? RefreshControl
+            objc_getAssociatedObject(self, &refreshControlKey) as? RefreshControl
         }
     }
 
     ///是否正在下拉刷新
     var gkRefreshing: Bool{
-        get{
-            return (self.gkRefreshControl?.state ?? .normal) == .loading
-        }
+        (self.gkRefreshControl?.state ?? .normal) == .loading
     }
     
     // MARK: - Load More
@@ -137,14 +135,12 @@ public extension UIScrollView{
             }
         }
         get{
-            return objc_getAssociatedObject(self, &loadMoreControlKey) as? LoadMoreControl
+            objc_getAssociatedObject(self, &loadMoreControlKey) as? LoadMoreControl
         }
     }
 
     ///是否正在加载更多
     var gkLoadingMore: Bool{
-        get{
-            return (self.gkLoadMoreControl?.state ?? .normal) == .loading
-        }
+        (self.gkLoadMoreControl?.state ?? .normal) == .loading
     }
 }

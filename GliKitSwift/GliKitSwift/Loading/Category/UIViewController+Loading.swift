@@ -13,10 +13,7 @@ public extension UIViewController {
     
     ///获取当前内容视图
     private var gkContentView: UIView{
-        get{
-            // TODU: self.isShowAsDialog ? self.dialog : self.view;
-            self.view
-        }
+        self.isShowAsDialog ? self.dialog! : self.view
     }
     
     ///页面第一次加载显示
