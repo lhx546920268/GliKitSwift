@@ -16,7 +16,6 @@ public class GliKitSwift {
     public class func initialize(){
         DispatchQueue.once(token: "GliKitSwift.initialize"){
             UIView.swizzleNavigationBarMargins()
-            UITableView.swizzleTableViewEmptyView()
         }
     }
 }

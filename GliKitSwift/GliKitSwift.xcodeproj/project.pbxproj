@@ -40,6 +40,8 @@
 		CE6996ED23D822AE00A99469 /* UIView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996EC23D822AE00A99469 /* UIView+Utils.swift */; };
 		CE6996EF23D8235E00A99469 /* NSObject+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996EE23D8235E00A99469 /* NSObject+Utils.swift */; };
 		CE6996F123D825E900A99469 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996F023D825E900A99469 /* UIViewController+Utils.swift */; };
+		CE7700002539AC9F00AACB9B /* UICollectionView+ItemSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE77FFFF2539AC9F00AACB9B /* UICollectionView+ItemSize.swift */; };
+		CE77FFFD2539A42F00AACB9B /* UITableView+RowHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE77FFFC2539A42F00AACB9B /* UITableView+RowHeight.swift */; };
 		CE96AD2C243C0E1600A4FBAA /* Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE96AD2B243C0E1600A4FBAA /* Popover.swift */; };
 		CE9E4C1C23D062A300C0F63D /* GliKitSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E4C1B23D062A300C0F63D /* GliKitSwift.swift */; };
 		CE9E4C2A23D0648C00C0F63D /* BaseContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E4C2923D0648C00C0F63D /* BaseContainer.swift */; };
@@ -147,6 +149,8 @@
 		CE6996EC23D822AE00A99469 /* UIView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Utils.swift"; sourceTree = "<group>"; };
 		CE6996EE23D8235E00A99469 /* NSObject+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Utils.swift"; sourceTree = "<group>"; };
 		CE6996F023D825E900A99469 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
+		CE77FFFC2539A42F00AACB9B /* UITableView+RowHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+RowHeight.swift"; sourceTree = "<group>"; };
+		CE77FFFF2539AC9F00AACB9B /* UICollectionView+ItemSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+ItemSize.swift"; sourceTree = "<group>"; };
 		CE96AD2B243C0E1600A4FBAA /* Popover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popover.swift; sourceTree = "<group>"; };
 		CE9E4C1823D062A300C0F63D /* libGliKitSwift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGliKitSwift.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE9E4C1B23D062A300C0F63D /* GliKitSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliKitSwift.swift; sourceTree = "<group>"; };
@@ -382,6 +386,8 @@
 				CED4CB6E245177C700369B04 /* UIView+NavigationBarUtils.swift */,
 				CED4CB702451839000369B04 /* UINavigationItem+Utils.swift */,
 				CEC6AF4A2456DA01006B22BB /* UIView+XibUtils.swift */,
+				CE77FFFC2539A42F00AACB9B /* UITableView+RowHeight.swift */,
+				CE77FFFF2539AC9F00AACB9B /* UICollectionView+ItemSize.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -707,6 +713,7 @@
 				CEBEB52423D54BB4000B8CBF /* PageLoadingContainer.swift in Sources */,
 				CEDAEEF32431EEB000F03100 /* DefaultRefreshControl.swift in Sources */,
 				CEA2CA3623D6856300826D29 /* UIViewController+Loading.swift in Sources */,
+				CE77FFFD2539A42F00AACB9B /* UITableView+RowHeight.swift in Sources */,
 				CEBE0963244EF7870016EEFA /* EmptyView.swift in Sources */,
 				CE52B0CC2435F2DB00B85D8D /* TabMenuBarItem.swift in Sources */,
 				CEAE532C23D14EDC0073882E /* UIViewController+SafeAreaCompatible.swift in Sources */,
@@ -724,6 +731,7 @@
 				CEC6AF4B2456DA01006B22BB /* UIView+XibUtils.swift in Sources */,
 				CEC9C31C242AF2D50082E631 /* UIViewController+Dialog.swift in Sources */,
 				CE2A23EA24F5F680004C5E66 /* PageView.swift in Sources */,
+				CE7700002539AC9F00AACB9B /* UICollectionView+ItemSize.swift in Sources */,
 				CEA6656F242E0867003D8E71 /* DefaultLoadMoreControl.swift in Sources */,
 				CEB6D2CD23D3FAD600457164 /* HttpTask.swift in Sources */,
 				CEB6D2CF23D440E900457164 /* HttpError.swift in Sources */,

@@ -14,6 +14,26 @@ private var shouldShowEmptyViewKey: UInt8 = 0
 ///偏移量
 private var emptyViewInsetsKey: UInt8 = 0
 
+///空视图帮助类
+class EmptyHelper {
+    
+    public private(set) weak var scrollView: UIScrollView?
+    public private(set) var contentSize: CGSize?
+    private var observation: NSKeyValueObservation?
+    
+    init(scrollView: UIScrollView?) {
+        self.scrollView = scrollView
+        observation = scrollView?.observe(\UIScrollView.contentSize, options: [.new]) {[weak self] (_, change) in
+            if let scrollView = self?.scrollView {
+                if scrollView.contentSize != self?.contentSize {
+                    self?.contentSize = scrollView.contentSize
+                    scrollView.layoutEmtpyView()
+                }
+            }
+        }
+    }
+}
+
 ///用于UIScrollView的空视图扩展
 public extension UIScrollView{
 

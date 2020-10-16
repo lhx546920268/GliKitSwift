@@ -25,7 +25,7 @@ Pod::Spec.new do |spec|
 
   spec.source = { :git => "https://github.com/lhx546920268/GliKitSwift.git", :tag => "v#{spec.version}" }
   spec.source_files  = "GliKitSwift/**/*.{swift}"
-  spec.dependency 'SnapKit'
-  spec.dependency 'Kingfisher'
-  spec.dependency 'Alamofire'
+  spec.dependency 'SnapKit', '~> 5.0.1'
+  spec.dependency 'Kingfisher', '~> 5.15.6'
+  spec.dependency 'Alamofire', '~> 5.2.2'
 end
