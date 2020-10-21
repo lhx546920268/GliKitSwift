@@ -16,8 +16,8 @@ internal extension UIView {
     static func swizzleNavigationBarMargins(){
         
         if #available(iOS 11, *) {
-            swizzling(selector1: #selector(gkLayoutMargins), selector2: #selector(setter: layoutMargins), cls1: self)
-            swizzling(selector1: #selector(gkDirectionalLayoutMargins), selector2: #selector(setter: directionalLayoutMargins), cls1: self)
+            swizzling(selector1: #selector(gkLayoutMargins), selector2: #selector(getter: layoutMargins), cls1: self)
+            swizzling(selector1: #selector(gkDirectionalLayoutMargins), selector2: #selector(getter: directionalLayoutMargins), cls1: self)
         }
     }
     
@@ -40,6 +40,6 @@ internal extension UIView {
     
     ///是否自己的导航栏
     var gkIsAppNavigationBar: Bool{
-        self.gkNameOfClass == UIView.NavigationBarContentViewName && superview?.classForCoder === SystemNavigationBar.self
+        return self.gkNameOfClass == UIView.NavigationBarContentViewName && superview?.classForCoder === SystemNavigationBar.self
     }
 }

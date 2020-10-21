@@ -16,13 +16,13 @@
   "source_files": "GliKitSwift/**/*.{swift}",
   "dependencies": {
     "SnapKit": [
-
+      "~> 5.0.1"
     ],
     "Kingfisher": [
-
+      "~> 5.15.6"
     ],
     "Alamofire": [
-
+      "~> 5.2.2"
     ]
   }
 }

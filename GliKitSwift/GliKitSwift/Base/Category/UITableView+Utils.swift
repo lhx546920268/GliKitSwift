@@ -20,22 +20,22 @@ public extension UITableView{
     ///注册cell
     func registerNib(_ cls: AnyClass){
         
-        let name = NSStringFromClass(cls)
+        let name = String(describing: cls)
         register(UINib(nibName: name, bundle: nil), forCellReuseIdentifier: name)
     }
     
     func registerClass(_ cls: AnyClass){
-        register(cls, forCellReuseIdentifier: NSStringFromClass(cls))
+        register(cls, forCellReuseIdentifier: String(describing: cls))
     }
 
     ///注册header footer
     func registerNibForHeaderFooterView(_ cls: AnyClass){
         
-        let name = NSStringFromClass(cls)
+        let name = String(describing: cls)
         register(UINib(nibName: name, bundle: nil), forHeaderFooterViewReuseIdentifier: name)
     }
     
     func registerClassForHeaderFooterView(_ cls: AnyClass){
-        register(cls, forHeaderFooterViewReuseIdentifier: NSStringFromClass(cls))
+        register(cls, forHeaderFooterViewReuseIdentifier: String(describing: cls))
     }
 }

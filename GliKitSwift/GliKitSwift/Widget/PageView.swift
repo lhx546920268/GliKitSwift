@@ -206,17 +206,17 @@ open class PageView: UIView, UIScrollViewDelegate {
     
     ///注册cell
     public func registerNib(_ cls: AnyClass) {
-        let name = NSStringFromClass(cls)
+        let name = String(describing: cls)
         registerCells[name] = UINib(nibName: name, bundle: nil)
     }
     
     public func registerClass(_ cls: AnyClass) {
-        registerCells[NSStringFromClass(cls)] = cls
+        registerCells[String(describing: cls)] = cls
     }
     
     ///复用cell
     public func dequeueCell(withClass cls: AnyClass, for index: Int) -> UIView? {
-        return dequeueCell(withIdentifier: NSStringFromClass(cls), for: index)
+        return dequeueCell(withIdentifier: String(describing: cls), for: index)
     }
     
     

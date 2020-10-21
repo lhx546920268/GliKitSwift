@@ -8,6 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		52990267BAFB17A07B676D05 /* Pods_GliKitSwiftDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFD9EFA3DFE967BFDF2C7A0 /* Pods_GliKitSwiftDemoTests.framework */; };
+		CE0E62C8253E82D500F934FB /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E62C7253E82D500F934FB /* EmptyViewController.swift */; };
+		CE0E62D7253EC27000F934FB /* EmptyCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E62D6253EC27000F934FB /* EmptyCollectionViewController.swift */; };
+		CE0E62DC253EC70A00F934FB /* EmptyNormalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E62DB253EC70A00F934FB /* EmptyNormalViewController.swift */; };
+		CE0E62E3253EE99A00F934FB /* AlertDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E62E2253EE99A00F934FB /* AlertDemoController.swift */; };
+		CE20FF4925401CBE0084D596 /* TableViewSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20FF4725401CBE0084D596 /* TableViewSkeletonCell.swift */; };
+		CE20FF4A25401CBE0084D596 /* TableViewSkeletonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE20FF4825401CBE0084D596 /* TableViewSkeletonCell.xib */; };
+		CE20FF4F25401E740084D596 /* TableViewSkeletonHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20FF4E25401E740084D596 /* TableViewSkeletonHeader.swift */; };
+		CE20FF5425401F210084D596 /* CollectionViewSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20FF5325401F210084D596 /* CollectionViewSkeletonCell.swift */; };
+		CE20FF5C254020C40084D596 /* CollectionViewSkeletonHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20FF5B254020C40084D596 /* CollectionViewSkeletonHeader.swift */; };
+		CE20FF61254022390084D596 /* SkeletonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20FF60254022390084D596 /* SkeletonViewController.swift */; };
+		CE20FF79254023370084D596 /* NormalSkeletonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20FF77254023370084D596 /* NormalSkeletonViewController.swift */; };
+		CE20FF7A254023370084D596 /* NormalSkeletonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE20FF78254023370084D596 /* NormalSkeletonViewController.xib */; };
+		CE20FF7F254023430084D596 /* TableSkeletonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20FF7E254023430084D596 /* TableSkeletonViewController.swift */; };
+		CE20FF84254023730084D596 /* CollectionSkeletonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20FF83254023730084D596 /* CollectionSkeletonViewController.swift */; };
+		CE2C6414253D70B1004D2BF5 /* EmptyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2C6413253D70B1004D2BF5 /* EmptyTableViewController.swift */; };
 		CE9E4C3823D06AEA00C0F63D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E4C3723D06AEA00C0F63D /* AppDelegate.swift */; };
 		CE9E4C4123D06AEC00C0F63D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE9E4C4023D06AEC00C0F63D /* Assets.xcassets */; };
 		CE9E4C4423D06AEC00C0F63D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE9E4C4223D06AEC00C0F63D /* LaunchScreen.storyboard */; };
@@ -44,6 +59,21 @@
 		77825AC03DFF2178CD717C6A /* Pods_GliKitSwiftDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GliKitSwiftDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CFD9EFA3DFE967BFDF2C7A0 /* Pods_GliKitSwiftDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GliKitSwiftDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		869E7A770BD6E7A21CA24C3D /* Pods-GliKitSwiftDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GliKitSwiftDemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-GliKitSwiftDemoUITests/Pods-GliKitSwiftDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		CE0E62C7253E82D500F934FB /* EmptyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyViewController.swift; sourceTree = "<group>"; };
+		CE0E62D6253EC27000F934FB /* EmptyCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCollectionViewController.swift; sourceTree = "<group>"; };
+		CE0E62DB253EC70A00F934FB /* EmptyNormalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyNormalViewController.swift; sourceTree = "<group>"; };
+		CE0E62E2253EE99A00F934FB /* AlertDemoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDemoController.swift; sourceTree = "<group>"; };
+		CE20FF4725401CBE0084D596 /* TableViewSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSkeletonCell.swift; sourceTree = "<group>"; };
+		CE20FF4825401CBE0084D596 /* TableViewSkeletonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewSkeletonCell.xib; sourceTree = "<group>"; };
+		CE20FF4E25401E740084D596 /* TableViewSkeletonHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSkeletonHeader.swift; sourceTree = "<group>"; };
+		CE20FF5325401F210084D596 /* CollectionViewSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewSkeletonCell.swift; sourceTree = "<group>"; };
+		CE20FF5B254020C40084D596 /* CollectionViewSkeletonHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewSkeletonHeader.swift; sourceTree = "<group>"; };
+		CE20FF60254022390084D596 /* SkeletonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonViewController.swift; sourceTree = "<group>"; };
+		CE20FF77254023370084D596 /* NormalSkeletonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalSkeletonViewController.swift; sourceTree = "<group>"; };
+		CE20FF78254023370084D596 /* NormalSkeletonViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NormalSkeletonViewController.xib; sourceTree = "<group>"; };
+		CE20FF7E254023430084D596 /* TableSkeletonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSkeletonViewController.swift; sourceTree = "<group>"; };
+		CE20FF83254023730084D596 /* CollectionSkeletonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionSkeletonViewController.swift; sourceTree = "<group>"; };
+		CE2C6413253D70B1004D2BF5 /* EmptyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewController.swift; sourceTree = "<group>"; };
 		CE9E4C3423D06AEA00C0F63D /* GliKitSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GliKitSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE9E4C3723D06AEA00C0F63D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE9E4C4023D06AEC00C0F63D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -110,6 +140,74 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CE0E62E0253EE98800F934FB /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				CE0E62E1253EE98800F934FB /* Controller */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
+		CE0E62E1253EE98800F934FB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CE0E62E2253EE99A00F934FB /* AlertDemoController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		CE20FF4425401C890084D596 /* Skeleton */ = {
+			isa = PBXGroup;
+			children = (
+				CE20FF4525401C890084D596 /* Controller */,
+				CE20FF4625401C890084D596 /* View */,
+			);
+			path = Skeleton;
+			sourceTree = "<group>";
+		};
+		CE20FF4525401C890084D596 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CE20FF60254022390084D596 /* SkeletonViewController.swift */,
+				CE20FF77254023370084D596 /* NormalSkeletonViewController.swift */,
+				CE20FF78254023370084D596 /* NormalSkeletonViewController.xib */,
+				CE20FF7E254023430084D596 /* TableSkeletonViewController.swift */,
+				CE20FF83254023730084D596 /* CollectionSkeletonViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		CE20FF4625401C890084D596 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE20FF4725401CBE0084D596 /* TableViewSkeletonCell.swift */,
+				CE20FF4825401CBE0084D596 /* TableViewSkeletonCell.xib */,
+				CE20FF4E25401E740084D596 /* TableViewSkeletonHeader.swift */,
+				CE20FF5325401F210084D596 /* CollectionViewSkeletonCell.swift */,
+				CE20FF5B254020C40084D596 /* CollectionViewSkeletonHeader.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CE2C6411253D708C004D2BF5 /* Empty */ = {
+			isa = PBXGroup;
+			children = (
+				CE2C6412253D708C004D2BF5 /* Controller */,
+			);
+			path = Empty;
+			sourceTree = "<group>";
+		};
+		CE2C6412253D708C004D2BF5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CE2C6413253D70B1004D2BF5 /* EmptyTableViewController.swift */,
+				CE0E62C7253E82D500F934FB /* EmptyViewController.swift */,
+				CE0E62D6253EC27000F934FB /* EmptyCollectionViewController.swift */,
+				CE0E62DB253EC70A00F934FB /* EmptyNormalViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		CE9E4C2B23D06AEA00C0F63D = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +233,9 @@
 		CE9E4C3623D06AEA00C0F63D /* GliKitSwiftDemo */ = {
 			isa = PBXGroup;
 			children = (
+				CE20FF4425401C890084D596 /* Skeleton */,
+				CE0E62E0253EE98800F934FB /* Alert */,
+				CE2C6411253D708C004D2BF5 /* Empty */,
 				CE9E4C3723D06AEA00C0F63D /* AppDelegate.swift */,
 				CE9E4C4023D06AEC00C0F63D /* Assets.xcassets */,
 				CE9E4C4223D06AEC00C0F63D /* LaunchScreen.storyboard */,
@@ -270,7 +371,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE20FF7A254023370084D596 /* NormalSkeletonViewController.xib in Resources */,
 				CE9E4C4423D06AEC00C0F63D /* LaunchScreen.storyboard in Resources */,
+				CE20FF4A25401CBE0084D596 /* TableViewSkeletonCell.xib in Resources */,
 				CE9E4C4123D06AEC00C0F63D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -382,8 +485,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE20FF79254023370084D596 /* NormalSkeletonViewController.swift in Sources */,
+				CE20FF84254023730084D596 /* CollectionSkeletonViewController.swift in Sources */,
 				CEAE532A23D1434F0073882E /* RootViewController.swift in Sources */,
+				CE0E62DC253EC70A00F934FB /* EmptyNormalViewController.swift in Sources */,
+				CE0E62E3253EE99A00F934FB /* AlertDemoController.swift in Sources */,
 				CE9E4C3823D06AEA00C0F63D /* AppDelegate.swift in Sources */,
+				CE0E62D7253EC27000F934FB /* EmptyCollectionViewController.swift in Sources */,
+				CE0E62C8253E82D500F934FB /* EmptyViewController.swift in Sources */,
+				CE20FF5425401F210084D596 /* CollectionViewSkeletonCell.swift in Sources */,
+				CE20FF7F254023430084D596 /* TableSkeletonViewController.swift in Sources */,
+				CE20FF4925401CBE0084D596 /* TableViewSkeletonCell.swift in Sources */,
+				CE2C6414253D70B1004D2BF5 /* EmptyTableViewController.swift in Sources */,
+				CE20FF4F25401E740084D596 /* TableViewSkeletonHeader.swift in Sources */,
+				CE20FF5C254020C40084D596 /* CollectionViewSkeletonHeader.swift in Sources */,
+				CE20FF61254022390084D596 /* SkeletonViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,7 +596,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -534,7 +650,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

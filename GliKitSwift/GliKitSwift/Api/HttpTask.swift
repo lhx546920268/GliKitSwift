@@ -144,7 +144,7 @@ open class HttpTask: NSObject {
         HttpTask.sharedTasks.insert(self)
         if shouldShowloadingHUD {
             UIApplication.shared.keyWindow?.endEditing(true)
-            view?.gkShowProgressHUD(delay: loadingHUDDelay)
+            view?.gkShowProgress(delay: loadingHUDDelay)
         }
     }
     
@@ -287,7 +287,7 @@ open class HttpTask: NSObject {
         onSuccess()
         delegate?.taskDidSuccess(self)
         
-        DispatchQueue.main.safeAsync { [weak self] in
+        dispatchAsyncMainSafe { [weak self] in
             if let self = self {
                 if !self.isCanceled {
                     self.successCallback?(self)
@@ -299,7 +299,7 @@ open class HttpTask: NSObject {
     
     ///请求失败
     public func requestDidFail() {
-        DispatchQueue.main.safeAsync { [weak self] in
+        dispatchAsyncMainSafe { [weak self] in
             if let self = self {
                 self.willFailCallback?(self)
                 self.onFail()

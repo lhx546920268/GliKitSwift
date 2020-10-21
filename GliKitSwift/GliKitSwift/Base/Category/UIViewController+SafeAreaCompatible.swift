@@ -13,36 +13,36 @@ import SnapKit
 public extension UIViewController{
     
     ///安全区域 顶部
-    var gkSafeAreaLayoutGuideTop: ConstraintRelatableTarget{
+    var gkSafeAreaLayoutGuideTop: ConstraintItem{
         if #available(iOS 11, *) {
-            return self.view.safeAreaLayoutGuide
+            return self.view.safeAreaLayoutGuide.snp.top
         }else{
             return self.topLayoutGuide.snp.bottom
         }
     }
     
     ///安全区域 底部
-    var gkSafeAreaLayoutGuideBottom: ConstraintRelatableTarget{
+    var gkSafeAreaLayoutGuideBottom: ConstraintItem{
         if #available(iOS 11, *) {
-            return self.view.safeAreaLayoutGuide
+            return self.view.safeAreaLayoutGuide.snp.bottom
         }else{
             return self.bottomLayoutGuide.snp.top
         }
     }
 
     ///安全区域 左边
-    var gkSafeAreaLayoutGuideLeft: ConstraintRelatableTarget{
+    var gkSafeAreaLayoutGuideLeft: ConstraintItem{
         if #available(iOS 11, *) {
-            return self.view.safeAreaLayoutGuide
+            return self.view.safeAreaLayoutGuide.snp.leading
         }else{
             return self.view.snp.leading
         }
     }
 
     ///安全区域 右边
-    var gkSafeAreaLayoutGuideRight: ConstraintRelatableTarget{
+    var gkSafeAreaLayoutGuideRight: ConstraintItem{
         if #available(iOS 11, *) {
-            return self.view.safeAreaLayoutGuide
+            return self.view.safeAreaLayoutGuide.snp.trailing
         }else{
             return self.view.snp.trailing
         }

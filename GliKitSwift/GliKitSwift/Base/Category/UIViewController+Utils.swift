@@ -634,3 +634,19 @@ public extension NSObject {
         }
     }
 }
+
+///自定义tabBar扩展
+public extension UIViewController {
+    
+    // TODO: TabBar
+
+    ///当前tabBarController
+    //@property(nonatomic, readonly) GKTabBarController *gkTabBarController;
+
+    ///是否有tabBar
+    var gkHasTabBar: Bool {
+        get{
+            return false
+        }
+    }
+}

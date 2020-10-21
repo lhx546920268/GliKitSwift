@@ -37,7 +37,7 @@ public class AlertProps: NSObject, NSCopying, Copyable {
     // MARK: - 取消按钮
 
     ///actionSheet 取消按钮和 内容视图的间距
-    public var cancelButtonVerticalSpacing: CGFloat = 18
+    public var cancelButtonVerticalSpacing: CGFloat = 10
 
     ///取消按钮字体
     public var cancelButtonFont: UIFont = .boldSystemFont(ofSize: 17)

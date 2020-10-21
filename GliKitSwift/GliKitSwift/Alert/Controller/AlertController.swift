@@ -12,7 +12,7 @@ import UIKit
  弹窗控制器 AlertView 和 ActionSheet的整合
  @warning 在显示show前设置好属性
  */
-public class AlertController: BaseViewController, UIGestureRecognizerDelegate {
+public class AlertController: BaseViewController {
     
     ///样式
     public private(set) var style: Style!
@@ -31,7 +31,7 @@ public class AlertController: BaseViewController, UIGestureRecognizerDelegate {
         }
     }
     private var _props: AlertProps?
-    
+
     ///按钮 不包含actionSheet 的取消按钮
     public let actions: [AlertAction]!
 
@@ -42,8 +42,8 @@ public class AlertController: BaseViewController, UIGestureRecognizerDelegate {
     public var dismissWhenSelectButton: Bool = true
 
     ///点击回调 index 按钮下标 包含取消按钮 actionSheet 从上到下， alert 从左到右
-    public var selectionHandler: ((_ index: Int) -> Void)?
-        
+    public var selectCallback: ((_ index: Int) -> Void)?
+
     ///按钮列表
     private var collectionView: UICollectionView?
 
@@ -61,7 +61,7 @@ public class AlertController: BaseViewController, UIGestureRecognizerDelegate {
 
     ///信息 NSString 或者 NSAttributedString
     private var message: Any?
-   
+
     ///图标
     private var icon: UIImage?
 
@@ -83,31 +83,31 @@ public class AlertController: BaseViewController, UIGestureRecognizerDelegate {
          cancelButtonTitle: String? = nil,
          otherButtonTitles: [String]? = nil,
          actions: [AlertAction]? = nil) {
-        
-        assert(title == nil || title is String || title is NSAttributedString, "\(NSStringFromClass(self.classForCoder)) title 必须为 nil 或者 NSString 或者 NSAttributedString");
-        assert(message == nil || message is String || message is NSAttributedString, "\(NSStringFromClass(self.classForCoder)) message 必须为 nil 或者 NSString 或者 NSAttributedString");
-        
+
+        assert(title == nil || title is String || title is NSAttributedString, "AlertController title 必须为 nil 或者 NSString 或者 NSAttributedString");
+        assert(message == nil || message is String || message is NSAttributedString, "AlertController message 必须为 nil 或者 NSString 或者 NSAttributedString");
+
         var actions = actions ?? [AlertAction]()
-        
+
         self.alertTitle = title
         self.message = message
         self.icon = icon
-        
+
         self.cancelTitle = cancelButtonTitle
         self.style = style
-        
+
         if actions.count == 0 && otherButtonTitles != nil {
             for buttonTitle in otherButtonTitles! {
                 actions.append(AlertAction(title: buttonTitle))
             }
         }
-        
+
         if style == .alert {
-            
-            if actions.count == 0 && self.cancelTitle == nil {
+
+            if actions.count == 0 && cancelButtonTitle == nil {
                 self.cancelTitle = "取消"
             }
-            
+
             if self.cancelTitle != nil {
                 if actions.count < 2 {
                     actions.insert(AlertAction(title: self.cancelTitle), at: 0)
@@ -116,29 +116,39 @@ public class AlertController: BaseViewController, UIGestureRecognizerDelegate {
                 }
             }
         }
-        
+
         self.actions = actions
-        
+        super.init(nibName: nil, bundle: nil)
         self.dialogShouldUseNewWindow = true
     }
-    
+
     required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented, use designed init instead")
     }
-    
+
     ///更新某个按钮 不包含actionSheet 的取消按钮
     public func reloadButton(for index: Int) {
-        
+        if index < actions.count {
+            collectionView?.reloadItems(at: [IndexPath(item: index, section: 0)])
+        }
     }
 
     ///通过下标回去按钮标题
     public func buttonTitle(for index: Int) -> String? {
-        
+        if index < actions.count {
+            return actions[index].title
+        }
+
+        if(style == .actionSheet && index == actions.count){
+            return self.cancelTitle
+        }
+
+        return nil
     }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.dialogShowAnimate = .custom
         self.dialogDismissAnimate = .custom
         self.shouldDismissDialogOnTapTranslucent = style == .actionSheet && !String.isEmpty(self.cancelTitle)
@@ -146,7 +156,7 @@ public class AlertController: BaseViewController, UIGestureRecognizerDelegate {
     }
 
     // MARK: - layout
-    
+
     ///弹窗宽度
     private var alertViewWidth: CGFloat {
         switch style {
@@ -160,495 +170,433 @@ public class AlertController: BaseViewController, UIGestureRecognizerDelegate {
     }
 
     public override func viewDidLayoutSubviews() {
-        
-        if isViewDidLayoutSubviews {
+
+        if !isViewDidLayoutSubviews {
             let props = self.props
             let width = alertViewWidth
             let margin = (self.view.gkWidth - width) / 2
-            
+
             let container = self.container!
             container.backgroundColor = props.mainColor
             container.layer.cornerRadius = props.cornerRadius
             container.layer.masksToBounds = true
-            
-            if alertTitle != nil || message != nil || icon != nil {
-                let header = AlertHeader(frame: CGRect(0, 0, width, 0))
-                let constraintWidth = header.gkWidth - props.textInsets.width
-                
-                var y = props.textInsets.top
-                if icon != nil {
-                    header.imageView.image = icon
-                    if icon!.size.width > constraintWidth {
-                        let size = icon!.
-                    }
-                }
-            }
-        }
-    }
-    - (void)viewDidLayoutSubviews
-    {
-        if(!self.isViewDidLayoutSubviews){
-            
-            GKAlertProps *props = self.props;
-            CGFloat width = [self alertViewWidth];
-            CGFloat margin = (self.view.gkWidth - width) / 2.0;
-            
-            self.container.backgroundColor = [UIColor redColor];
-            self.container.layer.cornerRadius = props.cornerRadius;
-            self.container.layer.masksToBounds = YES;
-            
-            
-            if(self.alertTitle || self.message || self.icon){
-                self.header = [[GKAlertHeader alloc] initWithFrame:CGRectMake(0, 0, width, 0)];
-                CGFloat constraintWidth = self.header.gkWidth - props.textInsets.left - props.textInsets.right;
-                
-                CGFloat y = props.textInsets.top;
-                if(self.icon){
-                    self.header.imageView.image = self.icon;
-                    if(self.icon.size.width > constraintWidth){
-                        CGSize size = [self.icon gkFitWithSize:CGSizeMake(constraintWidth, 0) type:GKImageFitTypeWidth];
-                        self.header.imageView.frame = CGRectMake((self.header.gkWidth - size.width) / 2, y, size.width, size.height);
-                    }else{
-                        self.header.imageView.frame = CGRectMake((self.header.gkWidth - self.icon.size.width) / 2, y, self.icon.size.width, self.icon.size.height);
-                    }
-                    y += self.header.imageView.gkHeight;
-                }
-                
-                if(self.alertTitle){
-                    if(self.icon){
-                        y += props.verticalSpacing;
-                    }
-                    self.header.titleLabel.font = props.titleFont;
-                    self.header.titleLabel.textColor = props.titleTextColor;
-                    self.header.titleLabel.textAlignment = props.titleTextAlignment;
-                    
-                    CGSize size = CGSizeZero;
-                    if([self.alertTitle isKindOfClass:[NSString class]]){
-                        self.header.titleLabel.text = self.alertTitle;
-                        size = [self.alertTitle gkStringSizeWithFont:props.titleFont contraintWith:constraintWidth];
-                    }else if([self.alertTitle isKindOfClass:[NSAttributedString class]]){
-                        self.header.titleLabel.attributedText = self.alertTitle;
-                        size = [self.alertTitle gkBoundsWithConstraintWidth:constraintWidth];
-                    }
-                    
-                    self.header.titleLabel.frame = CGRectMake(props.textInsets.left, y, constraintWidth, size.height);
-                    y += self.header.titleLabel.gkHeight;
-                }
-                
-                if(self.message){
-                    if(self.icon || self.alertTitle){
-                        y += props.verticalSpacing;
-                    }
-                    self.header.messageLabel.font = props.messageFont;
-                    self.header.messageLabel.textColor = props.messageTextColor;
-                    self.header.messageLabel.textAlignment = props.messageTextAlignment;
-                    
-                    CGSize size = CGSizeZero;
-                    if([self.message isKindOfClass:[NSString class]]){
-                        self.header.messageLabel.text = self.message;
-                        size = [self.message gkStringSizeWithFont:props.messageFont contraintWith:constraintWidth];
-                    }else if ([self.message isKindOfClass:[NSAttributedString class]]){
-                        self.header.messageLabel.attributedText = self.message;
-                        size = [self.message gkBoundsWithConstraintWidth:constraintWidth];
-                    }
-                    self.header.messageLabel.frame = CGRectMake(props.textInsets.left, y, constraintWidth, size.height);
-                    y += self.header.messageLabel.gkHeight;
-                }
-                
-                self.header.gkHeight = y + props.textInsets.bottom;
-                
-                //小于最低高度
-                if(self.header.gkHeight < props.contentMinHeight){
-                    CGFloat rest = (props.contentMinHeight - self.header.gkHeight) / 2.0;
-                    CGFloat y = props.textInsets.top + rest;
-                    if(self.icon){
-                        self.header.imageView.gkTop = y;
-                        y += self.header.imageView.gkHeight;
-                    }
-                    
-                    if(self.alertTitle){
-                        if(self.icon){
-                            y += props.verticalSpacing;
-                        }
-                        self.header.titleLabel.gkTop = y;
-                        y += self.header.titleLabel.gkHeight;
-                    }
-                    
-                    if(self.message){
-                        if(self.icon || self.alertTitle){
-                            y += props.verticalSpacing;
-                        }
-                        self.header.messageLabel.gkTop = y;
-                        y += self.header.messageLabel.gkHeight;
-                    }
-                    self.header.gkHeight = y + props.textInsets.bottom + rest;
-                }
-                self.header.contentSize = CGSizeMake(self.header.gkWidth, self.header.gkHeight);
-                
-                self.header.backgroundColor = props.mainColor;
-                [self.container addSubview:self.header];
-            }
-            
-            switch (_style){
-                case GKAlertControllerStyleAlert : {
-                    self.container.frame = CGRectMake(margin, margin, width, 0);
-                }
-                    break;
-                case GKAlertControllerStyleActionSheet : {
-                    
-                    self.container.frame = CGRectMake(props.contentInsets.left, margin, width, 0);
-                    
-                    if(![NSString isEmpty:self.cancelTitle]){
-                        self.cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(margin, margin, width, props.buttonHeight)];
-                        self.cancelButton.layer.cornerRadius = props.cornerRadius;
-                        [self.cancelButton gkSetBackgroundColor:props.mainColor forState:UIControlStateNormal];
-                        [self.cancelButton setTitle:self.cancelTitle forState:UIControlStateNormal];
-                        [self.cancelButton setTitleColor:props.cancelButtonTextColor forState:UIControlStateNormal];
-                        self.cancelButton.titleLabel.font = props.cancelButtonFont;
-                        [self.cancelButton gkSetBackgroundColor:props.highlightedBackgroundColor forState:UIControlStateHighlighted];
-                        [self.cancelButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
-                        
-                        //取消按钮和 内容视图的间隔
-                        if(props.spacingBackgroundColor && props.cancelButtonVerticalSpacing > 0){
-                            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, -props.cancelButtonVerticalSpacing, self.cancelButton.gkWidth, props.cancelButtonVerticalSpacing)];
-                            view.backgroundColor = props.spacingBackgroundColor;
-                            [self.cancelButton addSubview:view];
-                            self.cancelButton.clipsToBounds = NO;
-                        }
-                        
-                        [self.view addSubview:self.cancelButton];
-                    }
-                }
-                    break;
-            }
-            
-            if(self.actions.count > 0){
-                self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, self.header.gkBottom, width, 0)collectionViewLayout:[self layout]];
-                self.collectionView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-                [self.collectionView registerClass:[GKAlertCell class] forCellWithReuseIdentifier:@"GKAlertCell"];
-                self.collectionView.dataSource = self;
-                self.collectionView.delegate = self;
-                self.collectionView.bounces = NO;
-                self.collectionView.showsHorizontalScrollIndicator = NO;
-                [self.container addSubview:self.collectionView];
-            }
-            
-            [self layoutSubViews];
-        }
-        [super viewDidLayoutSubviews];
-    }
 
-   
-
+            layoutHeader()
+            switch style {
+            case .alert :
+                container.frame = CGRect(margin, margin, width, 0)
+                
+            case .actionSheet :
+                container.frame = CGRect(props.contentInsets.left, margin, width, 0)
+                if !String.isEmpty(cancelTitle) {
+                    let btn = UIButton(frame: CGRect(margin, margin, width, props.buttonHeight))
+                    btn.layer.cornerRadius = props.cornerRadius
+                    btn.gkSetBackgroundColor(props.mainColor, state: .normal)
+                    btn.setTitle(cancelTitle, for: .normal)
+                    btn.setTitleColor(props.cancelButtonTextColor, for: .normal)
+                    btn.gkSetBackgroundColor(props.highlightedBackgroundColor, state: .highlighted)
+                    btn.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
+                    
+                    //取消按钮和 内容视图的间隔
+                    if props.spacingBackgroundColor != nil && props.cancelButtonVerticalSpacing > 0 {
+                        let view = UIView(frame: CGRect(0, -props.cancelButtonVerticalSpacing, btn.gkWidth, props.cancelButtonVerticalSpacing))
+                        view.backgroundColor = props.spacingBackgroundColor
+                        btn.addSubview(view)
+                        btn.clipsToBounds = false
+                    }
+                    
+                    view.addSubview(btn)
+                    cancelButton = btn
+                }
+                
+            default: break
+            }
+            
+            if actions.count > 0 {
+                collectionView = UICollectionView(frame: CGRect(0, header?.gkBottom ?? 0, width, 0), collectionViewLayout: layout)
+                collectionView?.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
+                collectionView?.registerClass(AlertCell.self)
+                collectionView?.delegate = self
+                collectionView?.dataSource = self
+                collectionView?.bounces = false
+                collectionView?.showsHorizontalScrollIndicator = false
+                container.addSubview(collectionView!)
+            }
+            
+            layoutSubViews()
+        }
+        super.viewDidLayoutSubviews()
+    }
+    
+    
     ///collectionView布局方式
-    - (UICollectionViewFlowLayout*)layout
-    {
-        GKAlertProps *style = self.props;
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.minimumInteritemSpacing = UIApplication.gkSeparatorHeight;
-        layout.minimumLineSpacing = UIApplication.gkSeparatorHeight;
-        
-        switch (_style){
-            case GKAlertControllerStyleActionSheet : {
-                layout.itemSize = CGSizeMake([self alertViewWidth], style.buttonHeight);
+    private var layout: UICollectionViewLayout {
+        get{
+            let props = self.props
+            let layout = UICollectionViewFlowLayout()
+            layout.minimumLineSpacing = UIApplication.gkSeparatorHeight
+            layout.minimumInteritemSpacing = UIApplication.gkSeparatorHeight
+            
+            switch style {
+            case .actionSheet :
+                layout.itemSize = CGSize(alertViewWidth, props.buttonHeight)
+                
+            case .alert :
+                layout.itemSize = CGSize(actions.count == 2 ? (alertViewWidth - UIApplication.gkSeparatorHeight) / 2.0 : alertViewWidth, props.buttonHeight)
+                layout.scrollDirection = actions.count > 2 ? .vertical : .horizontal
+            default:
+                break
             }
-                break;
-            case GKAlertControllerStyleAlert : {
-                layout.itemSize = CGSizeMake(self.actions.count == 2 ? ([self alertViewWidth] - UIApplication.gkSeparatorHeight) / 2.0 : [self alertViewWidth], style.buttonHeight);
-                layout.scrollDirection = self.actions.count >= 3 ? UICollectionViewScrollDirectionVertical : UICollectionViewScrollDirectionHorizontal;
-            }
-                break;
+            return layout
         }
-        
-        return layout;
+    }
+    
+    ///布局头部视图
+    private func layoutHeader() {
+        if alertTitle != nil || message != nil || icon != nil {
+            
+            let width = alertViewWidth
+            let props = self.props
+            let header = AlertHeader(frame: CGRect(0, 0, width, 0))
+            let constraintWidth = header.gkWidth - props.textInsets.width
+
+            var y = props.textInsets.top
+            if icon != nil {
+                header.imageView.image = icon
+                if icon!.size.width > constraintWidth {
+                    let size = icon!.gkFit(with: CGSize(constraintWidth, 0), type: .width)
+                    header.imageView.frame = CGRect((header.gkWidth - size.width) / 2, y, icon!.size.width, icon!.size.height)
+                } else {
+                    header.imageView.frame = CGRect((header.gkWidth - icon!.size.width) / 2, y, icon!.size.width, icon!.size.height)
+                }
+                y += header.imageView.gkHeight
+            }
+            
+            if alertTitle != nil {
+                if icon != nil {
+                    y += props.verticalSpacing
+                }
+                header.titleLabel.font = props.titleFont
+                header.titleLabel.textColor = props.titleTextColor
+                header.titleLabel.textAlignment = props.titleTextAlignment
+                
+                var size: CGSize = .zero
+                if alertTitle is String {
+                    let str = alertTitle as! String
+                    header.titleLabel.text = str
+                    size = str.gkStringSize(font: props.titleFont, with: constraintWidth)
+                } else if alertTitle is NSAttributedString {
+                    let attr = alertTitle as! NSAttributedString
+                    header.titleLabel.attributedText = attr
+                    size = attr.gkBounds(constraintWidth: constraintWidth)
+                }
+                
+                header.titleLabel.frame = CGRect(props.textInsets.left, y, constraintWidth, size.height)
+                y += header.titleLabel.gkHeight
+            }
+            
+            if message != nil {
+                if icon != nil || alertTitle != nil {
+                    y += props.verticalSpacing
+                }
+                header.messageLabel.font = props.messageFont
+                header.messageLabel.textColor = props.messageTextColor
+                header.messageLabel.textAlignment = props.messageTextAlignment
+                
+                var size: CGSize = .zero
+                if message is String {
+                    let str = message as! String
+                    header.messageLabel.text = str
+                    size = str.gkStringSize(font: props.messageFont, with: constraintWidth)
+                } else if message is NSAttributedString {
+                    let attr = message as! NSAttributedString
+                    header.messageLabel.attributedText = attr
+                    size = attr.gkBounds(constraintWidth: constraintWidth)
+                }
+                
+                header.messageLabel.frame = CGRect(props.textInsets.left, y, constraintWidth, size.height)
+                y += header.messageLabel.gkHeight
+            }
+            
+            header.gkHeight = y + props.textInsets.bottom
+            
+            //小于最低高度
+            if header.gkHeight < props.contentMinHeight {
+                let rest = (props.contentMinHeight - header.gkHeight) / 2
+                var y = props.textInsets.top + rest
+                if icon != nil {
+                    header.imageView.gkTop = y
+                    y += header.imageView.gkHeight
+                }
+                
+                if alertTitle != nil {
+                    if icon != nil {
+                        y += props.verticalSpacing
+                    }
+                    header.titleLabel.gkTop = y
+                    y += header.titleLabel.gkHeight
+                }
+                
+                if message != nil {
+                    if icon != nil || alertTitle != nil {
+                        y += props.verticalSpacing
+                    }
+                    header.messageLabel.gkTop = y
+                    y += header.messageLabel.gkHeight
+                }
+                header.gkHeight = y + props.textInsets.bottom + rest
+            }
+            
+            header.contentSize = header.gkSize
+            header.backgroundColor = props.mainColor
+            container!.addSubview(header)
+            self.header = header
+        }
     }
 
     ///布局子视图
-    - (void)layoutSubViews
-    {
-        GKAlertProps *props = self.props;
-        
-        ///头部高度
-        CGFloat headerHeight = 0;
-        if(self.header){
-            headerHeight = self.header.gkHeight;
+    private func layoutSubViews() {
+        let props = self.props
+
+        //头部高度
+        var headerHeight: CGFloat = 0
+        if header != nil {
+            headerHeight = header!.gkHeight
         }
-        
-        ///按钮高度
-        CGFloat buttonHeight = 0;
-        
-        if(self.actions.count > 0){
-            switch (_style){
-                case GKAlertControllerStyleAlert : {
-                    buttonHeight = self.actions.count < 3 ? props.buttonHeight : self.actions.count * (UIApplication.gkSeparatorHeight + props.buttonHeight);
-                    if(headerHeight > 0){
-                        buttonHeight += 0.1;
-                    }
+
+        //按钮高度
+        var buttonHeight: CGFloat = 0
+
+        if actions.count > 0 {
+            switch style {
+            case .alert :
+                buttonHeight = actions.count <= 2 ? props.buttonHeight : actions.count.cgFloatValue * (UIApplication.gkSeparatorHeight + props.buttonHeight)
+                if headerHeight > 0 {
+                    buttonHeight += 0.1
                 }
-                    break;
-                case GKAlertControllerStyleActionSheet : {
-                    buttonHeight = self.actions.count * props.buttonHeight + (self.actions.count - 1) * UIApplication.gkSeparatorHeight;
-                    
-                    if(headerHeight > 0){
-                        buttonHeight += UIApplication.gkSeparatorHeight;
-                    }
+                
+            case .actionSheet :
+                buttonHeight = actions.count.cgFloatValue * props.buttonHeight + (actions.count - 1).cgFloatValue * UIApplication.gkSeparatorHeight
+                
+                if headerHeight > 0 {
+                    buttonHeight += UIApplication.gkSeparatorHeight
                 }
-                    break;
+                
+            default: break
             }
         }
-        
-        
+
         ///取消按钮高度
-        CGFloat cancelHeight = self.cancelButton ? (self.cancelButton.gkHeight + props.contentInsets.bottom) : 0;
-        
-        CGFloat maxContentHeight = self.view.gkHeight - props.contentInsets.top - props.contentInsets.bottom - cancelHeight;
-        
-        CGRect frame = self.collectionView.frame;
-        if(headerHeight + buttonHeight > maxContentHeight){
-            CGFloat contentHeight = maxContentHeight;
-            if(headerHeight >= contentHeight / 2.0 && buttonHeight >= contentHeight / 2.0){
-                self.header.gkHeight = contentHeight / 2.0;
-                frame.size.height = buttonHeight;
-            }else if (headerHeight >= contentHeight / 2.0 && buttonHeight < contentHeight / 2.0){
-                self.header.gkHeight = contentHeight - buttonHeight;
-                frame.size.height = buttonHeight;
+        let cancelHeight: CGFloat = cancelButton != nil ? (cancelButton!.gkHeight + props.contentInsets.bottom) : 0
+
+        let maxContentHeight: CGFloat = self.view.gkHeight - props.contentInsets.top - props.contentInsets.bottom - cancelHeight - self.view.gkSafeAreaInsets.bottom
+
+        var frame: CGRect = collectionView?.frame ?? .zero
+        if headerHeight + buttonHeight > maxContentHeight {
+            let contentHeight = maxContentHeight
+            if headerHeight >= contentHeight / 2.0 && buttonHeight >= contentHeight / 2.0 {
+                header?.gkHeight = contentHeight / 2.0
+                frame.size.height = buttonHeight
+            }else if headerHeight >= contentHeight / 2.0 && buttonHeight < contentHeight / 2.0 {
+                header?.gkHeight = contentHeight - buttonHeight
+                frame.size.height = buttonHeight
             }else{
-                self.header.gkHeight = headerHeight;
-                frame.size.height = contentHeight - headerHeight;
+                header?.gkHeight = headerHeight
+                frame.size.height = contentHeight - headerHeight
             }
-            
-            frame.origin.y = self.header.gkBottom;
-            self.collectionView.frame = frame;
-            self.container.gkHeight = maxContentHeight;
+
+            frame.origin.y = header?.gkBottom ?? 0
+            collectionView?.frame = frame
+            container?.gkHeight = maxContentHeight
         }else{
+
+            frame.origin.y = header?.gkBottom ?? 0
+            frame.size.height = buttonHeight
+            collectionView?.frame = frame
+            container?.gkHeight = headerHeight + buttonHeight
+        }
+
+        if (header?.gkHeight ?? 0) > 0 {
+            collectionView?.gkHeight += UIApplication.gkSeparatorHeight
+            container?.gkHeight += UIApplication.gkSeparatorHeight
+        }
+
+        switch style {
+        case .actionSheet :
+                container?.gkTop = self.view.gkHeight
+       
+        case .alert :
+                container?.gkTop = (self.view.gkHeight - (container?.gkHeight ?? 0 )) / 2.0
             
-            frame.origin.y = self.header.gkBottom;
-            frame.size.height = buttonHeight;
-            self.collectionView.frame = frame;
-            self.container.gkHeight = headerHeight + buttonHeight;
+        default: break
         }
-        
-        if(self.header.gkHeight > 0){
-            self.collectionView.gkHeight += UIApplication.gkSeparatorHeight;
-            self.container.gkHeight += UIApplication.gkSeparatorHeight;
-        }
-        
-        switch (_style){
-            case GKAlertControllerStyleActionSheet : {
-                self.container.gkTop = self.view.gkHeight;
-            }
-                break;
-            case GKAlertControllerStyleAlert : {
-                self.container.gkTop = (self.view.gkHeight - self.container.gkHeight) / 2.0;
-            }
-                break;
-        }
-        
-        self.cancelButton.gkTop = self.container.gkBottom + props.cancelButtonVerticalSpacing;
+
+        cancelButton?.gkTop = (container?.gkBottom ?? 0) + props.cancelButtonVerticalSpacing
     }
 
     // MARK: - private method
 
     ///取消
-    - (void)cancel:(id) sender
-    {
-        NSUInteger index = 0;
-        if(_style == GKAlertControllerStyleActionSheet){
-            index = self.actions.count;
+    @objc private func handleCancel() {
+        var index = 0
+        if style == .actionSheet {
+            index = actions.count
         }
-        
-        void(^handler)(NSUInteger index) = self.selectionHandler;
-        self.dialogDismissCompletionHandler = ^{
-            !handler ?: handler(index);
-        };
-        [self dismiss];
+        dialogDismissCompletion = {
+            self.selectCallback?(index)
+        }
+        dismiss()
     }
-
-    - (void)didExecuteDialogShowCustomAnimate:(void (^)(BOOL))completion
-    {
-        switch (_style){
-            case GKAlertControllerStyleAlert : {
-                self.container.alpha = 0;
-                [UIView animateWithDuration:0.25 animations:^(void){
-                    
-                    self.dialogBackgroundView.alpha = 1.0;
-                    self.container.alpha = 1.0;
-                    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-                    animation.fromValue = [NSNumber numberWithFloat:1.3];
-                    animation.toValue = [NSNumber numberWithFloat:1.0];
-                    animation.duration = 0.25;
-                    [self.container.layer addAnimation:animation forKey:@"scale"];
-                }completion:completion];
-            }
-                break;
-            case GKAlertControllerStyleActionSheet : {
-                GKAlertProps *props = self.props;
-                [UIView animateWithDuration:0.25 animations:^(void){
-                    
-                    CGFloat spacing = self.cancelButton ? props.cancelButtonVerticalSpacing : 0;
-                    self.dialogBackgroundView.alpha = 1.0;
-                    self.container.gkTop = self.view.gkHeight - self.container.gkHeight - props.contentInsets.bottom - self.cancelButton.gkHeight - spacing;
-                    self.cancelButton.gkTop = self.container.gkBottom + props.cancelButtonVerticalSpacing;
-                }completion:completion];
-            }
-                break;
+    
+    public override func didExecuteDialogShowCustomAnimate(_ completion: ((Bool) -> Void)?) {
+        switch style {
+        case .alert :
+            container?.alpha = 0
+            UIView.animate(withDuration: 0.25, animations: {
+                self.dialogBackgroundView?.alpha = 1.0
+                self.container?.alpha = 1.0
+                let animation = CABasicAnimation(keyPath: "transform.scale")
+                animation.fromValue = 1.3
+                animation.toValue = 1.0
+                animation.duration = 0.25
+                self.container?.layer.add(animation, forKey: "scale")
+            }, completion: completion)
+            
+        case .actionSheet :
+            let props = self.props
+            UIView.animate(withDuration: 0.25, animations: {
+                let spacing = self.cancelButton != nil ? props.cancelButtonVerticalSpacing : 0
+                self.dialogBackgroundView?.alpha = 1.0
+                
+                if let container = self.container {
+                    container.gkTop = self.view.gkHeight - container.gkHeight - max(props.contentInsets.bottom, self.view.gkSafeAreaInsets.bottom) - (self.cancelButton?.gkHeight ?? 0) - spacing
+                    self.cancelButton?.gkTop = container.gkBottom + props.cancelButtonVerticalSpacing
+                }
+            }, completion: completion)
+            
+        default:
+            break
         }
     }
 
-    - (void)didExecuteDialogDismissCustomAnimate:(void (^)(BOOL))completion
-    {
-        switch (_style){
-            case GKAlertControllerStyleActionSheet : {
-                [UIView animateWithDuration:0.25 animations:^(void){
-                    
-                    self.dialogBackgroundView.alpha = 0;
-                    self.container.gkTop = self.view.gkHeight;
-                    GKAlertProps *props = self.props;
-                    self.cancelButton.gkTop = self.container.gkBottom + props.cancelButtonVerticalSpacing;
-                    
-                }completion:completion];
-            }
-                break;
-            case GKAlertControllerStyleAlert : {
-                [UIView animateWithDuration:0.25 animations:^(void){
-                    
-                    self.dialogBackgroundView.alpha = 0;
-                    self.container.alpha = 0;
-                    
-                }completion:completion];
-            }
-                break;
+    public override func didExecuteDialogDismissCustomAnimate(_ completion: ((Bool) -> Void)?) {
+        switch style {
+        case .alert :
+            UIView.animate(withDuration: 0.25, animations: {
+                self.dialogBackgroundView?.alpha = 0
+                self.container?.alpha = 0
+            }, completion: completion)
+            
+        case .actionSheet :
+            UIView.animate(withDuration: 0.25, animations: {
+                self.dialogBackgroundView?.alpha = 0;
+                self.container?.gkTop = self.view.gkHeight
+                self.cancelButton?.gkTop = (self.container?.gkBottom ?? 0) + self.props.cancelButtonVerticalSpacing
+            }, completion: completion)
+            
+        default:
+            break
         }
-    }
-
-    // MARK: - public method
-
-    - (void)reloadButtonForIndex:(NSUInteger) index
-    {
-        if(index < self.actions.count){
-            [self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:index inSection:0]]];
-        }
-    }
-
-    - (NSString*)buttonTitleForIndex:(NSUInteger) index
-    {
-        if(index < self.actions.count){
-            GKAlertAction *action = self.actions[index];
-            return action.title;
-        }
-        
-        if(self.style == GKAlertControllerStyleActionSheet && index == self.actions.count){
-            return self.cancelTitle;
-        }
-        
-        return nil;
     }
 
     // MARK: - UITapGestureRecognizer delegate
 
-    - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
-    {
-        CGPoint point = [gestureRecognizer locationInView:self.dialogBackgroundView];
-        point.y += self.dialogBackgroundView.gkTop;
-        if(CGRectContainsPoint(self.container.frame, point)){
-            return NO;
-        }
-        
-        return YES;
-    }
-
-    - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-    {
-        return touch.view == self.dialogBackgroundView;
-    }
-
-    // MARK: - UICollectionView delegate
-
-    - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-    {
-        return self.actions.count;
-    }
-
-    - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-    {
-        if(self.header.gkHeight > 0){
-            return UIEdgeInsetsMake(UIApplication.gkSeparatorHeight, 0, 0, 0);
-        }else{
-            return UIEdgeInsetsZero;
-        }
-    }
-
-    - (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-    {
-        GKAlertCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GKAlertCell" forIndexPath:indexPath];
-        
-        GKAlertAction *action = [self.actions objectAtIndex:indexPath.item];
-        GKAlertProps *props = self.props;
-        UIFont *font;
-        UIColor *textColor;
-        
-        if(action.enable){
-            BOOL isCancel = NO;
-            if(self.style == GKAlertControllerStyleAlert && self.cancelTitle){
-                isCancel = (indexPath.item == 0 && self.actions.count < 3) || (indexPath.item == self.actions.count - 1 && self.actions.count >= 3);
-            }
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if let container = self.container {
+            var point = gestureRecognizer.location(in: self.dialogBackgroundView)
+            point.y += self.dialogBackgroundView?.gkTop ?? 0
             
-            if(isCancel){
-                textColor = action.textColor ? action.textColor : props.cancelButtonTextColor;
-                font = action.font ? action.font : props.cancelButtonFont;
-            }else if(indexPath.item == _destructiveButtonIndex){
-                textColor = action.textColor ? action.textColor : props.destructiveButtonTextColor;
-                font = action.font ? action.font : props.destructiveButtonFont;
-            }else{
-                textColor = action.textColor ? action.textColor : props.buttonTextColor;
-                font = action.font ? action.font : props.butttonFont;
+            if container.frame.contains(point) {
+                return false
             }
-        }else{
-            textColor = props.disableButtonTextColor;
-            font = props.disableButtonFont;
         }
         
-        [cell.button setTitleColor:textColor forState:UIControlStateNormal];
-        cell.button.titleLabel.font = font;
-        
-        [cell.button setTitle:action.title forState:UIControlStateNormal];
-        [cell.button setImage:action.icon forState:UIControlStateNormal];
-        cell.button.imagePadding = action.spacing;
-        cell.button.imagePosition = action.imagePosition;
-        cell.selectedBackgroundView.backgroundColor = self.props.highlightedBackgroundColor;
-        
-        if(indexPath.item == _destructiveButtonIndex && props.destructiveButtonBackgroundColor){
-            cell.backgroundColor = props.destructiveButtonBackgroundColor;
-        }else{
-            cell.backgroundColor = props.mainColor;
-        }
-        
-        return cell;
+        return true
     }
 
-    - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-    {
-        [collectionView deselectItemAtIndexPath:indexPath animated:YES];
-        
-        GKAlertAction *action = [self.actions objectAtIndex:indexPath.item];
-        if(action.enable){
-            if(self.dismissWhenSelectButton){
-                
-                void(^handler)(NSUInteger index) = self.selectionHandler;
-                self.dialogDismissCompletionHandler = ^{
-                    !handler ?: handler(indexPath.item);
-                };
-                [self dismiss];
-            }else{
-                !self.selectionHandler ?: self.selectionHandler(indexPath.item);
-            }
+    public override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return touch.view == self.dialogBackgroundView
+    }
+}
+
+extension AlertController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return actions.count
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if header != nil && header!.gkHeight > 0 {
+            return UIEdgeInsets(UIApplication.gkSeparatorHeight, 0, 0, 0)
+        } else {
+            return .zero
         }
     }
 
-    - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath
-    {
-        GKAlertAction *action = [self.actions objectAtIndex:indexPath.item];
-        return action.enable;
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlertCell.gkNameOfClass, for: indexPath) as! AlertCell
+        
+        let action = actions[indexPath.item]
+        let props = self.props
+        var font: UIFont
+        var textColor: UIColor
+        
+        if action.enable {
+            var isCancel = false
+            if style == .alert && cancelTitle != nil {
+                isCancel = (indexPath.item == 0 && actions.count <= 2) || (indexPath.item == actions.count - 1 && actions.count >= 3)
+            }
+
+            if isCancel {
+                textColor = action.textColor ?? props.cancelButtonTextColor
+                font = action.font ?? props.cancelButtonFont
+            }else if indexPath.item == destructiveButtonIndex {
+                textColor = action.textColor ?? props.destructiveButtonTextColor
+                font = action.font ?? props.destructiveButtonFont
+            }else{
+                textColor = action.textColor ?? props.buttonTextColor
+                font = action.font ?? props.butttonFont
+            }
+        }else{
+            textColor = props.disableButtonTextColor
+            font = props.disableButtonFont
+        }
+        
+        cell.button.setTitleColor(textColor, for: .normal)
+        cell.button.setImage(action.icon, for: .normal)
+        cell.button.setTitle(action.title, for: .normal)
+        cell.button.imagePadding = action.spacing
+        cell.button.imagePosition = action.imagePosition
+        cell.button.titleLabel?.font = font
+        cell.selectedBackgroundView?.backgroundColor = props.highlightedBackgroundColor
+        
+        if indexPath.item == destructiveButtonIndex && props.destructiveButtonBackgroundColor != nil {
+            cell.backgroundColor = props.destructiveButtonBackgroundColor
+        }else{
+            cell.backgroundColor = props.mainColor
+        }
+
+        return cell
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        let action = actions[indexPath.item]
+        if action.enable {
+            if dismissWhenSelectButton {
+                dialogDismissCompletion = {
+                    self.selectCallback?(indexPath.item)
+                }
+                dismiss()
+            }else{
+                self.selectCallback?(indexPath.item)
+            }
+        }
+    }
+
+    public func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        return actions[indexPath.item].enable
     }
 }
 

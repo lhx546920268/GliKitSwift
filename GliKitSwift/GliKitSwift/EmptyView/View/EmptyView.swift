@@ -27,7 +27,7 @@ open class EmptyView: UIView {
         contentView.snp.makeConstraints { (make) in
             make.leading.equalTo(10)
             make.trailing.equalTo(-10)
-            make.centerY.equalTo(0)
+            make.centerY.equalTo(self)
         }
         
         return contentView

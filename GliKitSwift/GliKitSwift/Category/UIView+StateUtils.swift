@@ -26,7 +26,7 @@ public extension UIView{
 
     ///获取当前背景颜色
     var gkCurrentBackgroundColor: UIColor?{
-        var color = self.gkBackgroundColorsForState?[self.gkState] as? UIColor
+        var color = self.gkBackgroundColorsForState?[self.gkState.rawValue] as? UIColor
         
         if color == nil {
             color = self.backgroundColor
@@ -36,7 +36,7 @@ public extension UIView{
 
     ///获取当前 tintColor
     var gkCurrentTintColor: UIColor{
-        var color = self.gkTintColorsForState?[self.gkState] as? UIColor
+        var color = self.gkTintColorsForState?[self.gkState.rawValue] as? UIColor
         
         if color == nil {
             color = self.tintColor
@@ -75,7 +75,7 @@ public extension UIView{
             objc_setAssociatedObject(self, &backgroundColorKey, dic, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
         
-        dic![state] = backgroundColor
+        dic![state.rawValue] = backgroundColor
         
         if self.gkState == state {
             self.gkAdjustsBackgroundColor()
@@ -109,7 +109,7 @@ public extension UIView{
              objc_setAssociatedObject(self, &tintColorKey, dic, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
          }
          
-         dic![state] = backgroundColor
+        dic![state.rawValue] = tintColor
          
          if self.gkState == state {
              self.gkAdjustsTintColor()

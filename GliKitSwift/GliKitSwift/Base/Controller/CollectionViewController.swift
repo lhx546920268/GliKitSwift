@@ -21,8 +21,7 @@ open class CollectionViewController: ScrollViewController, UICollectionViewDataS
         collectionView.backgroundColor = .clear
         collectionView.backgroundView = nil
         
-        //TODO: EmptyView
-       // collectionView.gkEmptyViewDelegate = self
+        collectionView.gkEmptyViewDelegate = self
         self.scrollView = collectionView
         
         return collectionView
@@ -43,6 +42,11 @@ open class CollectionViewController: ScrollViewController, UICollectionViewDataS
         
         return layout
     }()
+    
+    open override func initViews() {
+        super.initViews()
+        contentView = collectionView
+    }
 
     // MARK: - Register Cell
         
@@ -73,15 +77,15 @@ open class CollectionViewController: ScrollViewController, UICollectionViewDataS
 
     // MARK: - UICollectionView delegate
 
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 0
     }
     
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         fatalError("\(self.gkNameOfClass) 必须实现 \(#function)")
     }
 
-    public func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
+    open func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
         //防止挡住滚动条
         if #available(iOS 11, *) {
             view.layer.zPosition = 0;

@@ -109,7 +109,6 @@ public extension Character {
     
     ///转成整型
     func toInt() -> Int{
-        
-        return Int(String(self).unicodeScalars.first!.value)
+        return String(self).intValue
     }
 }

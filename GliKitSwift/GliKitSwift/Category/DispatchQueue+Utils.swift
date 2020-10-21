@@ -13,7 +13,7 @@ public extension DispatchQueue{
     private static var onceTokens = [String]()
     
     ///同步锁
-    class func synchronized(token: Any, block: VoidClosure) {
+    class func synchronized(token: Any, block: VoidCallback) {
         
         objc_sync_enter(token)
         defer{
@@ -23,7 +23,7 @@ public extension DispatchQueue{
     }
     
     ///只执行一次 类似 objc的
-    class func once(token: String, block: VoidClosure) {
+    class func once(token: String, block: VoidCallback) {
         
         synchronized(token: self) {
             guard !onceTokens.contains(token) else {
@@ -33,15 +33,17 @@ public extension DispatchQueue{
             block()
         }
     }
-    
-    ///如果已经是主线程就不再加入主线程队列
-    func safeAsync(_ block: @escaping VoidClosure) {
-        if self === DispatchQueue.main && Thread.isMainThread {
-            block()
-        } else {
-            async {
-                block()
-            }
-        }
+}
+
+extension DispatchTime: ExpressibleByIntegerLiteral {
+    public init(integerLiteral value: Int) {
+        self = DispatchTime.now() + .seconds(value)
     }
 }
+
+extension DispatchTime: ExpressibleByFloatLiteral {
+    public init(floatLiteral value: Double) {
+        self = DispatchTime.now() + .milliseconds(Int(value * 1000))
+    }
+}
+

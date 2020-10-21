@@ -19,6 +19,12 @@ func swizzling(selector1: Selector, cls1: AnyClass, selector2: Selector, cls2: A
     
     guard let method1 = class_getInstanceMethod(cls1, selector1),
         let method2 = class_getInstanceMethod(cls2, selector2) else {
+        if class_getInstanceMethod(cls1, selector1) == nil {
+            print(selector1)
+        }
+        if class_getInstanceMethod(cls2, selector2) == nil {
+            print(selector2)
+        }
         return
     }
     

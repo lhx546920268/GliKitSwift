@@ -14,6 +14,8 @@ private var shouldShowEmptyViewKey: UInt8 = 0
 ///偏移量
 private var emptyViewInsetsKey: UInt8 = 0
 
+private var emptyHelperKey: UInt8 = 0
+
 ///空视图帮助类
 class EmptyHelper {
     
@@ -46,14 +48,35 @@ public extension UIScrollView{
             if self.gkShouldShowEmptyView != newValue {
                 objc_setAssociatedObject(self, &shouldShowEmptyViewKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
                 if newValue {
+                    gkEnsureEmptyHelper()
                     layoutEmtpyView()
                 } else {
-                    self.gkEmptyView = nil
+                    gkEmptyHelper = nil
+                    gkEmptyView = nil
                 }
             }
         }
         get{
             objc_getAssociatedObject(self, &shouldShowEmptyViewKey) as? Bool ?? false
+        }
+    }
+    
+    ///空视图帮助类
+    private var gkEmptyHelper: EmptyHelper?{
+        set{
+            objc_setAssociatedObject(self, &emptyHelperKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+        get{
+            objc_getAssociatedObject(self, &emptyHelperKey) as? EmptyHelper
+        }
+    }
+    
+    ///确保有 helper
+    private func gkEnsureEmptyHelper() {
+        var helper = gkEmptyHelper
+        if helper == nil {
+            helper = EmptyHelper(scrollView: self)
+            gkEmptyHelper = helper
         }
     }
 
@@ -108,6 +131,8 @@ public extension UIScrollView{
                     insertSubview(emptyView!, at: 0)
                 }
             }
+        }else{
+            gkEmptyView = nil
         }
     }
 }

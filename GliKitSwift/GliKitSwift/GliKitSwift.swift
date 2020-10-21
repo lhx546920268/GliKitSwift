@@ -8,7 +8,7 @@
 
 import UIKit
 
-public typealias VoidClosure = () -> Void
+public typealias VoidCallback = () -> Void
 
 public class GliKitSwift {
 
@@ -16,6 +16,10 @@ public class GliKitSwift {
     public class func initialize(){
         DispatchQueue.once(token: "GliKitSwift.initialize"){
             UIView.swizzleNavigationBarMargins()
+            UITableView.swizzleTableViewRowHeight()
+            UICollectionView.swizzleCollectionViewItemSize()
+            UIViewController.swizzleForDialog()
+            UIView.swizzleSkeletonMethod()
         }
     }
 }

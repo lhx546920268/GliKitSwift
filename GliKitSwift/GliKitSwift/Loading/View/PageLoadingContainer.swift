@@ -129,7 +129,7 @@ open class PageLoadingView: UIView, PageLoadingContainer {
             view.snp.makeConstraints { (maker) in
                 maker.leading.equalTo(10)
                 maker.trailing.equalTo(-10)
-                maker.centerY.equalTo(0)
+                maker.centerY.equalTo(self)
             }
             addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleRefresh)))
             

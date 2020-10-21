@@ -13,7 +13,10 @@ class AlertHeader: UIScrollView {
 
     ///图标
     public private(set) lazy var imageView: UIImageView = {
-        return UIImageView()
+        let imageView = UIImageView()
+        self.addSubview(imageView)
+        
+        return imageView
     }()
 
     ///标题

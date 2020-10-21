@@ -35,7 +35,7 @@ class TabMenuBarCell: UICollectionViewCell {
         self.contentView.addSubview(divider)
         
         divider.snp.makeConstraints { (make) in
-            make.trailing.centerY.equalTo(0)
+            make.trailing.centerY.equalTo(self.contentView)
             make.height.equalTo(15)
         }
         return divider

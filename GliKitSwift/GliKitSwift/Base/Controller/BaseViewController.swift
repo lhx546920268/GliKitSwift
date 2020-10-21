@@ -9,7 +9,7 @@
 import UIKit
 
 ///控制视图的基类
-open class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
+open class BaseViewController: UIViewController, UIGestureRecognizerDelegate, EmptyViewDelegate {
     
     ///关联的viewModel 如果有关联 调用viewModel对应方法
     private var _viewModel: BaseViewModel?
@@ -91,6 +91,16 @@ open class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     open var navigationBarClass: AnyClass{
         NavigationBar.self
     }
+    
+    @available(iOS 13.0, *)
+    open override var overrideUserInterfaceStyle: UIUserInterfaceStyle {
+        set{
+            super.overrideUserInterfaceStyle = newValue
+        }
+        get{
+            .light
+        }
+    }
 
     ///设置导航栏隐藏
     open func setNavigatonBarHidden(_ hidden: Bool, animated: Bool = false){
@@ -171,7 +181,7 @@ open class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
         } else {
             
             self.container = BaseContainer(viewController: self)
-            if self.isShowAsDialog {
+            if !self.isShowAsDialog {
                 self.view = self.container
             } else {
                 self.view = UIView()
@@ -328,7 +338,12 @@ open class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
         return self.view == touch.view
     }
     
-    // TODO: 空视图
+    // MARK: - EmptyViewDelegate
+    
+    open func emptyViewWillAppear(_ view: EmptyView) {
+        view.iconImageView.image = UIImage(named: "empty")
+        view.textLabel.text = "暂无数据"
+    }
 }
 
 ///内容视图

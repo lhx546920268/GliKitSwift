@@ -328,7 +328,7 @@ extension BannerView {
 
     ///复用cell
     public func dequeueReusableCell(withClass cls: AnyClass, for indexPath: IndexPath) -> UICollectionViewCell {
-        dequeueReusableCell(withReuseidentifier: NSStringFromClass(cls), for: indexPath)
+        dequeueReusableCell(withReuseidentifier: String(describing: cls), for: indexPath)
     }
     
     public func dequeueReusableCell(withReuseidentifier identifier: String, for indexPath: IndexPath) -> UICollectionViewCell {

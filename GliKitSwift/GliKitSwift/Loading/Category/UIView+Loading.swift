@@ -73,17 +73,21 @@ public extension UIView {
             if let pageLoadView = newValue {
                 
                 addSubview(pageLoadView)
-                pageLoadView.snp.makeConstraints { (maker) in
-                    maker.edges.equalTo(self).inset(self.gkPageLoadingViewInsets)
-                    
-                    if self is UIScrollView {
-                        maker.size.equalTo(self)
-                    }
-                }
+                layoutPageLoadingView()
             }
         }
         get{
             objc_getAssociatedObject(self, &pageLoadingViewKey) as? PageLoadingContainer
+        }
+    }
+    
+    @objc func layoutPageLoadingView() {
+        gkPageLoadingView?.snp.makeConstraints { (maker) in
+            maker.edges.equalTo(self).inset(self.gkPageLoadingViewInsets)
+            
+            if self is UIScrollView {
+                maker.size.equalTo(self)
+            }
         }
     }
     
@@ -141,9 +145,25 @@ public extension UIView {
             objc_getAssociatedObject(self, &progressHUDKey) as? ProgressHUDProtocol
         }
     }
+    
+    func gkShowSuccessText(_ text: String, duration: TimeInterval = 2) {
+        gkShowProgressHUD(text: text, status: .success, delay: duration)
+    }
+    
+    func gkShowErrorText(_ text: String, duration: TimeInterval = 2) {
+        gkShowProgressHUD(text: text, status: .error, delay: duration)
+    }
+    
+    func gkShowWarningText(_ text: String, duration: TimeInterval = 2) {
+        gkShowProgressHUD(text: text, status: .warning, delay: duration)
+    }
+    
+    func gkShowProgress(text: String? = nil, delay: TimeInterval = 0) {
+        gkShowProgressHUD(text: text, status: .loading, delay: delay)
+    }
 
     ///显示hud
-    func gkShowProgressHUD(text: String? = nil, status: ProgressHUDStatus = .success, delay: Double = 0, in view: UIView? = nil){
+    private func gkShowProgressHUD(text: String?, status: ProgressHUDStatus, delay: TimeInterval, in view: UIView? = nil){
         
         let keyboardWindow = UIApplication.shared.windows.last
         var targetView = view ?? self

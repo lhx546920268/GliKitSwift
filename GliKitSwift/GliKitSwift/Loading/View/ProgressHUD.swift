@@ -86,7 +86,7 @@ open class ProgressHUD: UIView, ProgressHUDProtocol {
         label.textColor = .white
         label.text = text
         label.numberOfLines = 0
-        addSubview(label)
+        translucentView.addSubview(label)
         
         return label
     }()
@@ -109,7 +109,7 @@ open class ProgressHUD: UIView, ProgressHUDProtocol {
     private var textSize = CGSize.zero
 
     ///字体
-    public var font = UIFont.systemFont(ofSize: 13)
+    public var font = UIFont.systemFont(ofSize: 14)
 
     ///提示框最小
     public var minimumSize = CGSize(width: 200, height: 116)
@@ -122,13 +122,21 @@ open class ProgressHUD: UIView, ProgressHUDProtocol {
     
     // MARK: - ProgressHUDProtocol
     
-    public var text: String?
+    public var text: String? {
+        didSet{
+            if oldValue != text {
+                textDidChange()
+            }
+        }
+    }
     
-    public var delay: Double = 0
+    public var delay: TimeInterval = 0
     
     public var status: ProgressHUDStatus = .none{
         didSet{
-            
+            if oldValue != status {
+                statusDidChange()
+            }
         }
     }
     

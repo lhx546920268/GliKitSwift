@@ -90,55 +90,45 @@ public extension UIColor {
             return nil
         }
         
-        let hex = hex.replacingOccurrences(of: "#", with: "").lowercased()
+        let hex = hex.replacingOccurrences(of: "#", with: "")
         
-        let value: CGFloat = 255
         var alpha = 255
         var red = 0
         var green = 0
         var blue = 0
-        
-        var index = 0;
-        var len = 0;
-        let length = hex.count;
+
+        let length = hex.count
+        let hexValue = hex.hexToDecimal
         
         switch (length) {
-        case 3, 4 :
-            let hexArray = Array(hex)
-            len = 1;
-            if length == 4 {
-                let a = UIColor.gkDecimal(hexChar: hexArray[index])
-                alpha = a * 16 + a
-                index += len
-            }
-            var value = UIColor.gkDecimal(hexChar: hexArray[index])
-            red = value * 16 + value
-            index += len
+            case 3 :
+                red = (hexValue & 0xf00) >> 8
+                green = (hexValue & 0x0f0) >> 4
+                blue = (hexValue & 0x00f)
             
-            value = UIColor.gkDecimal(hexChar: hexArray[index])
-            green = value * 16 + value
-            index += len
+            case 4 :
+                alpha = (hexValue & 0xf000) >> 16
+                red = (hexValue & 0x0f00) >> 8
+                green = (hexValue & 0x00f0) >> 4
+                blue = (hexValue & 0x000f)
             
-            value = UIColor.gkDecimal(hexChar: hexArray[index])
-            blue = value * 16 + value;
-        case 6, 8 :
-            len = 2;
-            if length == 8 {
-                alpha = UIColor.gkDecimal(hex: hex.substring(location: index, length: len))
-                index += len
-            }
-            red = UIColor.gkDecimal(hex: hex.substring(location: index, length: len))
-            index += len
+            case 6 :
+                red = (hexValue & 0xff0000) >> 16
+                green = (hexValue & 0x00ff00) >> 8
+                blue = (hexValue & 0x0000ff)
             
-            green = UIColor.gkDecimal(hex: hex.substring(location: index, length: len))
-            index += len
+            case 8 :
+                alpha = (hexValue & 0xff000000) >> 32
+                red = (hexValue & 0x00ff0000) >> 16
+                green = (hexValue & 0x0000ff00) >> 8
+                blue = (hexValue & 0x000000ff)
             
-            blue = UIColor.gkDecimal(hex: hex.substring(location: index, length: len))
-        default: break
-            
+            default:
+                break
         }
         
-        return (CGFloat(red) / value, CGFloat(green) / value, CGFloat(blue) / value, CGFloat(alpha) / value)
+        let max: CGFloat = 255
+        return (CGFloat(red) / max, CGFloat(green) / max, CGFloat(blue) / max, CGFloat(alpha) / max)
     }
     
     /**
@@ -151,7 +141,7 @@ public extension UIColor {
      */
     static func gkColorHex(red: Int, green: Int, blue: Int, alpha: CGFloat) -> String {
         
-        return String(format: "%02x%02x%02x%02x", Int(alpha * 255), red, green, blue)
+        return String(Int(alpha * 255) << 32 + red << 16 + green << 8 + blue, radix: 16)
     }
     
     /**
@@ -180,51 +170,6 @@ public extension UIColor {
         }
         return nil
         
-    }
-    
-    /**
-     获取10进制
-     *@param hex 16进制
-     *@return 10进制值
-     */
-    static func gkDecimal(hex: String) -> Int {
-        var result = 0;
-        var than = 1;
-        let array = Array(hex)
-        for i in 0 ..< array.count {
-            let c = array[i]
-            
-            result += gkDecimal(hexChar: c) * than;
-            than *= 16;
-        }
-
-        return result;
-    }
-    
-    /**
-     获取10进制
-     *@param c 16进制
-     *@return 10进制值
-     */
-    static func gkDecimal(hexChar: String.Element) -> Int{
-        var value = 0
-        switch (hexChar) {
-        case "A", "a" :
-            value = 10
-        case "B", "b" :
-            value = 11
-        case "C", "c" :
-            value = 12
-        case "D", "d" :
-            value = 13
-        case "E", "e" :
-            value = 14
-        case "F", "f" :
-            value = 15
-        default :
-            value = hexChar.toInt()
-        }
-        return value
     }
     
     /**

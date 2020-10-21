@@ -13,9 +13,17 @@
 		CE0594C52437137B00510AD2 /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0594C42437137B00510AD2 /* Divider.swift */; };
 		CE0594C72437146200510AD2 /* UIView+AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0594C62437146200510AD2 /* UIView+AutoLayout.swift */; };
 		CE0594C924373D5D00510AD2 /* TabMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0594C824373D5D00510AD2 /* TabMenuBar.swift */; };
+		CE0E62EB253EEAB000F934FB /* AlertUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E62EA253EEAB000F934FB /* AlertUtils.swift */; };
 		CE160E1D242462BD008E7392 /* NavigationItemHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E1C242462BD008E7392 /* NavigationItemHelper.swift */; };
 		CE160E1F242471E7008E7392 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E1E242471E7008E7392 /* BaseViewModel.swift */; };
 		CE160E212424A350008E7392 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E202424A350008E7392 /* BaseNavigationController.swift */; };
+		CE20FF2E253FD9D80084D596 /* SkeletonSubLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20FF2D253FD9D80084D596 /* SkeletonSubLayer.swift */; };
+		CE20FF32253FDA500084D596 /* SkeletonLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20FF31253FDA500084D596 /* SkeletonLayer.swift */; };
+		CE20FF35253FDB980084D596 /* SkeletonAnimationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20FF34253FDB980084D596 /* SkeletonAnimationHelper.swift */; };
+		CE20FF38253FDF590084D596 /* SkeletonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20FF37253FDF590084D596 /* SkeletonHelper.swift */; };
+		CE20FF3C253FE11F0084D596 /* UIView+Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20FF3B253FE11F0084D596 /* UIView+Skeleton.swift */; };
+		CE20FF3F25400DAE0084D596 /* UITableView+Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20FF3E25400DAE0084D596 /* UITableView+Skeleton.swift */; };
+		CE20FF42254018400084D596 /* UICollectionView+Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20FF41254018400084D596 /* UICollectionView+Skeleton.swift */; };
 		CE2A23EA24F5F680004C5E66 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2A23E924F5F680004C5E66 /* PageView.swift */; };
 		CE2A23ED24F60520004C5E66 /* NeedLayoutWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2A23EC24F60520004C5E66 /* NeedLayoutWrapper.swift */; };
 		CE2A23EF24F60570004C5E66 /* RangeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2A23EE24F60570004C5E66 /* RangeWrapper.swift */; };
@@ -122,9 +130,17 @@
 		CE0594C42437137B00510AD2 /* Divider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
 		CE0594C62437146200510AD2 /* UIView+AutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AutoLayout.swift"; sourceTree = "<group>"; };
 		CE0594C824373D5D00510AD2 /* TabMenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuBar.swift; sourceTree = "<group>"; };
+		CE0E62EA253EEAB000F934FB /* AlertUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertUtils.swift; sourceTree = "<group>"; };
 		CE160E1C242462BD008E7392 /* NavigationItemHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationItemHelper.swift; sourceTree = "<group>"; };
 		CE160E1E242471E7008E7392 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		CE160E202424A350008E7392 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		CE20FF2D253FD9D80084D596 /* SkeletonSubLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonSubLayer.swift; sourceTree = "<group>"; };
+		CE20FF31253FDA500084D596 /* SkeletonLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonLayer.swift; sourceTree = "<group>"; };
+		CE20FF34253FDB980084D596 /* SkeletonAnimationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonAnimationHelper.swift; sourceTree = "<group>"; };
+		CE20FF37253FDF590084D596 /* SkeletonHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonHelper.swift; sourceTree = "<group>"; };
+		CE20FF3B253FE11F0084D596 /* UIView+Skeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Skeleton.swift"; sourceTree = "<group>"; };
+		CE20FF3E25400DAE0084D596 /* UITableView+Skeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Skeleton.swift"; sourceTree = "<group>"; };
+		CE20FF41254018400084D596 /* UICollectionView+Skeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Skeleton.swift"; sourceTree = "<group>"; };
 		CE2A23E924F5F680004C5E66 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		CE2A23EC24F60520004C5E66 /* NeedLayoutWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedLayoutWrapper.swift; sourceTree = "<group>"; };
 		CE2A23EE24F60570004C5E66 /* RangeWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeWrapper.swift; sourceTree = "<group>"; };
@@ -234,6 +250,44 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		CE20FF29253FD9B90084D596 /* Skeleton */ = {
+			isa = PBXGroup;
+			children = (
+				CE20FF2A253FD9B90084D596 /* Category */,
+				CE20FF2B253FD9B90084D596 /* Utils */,
+				CE20FF2C253FD9B90084D596 /* View */,
+			);
+			path = Skeleton;
+			sourceTree = "<group>";
+		};
+		CE20FF2A253FD9B90084D596 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				CE20FF3B253FE11F0084D596 /* UIView+Skeleton.swift */,
+				CE20FF3E25400DAE0084D596 /* UITableView+Skeleton.swift */,
+				CE20FF41254018400084D596 /* UICollectionView+Skeleton.swift */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		CE20FF2B253FD9B90084D596 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CE20FF34253FDB980084D596 /* SkeletonAnimationHelper.swift */,
+				CE20FF37253FDF590084D596 /* SkeletonHelper.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		CE20FF2C253FD9B90084D596 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE20FF2D253FD9D80084D596 /* SkeletonSubLayer.swift */,
+				CE20FF31253FDA500084D596 /* SkeletonLayer.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		CE2A23EB24F6050C004C5E66 /* Wrapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -322,6 +376,7 @@
 		CE9E4C1A23D062A300C0F63D /* GliKitSwift */ = {
 			isa = PBXGroup;
 			children = (
+				CE20FF29253FD9B90084D596 /* Skeleton */,
 				CE416DC524F741330078A4FB /* Alert */,
 				CE2A23EB24F6050C004C5E66 /* Wrapper */,
 				CEBE095F244EF76E0016EEFA /* EmptyView */,
@@ -564,6 +619,7 @@
 			isa = PBXGroup;
 			children = (
 				CEBEB52C23D5AB48000B8CBF /* KeyboardHelper.swift */,
+				CE0E62EA253EEAB000F934FB /* AlertUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -697,9 +753,12 @@
 				CEA6656B242DE544003D8E71 /* DataControl.swift in Sources */,
 				CEDAEEF52431F36D00F03100 /* UIScrollView+Refresh.swift in Sources */,
 				CEAE533623D1B3C50073882E /* String+Utils.swift in Sources */,
+				CE20FF38253FDF590084D596 /* SkeletonHelper.swift in Sources */,
 				CEBE095E244EF1E50016EEFA /* CollectionViewController.swift in Sources */,
 				CECB37352429916200C92687 /* UIView+StateUtils.swift in Sources */,
 				CE0594C52437137B00510AD2 /* Divider.swift in Sources */,
+				CE20FF35253FDB980084D596 /* SkeletonAnimationHelper.swift in Sources */,
+				CE20FF42254018400084D596 /* UICollectionView+Skeleton.swift in Sources */,
 				CE6996E523D7E0D500A99469 /* PartialPresentTransitionDelegate.swift in Sources */,
 				CE416DD224F78E460078A4FB /* AlertCell.swift in Sources */,
 				CEB6D2D223D444CE00457164 /* Log.swift in Sources */,
@@ -730,13 +789,16 @@
 				CEB6D2CA23D3F9BA00457164 /* SystemNavigationBar.swift in Sources */,
 				CEC6AF4B2456DA01006B22BB /* UIView+XibUtils.swift in Sources */,
 				CEC9C31C242AF2D50082E631 /* UIViewController+Dialog.swift in Sources */,
+				CE20FF2E253FD9D80084D596 /* SkeletonSubLayer.swift in Sources */,
 				CE2A23EA24F5F680004C5E66 /* PageView.swift in Sources */,
 				CE7700002539AC9F00AACB9B /* UICollectionView+ItemSize.swift in Sources */,
 				CEA6656F242E0867003D8E71 /* DefaultLoadMoreControl.swift in Sources */,
 				CEB6D2CD23D3FAD600457164 /* HttpTask.swift in Sources */,
 				CEB6D2CF23D440E900457164 /* HttpError.swift in Sources */,
+				CE20FF3F25400DAE0084D596 /* UITableView+Skeleton.swift in Sources */,
 				CEB6D2C823D3F0CD00457164 /* UIImage+Theme.swift in Sources */,
 				CED4CB6F245177C700369B04 /* UIView+NavigationBarUtils.swift in Sources */,
+				CE20FF3C253FE11F0084D596 /* UIView+Skeleton.swift in Sources */,
 				CE0594C12436C53900510AD2 /* NSAttributedString+Utils.swift in Sources */,
 				CE160E1D242462BD008E7392 /* NavigationItemHelper.swift in Sources */,
 				CE9E4C1C23D062A300C0F63D /* GliKitSwift.swift in Sources */,
@@ -760,11 +822,13 @@
 				CEBE095A244ED5EA0016EEFA /* UITableView+Utils.swift in Sources */,
 				CE416DD424F78F9A0078A4FB /* AlertController.swift in Sources */,
 				CEBEB52A23D59564000B8CBF /* UIView+Loading.swift in Sources */,
+				CE0E62EB253EEAB000F934FB /* AlertUtils.swift in Sources */,
 				CE0594C32437121900510AD2 /* TabMenuBarCell.swift in Sources */,
 				CEBEB52623D55F7A000B8CBF /* ProgressHUD.swift in Sources */,
 				CE6996EB23D81ED100A99469 /* UIViewControlelr+Transition.swift in Sources */,
 				CED4CB73245186B800369B04 /* ConversionUtils.swift in Sources */,
 				CE6996EF23D8235E00A99469 /* NSObject+Utils.swift in Sources */,
+				CE20FF32253FDA500084D596 /* SkeletonLayer.swift in Sources */,
 				CEAE533423D1A6950073882E /* UIColor+Utils.swift in Sources */,
 				CEBE095C244EEC160016EEFA /* TableViewController.swift in Sources */,
 				CECB373C2429F44100C92687 /* WeakObjectContainer.swift in Sources */,

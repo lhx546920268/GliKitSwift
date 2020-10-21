@@ -12,7 +12,7 @@ private var registerObjectsKey: UInt8 = 0
 private var registerCellsKey: UInt8 = 0
 
 ///保存行高的
-public protocol RowHeightModel: NSObjectProtocol {
+public protocol RowHeightModel: AnyObject {
     
     ///行高
     var rowHeight: CGFloat?{
@@ -22,10 +22,13 @@ public protocol RowHeightModel: NSObjectProtocol {
 }
 
 ///可配置的item
-public protocol TableConfigurableItem where Self: UIView{
+public protocol TableConfigurableItem where Self: UIView {
+    
+    ///指明类型
+    associatedtype Model: RowHeightModel
     
     ///对应的数据
-    var model: RowHeightModel?{
+    var model: Model?{
         get
         set
     }
@@ -35,18 +38,23 @@ public protocol TableConfigurableItem where Self: UIView{
 public extension UITableView {
     
     // MARK: - 计算
-
+    
     /// 获取cell高度
     /// - Parameters:
-    ///   - identifier: cell唯一标识
+    ///   - type: cell类型 传 YourTableViewCell.self
     ///   - model: 保存行高的
+    ///   - identifier: cell唯一标识，如果是空，则获取type的类型
     /// - Returns: cell 高度
-    func gkRowHeight(forIdentifier identifier: String, model: RowHeightModel) -> CGFloat {
+    func gkRowHeight<Item: TableConfigurableItem>(forType type: Item.Type, model: Item.Model, identifier: String? = nil) -> CGFloat {
         if model.rowHeight == nil {
-            var cell = gkCell(for: identifier)
+            var identifier = identifier
+            if identifier == nil {
+                identifier = String(describing: type)
+            }
+            var cell: Item? = gkCell(for: identifier!)
             if cell == nil {
                 //有时候cell没有注册，而是直接创建的
-                cell = dequeueReusableCell(withIdentifier: identifier) as? TableConfigurableItem
+                cell = dequeueReusableCell(withIdentifier: identifier!) as? Item
             }
             return gkRowHeight(forCell: cell!, model: model)
         }
@@ -58,7 +66,7 @@ public extension UITableView {
     ///   - identifier: cell唯一标识
     ///   - model: 保存行高的
     /// - Returns: cell 高度
-    func gkRowHeight(forCell cell: TableConfigurableItem, model: RowHeightModel) -> CGFloat {
+    func gkRowHeight<Item: TableConfigurableItem>(forCell cell: Item, model: Item.Model) -> CGFloat {
         if model.rowHeight == nil {
             var width = self.frame.width
             
@@ -102,15 +110,20 @@ public extension UITableView {
     
     /// 获取header footer高度
     /// - Parameters:
-    ///   - identifier: cell唯一标识
+    ///   - type: cell类型 传 YourHeaderFooterView.self
     ///   - model: 保存行高的
+    ///   - identifier: cell唯一标识，如果是空，则获取type的类型
     /// - Returns: header footer 高度
-    func gkHeaderFooterHeight(forIdentifier identifier: String, model: RowHeightModel) -> CGFloat {
+    func gkHeaderFooterHeight<Item: TableConfigurableItem>(forType type: Item.Type, model: Item.Model, identifier: String? = nil) -> CGFloat {
         if model.rowHeight == nil {
-            var cell = gkCell(for: identifier)
+            var identifier = identifier
+            if identifier == nil {
+                identifier = String(describing: type)
+            }
+            var cell: Item? = gkCell(for: identifier!)
             if cell == nil {
                 //有时候cell没有注册，而是直接创建的
-                cell = dequeueReusableHeaderFooterView(withIdentifier: identifier) as? TableConfigurableItem
+                cell = dequeueReusableHeaderFooterView(withIdentifier: identifier!) as? Item
             }
             return gkRowHeight(forHeaderFooter: cell!, model: model)
         }
@@ -122,7 +135,7 @@ public extension UITableView {
     ///   - identifier: cell唯一标识
     ///   - model: 保存行高的
     /// - Returns: header footer 高度
-    func gkRowHeight(forHeaderFooter headerFooter: TableConfigurableItem, model: RowHeightModel) -> CGFloat {
+    func gkRowHeight<Item: TableConfigurableItem>(forHeaderFooter headerFooter: Item, model: Item.Model) -> CGFloat {
         if model.rowHeight == nil {
             headerFooter.model = model
             model.rowHeight = headerFooter.gkSizeThatFits(CGSize(self.frame.width, 0), type: .height).height
@@ -133,21 +146,39 @@ public extension UITableView {
     
     // MARK: - 注册的 cells
     
-    static func swizzleTableViewRowHeight(){
+    internal static func swizzleTableViewRowHeight(){
         
-        let selectors: [Selector] = [
-            #selector(register(nib:forCellReuseIdentifier:)),
-            #selector(register(_:forCellReuseIdentifier:)),
-            #selector(register(_:forHeaderFooterViewReuseIdentifier:)),
-            #selector(register(_:forHeaderFooterViewReuseIdentifier:)),
+        let selectors: [String] = [
+            "registerNib:forCellReuseIdentifier:",
+            "registerClass:forCellReuseIdentifier:",
+            "registerNib:forHeaderFooterViewReuseIdentifier:",
+            "registerClass:forHeaderFooterViewReuseIdentifier:"
         ]
-        
+
         for selector in selectors {
-            swizzling(selector1: selector, selector2: Selector("gk_\(NSStringFromSelector(selector))"), cls1: self)
+            swizzling(selector1: Selector(selector), selector2: Selector("gkRowHeight_\(selector)"), cls1: self)
         }
     }
     
-    
+    @objc private func gkRowHeight_registerClass(_ cls: AnyClass?, forCellReuseIdentifier identifier: String) {
+        gkRowHeight_registerClass(cls, forCellReuseIdentifier: identifier)
+        gkRegisterObjects[identifier] = cls
+    }
+
+    @objc private func gkRowHeight_registerNib(_ nib: UINib?, forCellReuseIdentifier identifier: String) {
+        gkRowHeight_registerNib(nib, forCellReuseIdentifier: identifier)
+        gkRegisterObjects[identifier] = nib;
+    }
+
+    @objc private func gkRowHeight_registerClass(_ cls: AnyClass?, forHeaderFooterViewReuseIdentifier identifier: String) {
+        gkRowHeight_registerClass(cls, forHeaderFooterViewReuseIdentifier: identifier)
+        gkRegisterObjects[identifier] = cls
+    }
+
+    @objc private func gkRowHeight_registerNib(_ nib: UINib?, forHeaderFooterViewReuseIdentifier identifier: String) {
+        gkRowHeight_registerNib(nib, forHeaderFooterViewReuseIdentifier: identifier)
+        gkRegisterObjects[identifier] = nib;
+    }
 
     ///注册的 class nib
     private var gkRegisterObjects: NSMutableDictionary {
@@ -162,7 +193,7 @@ public extension UITableView {
     }
 
     ///注册的cells header footer 用来计算
-    private func gkCell(for identifier: String) -> TableConfigurableItem? {
+    private func gkCell<Item: TableConfigurableItem>(for identifier: String) -> Item? {
         /**
          不用 dequeueReusableCellWithIdentifier 是因为会创建N个cell
          */
@@ -173,15 +204,15 @@ public extension UITableView {
         }
         
         if let cells = cells {
-            var view = cells[identifier] as? TableConfigurableItem
+            var view = cells[identifier] as? Item
             if view == nil {
                 let obj = gkRegisterObjects[identifier]
                 if obj is UINib {
                     let nib: UINib = obj as! UINib
-                    view = nib.instantiate(withOwner: nil, options: nil).first as? TableConfigurableItem
+                    view = nib.instantiate(withOwner: nil, options: nil).first as? Item
                     cells[identifier] = view
-                } else if obj is String {
-                    let cls = NSClassFromString(obj as! String) as! TableConfigurableItem.Type
+                } else if obj is AnyClass {
+                    let cls = obj as! Item.Type
                     view = cls.init()
                     cells[identifier] = view
                 }
@@ -189,5 +220,7 @@ public extension UITableView {
             
             return view
         }
+        
+        return nil
     }
 }

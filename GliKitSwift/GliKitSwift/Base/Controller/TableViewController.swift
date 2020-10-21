@@ -30,11 +30,7 @@ open class TableViewController: ScrollViewController, UITableViewDataSource, UIT
             tableView.backgroundColor = UIColor.gkGrayBackgroundColor
         }
         
-        //TODO: EmptyView
-        //        tableView.gkEmptyViewDelegate = self
-        
-        tableView.separatorInset = self.separatorEdgeInsets
-        tableView.layoutMargins = self.separatorEdgeInsets
+        tableView.gkEmptyViewDelegate = self
         self.scrollView = tableView
         
         return tableView
@@ -49,6 +45,11 @@ open class TableViewController: ScrollViewController, UITableViewDataSource, UIT
     ///tableView类，必须是UITableView 或者其子类
     public var tableViewClass: AnyClass{
         UITableView.self
+    }
+    
+    open override func initViews() {
+        super.initViews()
+        contentView = tableView
     }
     
     open override func viewDidLayoutSubviews() {
@@ -86,49 +87,35 @@ open class TableViewController: ScrollViewController, UITableViewDataSource, UIT
     }
     
     // MARK: - UITableViewDelegate
-    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    open func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return nil
     }
     
-    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    open func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return nil
     }
     
-    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    open func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return TableViewMinHeaderFooterHeight
     }
     
-    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    open func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return TableViewMinHeaderFooterHeight
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         fatalError("\(self.gkNameOfClass) 必须实现 \(#function)")
     }
     
-    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    open func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         cell.separatorInset = separatorEdgeInsets
         cell.layoutMargins = separatorEdgeInsets
-        
-        // TODO: rowHeight
     }
-    
-    
-    
-    //    - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
-    //    {
-    //        [tableView gkSetHeaderHeight:@(view.gkHeight) forSection:section];
-    //    }
-    //
-    //    - (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section
-    //    {
-    //        [tableView gkSetFooterHeight:@(view.gkHeight) forSection:section];
-    //    }
     
     // MARK: - 屏幕旋转
     

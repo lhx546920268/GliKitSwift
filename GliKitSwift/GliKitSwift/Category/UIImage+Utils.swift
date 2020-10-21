@@ -136,9 +136,6 @@ public extension UIImage {
                     height = floor(height / heightScale)
                     width = floor(width / heightScale)
                 }
-                
-            default:
-                break
             }
         }
         

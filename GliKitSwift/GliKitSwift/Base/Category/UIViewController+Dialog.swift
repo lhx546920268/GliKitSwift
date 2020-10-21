@@ -108,7 +108,7 @@ public extension UIViewController{
     var shouldDismissDialogOnTapTranslucent: Bool{
         set{
             objc_setAssociatedObject(self, &shouldDismissDialogOnTapTranslucentKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            
+            self.tapDialogBackgroundGestureRecognizer.isEnabled = newValue
         }
         get{
             objc_getAssociatedObject(self, &shouldDismissDialogOnTapTranslucentKey) as? Bool ?? true
@@ -129,11 +129,15 @@ public extension UIViewController{
     var tapDialogBackgroundGestureRecognizer: UITapGestureRecognizer{
         var tap = objc_getAssociatedObject(self, &tapDialogBackgroundGestureRecognizerKey) as? UITapGestureRecognizer
         if tap == nil {
-            tap = UITapGestureRecognizer(target: self, action: #selector(dismissDialog))
+            tap = UITapGestureRecognizer(target: self, action: #selector(handleTapDialogBackground))
             objc_setAssociatedObject(self, &tapDialogBackgroundGestureRecognizerKey, tap, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         
         return tap!
+    }
+    
+    @objc private func handleTapDialogBackground() {
+        dismissDialog()
     }
     
     ///弹窗是否需要动画
@@ -214,6 +218,7 @@ public extension UIViewController{
             }
             UIApplication.shared.loadDialogWindowIfNeeded()
             self.isShowAsDialog = true
+            self.dialogShouldAnimate = true
             if let window = self.dialogWindow {
                 if let rootViewController = window.rootViewController {
                     self.modalPresentationStyle = .custom
@@ -222,6 +227,8 @@ public extension UIViewController{
                     window.rootViewController = self
                     self.dialogShowCompletion?()
                 }
+            } else {
+                fatalError("There is no dialogWindow")
             }
         } else {
             if let rootViewController = UIApplication.shared.delegate?.window??.rootViewController {
@@ -388,7 +395,7 @@ public extension UIViewController{
 
             case .custom :
                 self.didExecuteDialogDismissCustomAnimate { (_) in
-                    
+                    self.onDialogDismiss(completion: completion)
                 }
             }
         }
@@ -472,7 +479,7 @@ public extension UIViewController{
         }
     }
     
-    static func swizzleForDialog(){
+    internal static func swizzleForDialog(){
         
         let selectors: [Selector] = [
             #selector(viewWillAppear(_:)),

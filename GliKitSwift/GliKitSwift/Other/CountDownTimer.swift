@@ -57,7 +57,7 @@ open class CountDownTimer {
     public var onTick: ((_ timeLeft: TimeInterval) -> Void)?
     
     ///倒计时完成回调
-    public var onComplete: VoidClosure?
+    public var onComplete: VoidCallback?
     
     ///倒计时停止时间
     private var timeToStop: TimeInterval = 0
@@ -199,7 +199,7 @@ open class CountDownTimer {
         var timer: Timer?
         
         ///回调
-        var onTick: VoidClosure?
+        var onTick: VoidCallback?
         
         ///开始计时器
         func startTimer(with timeInterval: TimeInterval) {

@@ -57,10 +57,10 @@ public extension NSObject {
     
     ///获取 class name
     class var gkNameOfClass: String{
-        NSStringFromClass(self.classForCoder())
+        String(describing: self.classForCoder())
     }
     
     var gkNameOfClass: String{
-        NSStringFromClass(self.classForCoder)
+        String(describing: self.classForCoder)
     }
 }

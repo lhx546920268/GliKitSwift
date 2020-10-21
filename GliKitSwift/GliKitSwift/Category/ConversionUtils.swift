@@ -149,6 +149,14 @@ public extension BinaryInteger{
     var boolValue: Bool{
         Int(self) == 0 ? false : true
     }
+    
+    var binaryString: String{
+        String(self, radix: 2)
+    }
+    
+    var hexString: String{
+        String(self, radix: 16)
+    }
 }
 
 public extension String{
@@ -219,5 +227,13 @@ public extension String{
     
     var boolValue: Bool{
         Bool(self) ?? false
+    }
+    
+    var hexToDecimal: Int {
+        Int(strtoul(self, nil, 16))
+    }
+    
+    var binaryToDecimal: Int {
+        Int(strtoul(self, nil, 2))
     }
 }

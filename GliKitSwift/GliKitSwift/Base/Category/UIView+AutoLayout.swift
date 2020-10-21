@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 ///autoLayout 计算大小方式
-public enum AutoLayoutCalculateType{
+public enum AutoLayoutCalcType{
     
     ///计算宽度 需要给定高度
     case width
@@ -237,7 +237,7 @@ public extension UIView {
      *@param type 计算方式
      *@return view 大小
      */
-    func gkSizeThatFits(_ fitsSize: CGSize, type: AutoLayoutCalculateType) -> CGSize{
+    func gkSizeThatFits(_ fitsSize: CGSize, type: AutoLayoutCalcType) -> CGSize{
         
         var size = CGSize.zero
         if type != .size {

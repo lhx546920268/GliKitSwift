@@ -13,31 +13,31 @@ public extension UICollectionView {
 
     func registerNib(_ cls: AnyClass){
         
-        let name = NSStringFromClass(cls)
+        let name = String(describing: cls)
         register(UINib(nibName: name, bundle: nil), forCellWithReuseIdentifier: name)
     }
 
     func registerClass(_ cls: AnyClass){
-        register(cls, forCellWithReuseIdentifier: NSStringFromClass(cls))
+        register(cls, forCellWithReuseIdentifier: String(describing: cls))
     }
 
     func registerHeaderClass(_ cls: AnyClass){
-        register(cls, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(cls))
+        register(cls, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: String(describing: cls))
     }
 
     func registerHeaderNib(_ cls: AnyClass){
         
-        let name = NSStringFromClass(cls)
+        let name = String(describing: cls)
         register(UINib(nibName: name, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: name)
     }
 
     func registerFooterClass(_ cls: AnyClass){
-        register(cls, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(cls))
+        register(cls, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: String(describing: cls))
     }
 
     func registerFooterNib(_ cls: AnyClass){
         
-        let name = NSStringFromClass(cls)
+        let name = String(describing: cls)
         register(UINib(nibName: name, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: name)
     }
 }

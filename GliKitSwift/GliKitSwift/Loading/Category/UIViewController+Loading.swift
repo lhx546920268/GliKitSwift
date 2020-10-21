@@ -67,10 +67,20 @@ public extension UIViewController {
         }
     }
 
-    ///显示hud
-    func gkShowProgressHUD(text: String, status: ProgressHUDStatus = .success, delay: Double = 0, in view: UIView? = nil){
-        
-        self.gkContentView.gkShowProgressHUD(text: text, status: status, delay: delay, in: view)
+    func gkShowSuccessText(_ text: String, duration: TimeInterval = 2) {
+        self.gkContentView.gkShowSuccessText(text, duration: duration)
+    }
+    
+    func gkShowErrorText(_ text: String, duration: TimeInterval = 2) {
+        self.gkContentView.gkShowErrorText(text, duration: duration)
+    }
+    
+    func gkShowWarningText(_ text: String, duration: TimeInterval = 2) {
+        self.gkContentView.gkShowWarningText(text, duration: duration)
+    }
+    
+    func gkShowProgress(text: String? = nil, delay: TimeInterval = 0) {
+        self.gkContentView.gkShowProgress(text: text, delay: delay)
     }
 
     ///隐藏加载中hud
