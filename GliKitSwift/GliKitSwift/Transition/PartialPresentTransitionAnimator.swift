@@ -24,74 +24,67 @@ open class PartialPresentTransitionAnimator: NSObject, UIViewControllerAnimatedT
     
     public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         
-        UIView.animate(withDuration: transitionDuration(using: transitionContext),
-                       animations: animations(using: transitionContext)) { _ in
-                        
-                        transitionContext.completeTransition(true)
-        }
-    }
-    
-    ///获取对应的动画
-    private func animations(using transitionContext: UIViewControllerContextTransitioning) -> (() -> Void) {
-        
-        let fromViewController = transitionContext.viewController(forKey: .from)
-        let toViewController = transitionContext.viewController(forKey: .to)
-        
-        let containerView = transitionContext.containerView;
-        
-        //是否是弹出
-        let isPresenting = toViewController?.presentingViewController == fromViewController
-        
-        let frame = props.frame
-        if isPresenting {
-            if let toView = transitionContext.view(forKey: .to) {
-                
-                switch props.transitionStyle {
-                    
-                case .fromTop :
-                    toView.frame = frame.offsetBy(dx: 0, dy: -frame.maxY)
-                    
-                case .fromBottom :
-                    toView.frame = frame.offsetBy(dx: 0, dy: frame.maxY)
-                    
-                case .fromLeft :
-                    toView.frame = frame.offsetBy(dx: -frame.maxX, dy: 0)
-                    
-                case .fromRight :
-                    toView.frame = frame.offsetBy(dx: frame.maxX, dy: 0)
-                }
-                
-                containerView.addSubview(toView)
-                
-                return {
-                    toView.frame = frame
-                }
-            }
-        } else {
+        if !transitionContext.isInteractive {
+            let fromViewController = transitionContext.viewController(forKey: .from)
+            let toViewController = transitionContext.viewController(forKey: .to)
             
-            if let fromView = transitionContext.view(forKey: .from) {
+            let containerView = transitionContext.containerView
+            
+            //是否是弹出
+            let isPresenting = toViewController?.presentingViewController == fromViewController
+            
+            var view: UIView
+            var fromCenter: CGPoint
+            var toCenter: CGPoint
+            let frame = props.frame
+            
+            var center: CGPoint
+            switch props.transitionStyle {
+                    
+            case .fromTop :
+                center = CGPoint(frame.midX, -frame.height / 2)
                 
-                var fromFrame = fromView.frame
-                switch props.transitionStyle {
-                    
-                case .fromTop :
-                    fromFrame = frame.offsetBy(dx: 0, dy: -frame.maxY)
-                    
-                case .fromBottom :
-                    fromFrame = frame.offsetBy(dx: 0, dy: frame.maxY)
-                    
-                case .fromLeft :
-                    fromFrame = frame.offsetBy(dx: -frame.maxX, dy: 0)
-                    
-                case .fromRight :
-                    fromFrame = frame.offsetBy(dx: frame.maxX, dy: 0)
-                }
+            case .fromBottom :
+                center = CGPoint(frame.midX, containerView.gkBottom + frame.height / 2)
                 
-                return {
-                    fromView.frame = fromFrame
-                }
+            case .fromLeft :
+                center = CGPoint(-frame.width / 2, frame.midY)
+                
+            case .fromRight :
+                center = CGPoint(containerView.gkRight + frame.width / 2, frame.midY)
             }
+            
+            if isPresenting {
+                view = transitionContext.view(forKey: .to)!
+                view.frame = frame
+                fromCenter = center
+                toCenter = view.center
+                containerView.addSubview(view)
+            }else{
+                
+                view = transitionContext.view(forKey: .from)!
+                fromCenter = view.center
+                toCenter = center
+            }
+            
+            let keyPath = "position"
+            CATransaction.begin()
+            CATransaction.setCompletionBlock {
+                view.layer.removeAnimation(forKey: keyPath)
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+            }
+            
+            let animation = CABasicAnimation(keyPath: keyPath)
+            animation.duration = transitionDuration(using: transitionContext)
+            animation.isRemovedOnCompletion = false
+            animation.fillMode = .both
+            animation.timingFunction = CAMediaTimingFunction(controlPoints: 0, 0, 0.2, 1)
+            
+            animation.fromValue = fromCenter
+            animation.toValue = toCenter
+            view.layer.add(animation, forKey: keyPath)
+            
+            CATransaction.commit()
         }
-        return {}
     }
 }

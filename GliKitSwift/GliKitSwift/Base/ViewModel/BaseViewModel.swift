@@ -9,7 +9,7 @@
 import UIKit
 
 ///基础视图逻辑处理
-open class BaseViewModel: NSObject {
+open class BaseViewModel {
 
     ///绑定的viewController
     private weak var _viewController: BaseViewController?

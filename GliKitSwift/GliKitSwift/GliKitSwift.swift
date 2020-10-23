@@ -20,6 +20,7 @@ public class GliKitSwift {
             UICollectionView.swizzleCollectionViewItemSize()
             UIViewController.swizzleForDialog()
             UIView.swizzleSkeletonMethod()
+            UIScrollView.swizzleNestedScrollMethod()
         }
     }
 }

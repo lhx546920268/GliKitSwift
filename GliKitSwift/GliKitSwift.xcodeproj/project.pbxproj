@@ -108,6 +108,9 @@
 		CEDAEEF32431EEB000F03100 /* DefaultRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDAEEF22431EEB000F03100 /* DefaultRefreshControl.swift */; };
 		CEDAEEF52431F36D00F03100 /* UIScrollView+Refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDAEEF42431F36C00F03100 /* UIScrollView+Refresh.swift */; };
 		CEDB8D612461119F0056A3F6 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDB8D602461119F0056A3F6 /* Date+Utils.swift */; };
+		CEFACDB825427377002C356E /* NestedScrollHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFACDB725427377002C356E /* NestedScrollHelper.swift */; };
+		CEFACDBC2542766D002C356E /* WeakProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFACDBB2542766D002C356E /* WeakProxy.swift */; };
+		CEFACDBF25427946002C356E /* UIScrollView+GKNestedScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFACDBE25427946002C356E /* UIScrollView+GKNestedScroll.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -226,6 +229,9 @@
 		CEDAEEF22431EEB000F03100 /* DefaultRefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRefreshControl.swift; sourceTree = "<group>"; };
 		CEDAEEF42431F36C00F03100 /* UIScrollView+Refresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Refresh.swift"; sourceTree = "<group>"; };
 		CEDB8D602461119F0056A3F6 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
+		CEFACDB725427377002C356E /* NestedScrollHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedScrollHelper.swift; sourceTree = "<group>"; };
+		CEFACDBB2542766D002C356E /* WeakProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakProxy.swift; sourceTree = "<group>"; };
+		CEFACDBE25427946002C356E /* UIScrollView+GKNestedScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+GKNestedScroll.swift"; sourceTree = "<group>"; };
 		DF016891A7E05E1EDD44C01C /* Pods_GliKitSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GliKitSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -376,6 +382,7 @@
 		CE9E4C1A23D062A300C0F63D /* GliKitSwift */ = {
 			isa = PBXGroup;
 			children = (
+				CEFACDB625427361002C356E /* NestedScroll */,
 				CE20FF29253FD9B90084D596 /* Skeleton */,
 				CE416DC524F741330078A4FB /* Alert */,
 				CE2A23EB24F6050C004C5E66 /* Wrapper */,
@@ -643,8 +650,18 @@
 			children = (
 				CECB373B2429F44100C92687 /* WeakObjectContainer.swift */,
 				CE3E8C2024C56F07001A66EC /* CountDownTimer.swift */,
+				CEFACDBB2542766D002C356E /* WeakProxy.swift */,
 			);
 			path = Other;
+			sourceTree = "<group>";
+		};
+		CEFACDB625427361002C356E /* NestedScroll */ = {
+			isa = PBXGroup;
+			children = (
+				CEFACDB725427377002C356E /* NestedScrollHelper.swift */,
+				CEFACDBE25427946002C356E /* UIScrollView+GKNestedScroll.swift */,
+			);
+			path = NestedScroll;
 			sourceTree = "<group>";
 		};
 		F7878A2AFB7A54C192ADEDC2 /* Frameworks */ = {
@@ -787,6 +804,7 @@
 				CE9E4C2A23D0648C00C0F63D /* BaseContainer.swift in Sources */,
 				CEAE533123D159910073882E /* UIColor+Theme.swift in Sources */,
 				CEB6D2CA23D3F9BA00457164 /* SystemNavigationBar.swift in Sources */,
+				CEFACDBC2542766D002C356E /* WeakProxy.swift in Sources */,
 				CEC6AF4B2456DA01006B22BB /* UIView+XibUtils.swift in Sources */,
 				CEC9C31C242AF2D50082E631 /* UIViewController+Dialog.swift in Sources */,
 				CE20FF2E253FD9D80084D596 /* SkeletonSubLayer.swift in Sources */,
@@ -796,6 +814,7 @@
 				CEB6D2CD23D3FAD600457164 /* HttpTask.swift in Sources */,
 				CEB6D2CF23D440E900457164 /* HttpError.swift in Sources */,
 				CE20FF3F25400DAE0084D596 /* UITableView+Skeleton.swift in Sources */,
+				CEFACDBF25427946002C356E /* UIScrollView+GKNestedScroll.swift in Sources */,
 				CEB6D2C823D3F0CD00457164 /* UIImage+Theme.swift in Sources */,
 				CED4CB6F245177C700369B04 /* UIView+NavigationBarUtils.swift in Sources */,
 				CE20FF3C253FE11F0084D596 /* UIView+Skeleton.swift in Sources */,
@@ -822,6 +841,7 @@
 				CEBE095A244ED5EA0016EEFA /* UITableView+Utils.swift in Sources */,
 				CE416DD424F78F9A0078A4FB /* AlertController.swift in Sources */,
 				CEBEB52A23D59564000B8CBF /* UIView+Loading.swift in Sources */,
+				CEFACDB825427377002C356E /* NestedScrollHelper.swift in Sources */,
 				CE0E62EB253EEAB000F934FB /* AlertUtils.swift in Sources */,
 				CE0594C32437121900510AD2 /* TabMenuBarCell.swift in Sources */,
 				CEBEB52623D55F7A000B8CBF /* ProgressHUD.swift in Sources */,

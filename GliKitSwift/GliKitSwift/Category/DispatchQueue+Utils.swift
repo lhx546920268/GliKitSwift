@@ -10,7 +10,7 @@ import Foundation
 
 public extension DispatchQueue{
     
-    private static var onceTokens = [String]()
+    private static var onceTokens = Set<String>()
     
     ///同步锁
     class func synchronized(token: Any, block: VoidCallback) {
@@ -29,7 +29,7 @@ public extension DispatchQueue{
             guard !onceTokens.contains(token) else {
                 return
             }
-            onceTokens.append(token)
+            onceTokens.insert(token)
             block()
         }
     }

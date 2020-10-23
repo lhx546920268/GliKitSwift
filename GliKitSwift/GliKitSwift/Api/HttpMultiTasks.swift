@@ -9,7 +9,10 @@
 import UIKit
 
 ///多任务处理
-open class HttpMultiTasks: NSObject {
+open class HttpMultiTasks {
+    
+    ///唯一标识符
+    public let id: UUID = UUID()
     
     ///保存请求队列的单例
     private static var sharedMultiTasks = Set<HttpMultiTasks>()
@@ -142,5 +145,19 @@ extension HttpMultiTasks: HttpTaskDelegate {
         dispatchAsyncMainSafe {
             self.taskDiComplete(task, success: task.isApiSuccess || (!task.isNetworkError && self.onlyFlagNetworkError))
         }
+    }
+}
+
+extension HttpMultiTasks: Equatable {
+    
+    public static func == (lhs: HttpMultiTasks, rhs: HttpMultiTasks) -> Bool {
+        return lhs.id == lhs.id
+    }
+}
+
+extension HttpMultiTasks: Hashable {
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }

@@ -86,9 +86,12 @@ open class PartialPresentProps{
 
     ///背景颜色
     public var backgroundColor = UIColor(white: 0, alpha: 0.5)
+    
+    ///是否可以滑动关闭 default is 'YES'
+    public var interactiveDismissible: Bool = true
 
     ///点击背景是否会关闭当前显示的viewController
-    public var cancelable = true
+    public var cancelable: Bool = true
 
     ///动画时间
     public var transitionDuration: TimeInterval = 0.25
@@ -118,11 +121,33 @@ open class PartialPresentTransitionDelegate: NSObject, UIViewControllerTransitio
     ///部分显示属性
     public var props: PartialPresentProps!
     
+    ///关联的scrollView GKPresentTransitionStyleFromBottom 有效，可以让滑动列表到顶部时触发手势交互的dismiss
+    public weak var scrollView: UIScrollView? {
+        didSet{
+            if oldValue != scrollView {
+                oldValue?.panGestureRecognizer.removeTarget(self, action: #selector(handlePan(_:)))
+                scrollView?.panGestureRecognizer.addTarget(self, action: #selector(handlePan(_:)))
+            }
+        }
+    }
+    
     ///动画
     private lazy var animator: UIViewControllerAnimatedTransitioning = {
        
         return PartialPresentTransitionAnimator(props: self.props)
     }()
+    
+    ///显示的viewController
+    private weak var viewController: UIViewController?
+
+    ///是否是直接dismiss
+    private var dismissDirectly: Bool = false
+
+    ///当前手势
+    private weak var activedPanGestureRecognizer: UIPanGestureRecognizer?
+
+    ///是否正在交互中
+    private var interacting: Bool = false
     
     public init(props: PartialPresentProps) {
         self.props = props
@@ -132,11 +157,21 @@ open class PartialPresentTransitionDelegate: NSObject, UIViewControllerTransitio
     // MARK: - UIViewControllerTransitioningDelegate
     
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        dismissDirectly = true
         return animator
     }
     
     public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return animator
+    }
+    
+    public func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        if !dismissDirectly {
+            dismissDirectly = true
+            return PartialPresentInteractiveTransition(delegate: self, panGestureRecognizer: activedPanGestureRecognizer!)
+        }
+        
+        return nil
     }
 
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
@@ -154,9 +189,259 @@ open class PartialPresentTransitionDelegate: NSObject, UIViewControllerTransitio
             return
         }
 
+        viewController.modalPresentationStyle = .custom
         viewController.gkTransitioningDelegate = self
+        self.viewController = viewController
+        
         if let rootViewController = UIApplication.shared.delegate?.window??.rootViewController {
+            
+            if props.interactiveDismissible {
+                viewController.view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:))))
+                if props.transitionStyle == .fromBottom {
+                    var vc = viewController
+                    if viewController is UINavigationController {
+                        let nav = viewController as! UINavigationController
+                        vc = nav.viewControllers.first!
+                    }
+                    
+                    if vc is ScrollViewController {
+                        let scrollViewController = vc as! ScrollViewController
+                        scrollView = scrollViewController.scrollView
+                        
+                        scrollViewController.scrollViewDidChange = { [weak self] (scrollView) in
+                            self?.scrollView = scrollView
+                        }
+                    }
+                }
+            }
+            
             rootViewController.gkTopestPresentedViewController.present(viewController, animated: true, completion: completion)
+        }
+    }
+    
+    ///平移手势
+    @objc private func handlePan(_ pan: UIPanGestureRecognizer) {
+        switch pan.state {
+        case .began :
+            if let scrollView = self.scrollView, pan == scrollView.panGestureRecognizer {
+                if scrollView.contentOffset.y <= 0 {
+                    scrollView.contentOffset = .zero
+                    startInteractiveTransition(pan)
+                }
+            } else {
+                startInteractiveTransition(pan)
+            }
+            
+        case .changed :
+            if !interacting, let scrollView = self.scrollView, pan == scrollView.panGestureRecognizer {
+                if scrollView.contentOffset.y <= 0 {
+                    scrollView.contentOffset = .zero
+                    startInteractiveTransition(pan)
+                }
+            }
+            
+        default:
+            interacting = false
+        }
+    }
+
+    ///开始交互动画
+    private func startInteractiveTransition(_ pan: UIPanGestureRecognizer) {
+        interacting = true
+        UIApplication.shared.keyWindow?.endEditing(true)
+        dismissDirectly = false
+        activedPanGestureRecognizer = pan
+        viewController?.dismiss(animated: true, completion: props.dismissCallback)
+    }
+}
+
+///自定义Present类型的过度动画，用于用户滑动触发的过渡动画
+class PartialPresentInteractiveTransition: UIPercentDrivenInteractiveTransition {
+    
+    ///关联的 PartialPresentTransitionDelegate
+    public private(set) weak var delegate: PartialPresentTransitionDelegate?
+
+    ///平滑手势
+    public private(set) var panGestureRecognizer: UIPanGestureRecognizer!
+    
+    init(delegate: PartialPresentTransitionDelegate?, panGestureRecognizer: UIPanGestureRecognizer) {
+        self.delegate = delegate
+        self.panGestureRecognizer = panGestureRecognizer
+        super.init()
+        
+        self.panGestureRecognizer.addTarget(self, action: #selector(handlePan(_:)))
+    }
+    
+    deinit {
+        self.panGestureRecognizer.removeTarget(self, action: #selector(handlePan(_:)))
+    }
+    
+    // MARK: - super method
+    
+    private weak var transitionContext: UIViewControllerContextTransitioning?
+
+    ///交互前的frame
+    private var frame: CGRect?
+
+    ///要交互的视图
+    private weak var view: UIView?
+
+    override func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
+        self.transitionContext = transitionContext
+        frame = delegate?.props.frame
+        view = transitionContext.view(forKey: .from)
+        super.startInteractiveTransition(transitionContext)
+    }
+    
+
+    private func percentForGesture(_ gesture: UIPanGestureRecognizer) -> CGFloat {
+        
+        var percent: CGFloat = 0
+        if let view = self.view, let delegate = self.delegate, let containerView = transitionContext?.containerView {
+            let point = gesture.translation(in: containerView)
+            
+            switch delegate.props.transitionStyle {
+            case .fromTop :
+                percent = point.y / view.gkHeight
+                
+            case .fromBottom :
+                percent = point.y / view.gkHeight
+                
+            case .fromRight :
+                percent = point.x / view.gkWidth
+                
+            case .fromLeft :
+                percent = point.x / view.gkWidth
+            }
+        }
+        return percent
+    }
+
+    ///平移手势
+    @objc private func handlePan(_ pan: UIPanGestureRecognizer) {
+        
+        if let view = self.view,
+           let frame = self.frame,
+           let delegate = self.delegate {
+            
+            switch pan.state {
+            case .began, .changed :
+                
+                var percent = percentForGesture(pan)
+                let cFrame = view.frame
+                
+                switch delegate.props.transitionStyle {
+                case .fromTop :
+                    var centerY = frame.minY + cFrame.height / 2 + cFrame.height * percent
+                    if centerY > frame.midY {
+                        centerY = frame.midY
+                    }
+                    view.gkCenterY = centerY
+                    
+                case .fromBottom :
+                    if let scrollView = delegate.scrollView, scrollView.panGestureRecognizer == pan {
+                        if percentComplete > 0 || scrollView.contentOffset.y <= 0 {
+                            delegate.scrollView?.contentOffset = .zero
+                        } else {
+                            percent = 0
+                        }
+                    }
+                    var centerY = frame.minY + cFrame.height / 2 + cFrame.height * percent
+                    if centerY < frame.midY {
+                        centerY = frame.midY
+                    }
+                    view.gkCenterY = centerY
+                    
+                case .fromRight :
+                    var centerX = frame.minX + cFrame.width / 2 + cFrame.width * percent
+                    if centerX > frame.midX {
+                        centerX = frame.midX
+                    }
+                    view.gkCenterX = centerX
+                    
+                case .fromLeft :
+                    var centerX = frame.minX + cFrame.width / 2 + cFrame.width * percent
+                    if centerX > frame.midX {
+                        centerX = frame.midX
+                    }
+                    view.gkCenterX = centerX
+                }
+                update(percent)
+                
+            default:
+                interactiveComplete(pan)
+            }
+        }
+    }
+
+    private func interactiveComplete(_ pan: UIPanGestureRecognizer) {
+        if let view = self.view,
+           let delegate = self.delegate,
+           let frame = self.frame,
+           let containerView = transitionContext?.containerView {
+            
+            var finished = percentForGesture(pan) >= 0.5
+            if !finished {
+                //快速滑动也算完成
+                let velocity = pan.velocity(in: containerView)
+                switch delegate.props.transitionStyle {
+                case .fromTop :
+                        finished = velocity.y < -1000
+                       
+                case .fromBottom :
+                        finished = velocity.y > 1000
+                        
+                case .fromRight :
+                        finished = velocity.x > 1000
+                        
+                case .fromLeft :
+                        finished = velocity.x < -1000
+                }
+            }
+            if finished {
+                finish()
+            } else {
+                cancel()
+            }
+            
+            CATransaction.begin()
+            let keyPath = "position"
+            
+            let animation = CABasicAnimation(keyPath: keyPath)
+            animation.duration = CFTimeInterval(duration)
+            animation.isRemovedOnCompletion = false
+            animation.fillMode = .both
+            animation.timingFunction = CAMediaTimingFunction(controlPoints: 0, 0, 0.2, 1)
+            
+            var center: CGPoint!
+            if finished {
+                switch delegate.props.transitionStyle {
+                case .fromTop :
+                    center = CGPoint(view.gkCenterX, -view.gkHeight / 2)
+                    
+                case .fromBottom :
+                    center = CGPoint(view.gkCenterX, containerView.gkBottom + view.gkHeight / 2)
+                    
+                case .fromLeft :
+                    center = CGPoint(-view.gkWidth / 2, view.gkCenterY)
+                    
+                case .fromRight :
+                    center = CGPoint(containerView.gkRight + view.gkWidth / 2, view.gkCenterY)
+                }
+            } else {
+                center = CGPoint(frame.midX, frame.midY);
+            }
+            
+            animation.fromValue = view.center
+            animation.toValue = center
+            
+            CATransaction.setCompletionBlock {
+                view.center = animation.toValue as! CGPoint
+                self.transitionContext?.completeTransition(finished)
+                view.layer.removeAnimation(forKey: keyPath)
+            }
+            view.layer.add(animation, forKey: keyPath)
+            CATransaction.commit()
         }
     }
 }

@@ -17,9 +17,9 @@ extension UIViewController {
     ///过渡动画代理 设置这个可防止 transitioningDelegate 提前释放，不要设置为 self，否则会抛出异常
     var gkTransitioningDelegate: UIViewControllerTransitioningDelegate? {
         set{
-            assert(self.isEqual(newValue), "gkTransitioningDelegate 不能设置为self，如果要设置成self，使用 transitioningDelegate")
-            objc_setAssociatedObject(self, &transitioningDelegateKey, gkTransitioningDelegate, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            self.transitioningDelegate = gkTransitioningDelegate
+            assert(!self.isEqual(newValue), "gkTransitioningDelegate 不能设置为self，如果要设置成self，使用 transitioningDelegate")
+            objc_setAssociatedObject(self, &transitioningDelegateKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            self.transitioningDelegate = newValue
         }
         get{
             objc_getAssociatedObject(self, &transitioningDelegateKey) as? UIViewControllerTransitioningDelegate
@@ -60,7 +60,6 @@ extension UIViewController {
     open func partialPresent(with completion: (() -> Void)? = nil) {
         
         let viewController = partialViewController
-        viewController.modalPresentationStyle = .custom
         let props = partialPresentProps
    
         if(props.cornerRadius > 0){

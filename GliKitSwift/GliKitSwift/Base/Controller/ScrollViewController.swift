@@ -17,8 +17,14 @@ open class ScrollViewController: BaseViewController, UIScrollViewDelegate {
             if #available(iOS 11, *) {
                 self.scrollView?.contentInsetAdjustmentBehavior = .never
             }
+            if scrollView != oldValue {
+                scrollViewDidChange?(scrollView)
+            }
         }
     }
+    
+    ///scrollView 改变了
+    public var scrollViewDidChange: ((_ scrollView: UIScrollView?) -> Void)?
     
     override open var viewModel: ScrollViewModel?{
         super.viewModel as? ScrollViewModel

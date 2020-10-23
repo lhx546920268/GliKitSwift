@@ -9,7 +9,7 @@
 import UIKit
 
 ///弹窗菜单按钮信息
-open class PopoverMenuItem: NSObject{
+open class PopoverMenuItem {
     
     ///标题
     public var title: String?
@@ -18,8 +18,7 @@ open class PopoverMenuItem: NSObject{
     public var icon: UIImage?
     
     public init(title: String?, icon: UIImage?) {
-     
-        super.init()
+
         self.title = title
         self.icon = icon
     }

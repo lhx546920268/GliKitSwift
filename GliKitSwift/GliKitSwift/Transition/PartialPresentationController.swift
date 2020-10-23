@@ -31,7 +31,7 @@ open class PartialPresentationController: UIPresentationController, UIGestureRec
         
         //添加背景
         if backgroundView.superview == nil {
-            self.containerView?.addSubview(backgroundView)
+            containerView?.addSubview(backgroundView)
             
             backgroundView.snp.makeConstraints { (maker) in
                 maker.edges.equalTo(0)
@@ -40,7 +40,7 @@ open class PartialPresentationController: UIPresentationController, UIGestureRec
         
         //背景渐变动画
         backgroundView.alpha = 0
-        self.presentedViewController.transitionCoordinator?.animate(alongsideTransition: { _ in
+        presentedViewController.transitionCoordinator?.animate(alongsideTransition: { _ in
             
             self.backgroundView.alpha = 1.0
         }, completion: nil)
@@ -57,7 +57,7 @@ open class PartialPresentationController: UIPresentationController, UIGestureRec
     open override func dismissalTransitionWillBegin() {
         
         //背景渐变
-        self.presentedViewController.transitionCoordinator?.animate(alongsideTransition: { _ in
+        presentedViewController.transitionCoordinator?.animate(alongsideTransition: { _ in
             
             self.backgroundView.alpha = 0
         }, completion: nil)
@@ -69,7 +69,7 @@ open class PartialPresentationController: UIPresentationController, UIGestureRec
         if completed {
             backgroundView.removeFromSuperview()
         }else{
-            self.backgroundView.alpha = 1.0
+            backgroundView.alpha = 1.0
         }
     }
 
@@ -84,7 +84,7 @@ open class PartialPresentationController: UIPresentationController, UIGestureRec
     open override func containerViewDidLayoutSubviews() {
         
         //系统还会调整视图大小的，所以这里要设置成我们需要的大小
-        self.presentedView?.frame = self.frameOfPresentedViewInContainerView
+        presentedView?.frame = frameOfPresentedViewInContainerView
     }
     
     open override var frameOfPresentedViewInContainerView: CGRect{
@@ -95,15 +95,14 @@ open class PartialPresentationController: UIPresentationController, UIGestureRec
     // MARK: - Action
 
     ///点击背景
-    @objc private func handleTap()
-    {
+    @objc private func handleTap() {
         if let delegate = transitionDelegate {
             
             if delegate.props.cancelCallback != nil {
                 delegate.props.cancelCallback!()
             } else {
                 if delegate.props.cancelable {
-                    self.presentedViewController.dismiss(animated: true, completion: delegate.props.dismissCallback)
+                    presentedViewController.dismiss(animated: true, completion: delegate.props.dismissCallback)
                 }
             }
         }
@@ -115,6 +114,6 @@ open class PartialPresentationController: UIPresentationController, UIGestureRec
         
         let point = gestureRecognizer.location(in: gestureRecognizer.view)
         
-        return !self.presentedViewController.view.frame.contains(point)
+        return !presentedViewController.view.frame.contains(point)
     }
 }

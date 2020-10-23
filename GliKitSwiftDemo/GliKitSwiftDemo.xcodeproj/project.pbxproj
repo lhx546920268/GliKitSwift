@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		52990267BAFB17A07B676D05 /* Pods_GliKitSwiftDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFD9EFA3DFE967BFDF2C7A0 /* Pods_GliKitSwiftDemoTests.framework */; };
+		CE0530C725419437005B6370 /* TransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0530C625419437005B6370 /* TransitionViewController.swift */; };
 		CE0E62C8253E82D500F934FB /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E62C7253E82D500F934FB /* EmptyViewController.swift */; };
 		CE0E62D7253EC27000F934FB /* EmptyCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E62D6253EC27000F934FB /* EmptyCollectionViewController.swift */; };
 		CE0E62DC253EC70A00F934FB /* EmptyNormalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E62DB253EC70A00F934FB /* EmptyNormalViewController.swift */; };
@@ -59,6 +60,7 @@
 		77825AC03DFF2178CD717C6A /* Pods_GliKitSwiftDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GliKitSwiftDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CFD9EFA3DFE967BFDF2C7A0 /* Pods_GliKitSwiftDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GliKitSwiftDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		869E7A770BD6E7A21CA24C3D /* Pods-GliKitSwiftDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GliKitSwiftDemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-GliKitSwiftDemoUITests/Pods-GliKitSwiftDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		CE0530C625419437005B6370 /* TransitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionViewController.swift; sourceTree = "<group>"; };
 		CE0E62C7253E82D500F934FB /* EmptyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyViewController.swift; sourceTree = "<group>"; };
 		CE0E62D6253EC27000F934FB /* EmptyCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCollectionViewController.swift; sourceTree = "<group>"; };
 		CE0E62DB253EC70A00F934FB /* EmptyNormalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyNormalViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +140,22 @@
 				E58E52944A48149FF14D077C /* Pods_GliKitSwiftDemoUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CE0530C42541940F005B6370 /* Transition */ = {
+			isa = PBXGroup;
+			children = (
+				CE0530C52541940F005B6370 /* Controller */,
+			);
+			path = Transition;
+			sourceTree = "<group>";
+		};
+		CE0530C52541940F005B6370 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CE0530C625419437005B6370 /* TransitionViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		CE0E62E0253EE98800F934FB /* Alert */ = {
@@ -233,6 +251,7 @@
 		CE9E4C3623D06AEA00C0F63D /* GliKitSwiftDemo */ = {
 			isa = PBXGroup;
 			children = (
+				CE0530C42541940F005B6370 /* Transition */,
 				CE20FF4425401C890084D596 /* Skeleton */,
 				CE0E62E0253EE98800F934FB /* Alert */,
 				CE2C6411253D708C004D2BF5 /* Empty */,
@@ -488,6 +507,7 @@
 				CE20FF79254023370084D596 /* NormalSkeletonViewController.swift in Sources */,
 				CE20FF84254023730084D596 /* CollectionSkeletonViewController.swift in Sources */,
 				CEAE532A23D1434F0073882E /* RootViewController.swift in Sources */,
+				CE0530C725419437005B6370 /* TransitionViewController.swift in Sources */,
 				CE0E62DC253EC70A00F934FB /* EmptyNormalViewController.swift in Sources */,
 				CE0E62E3253EE99A00F934FB /* AlertDemoController.swift in Sources */,
 				CE9E4C3823D06AEA00C0F63D /* AppDelegate.swift in Sources */,
@@ -671,6 +691,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = com.luohaixiong.GliKitSwiftDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -689,6 +710,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = com.luohaixiong.GliKitSwiftDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

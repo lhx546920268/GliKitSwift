@@ -13,7 +13,7 @@ import Alamofire
 public typealias JSONResult = Dictionary<String, Any>
 
 ///代理
-public protocol HttpTaskDelegate: NSObjectProtocol {
+public protocol HttpTaskDelegate: AnyObject {
     
     ///请求失败
     func taskDidFail(_ task: HttpTask)
@@ -32,10 +32,13 @@ public let GKHttpFirstPage = 1
  单个http请求任务 子类可重写对应的方法
  不需要添加一个属性来保持 strong ，任务开始后会添加到一个全局 队列中
  */
-open class HttpTask: NSObject {
+open class HttpTask {
     
     ///保存请求队列的单例
     private static var sharedTasks = Set<HttpTask>()
+    
+    ///唯一标识符
+    public let id: UUID = UUID()
     
     ///当前请求
     private var request: Request?
@@ -117,7 +120,7 @@ open class HttpTask: NSObject {
     
     ///请求标识 默认返回类的名称
     public lazy var name: String = {
-        return NSStringFromClass(self.classForCoder)
+        return String(describing: self)
     }()
     
     ///额外信息，用来传值的
@@ -311,4 +314,17 @@ open class HttpTask: NSObject {
     }
 }
 
+extension HttpTask: Equatable {
+    
+    public static func == (lhs: HttpTask, rhs: HttpTask) -> Bool {
+        return lhs.id == lhs.id
+    }
+}
+
+extension HttpTask: Hashable {
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
 

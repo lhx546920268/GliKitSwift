@@ -62,7 +62,7 @@ public extension UIView {
             }
             
             layer.cornerRadius = cornerRadius
-            layer.maskedCorners = [CACornerMask.layerMaxXMaxYCorner]
+            layer.maskedCorners = maskedCorners
             layer.masksToBounds = true
         } else {
             

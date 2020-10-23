@@ -14,7 +14,7 @@ class AlertDemoController: BaseViewController {
         super.viewDidLoad()
         title = "Alert"
         
-        var btn = UIButton(type: .system)
+        var btn: UIButton = UIButton(type: .system)
         btn.setTitle("Alert", for: .normal)
         btn.addTarget(self, action: #selector(handleAlert), for: .touchUpInside)
         view.addSubview(btn)

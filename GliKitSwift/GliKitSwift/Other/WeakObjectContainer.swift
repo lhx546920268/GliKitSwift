@@ -13,13 +13,13 @@ open class WeakObjectContainer: NSObject {
     
     ///需要weak引用的对象
     public weak var weakObject: AnyObject?
-    
-    override init() {
+
+    public init(weakObject: AnyObject) {
+        self.weakObject = weakObject
         super.init()
     }
-
-    init(weakObject: AnyObject) {
+    
+    public override init() {
         super.init()
-        self.weakObject = weakObject
     }
 }
