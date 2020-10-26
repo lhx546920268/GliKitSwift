@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		52990267BAFB17A07B676D05 /* Pods_GliKitSwiftDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFD9EFA3DFE967BFDF2C7A0 /* Pods_GliKitSwiftDemoTests.framework */; };
+		CE01D3A02546B92300323431 /* BannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01D39F2546B92300323431 /* BannerViewController.swift */; };
 		CE0530C725419437005B6370 /* TransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0530C625419437005B6370 /* TransitionViewController.swift */; };
 		CE0E62C8253E82D500F934FB /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E62C7253E82D500F934FB /* EmptyViewController.swift */; };
 		CE0E62D7253EC27000F934FB /* EmptyCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E62D6253EC27000F934FB /* EmptyCollectionViewController.swift */; };
@@ -60,6 +61,7 @@
 		77825AC03DFF2178CD717C6A /* Pods_GliKitSwiftDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GliKitSwiftDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CFD9EFA3DFE967BFDF2C7A0 /* Pods_GliKitSwiftDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GliKitSwiftDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		869E7A770BD6E7A21CA24C3D /* Pods-GliKitSwiftDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GliKitSwiftDemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-GliKitSwiftDemoUITests/Pods-GliKitSwiftDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		CE01D39F2546B92300323431 /* BannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerViewController.swift; sourceTree = "<group>"; };
 		CE0530C625419437005B6370 /* TransitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionViewController.swift; sourceTree = "<group>"; };
 		CE0E62C7253E82D500F934FB /* EmptyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyViewController.swift; sourceTree = "<group>"; };
 		CE0E62D6253EC27000F934FB /* EmptyCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCollectionViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +142,22 @@
 				E58E52944A48149FF14D077C /* Pods_GliKitSwiftDemoUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CE01D39D2546B91600323431 /* Banner */ = {
+			isa = PBXGroup;
+			children = (
+				CE01D39E2546B91600323431 /* Controller */,
+			);
+			path = Banner;
+			sourceTree = "<group>";
+		};
+		CE01D39E2546B91600323431 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CE01D39F2546B92300323431 /* BannerViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		CE0530C42541940F005B6370 /* Transition */ = {
@@ -251,6 +269,7 @@
 		CE9E4C3623D06AEA00C0F63D /* GliKitSwiftDemo */ = {
 			isa = PBXGroup;
 			children = (
+				CE01D39D2546B91600323431 /* Banner */,
 				CE0530C42541940F005B6370 /* Transition */,
 				CE20FF4425401C890084D596 /* Skeleton */,
 				CE0E62E0253EE98800F934FB /* Alert */,
@@ -504,6 +523,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE01D3A02546B92300323431 /* BannerViewController.swift in Sources */,
 				CE20FF79254023370084D596 /* NormalSkeletonViewController.swift in Sources */,
 				CE20FF84254023730084D596 /* CollectionSkeletonViewController.swift in Sources */,
 				CEAE532A23D1434F0073882E /* RootViewController.swift in Sources */,

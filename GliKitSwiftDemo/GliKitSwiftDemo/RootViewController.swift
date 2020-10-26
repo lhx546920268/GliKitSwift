@@ -27,6 +27,7 @@ open class RootViewController: TableViewController {
             RowModel(title: "Alert", cls: AlertDemoController.self),
             RowModel(title: "骨架层", cls: SkeletonViewController.self),
             RowModel(title: "过渡动画", cls: TransitionViewController.self),
+            RowModel(title: "Banner", cls: BannerViewController.self),
         ];
         
         registerClass(UITableViewCell.classForCoder())
