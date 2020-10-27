@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		AA28FDD71423CE27F89606EC /* Pods_GliKitSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF016891A7E05E1EDD44C01C /* Pods_GliKitSwift.framework */; };
 		CE01D3B22546C46200323431 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01D3B12546C46200323431 /* ProgressView.swift */; };
-		CE01D3B52546C78200323431 /* NeedDIsplayWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01D3B42546C78200323431 /* NeedDIsplayWrapper.swift */; };
+		CE01D3B52546C78200323431 /* NeedDisplayWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01D3B42546C78200323431 /* NeedDisplayWrapper.swift */; };
 		CE01D3B92546D7A900323431 /* BaseWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01D3B82546D7A900323431 /* BaseWebViewController.swift */; };
 		CE0594C12436C53900510AD2 /* NSAttributedString+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0594C02436C53900510AD2 /* NSAttributedString+Utils.swift */; };
 		CE0594C32437121900510AD2 /* TabMenuBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0594C22437121900510AD2 /* TabMenuBarCell.swift */; };
@@ -132,7 +132,7 @@
 		3B3029981CD3205D76C06BCE /* Pods-GliKitSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GliKitSwift.debug.xcconfig"; path = "Target Support Files/Pods-GliKitSwift/Pods-GliKitSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		7600BFF31AC3917776A2AD5D /* Pods-GliKitSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GliKitSwift.release.xcconfig"; path = "Target Support Files/Pods-GliKitSwift/Pods-GliKitSwift.release.xcconfig"; sourceTree = "<group>"; };
 		CE01D3B12546C46200323431 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
-		CE01D3B42546C78200323431 /* NeedDIsplayWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedDIsplayWrapper.swift; sourceTree = "<group>"; };
+		CE01D3B42546C78200323431 /* NeedDisplayWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedDisplayWrapper.swift; sourceTree = "<group>"; };
 		CE01D3B82546D7A900323431 /* BaseWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWebViewController.swift; sourceTree = "<group>"; };
 		CE0594C02436C53900510AD2 /* NSAttributedString+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Utils.swift"; sourceTree = "<group>"; };
 		CE0594C22437121900510AD2 /* TabMenuBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuBarCell.swift; sourceTree = "<group>"; };
@@ -313,7 +313,7 @@
 			children = (
 				CE2A23EC24F60520004C5E66 /* NeedLayoutWrapper.swift */,
 				CE2A23EE24F60570004C5E66 /* RangeWrapper.swift */,
-				CE01D3B42546C78200323431 /* NeedDIsplayWrapper.swift */,
+				CE01D3B42546C78200323431 /* NeedDisplayWrapper.swift */,
 			);
 			path = Wrapper;
 			sourceTree = "<group>";
@@ -804,7 +804,7 @@
 				CE416DCC24F786FD0078A4FB /* AlertAction.swift in Sources */,
 				CEA66562242D9BA0003D8E71 /* JSONSerialization+Utils.swift in Sources */,
 				CEBEB52423D54BB4000B8CBF /* PageLoadingContainer.swift in Sources */,
-				CE01D3B52546C78200323431 /* NeedDIsplayWrapper.swift in Sources */,
+				CE01D3B52546C78200323431 /* NeedDisplayWrapper.swift in Sources */,
 				CEDAEEF32431EEB000F03100 /* DefaultRefreshControl.swift in Sources */,
 				CEA2CA3623D6856300826D29 /* UIViewController+Loading.swift in Sources */,
 				CE77FFFD2539A42F00AACB9B /* UITableView+RowHeight.swift in Sources */,
