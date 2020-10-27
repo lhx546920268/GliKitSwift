@@ -107,42 +107,26 @@ open class ScrollViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if shouldDismissKeyboardWhileScroll {
+            UIApplication.shared.keyWindow?.endEditing(true)
+        }
         
+        if scrollView == self.scrollView {
+            //防止左右滑动时触发上下滑动
+            if let page = parent as? PageViewController {
+                page.scrollView?.isScrollEnabled = false
+            }
+        }
     }
     
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        
+        if scrollView == self.scrollView {
+            loadMoreControl?.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+            if let page = parent as? PageViewController {
+                page.scrollView?.isScrollEnabled = true
+            }
+        }
     }
-    // TODO: Page
-//    - (void)scrollViewDidScroll:(UIScrollView *)scrollView
-//    {
-//
-//    }
-//
-//    - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-//    {
-//        if(self.shouldDismissKeyboardWhileScroll){
-//            [[UIApplication sharedApplication].keyWindow endEditing:YES];
-//        }
-//        if(scrollView == self.scrollView){
-//            ///防止左右滑动时触发上下滑动
-//            if([self.parentViewController isKindOfClass:[GKPageViewController class]]){
-//                GKPageViewController *page = (GKPageViewController*)self.parentViewController;
-//                page.scrollView.scrollEnabled = NO;
-//            }
-//        }
-//    }
-//
-//    - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
-//    {
-//        if(scrollView == self.scrollView){
-//            [self.loadMoreControl scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
-//            if([self.parentViewController isKindOfClass:[GKPageViewController class]]){
-//                GKPageViewController *page = (GKPageViewController*)self.parentViewController;
-//                page.scrollView.scrollEnabled = YES;
-//            }
-//        }
-//    }
 }
 
 ///下拉刷新

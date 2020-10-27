@@ -9,6 +9,7 @@
 import UIKit
 
 ///弹窗属性
+@objcMembers
 public class AlertProps: NSObject, NSCopying, Copyable {
     
     // MARK: - 通用

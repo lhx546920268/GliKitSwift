@@ -327,7 +327,7 @@ open class BaseViewController: UIViewController, UIGestureRecognizerDelegate, Em
         
         //弹出键盘，改变弹窗位置
         if self.isShowAsDialog {
-            // TODO: 调整弹窗
+            adjustDialogPosition()
         }
     }
     

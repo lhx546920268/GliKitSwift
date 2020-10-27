@@ -8,7 +8,7 @@
 
 import Foundation
 
-///可复制协议
+///可复制协议 在属性前面加上@objc，或者在类的上面加上@objcMembers，否则会抛出异常
 public protocol Copyable{
     
     func gkCopy() -> Self

@@ -215,7 +215,7 @@ open class PageView: UIView, UIScrollViewDelegate {
     }
     
     ///复用cell
-    public func dequeueCell(withClass cls: AnyClass, for index: Int) -> UIView? {
+    public func dequeueCell(withClass cls: AnyClass, for index: Int) -> UIView {
         return dequeueCell(withIdentifier: String(describing: cls), for: index)
     }
     
@@ -411,7 +411,7 @@ open class PageView: UIView, UIScrollViewDelegate {
         
         switch scrollDirection {
         case .horizontal :
-            cell.frame = CGRect(offset(for: index), 0, pageSize, gkHeight)
+            cell.frame = CGRect(offset(for: index) + spacing / 2, 0, pageSize, gkHeight)
             if scale < 1.0 {
                 let center = scrollView.convert(cell.center, to: self)
                 let scale = 1.0 - (1.0 - self.scale) * abs(center.x - scrollView.center.x) / (pageSize + spacing)
@@ -419,7 +419,7 @@ open class PageView: UIView, UIScrollViewDelegate {
             }
             
         case .vertical :
-            cell.frame = CGRect(0, offset(for: index), gkWidth, pageSize)
+            cell.frame = CGRect(0, offset(for: index) + spacing / 2, gkWidth, pageSize)
             if scale < 1.0 {
                 let center = scrollView.convert(cell.center, to: self)
                 let scale = 1.0 - (1.0 - self.scale) * abs(center.y - scrollView.center.y) / (pageSize + spacing);
@@ -435,7 +435,7 @@ open class PageView: UIView, UIScrollViewDelegate {
     
     ///获取对应下标的偏移量
     private func offset(for index: Int) -> CGFloat {
-        return spacing / 2 + index.cgFloatValue * (pageSize + spacing)
+        return index.cgFloatValue * (pageSize + spacing)
     }
     
     ///获取某个cell，如果shouldInit，可见的cell不存在时会创建一个

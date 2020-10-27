@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		AA28FDD71423CE27F89606EC /* Pods_GliKitSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF016891A7E05E1EDD44C01C /* Pods_GliKitSwift.framework */; };
+		CE01D3B22546C46200323431 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01D3B12546C46200323431 /* ProgressView.swift */; };
+		CE01D3B52546C78200323431 /* NeedDIsplayWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01D3B42546C78200323431 /* NeedDIsplayWrapper.swift */; };
+		CE01D3B92546D7A900323431 /* BaseWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01D3B82546D7A900323431 /* BaseWebViewController.swift */; };
 		CE0594C12436C53900510AD2 /* NSAttributedString+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0594C02436C53900510AD2 /* NSAttributedString+Utils.swift */; };
 		CE0594C32437121900510AD2 /* TabMenuBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0594C22437121900510AD2 /* TabMenuBarCell.swift */; };
 		CE0594C52437137B00510AD2 /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0594C42437137B00510AD2 /* Divider.swift */; };
@@ -128,6 +131,9 @@
 /* Begin PBXFileReference section */
 		3B3029981CD3205D76C06BCE /* Pods-GliKitSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GliKitSwift.debug.xcconfig"; path = "Target Support Files/Pods-GliKitSwift/Pods-GliKitSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		7600BFF31AC3917776A2AD5D /* Pods-GliKitSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GliKitSwift.release.xcconfig"; path = "Target Support Files/Pods-GliKitSwift/Pods-GliKitSwift.release.xcconfig"; sourceTree = "<group>"; };
+		CE01D3B12546C46200323431 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		CE01D3B42546C78200323431 /* NeedDIsplayWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedDIsplayWrapper.swift; sourceTree = "<group>"; };
+		CE01D3B82546D7A900323431 /* BaseWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWebViewController.swift; sourceTree = "<group>"; };
 		CE0594C02436C53900510AD2 /* NSAttributedString+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Utils.swift"; sourceTree = "<group>"; };
 		CE0594C22437121900510AD2 /* TabMenuBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuBarCell.swift; sourceTree = "<group>"; };
 		CE0594C42437137B00510AD2 /* Divider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
@@ -256,6 +262,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		CE01D3B72546D79900323431 /* Web */ = {
+			isa = PBXGroup;
+			children = (
+				CE01D3B82546D7A900323431 /* BaseWebViewController.swift */,
+			);
+			path = Web;
+			sourceTree = "<group>";
+		};
 		CE20FF29253FD9B90084D596 /* Skeleton */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,6 +313,7 @@
 			children = (
 				CE2A23EC24F60520004C5E66 /* NeedLayoutWrapper.swift */,
 				CE2A23EE24F60570004C5E66 /* RangeWrapper.swift */,
+				CE01D3B42546C78200323431 /* NeedDIsplayWrapper.swift */,
 			);
 			path = Wrapper;
 			sourceTree = "<group>";
@@ -346,6 +361,7 @@
 				CE0594C42437137B00510AD2 /* Divider.swift */,
 				CE3E8C1E24C54F48001A66EC /* BannerView.swift */,
 				CE2A23E924F5F680004C5E66 /* PageView.swift */,
+				CE01D3B12546C46200323431 /* ProgressView.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -382,6 +398,7 @@
 		CE9E4C1A23D062A300C0F63D /* GliKitSwift */ = {
 			isa = PBXGroup;
 			children = (
+				CE01D3B72546D79900323431 /* Web */,
 				CEFACDB625427361002C356E /* NestedScroll */,
 				CE20FF29253FD9B90084D596 /* Skeleton */,
 				CE416DC524F741330078A4FB /* Alert */,
@@ -787,6 +804,7 @@
 				CE416DCC24F786FD0078A4FB /* AlertAction.swift in Sources */,
 				CEA66562242D9BA0003D8E71 /* JSONSerialization+Utils.swift in Sources */,
 				CEBEB52423D54BB4000B8CBF /* PageLoadingContainer.swift in Sources */,
+				CE01D3B52546C78200323431 /* NeedDIsplayWrapper.swift in Sources */,
 				CEDAEEF32431EEB000F03100 /* DefaultRefreshControl.swift in Sources */,
 				CEA2CA3623D6856300826D29 /* UIViewController+Loading.swift in Sources */,
 				CE77FFFD2539A42F00AACB9B /* UITableView+RowHeight.swift in Sources */,
@@ -833,9 +851,11 @@
 				CED1DFC5243DC8C700236BC1 /* UICollectionView+Utils.swift in Sources */,
 				CE160E1F242471E7008E7392 /* BaseViewModel.swift in Sources */,
 				CE3E8C1F24C54F48001A66EC /* BannerView.swift in Sources */,
+				CE01D3B22546C46200323431 /* ProgressView.swift in Sources */,
 				CE0594C924373D5D00510AD2 /* TabMenuBar.swift in Sources */,
 				CEC478FF24348128007D51CE /* PageViewController.swift in Sources */,
 				CEBE0965244EFDAD0016EEFA /* UIView+EmptyView.swift in Sources */,
+				CE01D3B92546D7A900323431 /* BaseWebViewController.swift in Sources */,
 				CED4CB772451A01500369B04 /* UIScrollView+EmptyView.swift in Sources */,
 				CE2A23EF24F60570004C5E66 /* RangeWrapper.swift in Sources */,
 				CEBE095A244ED5EA0016EEFA /* UITableView+Utils.swift in Sources */,
