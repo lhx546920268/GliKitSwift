@@ -76,9 +76,7 @@ public extension UIViewController {
             if let statusBarManager = UIApplication.shared.delegate?.window??.windowScene?.statusBarManager {
                 height = statusBarManager.statusBarFrame.size.height
             }
-        }
-        
-        if height == 0 {
+        } else {
             height = UIApplication.shared.statusBarFrame.size.height
         }
         
@@ -250,7 +248,7 @@ public extension UIViewController{
     
     ///返回之前
     private func gkBeforeBack(){
-        UIApplication.shared.keyWindow?.endEditing(true)
+        UIApplication.shared.gkKeyWindow?.endEditing(true)
         self.classForCoder.cancelPreviousPerformRequests(withTarget: self)
     }
     
@@ -358,6 +356,7 @@ public extension UIViewController{
      @param action 点击方法
      @return 按钮
      */
+    @discardableResult
     func gkSetLeftItem(title: String, action: Selector?) -> UIBarButtonItem{
         
         let item = self.gkBarItem(title: title, target: self, action: action)
@@ -373,6 +372,7 @@ public extension UIViewController{
      @param action 点击方法
      @return 按钮
      */
+    @discardableResult
     func gkSetLeftItem(image: UIImage, action: Selector?) -> UIBarButtonItem{
         
         let item = self.gkBarItem(image: image, target: self, action: action)
@@ -388,6 +388,7 @@ public extension UIViewController{
      @param action 点击方法
      @return 按钮
      */
+    @discardableResult
     func gkSetLeftItem(systemItem: UIBarButtonItem.SystemItem, action: Selector?) -> UIBarButtonItem{
         
         let item = self.gkBarItem(systemItem: systemItem, target: self, action: action)
@@ -402,6 +403,7 @@ public extension UIViewController{
      @param customView 自定义视图
      @return 按钮
      */
+    @discardableResult
     func gkSetLeftItem(customView: UIView) -> UIBarButtonItem{
         
         let item = self.gkBarItem(customView: customView)
@@ -417,6 +419,7 @@ public extension UIViewController{
      @param action 点击方法
      @return 按钮
      */
+    @discardableResult
     func gkSetRightItem(title: String, action: Selector?) -> UIBarButtonItem{
         
         let item = self.gkBarItem(title: title, target: self, action: action)
@@ -432,6 +435,7 @@ public extension UIViewController{
      @param action 点击方法
      @return 按钮
      */
+    @discardableResult
     func gkSetRightItem(image: UIImage, action: Selector?) -> UIBarButtonItem{
         
         let item = self.gkBarItem(image: image, target: self, action: action)
@@ -447,6 +451,7 @@ public extension UIViewController{
      @param action 点击方法
      @return 按钮
      */
+    @discardableResult
     func gkSetRightItem(systemItem: UIBarButtonItem.SystemItem, action: Selector?) -> UIBarButtonItem{
         
         let item = self.gkBarItem(systemItem: systemItem, target: self, action: action)
@@ -461,6 +466,7 @@ public extension UIViewController{
      @param customView 自定义视图
      @return 按钮
      */
+    @discardableResult
     func gkSetRightItem(customView: UIView) -> UIBarButtonItem{
         
         let item = self.gkBarItem(customView: customView)
@@ -469,6 +475,7 @@ public extension UIViewController{
         return item
     }
     
+    @discardableResult
     func gkBarItem(image: UIImage, target: Any?, action: Selector?) -> UIBarButtonItem{
         
         var img = image
@@ -488,6 +495,7 @@ public extension UIViewController{
         return UIBarButtonItem(customView: btn)
     }
     
+    @discardableResult
     func gkBarItem(title: String, target: Any?, action: Selector?) -> UIBarButtonItem{
         
         let btn = UIButton(type: .custom)
@@ -504,10 +512,12 @@ public extension UIViewController{
         return UIBarButtonItem(customView: btn)
     }
     
+    @discardableResult
     func gkBarItem(customView: UIView) -> UIBarButtonItem{
         return UIBarButtonItem(customView: customView)
     }
     
+    @discardableResult
     func gkBarItem(systemItem: UIBarButtonItem.SystemItem, target: Any?, action: Selector?) -> UIBarButtonItem{
         return UIBarButtonItem(barButtonSystemItem: systemItem, target: target, action: action)
     }

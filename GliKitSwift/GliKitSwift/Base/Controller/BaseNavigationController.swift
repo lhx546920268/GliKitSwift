@@ -118,7 +118,7 @@ public class BaseNavigationController: UINavigationController, UINavigationContr
             if self.viewControllers.count < 2 || self.visibleViewController == self.viewControllers.first {
                 return false
             } else {
-                UIApplication.shared.keyWindow?.endEditing(true)
+                UIApplication.shared.gkKeyWindow?.endEditing(true)
             }
             
             self.isInteractivePop = true

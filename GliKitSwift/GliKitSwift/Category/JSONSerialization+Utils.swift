@@ -123,11 +123,7 @@ public extension JSONSerialization{
                     let data = try JSONSerialization.data(withJSONObject: obj!, options: WritingOptions(rawValue: 0))
                     return data
                 } catch {
-                    
-                    #if DEBUG
-                    print("生成json 出错", error)
-                    #endif
-                    
+                    debugPrint("生成json 出错", error)
                     return nil
                 }
             }

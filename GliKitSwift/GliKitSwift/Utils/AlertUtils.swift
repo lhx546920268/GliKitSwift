@@ -14,7 +14,7 @@ public typealias AlertButtonDidClickCallback = (_ index: Int, _ title: String) -
 ///确认弹窗
 public typealias AlertConfirmCallback = () -> Void
 
-public class AlertUtils {
+public struct AlertUtils {
     
     ///显示一个提示弹出
     @discardableResult

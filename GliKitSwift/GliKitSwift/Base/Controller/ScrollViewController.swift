@@ -108,7 +108,7 @@ open class ScrollViewController: BaseViewController, UIScrollViewDelegate {
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if shouldDismissKeyboardWhileScroll {
-            UIApplication.shared.keyWindow?.endEditing(true)
+            UIApplication.shared.gkKeyWindow?.endEditing(true)
         }
         
         if scrollView == self.scrollView {

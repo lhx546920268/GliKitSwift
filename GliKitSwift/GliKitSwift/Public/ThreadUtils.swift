@@ -11,7 +11,7 @@ import Foundation
 ///在主线程执行
 func dispatchAsyncMainSafe(_ block: @escaping () -> Void){
     
-    if Thread.current.isMainThread {
+    if DispatchQueue.currentQueueLabel == DispatchQueue.main.label {
         block()
     } else {
         DispatchQueue.main.async(execute: block)

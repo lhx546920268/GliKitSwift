@@ -78,6 +78,10 @@ public extension BinaryFloatingPoint{
     var boolValue: Bool{
         Int(self) == 0 ? false : true
     }
+    
+    var toString: String {
+        "\(self)"
+    }
 }
 
 public extension BinaryInteger{
@@ -156,6 +160,10 @@ public extension BinaryInteger{
     
     var hexString: String{
         String(self, radix: 16)
+    }
+    
+    var toString: String {
+        String(self)
     }
 }
 

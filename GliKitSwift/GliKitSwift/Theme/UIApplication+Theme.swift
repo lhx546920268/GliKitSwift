@@ -21,18 +21,7 @@ public extension UIApplication {
 
     ///状态栏样式
     static var gkStatusBarStyle = UIStatusBarStyle.default
-
-    ///状态栏高度
-    func gkStatusBarHeight() -> CGFloat {
-        
-        if #available(iOS 13.0, *) {
-            if let window = UIApplication.shared.delegate?.window {
-                if let statusBarManager = window?.windowScene?.statusBarManager {
-                    return statusBarManager.statusBarFrame.size.height
-                }
-            }
-        }
-        
-        return UIApplication.shared.statusBarFrame.size.height
-    }
+    
+    ///钥匙串群组
+    static var gkKeychainAcessGroup: String? = nil
 }

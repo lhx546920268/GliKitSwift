@@ -149,7 +149,15 @@ open class PageLoadingView: UIView, PageLoadingContainer {
 open class PageLoadingContentView: UIView {
     
     ///loading
-    public let indicatorView = UIActivityIndicatorView(style: .gray)
+    public let indicatorView: UIActivityIndicatorView = {
+        if #available(iOS 13, *) {
+            let view = UIActivityIndicatorView(style: .medium)
+            view.color = .gray
+            return view
+        } else {
+            return UIActivityIndicatorView(style: .gray)
+        }
+    }()
     
     ///加载出错提示文字
     public let textLabel: UILabel = {

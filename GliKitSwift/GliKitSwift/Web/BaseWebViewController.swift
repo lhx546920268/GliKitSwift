@@ -300,7 +300,14 @@ open class BaseWebViewController: BaseViewController {
 
 extension BaseWebViewController: WKUIDelegate {
     
+    @available(iOS, introduced: 8, deprecated: 13)
     public func webView(_ webView: WKWebView, shouldPreviewElement elementInfo: WKPreviewElementInfo) -> Bool {
+        //是否可以打开预览
+        return false
+    }
+    
+    @available(iOS 13, *)
+    public func webView(_ webView: WKWebView, shouldPreviewElement elementInfo: WKContextMenuElementInfo) -> Bool {
         //是否可以打开预览
         return false
     }

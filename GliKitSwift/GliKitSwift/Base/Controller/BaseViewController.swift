@@ -317,7 +317,7 @@ open class BaseViewController: UIViewController, UIGestureRecognizerDelegate, Em
     ///回收键盘
     @objc private func handleDismissKeyboard(){
         
-        UIApplication.shared.keyWindow?.endEditing(true)
+        UIApplication.shared.gkKeyWindow?.endEditing(true)
     }
     
     ///键盘高度改变

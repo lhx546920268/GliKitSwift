@@ -16,7 +16,13 @@ open class DefaultLoadMoreControl: LoadMoreControl {
 
     ///加载菊花
     public private(set) lazy var indicatorView: UIActivityIndicatorView = {
-        return UIActivityIndicatorView(style: .gray)
+        if #available(iOS 13, *) {
+            let view = UIActivityIndicatorView(style: .medium)
+            view.color = .gray
+            return view
+        } else {
+            return UIActivityIndicatorView(style: .gray)
+        }
     }()
 
     ///加载显示的提示信息

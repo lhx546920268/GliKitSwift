@@ -146,7 +146,7 @@ open class HttpTask {
     open func onStart(){
         HttpTask.sharedTasks.insert(self)
         if shouldShowloadingHUD {
-            UIApplication.shared.keyWindow?.endEditing(true)
+            UIApplication.shared.gkKeyWindow?.endEditing(true)
             view?.gkShowProgress(delay: loadingHUDDelay)
         }
     }

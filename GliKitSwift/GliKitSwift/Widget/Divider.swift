@@ -13,6 +13,11 @@ open class Divider: UIView {
     
     ///是否是垂直的
     public private(set) var isVertical = false
+    
+    init() {
+        super.init(frame: .zero)
+        initParams()
+    }
         
     init(vertical: Bool) {
         

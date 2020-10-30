@@ -8,5 +8,5 @@ target 'GliKitSwift' do
   pod 'SnapKit', '~> 5.0.1'
   pod 'Kingfisher', '~> 5.15.6'
   pod 'Alamofire', '~> 5.2.2'
-
+  pod 'KeychainAccess', '~> 4.2.1'
 end

@@ -13,7 +13,7 @@ public extension DispatchQueue{
     private static var onceTokens = Set<String>()
     
     ///同步锁
-    class func synchronized(token: Any, block: VoidCallback) {
+    static func synchronized(token: Any, block: VoidCallback) {
         
         objc_sync_enter(token)
         defer{
@@ -23,7 +23,7 @@ public extension DispatchQueue{
     }
     
     ///只执行一次 类似 objc的
-    class func once(token: String, block: VoidCallback) {
+    static func once(token: String, block: VoidCallback) {
         
         synchronized(token: self) {
             guard !onceTokens.contains(token) else {
@@ -32,6 +32,11 @@ public extension DispatchQueue{
             onceTokens.insert(token)
             block()
         }
+    }
+    
+    ///当前队列名称
+    static var currentQueueLabel: String? {
+        String(cString: __dispatch_queue_get_label(nil), encoding: .utf8)
     }
 }
 

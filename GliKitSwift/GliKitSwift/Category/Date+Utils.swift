@@ -65,4 +65,71 @@ public extension Date{
     var gkWeekday: Int{
         Calendar.current.component(.weekday, from: self)
     }
+    
+    // MARK: - 时间获取
+
+    ///获取当前时间格式为
+    static func gkCurrentTime(format: String = dateFormatYMdHms, offset: TimeInterval = 0) -> String {
+        sharedDateFormatter.dateFormat = format
+        var date = Date()
+        if offset > 0 {
+            date = Date(timeInterval: offset, since: date)
+        }
+        return sharedDateFormatter.string(from: date)
+    }
+
+    // MARK: - 时间转换
+
+    ///把时间转换成另一种时间格式
+    static func gkFormatTime(_ time: String, fromFormat: String = dateFormatYMdHms, toFormat: String) -> String? {
+        sharedDateFormatter.dateFormat = fromFormat
+        if let date = sharedDateFormatter.date(from: time) {
+            sharedDateFormatter.dateFormat = toFormat
+            return sharedDateFormatter.string(from: date)
+        }
+        
+        return nil
+    }
+    
+    ///把时间戳转换成另一种时间格式
+    static func gkFormatTimeStamp(_ timeStamp: TimeInterval, format: String = dateFormatYMdHms) -> String {
+    
+        let timeStamp = timeStamp > 100000000000 ? timeStamp / 1000 : timeStamp
+        let date = Date(timeIntervalSince1970: timeStamp)
+        sharedDateFormatter.dateFormat = format
+        return sharedDateFormatter.string(from: date)
+    }
+
+    ///获取时间对象
+    static func gkDate(from time: String, format: String = dateFormatYMdHms) -> Date? {
+
+        sharedDateFormatter.dateFormat = format
+        return sharedDateFormatter.date(from: time)
+    }
+    
+    ///获取时间
+    static func gkTime(from date: Date, format: String = dateFormatYMdHms) -> String {
+
+        sharedDateFormatter.dateFormat = format
+        return sharedDateFormatter.string(from: date)
+    }
+    
+    ///格式化秒
+    static func gkFormatSeconds(_ seconds: Int) -> String{
+        let result = seconds / 60
+        let second = seconds % 60
+        let minute = result % 60
+        let hour = result / 60
+        
+        return String(format: "%02d:%02d:%02d", hour, minute, second)
+    }
+
+    ///计算时间距离现在有多少秒
+    static func gkTimeIntervalFromNow(_ time: String, format: String = dateFormatYMdHms) -> TimeInterval {
+        sharedDateFormatter.dateFormat = format
+        if let date = sharedDateFormatter.date(from: time) {
+            return date.timeIntervalSinceNow
+        }
+        return 0
+    }
 }

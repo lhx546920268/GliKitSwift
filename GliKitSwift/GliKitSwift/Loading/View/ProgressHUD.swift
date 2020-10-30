@@ -93,7 +93,13 @@ open class ProgressHUD: UIView, ProgressHUDProtocol {
     
     ///加载指示器
     public private(set) lazy var indicatorView: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView(style: .whiteLarge)
+        let view: UIActivityIndicatorView
+        if #available(iOS 13, *) {
+            view = UIActivityIndicatorView(style: .large)
+            view.color = .white
+        } else {
+            view = UIActivityIndicatorView(style: .whiteLarge)
+        }
         translucentView.addSubview(view)
         return view
     }()

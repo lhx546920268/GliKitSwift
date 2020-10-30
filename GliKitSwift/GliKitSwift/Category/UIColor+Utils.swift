@@ -20,20 +20,13 @@ public extension UIColor {
      */
     func gkColorARGB() -> (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
         
-        let red = UnsafeMutablePointer<CGFloat>.allocate(capacity: 0)
-        let green = UnsafeMutablePointer<CGFloat>.allocate(capacity: 0)
-        let blue = UnsafeMutablePointer<CGFloat>.allocate(capacity: 0)
-        let alpha = UnsafeMutablePointer<CGFloat>.allocate(capacity: 0)
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        getRed(&red, green: &green, blue: &blue, alpha: &alpha)
         
-        getRed(red, green: green, blue: blue, alpha: alpha)
-        
-        let result = (red.pointee, green.pointee, blue.pointee, alpha.pointee)
-        red.deallocate()
-        green.deallocate()
-        blue.deallocate()
-        alpha.deallocate()
-        
-        return result
+        return (red, green, blue, alpha)
     }
     
     /**

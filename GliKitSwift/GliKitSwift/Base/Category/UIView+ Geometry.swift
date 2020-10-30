@@ -71,6 +71,14 @@ public extension CGRect{
     init(_ x: Double, _ y: Double, _ width: Double, _ height: Double){
         self.init(x: x, y: y, width: width, height: height)
     }
+    
+    init(_ origin: CGPoint, _ size: CGSize){
+        self.init(origin: origin, size: size)
+    }
+    
+    var center: CGPoint {
+        CGPoint(midX, midY)
+    }
 }
 
 public extension UIEdgeInsets{

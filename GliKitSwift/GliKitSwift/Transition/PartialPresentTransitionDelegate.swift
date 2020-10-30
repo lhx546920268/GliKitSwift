@@ -46,25 +46,25 @@ open class PartialPresentProps{
             let parentSize = UIScreen.gkSize
             switch (transitionStyle) {
             case .fromTop :
-                if frameUseSafeArea, let window = UIApplication.shared.keyWindow {
+                if frameUseSafeArea, let window = UIApplication.shared.gkKeyWindow {
                     size.height += window.gkSafeAreaInsets.top
                 }
                 return CGRect(x: (parentSize.width - size.width) / 2.0, y: 0, width: size.width, height: size.height)
                 
             case .fromLeft :
-                if frameUseSafeArea, let window = UIApplication.shared.keyWindow {
+                if frameUseSafeArea, let window = UIApplication.shared.gkKeyWindow {
                     size.width += window.gkSafeAreaInsets.left
                 }
                 return CGRect(x: size.width, y: (parentSize.height - size.height) / 2.0, width: size.width, height: size.height)
                 
             case .fromBottom :
-                if frameUseSafeArea, let window = UIApplication.shared.keyWindow {
+                if frameUseSafeArea, let window = UIApplication.shared.gkKeyWindow {
                     size.height += window.gkSafeAreaInsets.bottom
                 }
                 return CGRect(x: (parentSize.width - size.width) / 2.0, y: parentSize.height - size.height, width: size.width, height: size.height)
                 
             case .fromRight :
-                if self.frameUseSafeArea, let window = UIApplication.shared.keyWindow {
+                if self.frameUseSafeArea, let window = UIApplication.shared.gkKeyWindow {
                     size.width += window.gkSafeAreaInsets.right
                 }
                 return CGRect(x: parentSize.width - size.width, y: (parentSize.height - size.height) / 2.0, width: size.width, height: size.height)
@@ -248,7 +248,7 @@ open class PartialPresentTransitionDelegate: NSObject, UIViewControllerTransitio
     ///开始交互动画
     private func startInteractiveTransition(_ pan: UIPanGestureRecognizer) {
         interacting = true
-        UIApplication.shared.keyWindow?.endEditing(true)
+        UIApplication.shared.gkKeyWindow?.endEditing(true)
         dismissDirectly = false
         activedPanGestureRecognizer = pan
         viewController?.dismiss(animated: true, completion: props.dismissCallback)

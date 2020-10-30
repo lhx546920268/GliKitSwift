@@ -62,4 +62,24 @@ public extension UIApplication {
             }
         }
     }
+    
+    ///状态栏高度
+    var gkStatusBarHeight: CGFloat {
+        
+        if #available(iOS 13.0, *) {
+            if let window = UIApplication.shared.delegate?.window {
+                if let statusBarManager = window?.windowScene?.statusBarManager {
+                    return statusBarManager.statusBarFrame.size.height
+                }
+            }
+            return 0
+        } else {
+            return UIApplication.shared.statusBarFrame.size.height
+        }
+    }
+    
+    ///keyWindow
+    var gkKeyWindow: UIWindow? {
+        return keyWindow
+    }
 }

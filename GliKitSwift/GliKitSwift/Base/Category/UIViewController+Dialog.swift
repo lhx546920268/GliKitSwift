@@ -334,7 +334,7 @@ public extension UIViewController{
     @objc func dismissDialog(animated: Bool = true, completion: DialogCompletion? = nil){
         
         self.dialogWillDismissCallback?(animated)
-        UIApplication.shared.keyWindow?.endEditing(true)
+        UIApplication.shared.gkKeyWindow?.endEditing(true)
         
         if let dialog = self.dialog, animated {
             switch self.dialogDismissAnimate {
