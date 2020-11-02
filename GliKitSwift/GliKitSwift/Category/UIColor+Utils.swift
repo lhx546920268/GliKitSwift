@@ -142,12 +142,12 @@ public extension UIColor {
      *@param hex 16进制值
      *@return 一个 UIColor对象
      */
-    static func gkColorFromHex(_ hex: String) -> UIColor? {
+    static func gkColorFromHex(_ hex: String) -> UIColor {
         
         if let argb = UIColor.gkColorARGB(hex: hex) {
             return UIColor(red: argb.red, green: argb.green, blue: argb.blue, alpha: argb.alpha)
         }
-        return nil
+        return .clear
     }
     
     /**
@@ -156,12 +156,12 @@ public extension UIColor {
      *@param alpha 0~1.0 透明度
      *@return 一个 UIColor对象
      */
-    static func gkColorFromHex(_ hex: String, alpha: CGFloat) -> UIColor? {
+    static func gkColorFromHex(_ hex: String, alpha: CGFloat) -> UIColor {
         
         if let argb = UIColor.gkColorARGB(hex: hex) {
             return UIColor(red: argb.red, green: argb.green, blue: argb.blue, alpha: alpha)
         }
-        return nil
+        return .clear
         
     }
     

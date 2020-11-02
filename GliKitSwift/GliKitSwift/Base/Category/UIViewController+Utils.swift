@@ -143,7 +143,7 @@ public extension UIViewController {
     ///获取最上层的 presentedViewController
     var gkTopestPresentedViewController: UIViewController{
         if self.presentedViewController != nil {
-            return self.presentingViewController!.gkTopestPresentedViewController
+            return self.presentedViewController!.gkTopestPresentedViewController
         }else{
             return self
         }
@@ -645,18 +645,36 @@ public extension NSObject {
     }
 }
 
+private var hasTabBarKey: UInt8 = 0
+
 ///自定义tabBar扩展
 public extension UIViewController {
     
-    // TODO: TabBar
-
     ///当前tabBarController
-    //@property(nonatomic, readonly) GKTabBarController *gkTabBarController;
+    var gkTabBarController: TabBarController? {
+        get{
+            if let vc = UIApplication.shared.delegate?.window??.rootViewController as? TabBarController {
+                return vc
+            }
+            
+            if let vc = gkRootPresentingViewController as? TabBarController {
+                return vc
+            }
+            
+            return nil
+        }
+    }
 
     ///是否有tabBar
     var gkHasTabBar: Bool {
         get{
-            return false
+            if let nav = parent as? UINavigationController, nav.viewControllers.first == self {
+                return nav.gkHasTabBar
+            }
+            return objc_getAssociatedObject(self, &hasTabBarKey) as? Bool ?? false
+        }
+        set{
+            objc_setAssociatedObject(self, &hasTabBarKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }

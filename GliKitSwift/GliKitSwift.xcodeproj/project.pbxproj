@@ -35,6 +35,12 @@
 		CE2A23EF24F60570004C5E66 /* RangeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2A23EE24F60570004C5E66 /* RangeWrapper.swift */; };
 		CE2D69DB254AA7FE004B120F /* AppUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2D69DA254AA7FE004B120F /* AppUtils.swift */; };
 		CE2D69EC254ACB18004B120F /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2D69EB254ACB18004B120F /* PhotosViewController.swift */; };
+		CE308FF1254FE46C0078E383 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE308FF0254FE46C0078E383 /* ImagePicker.swift */; };
+		CE308FF6254FEFD10078E383 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE308FF5254FEFD10078E383 /* TabBarController.swift */; };
+		CE308FFA254FEFE70078E383 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE308FF9254FEFE70078E383 /* TabBarItem.swift */; };
+		CE308FFD254FF07F0078E383 /* BadgeValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE308FFC254FF07F0078E383 /* BadgeValueView.swift */; };
+		CE309000254FF4B10078E383 /* CallbackWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE308FFF254FF4B10078E383 /* CallbackWrapper.swift */; };
+		CE309003254FFEFF0078E383 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE309002254FFEFF0078E383 /* TabBar.swift */; };
 		CE34EDB0254A4B83000DB3B4 /* PhotosGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE34EDAF254A4B83000DB3B4 /* PhotosGridCell.swift */; };
 		CE34EDB7254A4F41000DB3B4 /* PhotosListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE34EDB6254A4F41000DB3B4 /* PhotosListCell.swift */; };
 		CE34EDBA254A56A7000DB3B4 /* PhotosPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE34EDB9254A56A7000DB3B4 /* PhotosPreviewCell.swift */; };
@@ -173,6 +179,12 @@
 		CE2A23EE24F60570004C5E66 /* RangeWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeWrapper.swift; sourceTree = "<group>"; };
 		CE2D69DA254AA7FE004B120F /* AppUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtils.swift; sourceTree = "<group>"; };
 		CE2D69EB254ACB18004B120F /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
+		CE308FF0254FE46C0078E383 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		CE308FF5254FEFD10078E383 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		CE308FF9254FEFE70078E383 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
+		CE308FFC254FF07F0078E383 /* BadgeValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeValueView.swift; sourceTree = "<group>"; };
+		CE308FFF254FF4B10078E383 /* CallbackWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallbackWrapper.swift; sourceTree = "<group>"; };
+		CE309002254FFEFF0078E383 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		CE34EDAF254A4B83000DB3B4 /* PhotosGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosGridCell.swift; sourceTree = "<group>"; };
 		CE34EDB6254A4F41000DB3B4 /* PhotosListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosListCell.swift; sourceTree = "<group>"; };
 		CE34EDB9254A56A7000DB3B4 /* PhotosPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosPreviewCell.swift; sourceTree = "<group>"; };
@@ -344,13 +356,33 @@
 				CE2A23EC24F60520004C5E66 /* NeedLayoutWrapper.swift */,
 				CE2A23EE24F60570004C5E66 /* RangeWrapper.swift */,
 				CE01D3B42546C78200323431 /* NeedDisplayWrapper.swift */,
+				CE308FFF254FF4B10078E383 /* CallbackWrapper.swift */,
 			);
 			path = Wrapper;
+			sourceTree = "<group>";
+		};
+		CE308FEF254FE4600078E383 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CE308FF0254FE46C0078E383 /* ImagePicker.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		CE308FF4254FEFC40078E383 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				CE308FF5254FEFD10078E383 /* TabBarController.swift */,
+				CE308FF9254FEFE70078E383 /* TabBarItem.swift */,
+				CE309002254FFEFF0078E383 /* TabBar.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 		CE3EF0BE2549710B00FD91A9 /* Photos */ = {
 			isa = PBXGroup;
 			children = (
+				CE308FEF254FE4600078E383 /* Utils */,
 				CE3EF0BF2549710B00FD91A9 /* Controller */,
 				CE3EF0C02549710B00FD91A9 /* Model */,
 				CE3EF0C12549710B00FD91A9 /* View */,
@@ -437,6 +469,7 @@
 				CE3E8C1E24C54F48001A66EC /* BannerView.swift */,
 				CE2A23E924F5F680004C5E66 /* PageView.swift */,
 				CE01D3B12546C46200323431 /* ProgressView.swift */,
+				CE308FFC254FF07F0078E383 /* BadgeValueView.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -473,6 +506,7 @@
 		CE9E4C1A23D062A300C0F63D /* GliKitSwift */ = {
 			isa = PBXGroup;
 			children = (
+				CE308FF4254FEFC40078E383 /* TabBar */,
 				CE3EF0BE2549710B00FD91A9 /* Photos */,
 				CE01D3B72546D79900323431 /* Web */,
 				CEFACDB625427361002C356E /* NestedScroll */,
@@ -878,6 +912,7 @@
 				CECB37392429B52400C92687 /* Swizzlling.swift in Sources */,
 				CE58C66B2452D0E2006A654E /* UICollectionView+EmptyView.swift in Sources */,
 				CEAE532E23D158BB0073882E /* NavigationBar.swift in Sources */,
+				CE309000254FF4B10078E383 /* CallbackWrapper.swift in Sources */,
 				CEC47902243481AC007D51CE /* MenuBar.swift in Sources */,
 				CE34EDBA254A56A7000DB3B4 /* PhotosPreviewCell.swift in Sources */,
 				CE218B54254BE875003E15A0 /* PhotosBrowseCell.swift in Sources */,
@@ -897,6 +932,7 @@
 				CE58C65A24527796006A654E /* UITableView+EmptyView.swift in Sources */,
 				CE416DCA24F7415C0078A4FB /* AlertProps.swift in Sources */,
 				CEB6D2D423D44EDA00457164 /* ThreadUtils.swift in Sources */,
+				CE308FF1254FE46C0078E383 /* ImagePicker.swift in Sources */,
 				CE52B0CA2435E81D00B85D8D /* MenuBarItem.swift in Sources */,
 				CE160E212424A350008E7392 /* BaseNavigationController.swift in Sources */,
 				CE416DD024F78CEF0078A4FB /* AlertHeader.swift in Sources */,
@@ -915,6 +951,7 @@
 				CEB6D2CD23D3FAD600457164 /* HttpTask.swift in Sources */,
 				CEB6D2CF23D440E900457164 /* HttpError.swift in Sources */,
 				CE20FF3F25400DAE0084D596 /* UITableView+Skeleton.swift in Sources */,
+				CE308FF6254FEFD10078E383 /* TabBarController.swift in Sources */,
 				CEFACDBF25427946002C356E /* UIScrollView+GKNestedScroll.swift in Sources */,
 				CEB6D2C823D3F0CD00457164 /* UIImage+Theme.swift in Sources */,
 				CED4CB6F245177C700369B04 /* UIView+NavigationBarUtils.swift in Sources */,
@@ -942,10 +979,12 @@
 				CE34EDB0254A4B83000DB3B4 /* PhotosGridCell.swift in Sources */,
 				CEC478FF24348128007D51CE /* PageViewController.swift in Sources */,
 				CEBE0965244EFDAD0016EEFA /* UIView+EmptyView.swift in Sources */,
+				CE308FFA254FEFE70078E383 /* TabBarItem.swift in Sources */,
 				CE01D3B92546D7A900323431 /* BaseWebViewController.swift in Sources */,
 				CED4CB772451A01500369B04 /* UIScrollView+EmptyView.swift in Sources */,
 				CE2A23EF24F60570004C5E66 /* RangeWrapper.swift in Sources */,
 				CEBE095A244ED5EA0016EEFA /* UITableView+Utils.swift in Sources */,
+				CE309003254FFEFF0078E383 /* TabBar.swift in Sources */,
 				CE416DD424F78F9A0078A4FB /* AlertController.swift in Sources */,
 				CEBEB52A23D59564000B8CBF /* UIView+Loading.swift in Sources */,
 				CE34EDC1254A5D65000DB3B4 /* PhotosToolBar.swift in Sources */,
@@ -955,6 +994,7 @@
 				CE2D69EC254ACB18004B120F /* PhotosViewController.swift in Sources */,
 				CEBEB52623D55F7A000B8CBF /* ProgressHUD.swift in Sources */,
 				CE6996EB23D81ED100A99469 /* UIViewControlelr+Transition.swift in Sources */,
+				CE308FFD254FF07F0078E383 /* BadgeValueView.swift in Sources */,
 				CED4CB73245186B800369B04 /* ConversionUtils.swift in Sources */,
 				CE6996EF23D8235E00A99469 /* NSObject+Utils.swift in Sources */,
 				CE20FF32253FDA500084D596 /* SkeletonLayer.swift in Sources */,

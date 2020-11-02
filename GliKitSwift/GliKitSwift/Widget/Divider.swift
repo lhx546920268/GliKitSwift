@@ -36,6 +36,7 @@ open class Divider: UIView {
     ///初始化
     private func initParams(){
         
+        isUserInteractionEnabled = false
         self.backgroundColor = UIColor.gkSeparatorColor;
         if self.isVertical {
             

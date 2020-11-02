@@ -22,7 +22,7 @@ enum PhotosIntention {
 }
 
 ///相册选择结果
-struct PhotosPickResult {
+public struct PhotosPickResult {
     
     ///图片缩略图
     public private(set) var thumbnail: UIImage?
@@ -103,7 +103,7 @@ struct PhotosPickResult {
     }
 }
 
-typealias PhotosCompletion = (_ results: [PhotosPickResult]) -> Void
+public typealias PhotosCompletion = (_ results: [PhotosPickResult]) -> Void
 
 ///相册选项
 public class PhotosOptions {

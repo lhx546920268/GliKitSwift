@@ -105,6 +105,23 @@ public extension String {
     }
 }
 
+// MARK: - 校验
+
+public extension String {
+   
+    ///是否是纯数字
+    var isDigitalOnly: Bool {
+        trimmingCharacters(in: CharacterSet.decimalDigits).count == 0
+    }
+
+    ///是否是整数
+    var isInteger: Bool {
+        let scan = Scanner(string: self)
+        var val: Int = 0
+        return scan.scanInt(&val) && scan.isAtEnd
+    }
+}
+
 public extension Character {
     
     ///转成整型
