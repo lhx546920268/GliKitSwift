@@ -48,19 +48,10 @@ open class BaseViewModel {
      添加需要取消的请求 在dealloc
      
      @param task 请求
-     */
-    open func addCanceledTask(_ task: HttpTask){
-        viewController?.addCanceledTask(task)
-    }
-
-    /**
-     添加需要取消的请求 在dealloc
-     
-     @param task 请求
      @param cancel 是否取消相同的任务 通过 task.name 来判断
      */
-    open func addCanceledTask(_ task: HttpTask, cancelTheSame cancel: Bool){
-        viewController?.addCanceledTask(task, cancelTheSame: cancel)
+    open func addCancelableTask(_ task: HttpTask, cancelTheSame cancel: Bool = false){
+        viewController?.addCancelableTask(task, cancelTheSame: cancel)
     }
    
     /**
@@ -68,8 +59,8 @@ open class BaseViewModel {
      
      @param tasks 请求
      */
-    open func addCanceledTasks(_ tasks: HttpMultiTasks){
-        viewController?.addCanceledTasks(tasks)
+    open func addCancelableTasks(_ tasks: HttpMultiTasks){
+        viewController?.addCancelableTasks(tasks)
     }
 
     /**

@@ -28,4 +28,5 @@ Pod::Spec.new do |spec|
   spec.dependency 'SnapKit', '~> 5.0.1'
   spec.dependency 'Kingfisher', '~> 5.15.6'
   spec.dependency 'Alamofire', '~> 5.2.2'
+  spec.dependency 'KeychainAccess', '~> 4.2.1'
 end

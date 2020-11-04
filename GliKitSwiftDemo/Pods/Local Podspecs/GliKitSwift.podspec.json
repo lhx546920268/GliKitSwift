@@ -23,6 +23,9 @@
     ],
     "Alamofire": [
       "~> 5.2.2"
+    ],
+    "KeychainAccess": [
+      "~> 4.2.1"
     ]
   }
 }

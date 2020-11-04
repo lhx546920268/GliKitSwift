@@ -10,10 +10,10 @@ import UIKit
 
 public typealias VoidCallback = () -> Void
 
-public class GliKitSwift {
+public struct GliKitSwift {
 
     ///初始化 只调用一次
-    public class func initialize(){
+    public static func initialize(){
         DispatchQueue.once(token: "GliKitSwift.initialize"){
             UIView.swizzleNavigationBarMargins()
             UITableView.swizzleTableViewRowHeight()

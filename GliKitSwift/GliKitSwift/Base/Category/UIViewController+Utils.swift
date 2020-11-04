@@ -620,7 +620,7 @@ public extension NSObject {
                 nav.pushViewController(viewController, animated: true)
             }
         }else{
-            GKLog("There is no navigationController")
+            print("There is no navigationController")
         }
     }
     
@@ -640,7 +640,7 @@ public extension NSObject {
             nav.setViewControllers(viewControllers, animated: true)
             
         }else{
-            GKLog("There is no navigationController")
+            print("There is no navigationController")
         }
     }
 }

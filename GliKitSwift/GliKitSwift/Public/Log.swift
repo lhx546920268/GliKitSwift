@@ -9,9 +9,9 @@
 import Foundation
 
 ///打印日志信息，release 不打印
-func GKLog(_ log: String) {
+public func print(_ items: Any..., separator: String = " ", terminator: String = "\n") {
     
     #if DEBUG
-    print(log)
+    Swift.print(items, separator, terminator)
     #endif
 }

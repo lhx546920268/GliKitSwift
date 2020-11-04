@@ -38,6 +38,11 @@ public extension DispatchQueue{
     static var currentQueueLabel: String? {
         String(cString: __dispatch_queue_get_label(nil), encoding: .utf8)
     }
+    
+    ///延迟执行
+    func asyncAfter(seconds: Double, block: @escaping VoidCallback) {
+        asyncAfter(deadline: DispatchTime(floatLiteral: seconds), execute: block)
+    }
 }
 
 extension DispatchTime: ExpressibleByIntegerLiteral {

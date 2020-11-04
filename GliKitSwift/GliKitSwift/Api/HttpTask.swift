@@ -28,11 +28,17 @@ public protocol HttpTaskDelegate: AnyObject {
 ///翻页起始页
 public let GKHttpFirstPage = 1
 
+///回调
+public typealias HttpTaskCallback = (HttpTask) -> Void
+
 /**
  单个http请求任务 子类可重写对应的方法
  不需要添加一个属性来保持 strong ，任务开始后会添加到一个全局 队列中
  */
 open class HttpTask {
+    
+    ///锁
+    private let lock = Lock()
     
     ///保存请求队列的单例
     private static var sharedTasks = Set<HttpTask>()
@@ -86,18 +92,18 @@ open class HttpTask {
     }
     
     ///是否是自己取消
-    public private(set) var isCanceled = false
+    public private(set) var isCancelled = false
     
     // MARK: - 回调
     
     ///成功回调
-    public var successCallback: ((HttpTask) -> Void)?
+    public var successCallback: HttpTaskCallback?
     
     ///将要调用失败回调
-    public var willFailCallback: ((HttpTask) -> Void)?
+    public var willFailCallback: HttpTaskCallback?
     
     ///失败回调
-    public var failCallback: ((HttpTask) -> Void)?
+    public var failCallback: HttpTaskCallback?
     
     ///代理
     public weak var delegate: HttpTaskDelegate?
@@ -139,6 +145,10 @@ open class HttpTask {
     
     ///是否提示错误信息，default is no
     public var shouldAlertErrorMsg = false
+    
+    public init() {
+
+    }
     
     // MARK: - 子类重写 回调
     
@@ -182,16 +192,19 @@ open class HttpTask {
     // MARK: - 外部调用方法
     
     /// 开始请求
-    open func start(){
-        DispatchQueue.synchronized(token: self) {
-            if isExecuting || isCanceled {
-                return
-            }
-            
+    @discardableResult
+    open func start() -> Self{
+        lock.lock()
+        defer {
+            lock.unlock()
+        }
+        if !isExecuting && !isCancelled {
             onStart()
             createRequestIfNeeded()
             request?.resume()
         }
+        
+        return self
     }
     
     ///创建请求
@@ -229,16 +242,18 @@ open class HttpTask {
     
     /// 取消
     open func cancel(){
-        DispatchQueue.synchronized(token: self) {
-            if(!isCanceled){
-                isCanceled = true
-                
-                if isExecuting || isSuspended {
-                    request?.cancel()
-                }
-                
-                onComplete()
+        lock.lock()
+        defer {
+            lock.unlock()
+        }
+        if(!isCancelled){
+            isCancelled = true
+            
+            if isExecuting || isSuspended {
+                request?.cancel()
             }
+            
+            onComplete()
         }
     }
     
@@ -262,7 +277,7 @@ open class HttpTask {
     open func processError(_ error: Error?){
         
         //是自己取消的  因为服务端取消的也会被标记成 NSURLErrorCancelled
-        if isCanceled {
+        if isCancelled {
             return
         }
         
@@ -291,11 +306,9 @@ open class HttpTask {
         delegate?.taskDidSuccess(self)
         
         dispatchAsyncMainSafe { [weak self] in
-            if let self = self {
-                if !self.isCanceled {
-                    self.successCallback?(self)
-                    self.onComplete()
-                }
+            if let self = self, !self.isCancelled {
+                self.successCallback?(self)
+                self.onComplete()
             }
         }
     }
@@ -303,7 +316,7 @@ open class HttpTask {
     ///请求失败
     public func requestDidFail() {
         dispatchAsyncMainSafe { [weak self] in
-            if let self = self {
+            if let self = self, !self.isCancelled {
                 self.willFailCallback?(self)
                 self.onFail()
                 self.failCallback?(self)
@@ -325,6 +338,38 @@ extension HttpTask: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
+    }
+}
+
+///为了语法方便
+public extension HttpTask {
+    
+    func success(_ callback: @escaping HttpTaskCallback) -> Self {
+        successCallback = callback
+        return self
+    }
+    
+    func fail(_ callback: @escaping HttpTaskCallback) -> Self {
+        failCallback = callback
+        return self
+    }
+    
+    func willFail(_ callback: @escaping HttpTaskCallback) -> Self {
+        willFailCallback = callback
+        return self
+    }
+    
+    func attach(_ view: UIView, loading: Bool = true, error: Bool = true) -> Self {
+        self.view = view
+        shouldShowloadingHUD = loading
+        shouldAlertErrorMsg = error
+        
+        return self
+    }
+    
+    func cancel(by viewController: BaseViewController) -> Self {
+        viewController.addCancelableTask(self)
+        return self
     }
 }
 

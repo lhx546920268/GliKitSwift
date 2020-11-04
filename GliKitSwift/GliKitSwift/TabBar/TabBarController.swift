@@ -23,16 +23,16 @@ extension UITabBarController: TabBarControllerProtocol {
 
 ///选项卡按钮信息
 public struct TabBarItemInfo {
-
-///按钮标题
+    
+    ///按钮标题
     public let title: String?
-
-///按钮未选中图标 当selectedImage 为nil时，使用 UIImageRenderingModeAlwaysTemplate
+    
+    ///按钮未选中图标 当selectedImage 为nil时，使用 UIImageRenderingModeAlwaysTemplate
     public let normalImage: UIImage?
-
-///按钮选中图标
+    
+    ///按钮选中图标
     public let selectedImage: UIImage?
-
+    
     ///关联的
     public let viewController: UIViewController?
     
@@ -50,20 +50,18 @@ public struct TabBarItemInfo {
 
 ///选项卡控制器代理
 @objc public protocol TabBarControllerDelegate: NSObjectProtocol {
-
-///是否可以选择某个按钮
-@objc optional func tabBarController(_ tabBarController: TabBarController, shouldSelectAt index: Int) -> Bool
-
-///选中某个
-@objc optional func tabBarController(_ tabBarController: TabBarController, didSelectAt index: Int)
+    
+    ///是否可以选择某个按钮
+    @objc optional func tabBarController(_ tabBarController: TabBarController, shouldSelectAt index: Int) -> Bool
+    
+    ///选中某个
+    @objc optional func tabBarController(_ tabBarController: TabBarController, didSelectAt index: Int)
     
 }
 
-/**
- 选项卡控制器
- */
+///选项卡控制器
 open class TabBarController: BaseViewController, TabBarControllerProtocol, TabBarDelegate {
-
+    
     ///选中的
     public var selectedViewController: UIViewController? {
         get{
@@ -137,7 +135,7 @@ open class TabBarController: BaseViewController, TabBarControllerProtocol, TabBa
     
     ///选项卡按钮
     public private(set) var items: [TabBarItem]?
-
+    
     ///选项卡按钮信息
     public var itemInfos: [TabBarItemInfo]? {
         didSet {
@@ -155,20 +153,20 @@ open class TabBarController: BaseViewController, TabBarControllerProtocol, TabBa
         
         return tabBar
     }()
-
+    
     ///代理
     public weak var delegate: TabBarControllerDelegate?
-
+    
     ///标签栏隐藏状态
     private var tabBarHidden: Bool = false
     
     // MARK: - public method
     
-/**
- 设置选项卡边缘值
- *@param badgeValue 边缘值 @"" 为红点，要隐藏使用 nil
- *@param index 下标
- */
+    /**
+     设置选项卡边缘值
+     *@param badgeValue 边缘值 @"" 为红点，要隐藏使用 nil
+     *@param index 下标
+     */
     public func setBadgeValue(_ badgeValue: String?, for index: Int) {
         tabBar.setBadgeValue(badgeValue, for: index)
     }
@@ -178,7 +176,7 @@ open class TabBarController: BaseViewController, TabBarControllerProtocol, TabBa
         if let infos = self.itemInfos, index < infos.count {
             return infos[index].viewController
         }
-
+        
         return nil
     }
     
@@ -233,13 +231,13 @@ open class TabBarController: BaseViewController, TabBarControllerProtocol, TabBa
             }
             
             tabBar.items = items
-
+            
             if self.isViewLoaded {
                 selectedIndex = 0
             }
         }
     }
-
+    
     // MARK: - TabBarDelegate
     
     public func tabBar(_ tabBar: TabBar, didSelectItemAt index: Int) {
@@ -257,7 +255,7 @@ open class TabBarController: BaseViewController, TabBarControllerProtocol, TabBa
     }
     
     // MARK: - private method
-
+    
     //设置item 选中
     private func setSelected(_ selected: Bool, for index: Int) {
         if let items = self.items, index < items.count, let infos = self.itemInfos {
@@ -278,7 +276,7 @@ open class TabBarController: BaseViewController, TabBarControllerProtocol, TabBa
             }
         }
     }
-
+    
     //设置选中的
     private var selectedItemIndex: Int = NSNotFound {
         didSet {

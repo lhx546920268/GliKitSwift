@@ -24,8 +24,8 @@ public extension Array where Array.Element: Equatable {
 
 public extension Dictionary{
     
-    ///去空获取对象 并且如果对象是NSNumber将会转化成字符串
-    func gkStringForKey(_ key: Key) -> String?{
+    ///去空获取对象 并且如果对象是数字将会转化成字符串
+    func get(_ key: Key) -> String?{
         
         let value = self[key]
         if let intValue = value as? Int {
@@ -51,10 +51,10 @@ public extension Dictionary{
         return nil
     }
     
-    ///去空获取对象 并且如果对象是NSNumber将会转化成字符串，如果 == nil 返回 ""
-    func gkNonnullStringForKey(_ key: Key) -> String{
+    ///去空获取对象 并且如果对象是数字将会转化成字符串，如果 == nil 返回 ""
+    func get(_ key: Key) -> String{
         
-        var value = gkStringForKey(key)
+        var value: String? = get(key)
         if value == nil {
             value = ""
         }
@@ -62,7 +62,7 @@ public extension Dictionary{
     }
     
     ///获取整数
-    func gkIntForKey(_ key: Key) -> Int{
+    func get(_ key: Key) -> Int{
         
         let value = self[key]
         if let intValue = value as? Int {
@@ -89,7 +89,7 @@ public extension Dictionary{
     }
     
     ///获取小数点
-    func gkFloatForKey(_ key: Key) -> Float{
+    func get(_ key: Key) -> Float{
         
         let value = self[key]
         if let intValue = value as? Int {
@@ -116,7 +116,7 @@ public extension Dictionary{
     }
     
     ///获取小数点
-    func gkDoubleForKey(_ key: Key) -> Double{
+    func get(_ key: Key) -> Double{
         
         let value = self[key]
         if let intValue = value as? Int {
@@ -143,7 +143,7 @@ public extension Dictionary{
     }
     
     ///获取布尔
-    func gkBoolForKey(_ key: Key) -> Bool{
+    func get(_ key: Key) -> Bool{
         
         let value = self[key]
         if let intValue = value as? Int {
@@ -170,7 +170,7 @@ public extension Dictionary{
     }
     
     ///获取字典
-    func gkDictionaryForKey(_ key: Key) -> Dictionary?{
+    func get(_ key: Key) -> Dictionary?{
         
         if let value = self[key] as? Dictionary {
             return value
@@ -179,7 +179,7 @@ public extension Dictionary{
     }
     
     ///获取数组
-    func gkArrayForKey(_ key: Key) -> Array<Any>?{
+    func get(_ key: Key) -> Array<Any>?{
         
         if let value = self[key] as? Array<Any> {
             return value

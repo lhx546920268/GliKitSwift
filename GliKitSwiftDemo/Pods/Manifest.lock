@@ -2,20 +2,34 @@ PODS:
   - Alamofire (5.2.2)
   - GliKitSwift (0.0.1):
     - Alamofire (~> 5.2.2)
+    - KeychainAccess (~> 4.2.1)
     - Kingfisher (~> 5.15.6)
     - SnapKit (~> 5.0.1)
+  - KeychainAccess (4.2.1)
   - Kingfisher (5.15.6):
     - Kingfisher/Core (= 5.15.6)
   - Kingfisher/Core (5.15.6)
+  - PromiseKit (6.13.1):
+    - PromiseKit/CorePromise (= 6.13.1)
+    - PromiseKit/Foundation (= 6.13.1)
+    - PromiseKit/UIKit (= 6.13.1)
+  - PromiseKit/CorePromise (6.13.1)
+  - PromiseKit/Foundation (6.13.1):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.13.1):
+    - PromiseKit/CorePromise
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
   - GliKitSwift (from `../GliKitSwift`)
+  - PromiseKit (~> 6.8)
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - KeychainAccess
     - Kingfisher
+    - PromiseKit
     - SnapKit
 
 EXTERNAL SOURCES:
@@ -24,10 +38,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
-  GliKitSwift: 70ca596a4894349b88b0ccc557719f8f54effe7b
+  GliKitSwift: d1d9d0aa53d682387b954343a09e490acf5afd70
+  KeychainAccess: 9b07f665298d13c3a85881bd3171f6f49b8151c1
   Kingfisher: b3554e7bf6106115b44e8795300bad580ef2fdc7
+  PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 58627bdfc2ef527865b34e93912d9be7d153a8e6
+PODFILE CHECKSUM: b2993fc7f9124c001ec948241164f1a03d1b416d
 
 COCOAPODS: 1.9.1
