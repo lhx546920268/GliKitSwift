@@ -15,9 +15,20 @@ public extension UIApplication {
 
     ///导航栏间距
     static var gkNavigationBarMargin: CGFloat = 15
+    
+    ///导航栏中的标题和按钮间距
+    static var gkNavigationBarMarginForItem: CGFloat {
+        6
+    }
 
-    ///导航栏titleView 和 item的间距
-    static var gkNavigationBarTitleViewItemMargin: CGFloat = -6
+    ///导航栏中的标题和屏幕间距
+    static var gkNavigationBarMarginForScreen: CGFloat {
+        if #available(iOS 11, *) {
+            return 0
+        } else {
+            return UIScreen.main.scale >= 3.0 ? 12 : 8
+        }
+    }
 
     ///状态栏样式
     static var gkStatusBarStyle = UIStatusBarStyle.default

@@ -367,9 +367,28 @@ public extension HttpTask {
         return self
     }
     
-    func cancel(by viewController: BaseViewController) -> Self {
-        viewController.addCancelableTask(self)
+    func cancel(by cancelable: HttpTaskCancelable, cancelTheSame cancel: Bool = false) -> Self {
+        cancelable.addCancelableTask(self, cancelTheSame: cancel)
         return self
     }
+}
+
+///可取消的
+public protocol HttpTaskCancelable {
+    
+    /**
+     添加需要取消的请求 在 deInit
+     
+     @param task 请求
+     @param cancel 是否取消相同的任务 通过 task.name 来判断
+     */
+    func addCancelableTask(_ task: HttpTask, cancelTheSame cancel: Bool)
+   
+    /**
+     添加需要取消的请求队列 在 deInit
+     
+     @param tasks 请求
+     */
+    func addCancelableTasks(_ tasks: HttpMultiTasks)
 }
 

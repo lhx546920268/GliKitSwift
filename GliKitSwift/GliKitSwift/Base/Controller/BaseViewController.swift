@@ -421,7 +421,7 @@ public extension BaseViewController{
 }
 
 ///任务
-public extension BaseViewController{
+extension BaseViewController: HttpTaskCancelable{
 
     /**
      添加需要取消的请求 在dealloc
@@ -429,7 +429,7 @@ public extension BaseViewController{
      @param task 请求
      @param cancel 是否取消相同的任务 通过 task.name 来判断
      */
-    func addCancelableTask(_ task: HttpTask, cancelTheSame cancel: Bool = false){
+    public func addCancelableTask(_ task: HttpTask, cancelTheSame cancel: Bool = false){
         self.removeInvalidTasks(cancelTheSame: cancel, name: task.name)
         self.currentTasks.insert(WeakObjectContainer(weakObject: task))
     }
@@ -439,7 +439,7 @@ public extension BaseViewController{
      
      @param tasks 请求
      */
-    func addCancelableTasks(_ tasks: HttpMultiTasks){
+    public func addCancelableTasks(_ tasks: HttpMultiTasks){
         
         self.removeInvalidTasks(cancelTheSame: false, name: nil)
         self.currentTasks.insert(WeakObjectContainer(weakObject: tasks))

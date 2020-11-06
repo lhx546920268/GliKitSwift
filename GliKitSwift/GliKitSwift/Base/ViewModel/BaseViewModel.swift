@@ -9,7 +9,7 @@
 import UIKit
 
 ///基础视图逻辑处理
-open class BaseViewModel {
+open class BaseViewModel: HttpTaskCancelable {
 
     ///绑定的viewController
     private weak var _viewController: BaseViewController?

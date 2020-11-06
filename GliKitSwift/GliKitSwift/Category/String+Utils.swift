@@ -45,11 +45,22 @@ public extension String {
     
     ///获取子字符串
     func substring(location: Int, length: Int) -> String {
-        
-        let from = self.index(self.startIndex, offsetBy: location)
-        let to = self.index(self.startIndex, offsetBy: location + length)
+        return substring(in: NSRange(location: location, length: length))
+    }
+    
+    func substring(in range: NSRange) -> String {
+        let from = self.index(self.startIndex, offsetBy: range.location)
+        let to = self.index(self.startIndex, offsetBy: range.location + range.length)
         
         return String(self[from ..< to])
+    }
+    
+    ///替换字符串
+    func replaceString(in range: NSRange, with string: String) -> String {
+        let from = self.index(self.startIndex, offsetBy: range.location)
+        let to = self.index(self.startIndex, offsetBy: range.location + range.length)
+        
+        return replacingCharacters(in: from ..< to, with: string)
     }
     
     /// 获取字符串显示的大小
