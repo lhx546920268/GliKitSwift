@@ -82,6 +82,7 @@
 		CE6996F123D825E900A99469 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6996F023D825E900A99469 /* UIViewController+Utils.swift */; };
 		CE7700002539AC9F00AACB9B /* UICollectionView+ItemSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE77FFFF2539AC9F00AACB9B /* UICollectionView+ItemSize.swift */; };
 		CE77FFFD2539A42F00AACB9B /* UITableView+RowHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE77FFFC2539A42F00AACB9B /* UITableView+RowHeight.swift */; };
+		CE7B7444255BC3AC0059B71A /* Range+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7B7443255BC3AC0059B71A /* Range+Utils.swift */; };
 		CE96AD2C243C0E1600A4FBAA /* Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE96AD2B243C0E1600A4FBAA /* Popover.swift */; };
 		CE9E4C1C23D062A300C0F63D /* GliKitSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E4C1B23D062A300C0F63D /* GliKitSwift.swift */; };
 		CE9E4C2A23D0648C00C0F63D /* BaseContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E4C2923D0648C00C0F63D /* BaseContainer.swift */; };
@@ -234,6 +235,7 @@
 		CE6996F023D825E900A99469 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		CE77FFFC2539A42F00AACB9B /* UITableView+RowHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+RowHeight.swift"; sourceTree = "<group>"; };
 		CE77FFFF2539AC9F00AACB9B /* UICollectionView+ItemSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+ItemSize.swift"; sourceTree = "<group>"; };
+		CE7B7443255BC3AC0059B71A /* Range+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Range+Utils.swift"; sourceTree = "<group>"; };
 		CE96AD2B243C0E1600A4FBAA /* Popover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popover.swift; sourceTree = "<group>"; };
 		CE9E4C1823D062A300C0F63D /* libGliKitSwift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGliKitSwift.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE9E4C1B23D062A300C0F63D /* GliKitSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliKitSwift.swift; sourceTree = "<group>"; };
@@ -717,6 +719,7 @@
 				CE58C66C2452EFC8006A654E /* UIApplication+Utils.swift */,
 				CEDB8D602461119F0056A3F6 /* Date+Utils.swift */,
 				CE416DD524F79C280078A4FB /* UIImage+Utils.swift */,
+				CE7B7443255BC3AC0059B71A /* Range+Utils.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -937,6 +940,7 @@
 				CE6996F123D825E900A99469 /* UIViewController+Utils.swift in Sources */,
 				CEBEB51F23D54336000B8CBF /* Collection+Utils.swift in Sources */,
 				CED98AC724498BF300F3353F /* UIView+ Geometry.swift in Sources */,
+				CE7B7444255BC3AC0059B71A /* Range+Utils.swift in Sources */,
 				CE23951B2553FE840005081A /* AttributedLabel.swift in Sources */,
 				CE96AD2C243C0E1600A4FBAA /* Popover.swift in Sources */,
 				CE3EF0C32549713A00FD91A9 /* ImageCropSettings.swift in Sources */,

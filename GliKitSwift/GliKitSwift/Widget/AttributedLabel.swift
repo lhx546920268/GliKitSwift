@@ -277,7 +277,7 @@ open class AttributedLabel: UILabel {
      *@param range 可点击的位置，如果该范围不在text中，则忽略
      */
         public func addClickableRange(_ range: NSRange) {
-            if let text = self.text, range.location + range.length < text.count {
+            if let text = self.text, range.max < text.count {
                 clickableRanges.append(range)
             }
         }
@@ -300,168 +300,151 @@ open class AttributedLabel: UILabel {
     ///获取点中的字符串
     private func clickableString(at point: CGPoint) -> NSRange {
         
-    }
-    - (NSRange):(CGPoint) point
-    {
-        NSRange range = NSMakeRange(NSNotFound, 0);
-        if([NSString isEmpty:self.text]){
-            return range;
-        }
-        
-        //判断点击处是否在文本内
-        CGRect textRect = self.textDrawRect;
-        if (!CGRectContainsPoint(textRect, point)){
-            return range;
-        }
-
-        //转换成coreText 坐标
-        point = CGPointMake(point.x, textRect.size.height - point.y);
-
-        //行数为0
-        NSAttributedString *attr = self.attributedText;
-        CTFramesetterRef ctFrameSetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)attr);
-        if(ctFrameSetter == NULL){
-            return range;
-        }
-        
-        CGMutablePathRef path = CGPathCreateMutable();
-        CGPathAddRect(path, NULL, self.textDrawRect);
-        CTFrameRef ctFrame = CTFramesetterCreateFrame(ctFrameSetter, CFRangeMake(0, attr.length), path, NULL);
-        CGPathRelease(path);
-        
-        if(ctFrame == NULL){
-            CFRelease(ctFrameSetter);
-            return range;
-        }
-        
-        CFArrayRef lines = CTFrameGetLines(ctFrame);
-        CFIndex numberOfLines = CFArrayGetCount(lines);
-        
-        if (numberOfLines > 0){
-            //行起点
-            CGPoint lineOrigins[numberOfLines];
-            CTFrameGetLineOrigins(ctFrame, CFRangeMake(0, 0), lineOrigins);
-
-            //获取点击的行的位置，数组是倒序的
-            CFIndex lineIndex;
-            for(lineIndex = 0;lineIndex < numberOfLines;lineIndex ++){
-                CGPoint lineOrigin = lineOrigins[lineIndex];
-                CTLineRef line = CFArrayGetValueAtIndex(lines, lineIndex);
-                CGFloat lineDescent;
-                CTLineGetTypographicBounds(line, NULL, &lineDescent, NULL);
-
-                if (lineOrigin.y - lineDescent - self.contentInsets.top < point.y){
-                    break;
+        var range = NSMakeRange(NSNotFound, 0)
+        if !String.isEmpty(self.text), let attr = self.attributedText as CFAttributedString?, textDrawRect.contains(point) {
+            
+            //转换成coreText 坐标
+            let _point = CGPoint(point.x, textDrawRect.height - point.y)
+            
+            let path = CGMutablePath()
+            path.addRect(textDrawRect)
+            
+            let frameSetter = CTFramesetterCreateWithAttributedString(attr)
+            let frame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(0, CFAttributedStringGetLength(attr)), path, nil)
+            
+            let lines = CTFrameGetLines(frame)
+            let numberOfLines = CFArrayGetCount(lines)
+            
+            if numberOfLines > 0 {
+                //行起点
+                var lineOrigins: [CGPoint] = []
+                CTFrameGetLineOrigins(frame, CFRangeMake(0, 0), &lineOrigins)
+                
+                //获取点击的行的位置，数组是倒序的
+                var lineIndex: CFIndex = 0
+                for i in 0 ..< numberOfLines {
+                    lineIndex = i
+                    let lineOrigin = lineOrigins[lineIndex]
+                    if let line = CFArrayGetValueAtIndex(lines, i)?.assumingMemoryBound(to: CTLine.self).pointee {
+                        
+                        var lineDescent: CGFloat = 0
+                        CTLineGetTypographicBounds(line, nil, &lineDescent, nil)
+                        if lineOrigin.y - lineDescent - contentInsets.top < _point.y {
+                            break
+                        }
+                    } else {
+                        break
+                    }
                 }
-            }
-
-            if(lineIndex < numberOfLines){
-                //获取行信息
-                CGPoint lineOrigin = lineOrigins[lineIndex];
-                CTLineRef line = CFArrayGetValueAtIndex(lines, lineIndex);
-
-                //把坐标转成行对应的坐标
-                CGPoint position = CGPointMake(point.x - lineOrigin.x - self.contentInsets.left, point.y - lineOrigin.y);
                 
-                //获取该点的字符位置，返回下一个输入的位置，比如点击的文字下标是0时，返回1
-                CFIndex index = CTLineGetStringIndexForPosition(line, position);
-                
-                //检测字符位置是否超出该行字符的范围，有时候行的末尾不够现实一个字符了，点击该空旷位置时无效
-                CFRange stringRange = CTLineGetStringRange(line);
-                
-                //获取整段文字中charIndex位置的字符相对line的原点的x值
-                CGFloat offset = CTLineGetOffsetForStringIndex(line, index, NULL);
-                
-                if(position.x <= offset){
-                    index --;
-                }
-
-                if(index < stringRange.location + stringRange.length){
-                    
-                    //获取对应的可点信息
-                    for(NSValue *result in self.clickableRanges){
-                        NSRange rangeValue = result.rangeValue;
-                        if(index >= rangeValue.location && index < rangeValue.location + rangeValue.length){
-                            range = rangeValue;
-                            break;
+                if lineIndex < numberOfLines {
+                    //获取行信息
+                    let lineOrigin = lineOrigins[lineIndex]
+                    if let line = CFArrayGetValueAtIndex(lines, lineIndex)?.assumingMemoryBound(to: CTLine.self).pointee {
+                        
+                        //把坐标转成行对应的坐标
+                        let position = CGPoint(_point.x - lineOrigin.x - contentInsets.left, _point.y - lineOrigin.y)
+                     
+                        //获取该点的字符位置，返回下一个输入的位置，比如点击的文字下标是0时，返回1
+                        var index = CTLineGetStringIndexForPosition(line, position)
+                        
+                        //检测字符位置是否超出该行字符的范围，有时候行的末尾不够现实一个字符了，点击该空旷位置时无效
+                        let stringRange = CTLineGetStringRange(line)
+                        
+                        //获取整段文字中charIndex位置的字符相对line的原点的x值
+                        let offset = CTLineGetOffsetForStringIndex(line, index, nil)
+                        
+                        if position.x <= offset {
+                            index -= 1
+                        }
+                        
+                        if index < stringRange.max {
+                            //获取对应的可点信息
+                            for _range in clickableRanges {
+                                if index >= _range.location && index < _range.max {
+                                    range = _range
+                                    break
+                                }
+                            }
                         }
                     }
                 }
+                
+                detectHighlightedRects(for: range, frame: frame)
             }
         }
         
-        [self detectHighlightedRectsForRange:range ctFrame:ctFrame];
-
-        CFRelease(ctFrameSetter);
-        CFRelease(ctFrame);
-        
-        return range;
+        return range
     }
 
     //获取高亮区域
-    - (void)detectHighlightedRectsForRange:(NSRange) range ctFrame:(CTFrameRef) ctFrame;
-    {
-        NSMutableArray *rects = nil;
-        if(range.location != NSNotFound){
-            rects = [NSMutableArray array];
-            CFArrayRef lines = CTFrameGetLines(ctFrame);
+    private func detectHighlightedRects(for range: NSRange, frame: CTFrame) {
+        
+        if range.location != NSNotFound {
+            var rects: [CGRect] = []
+            let lines = CTFrameGetLines(frame)
             
-            NSInteger count = CFArrayGetCount(lines);
-            CGPoint lineOrigins[count];
-            CTFrameGetLineOrigins(ctFrame, CFRangeMake(0, 0), lineOrigins);
+            let count = CFArrayGetCount(lines)
+            var lineOrigins: [CGPoint] = []
+            CTFrameGetLineOrigins(frame, CFRangeMake(0, 0), &lineOrigins)
             
-            for(NSInteger i = 0;i < count;i ++){
-                CTLineRef line = CFArrayGetValueAtIndex(lines, i);
-                CFRange lineRange = CTLineGetStringRange(line);
-                
-                NSRange innerRange = [self innerRangeBetweenOne:range andSecond:NSMakeRange(lineRange.location == kCFNotFound ? NSNotFound : lineRange.location, lineRange.length)];
-                
-                if(innerRange.location != NSNotFound && innerRange.length > 0){
-                    CGFloat lineAscent;
-                    CGFloat lineDescent;
-                    CGFloat lineLeading;
+            for i in 0 ..< count {
+                if let line = CFArrayGetValueAtIndex(lines, i)?.assumingMemoryBound(to: CTLine.self).pointee {
+                    let lineRange = CTLineGetStringRange(line)
+                    let start = lineRange.location == kCFNotFound ? NSNotFound : lineRange.location
+                    let innerRange = innerRangeBetween(range, and: NSMakeRange(start, lineRange.length))
                     
-                    //获取文字排版
-                    CTLineGetTypographicBounds(line, &lineAscent, &lineDescent, &lineLeading);
-                    CGFloat startX = CTLineGetOffsetForStringIndex(line, innerRange.location, NULL);
-                    CGFloat endX = CTLineGetOffsetForStringIndex(line, innerRange.location + innerRange.length, NULL);
-                    
-                    CGPoint lineOrigin = lineOrigins[i];
-                    
-                    CGRect rect = CGRectMake(lineOrigin.x + startX + self.contentInsets.left, lineOrigin.y - lineDescent + self.contentInsets.top, endX - startX, lineAscent + lineDescent + lineLeading);
-                    
-                    //转成UIKit坐标
-                    rect.origin.y = self.textDrawRect.size.height - rect.origin.y - rect.size.height;
-                    
-                    [rects addObject:[NSValue valueWithCGRect:rect]];
-                }else if(lineRange.location > range.location + range.length){
-                    break;
+                    if innerRange.isValid && lineRange.length > 0 {
+                        var lineAscent: CGFloat = 0
+                        var lineDescent: CGFloat = 0
+                        var lineLeading: CGFloat = 0
+                        
+                        //获取文字排版
+                        CTLineGetTypographicBounds(line, &lineAscent, &lineDescent, &lineLeading)
+                        let startX = CTLineGetOffsetForStringIndex(line, innerRange.location, nil)
+                        let endX = CTLineGetOffsetForStringIndex(line, innerRange.max, nil)
+                        
+                        let lineOrigin = lineOrigins[i]
+                        var rect = CGRect(
+                            lineOrigin.x + startX + contentInsets.left,
+                            lineOrigin.y - lineDescent + contentInsets.top,
+                            endX - startX,
+                            lineAscent + lineDescent + lineLeading)
+                        
+                        //转成UIKit坐标
+                        rect.origin.y = textDrawRect.height - rect.maxY
+                        rects.append(rect)
+                    } else if lineRange.location > range.max {
+                        break
+                    }
                 }
             }
+            highlightedRects = rects
+        } else {
+            highlightedRects = nil
         }
-        self.highlightedRects = rects;
     }
 
     ///获取内部的range
-    - (NSRange)innerRangeBetweenOne:(NSRange) one andSecond:(NSRange) second
-    {
-        NSRange range = NSMakeRange(NSNotFound, 0);
+    private func innerRangeBetween(_ one: NSRange, and second: NSRange) -> NSRange {
+        
+        var _one = one
+        var _second = second
+        var range = NSMakeRange(NSNotFound, 0)
         
         //交换
-        if(one.location > second.location){
-            NSRange tmp = one;
-            one = second;
-            second = tmp;
+        if _one.location > _second.location {
+            swap(&_one, &_second)
         }
         
-        if(second.location < one.location + one.length){
-            range.location = second.location;
-            
-            NSInteger end = MIN(one.location + one.length, second.location + second.length);
-            range.length = end - range.location;
+        if _second.location < _one.max {
+            range.location = _second.location
+            let end: Int = min(_one.max, _second.max)
+            range.length = end - range.location
         }
         
-        return range;
+        return range
+        
     }
 
     ///取消高亮

@@ -21,13 +21,24 @@ public extension Date{
     //yyyy-MM-dd
     static let dateFormatYMd = "yyyy-MM-dd"
     
-    ///NSDateFormatter 的单例 因为频繁地创建 NSDateFormatter 是非常耗资源的、耗时的
-    static let sharedDateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = .current
-        
-        return dateFormatter
-    }()
+    ///DateFormatter 的单例 因为频繁地创建 DateFormatter 是非常耗资源的、耗时的，不要修改 dateFormat，这样有多个线程同时访问时，会格式不对
+    private static var sharedDateFormatters: [String: DateFormatter] = [:]
+    static func sharedDateFormatter(for format: String) -> DateFormatter {
+        var formatter = sharedDateFormatters[format]
+        if formatter == nil {
+            objc_sync_enter(self)
+            formatter = sharedDateFormatters[format]
+            if formatter == nil {
+                formatter = DateFormatter()
+                formatter!.dateFormat = format
+                formatter!.locale = .current
+                sharedDateFormatters[format] = formatter
+            }
+            objc_sync_exit(self)
+        }
+        return formatter!
+    }
+   
     
     // MARK: - 单个时间
     
@@ -70,22 +81,22 @@ public extension Date{
 
     ///获取当前时间格式为
     static func gkCurrentTime(format: String = dateFormatYMdHms, offset: TimeInterval = 0) -> String {
-        sharedDateFormatter.dateFormat = format
+        let formatter = sharedDateFormatter(for: format)
         var date = Date()
         if offset > 0 {
             date = Date(timeInterval: offset, since: date)
         }
-        return sharedDateFormatter.string(from: date)
+        return formatter.string(from: date)
     }
 
     // MARK: - 时间转换
 
     ///把时间转换成另一种时间格式
     static func gkFormatTime(_ time: String, fromFormat: String = dateFormatYMdHms, toFormat: String) -> String? {
-        sharedDateFormatter.dateFormat = fromFormat
-        if let date = sharedDateFormatter.date(from: time) {
-            sharedDateFormatter.dateFormat = toFormat
-            return sharedDateFormatter.string(from: date)
+        var formatter = sharedDateFormatter(for: fromFormat)
+        if let date = formatter.date(from: time) {
+            formatter = sharedDateFormatter(for: toFormat)
+            return formatter.string(from: date)
         }
         
         return nil
@@ -96,22 +107,22 @@ public extension Date{
     
         let timeStamp = timeStamp > 100000000000 ? timeStamp / 1000 : timeStamp
         let date = Date(timeIntervalSince1970: timeStamp)
-        sharedDateFormatter.dateFormat = format
-        return sharedDateFormatter.string(from: date)
+        var formatter = sharedDateFormatter(for: format)
+        return formatter.string(from: date)
     }
 
     ///获取时间对象
     static func gkDate(from time: String, format: String = dateFormatYMdHms) -> Date? {
 
-        sharedDateFormatter.dateFormat = format
-        return sharedDateFormatter.date(from: time)
+        var formatter = sharedDateFormatter(for: format)
+        return formatter.date(from: time)
     }
     
     ///获取时间
     static func gkTime(from date: Date, format: String = dateFormatYMdHms) -> String {
 
-        sharedDateFormatter.dateFormat = format
-        return sharedDateFormatter.string(from: date)
+        var formatter = sharedDateFormatter(for: format)
+        return formatter.string(from: date)
     }
     
     ///格式化秒
@@ -126,8 +137,8 @@ public extension Date{
 
     ///计算时间距离现在有多少秒
     static func gkTimeIntervalFromNow(_ time: String, format: String = dateFormatYMdHms) -> TimeInterval {
-        sharedDateFormatter.dateFormat = format
-        if let date = sharedDateFormatter.date(from: time) {
+        var formatter = sharedDateFormatter(for: format)
+        if let date = formatter.date(from: time) {
             return date.timeIntervalSinceNow
         }
         return 0

@@ -29,14 +29,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = BaseNavigationController(rootViewController: RootViewController())
         window?.makeKeyAndVisible()
 
-        firstly {
-            URLSession.shared.dataTask(.promise, with: URL(string: "https://www.baidu.com")!)
-        }.done { (_, _) in
-            print("finish")
-        }.catch { (e) in
-            
+        let queue = DispatchQueue(label: "xx", attributes: .concurrent)
+
+        queue.async {
+            for _ in 0..<1000 {
+                let time = Date.gkCurrentTime(format: Date.dateFormatYMd)
+                if time.count != 10 {
+                    print("10 diff", time)
+                }
+            }
         }
-        
+
+        queue.async {
+            for _ in 0..<1000 {
+                let time = Date.gkCurrentTime(format: Date.dateFormatYMdHm)
+                if time.count != 16 {
+                    print("16 diff", time)
+                }
+            }
+        }
         
         
         return true
