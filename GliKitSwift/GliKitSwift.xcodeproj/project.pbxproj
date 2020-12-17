@@ -20,6 +20,7 @@
 		CE160E1D242462BD008E7392 /* NavigationItemHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E1C242462BD008E7392 /* NavigationItemHelper.swift */; };
 		CE160E1F242471E7008E7392 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E1E242471E7008E7392 /* BaseViewModel.swift */; };
 		CE160E212424A350008E7392 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E202424A350008E7392 /* BaseNavigationController.swift */; };
+		CE1CAA562582207900941773 /* SwipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1CAA552582207900941773 /* SwipeCell.swift */; };
 		CE20FF2E253FD9D80084D596 /* SkeletonSubLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20FF2D253FD9D80084D596 /* SkeletonSubLayer.swift */; };
 		CE20FF32253FDA500084D596 /* SkeletonLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20FF31253FDA500084D596 /* SkeletonLayer.swift */; };
 		CE20FF35253FDB980084D596 /* SkeletonAnimationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20FF34253FDB980084D596 /* SkeletonAnimationHelper.swift */; };
@@ -129,6 +130,9 @@
 		CECB37372429B1EB00C92687 /* DispatchQueue+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECB37362429B1EB00C92687 /* DispatchQueue+Utils.swift */; };
 		CECB37392429B52400C92687 /* Swizzlling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECB37382429B52400C92687 /* Swizzlling.swift */; };
 		CECB373C2429F44100C92687 /* WeakObjectContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECB373B2429F44100C92687 /* WeakObjectContainer.swift */; };
+		CECD6F68256D077600BD3DE3 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD6F67256D077600BD3DE3 /* TextField.swift */; };
+		CECD6F6A256D0B6B00BD3DE3 /* BaseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD6F69256D0B6B00BD3DE3 /* BaseObject.swift */; };
+		CECD6F6C256D113000BD3DE3 /* ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD6F6B256D113000BD3DE3 /* ObservableObject.swift */; };
 		CED1DFC5243DC8C700236BC1 /* UICollectionView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED1DFC4243DC8C700236BC1 /* UICollectionView+Utils.swift */; };
 		CED4CB6F245177C700369B04 /* UIView+NavigationBarUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED4CB6E245177C700369B04 /* UIView+NavigationBarUtils.swift */; };
 		CED4CB712451839000369B04 /* UINavigationItem+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED4CB702451839000369B04 /* UINavigationItem+Utils.swift */; };
@@ -173,6 +177,7 @@
 		CE160E1C242462BD008E7392 /* NavigationItemHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationItemHelper.swift; sourceTree = "<group>"; };
 		CE160E1E242471E7008E7392 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		CE160E202424A350008E7392 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		CE1CAA552582207900941773 /* SwipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCell.swift; sourceTree = "<group>"; };
 		CE20FF2D253FD9D80084D596 /* SkeletonSubLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonSubLayer.swift; sourceTree = "<group>"; };
 		CE20FF31253FDA500084D596 /* SkeletonLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonLayer.swift; sourceTree = "<group>"; };
 		CE20FF34253FDB980084D596 /* SkeletonAnimationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonAnimationHelper.swift; sourceTree = "<group>"; };
@@ -283,6 +288,9 @@
 		CECB37362429B1EB00C92687 /* DispatchQueue+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Utils.swift"; sourceTree = "<group>"; };
 		CECB37382429B52400C92687 /* Swizzlling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swizzlling.swift; sourceTree = "<group>"; };
 		CECB373B2429F44100C92687 /* WeakObjectContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakObjectContainer.swift; sourceTree = "<group>"; };
+		CECD6F67256D077600BD3DE3 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		CECD6F69256D0B6B00BD3DE3 /* BaseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseObject.swift; sourceTree = "<group>"; };
+		CECD6F6B256D113000BD3DE3 /* ObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableObject.swift; sourceTree = "<group>"; };
 		CED1DFC4243DC8C700236BC1 /* UICollectionView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Utils.swift"; sourceTree = "<group>"; };
 		CED4CB6E245177C700369B04 /* UIView+NavigationBarUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+NavigationBarUtils.swift"; sourceTree = "<group>"; };
 		CED4CB702451839000369B04 /* UINavigationItem+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+Utils.swift"; sourceTree = "<group>"; };
@@ -328,6 +336,14 @@
 				CE01D3B82546D7A900323431 /* BaseWebViewController.swift */,
 			);
 			path = Web;
+			sourceTree = "<group>";
+		};
+		CE1CAA542582206000941773 /* Swipe */ = {
+			isa = PBXGroup;
+			children = (
+				CE1CAA552582207900941773 /* SwipeCell.swift */,
+			);
+			path = Swipe;
 			sourceTree = "<group>";
 		};
 		CE20FF29253FD9B90084D596 /* Skeleton */ = {
@@ -518,6 +534,7 @@
 				CE2395142553EA200005081A /* NavigationBarTitleView.swift */,
 				CE2395172553F0470005081A /* TextView.swift */,
 				CE23951A2553FE840005081A /* AttributedLabel.swift */,
+				CECD6F67256D077600BD3DE3 /* TextField.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -554,28 +571,29 @@
 		CE9E4C1A23D062A300C0F63D /* GliKitSwift */ = {
 			isa = PBXGroup;
 			children = (
-				CE2395042553AA740005081A /* Scan */,
-				CE308FF4254FEFC40078E383 /* TabBar */,
-				CE3EF0BE2549710B00FD91A9 /* Photos */,
-				CE01D3B72546D79900323431 /* Web */,
-				CEFACDB625427361002C356E /* NestedScroll */,
-				CE20FF29253FD9B90084D596 /* Skeleton */,
+				CE1CAA542582206000941773 /* Swipe */,
 				CE416DC524F741330078A4FB /* Alert */,
-				CE2A23EB24F6050C004C5E66 /* Wrapper */,
-				CEBE095F244EF76E0016EEFA /* EmptyView */,
-				CE52B0CD2435F38D00B85D8D /* Widget */,
-				CEC4790024348197007D51CE /* Menu */,
 				CEB6D2CB23D3FABD00457164 /* Api */,
 				CE9E4C2223D063D000C0F63D /* Base */,
 				CEAE533223D1A6830073882E /* Category */,
+				CEBE095F244EF76E0016EEFA /* EmptyView */,
 				CE9E4C1B23D062A300C0F63D /* GliKitSwift.swift */,
 				CEBEB52023D54B9D000B8CBF /* Loading */,
+				CEC4790024348197007D51CE /* Menu */,
+				CEFACDB625427361002C356E /* NestedScroll */,
 				CECB373A2429F43100C92687 /* Other */,
+				CE3EF0BE2549710B00FD91A9 /* Photos */,
 				CEB6D2D023D444A800457164 /* Public */,
 				CEA66567242DE4EB003D8E71 /* Refresh */,
+				CE2395042553AA740005081A /* Scan */,
+				CE20FF29253FD9B90084D596 /* Skeleton */,
+				CE308FF4254FEFC40078E383 /* TabBar */,
 				CEAE532F23D159700073882E /* Theme */,
 				CE6996E323D7E0B700A99469 /* Transition */,
 				CEBEB52B23D5AB3D000B8CBF /* Utils */,
+				CE01D3B72546D79900323431 /* Web */,
+				CE52B0CD2435F38D00B85D8D /* Widget */,
+				CE2A23EB24F6050C004C5E66 /* Wrapper */,
 			);
 			path = GliKitSwift;
 			sourceTree = "<group>";
@@ -830,6 +848,8 @@
 				CE3E8C2024C56F07001A66EC /* CountDownTimer.swift */,
 				CEFACDBB2542766D002C356E /* WeakProxy.swift */,
 				CE2D37912552604F004A8A50 /* Lock.swift */,
+				CECD6F69256D0B6B00BD3DE3 /* BaseObject.swift */,
+				CECD6F6B256D113000BD3DE3 /* ObservableObject.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -879,7 +899,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = luohaixiong;
 				TargetAttributes = {
 					CE9E4C1723D062A300C0F63D = {
@@ -973,13 +993,16 @@
 				CE416DCC24F786FD0078A4FB /* AlertAction.swift in Sources */,
 				CEA66562242D9BA0003D8E71 /* JSONSerialization+Utils.swift in Sources */,
 				CEBEB52423D54BB4000B8CBF /* PageLoadingContainer.swift in Sources */,
+				CECD6F68256D077600BD3DE3 /* TextField.swift in Sources */,
 				CE01D3B52546C78200323431 /* NeedDisplayWrapper.swift in Sources */,
 				CEDAEEF32431EEB000F03100 /* DefaultRefreshControl.swift in Sources */,
+				CECD6F6A256D0B6B00BD3DE3 /* BaseObject.swift in Sources */,
 				CEA2CA3623D6856300826D29 /* UIViewController+Loading.swift in Sources */,
 				CE77FFFD2539A42F00AACB9B /* UITableView+RowHeight.swift in Sources */,
 				CEBE0963244EF7870016EEFA /* EmptyView.swift in Sources */,
 				CE52B0CC2435F2DB00B85D8D /* TabMenuBarItem.swift in Sources */,
 				CEAE532C23D14EDC0073882E /* UIViewController+SafeAreaCompatible.swift in Sources */,
+				CECD6F6C256D113000BD3DE3 /* ObservableObject.swift in Sources */,
 				CE34EDB7254A4F41000DB3B4 /* PhotosListCell.swift in Sources */,
 				CE6996E923D7F27B00A99469 /* PartialPresentTransitionAnimator.swift in Sources */,
 				CE58C65A24527796006A654E /* UITableView+EmptyView.swift in Sources */,
@@ -1054,6 +1077,7 @@
 				CE6996EB23D81ED100A99469 /* UIViewControlelr+Transition.swift in Sources */,
 				CE2D37922552604F004A8A50 /* Lock.swift in Sources */,
 				CE308FFD254FF07F0078E383 /* BadgeValueView.swift in Sources */,
+				CE1CAA562582207900941773 /* SwipeCell.swift in Sources */,
 				CED4CB73245186B800369B04 /* ConversionUtils.swift in Sources */,
 				CE6996EF23D8235E00A99469 /* NSObject+Utils.swift in Sources */,
 				CE20FF32253FDA500084D596 /* SkeletonLayer.swift in Sources */,

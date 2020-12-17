@@ -12,7 +12,8 @@ import UIKit
 public extension UIView {
 
     ///圆角半径
-    @IBInspectable var cornerRadius: CGFloat{
+    @IBInspectable
+    var cornerRadius: CGFloat{
         set{
             self.layer.cornerRadius = newValue
         }
@@ -22,7 +23,8 @@ public extension UIView {
     }
 
     ///边框
-    @IBInspectable var borderWidth: CGFloat{
+    @IBInspectable
+    var borderWidth: CGFloat{
         set{
             self.layer.borderWidth = newValue
         }
@@ -32,7 +34,8 @@ public extension UIView {
     }
 
     ///边框颜色
-    @IBInspectable var borderColor: UIColor{
+    @IBInspectable
+    var borderColor: UIColor{
         set{
             self.layer.borderColor = newValue.cgColor
         }
@@ -46,7 +49,8 @@ public extension UIView {
     }
 
     ///layer.maskToBounds
-    @IBInspectable var maskToBounds: Bool{
+    @IBInspectable
+    var maskToBounds: Bool{
         set{
             self.layer.masksToBounds = newValue
         }

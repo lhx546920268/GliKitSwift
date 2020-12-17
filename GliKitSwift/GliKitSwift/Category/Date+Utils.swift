@@ -107,21 +107,21 @@ public extension Date{
     
         let timeStamp = timeStamp > 100000000000 ? timeStamp / 1000 : timeStamp
         let date = Date(timeIntervalSince1970: timeStamp)
-        var formatter = sharedDateFormatter(for: format)
+        let formatter = sharedDateFormatter(for: format)
         return formatter.string(from: date)
     }
 
     ///获取时间对象
     static func gkDate(from time: String, format: String = dateFormatYMdHms) -> Date? {
 
-        var formatter = sharedDateFormatter(for: format)
+        let formatter = sharedDateFormatter(for: format)
         return formatter.date(from: time)
     }
     
     ///获取时间
     static func gkTime(from date: Date, format: String = dateFormatYMdHms) -> String {
 
-        var formatter = sharedDateFormatter(for: format)
+        let formatter = sharedDateFormatter(for: format)
         return formatter.string(from: date)
     }
     
@@ -137,7 +137,7 @@ public extension Date{
 
     ///计算时间距离现在有多少秒
     static func gkTimeIntervalFromNow(_ time: String, format: String = dateFormatYMdHms) -> TimeInterval {
-        var formatter = sharedDateFormatter(for: format)
+        let formatter = sharedDateFormatter(for: format)
         if let date = formatter.date(from: time) {
             return date.timeIntervalSinceNow
         }

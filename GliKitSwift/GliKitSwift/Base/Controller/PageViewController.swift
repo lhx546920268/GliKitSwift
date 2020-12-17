@@ -8,6 +8,20 @@
 
 import UIKit
 
+private var visibleInPageKey: UInt8 = 0
+public extension UIViewController {
+    
+    ///在翻页容器中是否可见
+    var visibleInPage: Bool {
+        get{
+            objc_getAssociatedObject(self, &visibleInPageKey) as? Bool ?? false
+        }
+        set{
+            objc_setAssociatedObject(self, &visibleInPageKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+}
+
 ///翻页容器
 open class PageViewController: ScrollViewController, TabMenuBarDelegate {
     
@@ -44,8 +58,8 @@ open class PageViewController: ScrollViewController, TabMenuBarDelegate {
      这里的Controller 如果是ScrollViewController 或者webViewController， 左右滑动时会关闭上下滑动
      @note 不要调用 removAllObjects 使用 removeAllViewContollers
      */
-    public lazy var pageViewControllers: Array<UIViewController> = {
-        return Array<UIViewController>()
+    public lazy var pageViewControllers: [UIViewController] = {
+        return [UIViewController]()
     }()
     
     ///起始滑动位置
@@ -91,6 +105,10 @@ open class PageViewController: ScrollViewController, TabMenuBarDelegate {
     public func reloadData(){
         layoutPages()
         self.scrollView?.contentOffset = .zero
+        currentPage = 0;
+        if currentPage < numberOfPage() {
+            viewControllerForIndex(currentPage).visibleInPage = true
+        }
     }
     
     // MARK: - Subclass impl
@@ -133,8 +151,17 @@ open class PageViewController: ScrollViewController, TabMenuBarDelegate {
         if shouldUseMenuBar {
             return menuBar?.titles?.count ?? 0
         }else{
-            return 0
+            return pageViewControllers.count
         }
+    }
+    
+    private func _onScrollTopPage(_ page: Int, oldPage: Int){
+        if oldPage < numberOfPage() {
+            viewControllerForIndex(oldPage).visibleInPage = false
+        }
+        
+        viewControllerForIndex(page).visibleInPage = true
+        onScrollTopPage(page)
     }
     
     /**
@@ -160,12 +187,17 @@ open class PageViewController: ScrollViewController, TabMenuBarDelegate {
                 let selectedIndex = (menuBar?.selectedIndex ?? 0)
                 if (willScrollToPage > 0 && willScrollToPage < numberOfPage()) || selectedIndex != 0 {
                     
+                    let oldPage = currentPage
                     if selectedIndex != 0 {
                         currentPage = selectedIndex
                     }
                     scrollView.setContentOffset(CGPoint(CGFloat(currentPage) * scrollViewSize.width, 0), animated: false)
-                    onScrollTopPage(currentPage)
+                    _onScrollTopPage(currentPage, oldPage: oldPage)
                     willScrollToPage = NSNotFound
+                } else {
+                    if currentPage < numberOfPage() {
+                        viewControllerForIndex(currentPage).visibleInPage = true
+                    }
                 }
             }
         }
@@ -209,8 +241,9 @@ open class PageViewController: ScrollViewController, TabMenuBarDelegate {
     public func menuBar(_ menuBar: MenuBar, didSelectItemAt index: Int) {
         
         scrollView?.setContentOffset(CGPoint(CGFloat(index) * scrollViewSize.width, 0), animated: false)
+        let oldPage = currentPage
         currentPage = index
-        onScrollTopPage(index)
+        _onScrollTopPage(currentPage, oldPage: oldPage)
     }
     
     // MARK: - UIScrollViewDelegate
@@ -278,13 +311,14 @@ open class PageViewController: ScrollViewController, TabMenuBarDelegate {
             let index = Int(floor(scrollView.bounds.origin.x / scrollView.gkWidth))
             
             if index != currentPage {
+                let oldPage = currentPage
                 currentPage = index;
                 if let menuBar = self.menuBar {
                     if index != menuBar.selectedIndex {
                         menuBar.setSelectedIndex(index, animated: true)
                     }
                 }
-                onScrollTopPage(currentPage)
+                _onScrollTopPage(currentPage, oldPage: oldPage)
             }
         }
     }

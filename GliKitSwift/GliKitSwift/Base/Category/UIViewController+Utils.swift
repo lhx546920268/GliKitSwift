@@ -9,13 +9,13 @@
 import UIKit
 
 ///是否可以活动返回
-private var interactivePopEnableKey = 0
+private var interactivePopEnableKey: UInt8 = 0
 
 ///是否显示返回按钮
-private var showBackItemKey = 1
+private var showBackItemKey: UInt8 = 0
 
 ///导航栏按钮tintColor
-private var tintColorKey = 2
+private var tintColorKey: UInt8 = 0
 
 // MARK: - Fetch
 
