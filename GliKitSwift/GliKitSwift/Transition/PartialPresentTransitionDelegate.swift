@@ -94,7 +94,7 @@ open class PartialPresentProps{
     public var cancelable: Bool = true
 
     ///动画时间
-    public var transitionDuration: TimeInterval = 0.25
+    public var transitionDuration: TimeInterval = 0.5
 
     ///点击半透明背景回调 设置这个时，弹窗不会关闭
     public var cancelCallback: (() -> Void)?
@@ -137,6 +137,9 @@ open class PartialPresentTransitionDelegate: NSObject, UIViewControllerTransitio
         return PartialPresentTransitionAnimator(props: self.props)
     }()
     
+    ///
+    fileprivate var controller: PartialPresentationController?
+    
     ///显示的viewController
     private weak var viewController: UIViewController?
 
@@ -178,6 +181,7 @@ open class PartialPresentTransitionDelegate: NSObject, UIViewControllerTransitio
         
         let controller = PartialPresentationController(presentedViewController: presented, presenting: presenting)
         controller.transitionDelegate = self
+        self.controller = controller
         
         return controller
     }
@@ -293,25 +297,23 @@ class PartialPresentInteractiveTransition: UIPercentDrivenInteractiveTransition 
         super.startInteractiveTransition(transitionContext)
     }
     
-
-    private func percentForGesture(_ gesture: UIPanGestureRecognizer) -> CGFloat {
+    private func percentForTranslation(_ translation: CGPoint) -> CGFloat {
         
         var percent: CGFloat = 0
-        if let view = self.view, let delegate = self.delegate, let containerView = transitionContext?.containerView {
-            let point = gesture.translation(in: containerView)
+        if let view = self.view, let delegate = self.delegate {
             
             switch delegate.props.transitionStyle {
             case .fromTop :
-                percent = point.y / view.gkHeight
+                percent = translation.y / view.gkHeight
                 
             case .fromBottom :
-                percent = point.y / view.gkHeight
+                percent = translation.y / view.gkHeight
                 
             case .fromRight :
-                percent = point.x / view.gkWidth
+                percent = translation.x / view.gkWidth
                 
             case .fromLeft :
-                percent = point.x / view.gkWidth
+                percent = translation.x / view.gkWidth
             }
         }
         return percent
@@ -322,12 +324,13 @@ class PartialPresentInteractiveTransition: UIPercentDrivenInteractiveTransition 
         
         if let view = self.view,
            let frame = self.frame,
+           let containerView = self.transitionContext?.containerView,
            let delegate = self.delegate {
             
             switch pan.state {
             case .began, .changed :
                 
-                var percent = percentForGesture(pan)
+                var percent = percentForTranslation(pan.translation(in: containerView))
                 let cFrame = view.frame
                 
                 switch delegate.props.transitionStyle {
@@ -366,6 +369,7 @@ class PartialPresentInteractiveTransition: UIPercentDrivenInteractiveTransition 
                     }
                     view.gkCenterX = centerX
                 }
+                delegate.controller?.update(percent, animated: false)
                 update(percent)
                 
             default:
@@ -380,39 +384,22 @@ class PartialPresentInteractiveTransition: UIPercentDrivenInteractiveTransition 
            let frame = self.frame,
            let containerView = transitionContext?.containerView {
             
-            var finished = percentForGesture(pan) >= 0.5
-            if !finished {
-                //快速滑动也算完成
-                let velocity = pan.velocity(in: containerView)
-                switch delegate.props.transitionStyle {
-                case .fromTop :
-                        finished = velocity.y < -1000
-                       
-                case .fromBottom :
-                        finished = velocity.y > 1000
-                        
-                case .fromRight :
-                        finished = velocity.x > 1000
-                        
-                case .fromLeft :
-                        finished = velocity.x < -1000
-                }
-            }
+            var translation = pan.translation(in: containerView)
+            //快速滑动也算完成
+            let velocity = pan.velocity(in: containerView)
+            translation.x += velocity.x
+            translation.y += velocity.y
+            
+            let finished = percentForTranslation(translation) >= 0.4
             if finished {
+                delegate.controller?.update(1.0, animated: true)
                 finish()
             } else {
+                delegate.controller?.update(0, animated: true)
                 cancel()
             }
             
-            CATransaction.begin()
-            let keyPath = "position"
-            
-            let animation = CABasicAnimation(keyPath: keyPath)
-            animation.duration = CFTimeInterval(duration)
-            animation.isRemovedOnCompletion = false
-            animation.fillMode = .both
-            animation.timingFunction = CAMediaTimingFunction(controlPoints: 0, 0, 0.2, 1)
-            
+            var duration = TimeInterval(self.duration)
             var center: CGPoint!
             if finished {
                 switch delegate.props.transitionStyle {
@@ -428,20 +415,26 @@ class PartialPresentInteractiveTransition: UIPercentDrivenInteractiveTransition 
                 case .fromRight :
                     center = CGPoint(containerView.gkRight + view.gkWidth / 2, view.gkCenterY)
                 }
+                switch delegate.props.transitionStyle {
+                case .fromTop, .fromBottom :
+                        duration *= TimeInterval(abs(view.gkCenterY - center.y) / view.gkHeight)
+                        
+                case .fromLeft, .fromRight :
+                        duration *= TimeInterval(abs(view.gkCenterX - center.x) / view.gkHeight)
+                }
             } else {
                 center = CGPoint(frame.midX, frame.midY);
             }
             
-            animation.fromValue = view.center
-            animation.toValue = center
-            
-            CATransaction.setCompletionBlock {
-                view.center = animation.toValue as! CGPoint
+            UIView.animate(withDuration: duration,
+                           delay: 0,
+                           usingSpringWithDamping: 1.0,
+                           initialSpringVelocity: 0,
+                           options: .beginFromCurrentState) {
+                view.center = center
+            } completion: { (_) in
                 self.transitionContext?.completeTransition(finished)
-                view.layer.removeAnimation(forKey: keyPath)
             }
-            view.layer.add(animation, forKey: keyPath)
-            CATransaction.commit()
         }
     }
 }

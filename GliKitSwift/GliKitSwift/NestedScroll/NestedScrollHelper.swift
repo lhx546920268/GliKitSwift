@@ -9,7 +9,7 @@
 import UIKit
 
 ///嵌套滑动帮助类
-public class NestedScrollHelper: NSObject, UIScrollViewDelegate {
+internal class NestedScrollHelper: NSObject, UIScrollViewDelegate {
     
     ///父scrollView 是否可以滑动
     public var parentScrollEnable: Bool = true

@@ -198,7 +198,7 @@ extension UIScrollView: UIGestureRecognizerDelegate {
     ///允许手势冲突
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         //只有平移手势才允许手势冲突
-        if gkNestedParent && gestureRecognizer == panGestureRecognizer {
+        if gestureRecognizer == panGestureRecognizer && gkNestedParent {
             return otherGestureRecognizer == gkNestedChildScrollView?.panGestureRecognizer
         }
         return false

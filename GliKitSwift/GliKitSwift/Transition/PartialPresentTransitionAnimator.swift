@@ -34,7 +34,6 @@ open class PartialPresentTransitionAnimator: NSObject, UIViewControllerAnimatedT
             let isPresenting = toViewController?.presentingViewController == fromViewController
             
             var view: UIView
-            var fromCenter: CGPoint
             var toCenter: CGPoint
             let frame = props.frame
             
@@ -57,34 +56,26 @@ open class PartialPresentTransitionAnimator: NSObject, UIViewControllerAnimatedT
             if isPresenting {
                 view = transitionContext.view(forKey: .to)!
                 view.frame = frame
-                fromCenter = center
                 toCenter = view.center
+                
+                view.bounds = CGRect(0, 0, frame.width, frame.height)
+                view.center = center
                 containerView.addSubview(view)
             }else{
                 
                 view = transitionContext.view(forKey: .from)!
-                fromCenter = view.center
                 toCenter = center
             }
             
-            let keyPath = "position"
-            CATransaction.begin()
-            CATransaction.setCompletionBlock {
-                view.layer.removeAnimation(forKey: keyPath)
+            UIView.animate(withDuration: props.transitionDuration,
+                           delay: 0,
+                           usingSpringWithDamping: 1.0,
+                           initialSpringVelocity: 0,
+                           options: .beginFromCurrentState) {
+                view.center = toCenter
+            } completion: { (_) in
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             }
-            
-            let animation = CABasicAnimation(keyPath: keyPath)
-            animation.duration = transitionDuration(using: transitionContext)
-            animation.isRemovedOnCompletion = false
-            animation.fillMode = .both
-            animation.timingFunction = CAMediaTimingFunction(controlPoints: 0, 0, 0.2, 1)
-            
-            animation.fromValue = fromCenter
-            animation.toValue = toCenter
-            view.layer.add(animation, forKey: keyPath)
-            
-            CATransaction.commit()
         }
     }
 }

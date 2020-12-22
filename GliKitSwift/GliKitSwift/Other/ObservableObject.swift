@@ -16,6 +16,44 @@ private var ObservableContext = "com.glikit.GKObservableContext"
 /// @param oldValue 旧值 值类型要拆箱
 public typealias ObserverCallback = (_ keyPath: String, _ newValue: Any?, _ oldValue: Any?) -> Void
 
+///回调信息
+fileprivate class ObserverCallbackModel {
+    
+    ///回调
+    var callback: ObserverCallback
+    
+    ///旧值
+    private var _oldValue: Any?
+    var oldValue: Any? {
+        set{
+            if !hasOldValue {
+                hasOldValue = true
+                _oldValue = newValue
+            }
+        }
+        get{
+            _oldValue
+        }
+    }
+    
+    ///是否有旧值了
+    fileprivate private(set) var hasOldValue: Bool = false
+    
+    ///新值
+    var newValue: Any?
+    
+    init(callback: @escaping ObserverCallback) {
+        self.callback = callback
+    }
+    
+    ///重置
+    func reset() {
+        hasOldValue = false
+        oldValue = nil
+        newValue = nil
+    }
+}
+
 ///可观察的对象 要监听的属性必须标记为 @objc dynamic
 open class ObservableObject: BaseObject {
     
@@ -33,7 +71,7 @@ open class ObservableObject: BaseObject {
     }()
     
     /// 添加一个观察者，必须通过 .语法 设置新值才会触发回调
-    /// @param observer 观察者，将使用hash作为 key来保持
+    /// @param observer 观察者，将使用hash作为 key来保存
     /// @param callback 回调
     /// @param keyPath 要监听的属性，如果为空，则监听所有属性
     public func addObserver(_ observer: NSObject, callback: @escaping ObserverCallback, forKeyPath keyPath: String) {
@@ -55,9 +93,26 @@ open class ObservableObject: BaseObject {
         addObserver(observer, callback: callback, forKeyPaths: [])
     }
     
+    /// 需要手动调用回调 主要用于值可能发生多次改变，但只需要回调一次
+    public func addObserver(_ observer: NSObject, manualCallback callback: @escaping ObserverCallback, forKeyPath keyPath: String) {
+        _addObserver(observer, callback: ObserverCallbackModel(callback: callback), forKeyPath: keyPath)
+    }
+    
+    /// 调用未回调的
+    public func flushManualCallback(observer: NSObject) {
+        if let dic = observerCallbacks[observer.hash] as? NSMutableDictionary {
+            for key in dic {
+                if let model = dic[key] as? ObserverCallbackModel,
+                   let keyPath = key.value as? String,
+                   model.hasOldValue {
+                    model.callback(keyPath, model.newValue, model.oldValue)
+                }
+            }
+        }
+    }
     
     /// 移除观察者
-    /// @param observer 观察者，将使用hash作为 key来保持
+    /// @param observer 观察者，将使用hash作为 key来保存
     /// @param keyPath 监听的属性，如果为空，则移除observer对应的所有 keyPath
     public func removeObserver(_ observer: NSObject, for keyPath: String) {
         if let dic = observerCallbacks[observer.hash] as? NSMutableDictionary {
@@ -122,7 +177,7 @@ open class ObservableObject: BaseObject {
         }
     }
     
-    private func _addObserver(_ observer: NSObject, callback: @escaping ObserverCallback, forKeyPath keyPath: String) {
+    private func _addObserver(_ observer: NSObject, callback: Any, forKeyPath keyPath: String) {
         if !observingKeyPaths.contains(keyPath) {
             addObserver(observer, forKeyPath: keyPath, options: [.new, .old], context: &ObservableContext)
             observingKeyPaths.insert(keyPath)
@@ -144,8 +199,13 @@ open class ObservableObject: BaseObject {
         }
         for key in observerCallbacks {
             let dic = observerCallbacks[key] as? NSMutableDictionary
-            let callback = dic?[keyPath] as? ObserverCallback
-            callback?(keyPath, change?[NSKeyValueChangeKey.newKey], change?[NSKeyValueChangeKey.oldKey])
+            let value = dic?[keyPath]
+            if let callback = value as? ObserverCallback {
+                callback(keyPath, change?[NSKeyValueChangeKey.newKey], change?[NSKeyValueChangeKey.oldKey])
+            } else if let model = value as? ObserverCallbackModel {
+                model.oldValue = change?[NSKeyValueChangeKey.oldKey]
+                model.newValue = change?[NSKeyValueChangeKey.newKey]
+            }
         }
     }
     

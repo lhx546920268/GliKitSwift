@@ -27,6 +27,25 @@ open class PartialPresentationController: UIPresentationController, UIGestureRec
         return view
     }()
     
+    ///更新交互比例
+    internal func update(_ percent: CGFloat, animated: Bool) {
+        guard let delegate = transitionDelegate else {
+            return
+        }
+        if animated {
+            UIView.animate(
+                withDuration: delegate.props.transitionDuration,
+                delay: 0,
+                usingSpringWithDamping: 1.0,
+                initialSpringVelocity: 0,
+                options: .beginFromCurrentState) {
+                self.backgroundView.alpha = 1.0 - percent
+            }
+        } else {
+            self.backgroundView.alpha = 1.0 - percent
+        }
+    }
+    
     open override func presentationTransitionWillBegin() {
         
         //添加背景

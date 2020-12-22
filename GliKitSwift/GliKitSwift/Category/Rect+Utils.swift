@@ -136,3 +136,54 @@ public extension UIScreen {
         self.main.bounds.size
     }
 }
+
+public extension UIScrollView {
+    
+    ///get and set contentInset
+    var gkInsetTop: CGFloat {
+        set(value){
+            var inset = contentInset
+            inset.top = value
+            contentInset = inset
+        }
+        get{
+            contentInset.top
+        }
+    }
+    
+    ///get and set contentInset
+    var gkInsetLeft: CGFloat {
+        set(value){
+            var inset = contentInset
+            inset.left = value
+            contentInset = inset
+        }
+        get{
+            contentInset.left
+        }
+    }
+    
+    ///get and set contentInset
+    var gkInsetBottom: CGFloat {
+        set(value){
+            var inset = contentInset
+            inset.bottom = value
+            contentInset = inset
+        }
+        get{
+            contentInset.bottom
+        }
+    }
+    
+    ///get and set contentInset
+    var gkInsetRight: CGFloat {
+        set(value){
+            var inset = contentInset
+            inset.right = value
+            contentInset = inset
+        }
+        get{
+            contentInset.right
+        }
+    }
+}
