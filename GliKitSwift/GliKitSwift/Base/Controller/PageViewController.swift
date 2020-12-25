@@ -122,10 +122,12 @@ open class PageViewController: ScrollViewController, TabMenuBarDelegate {
     public func setPage(_ page: Int, animated: Bool){
         
         if page >= 0 && page < numberOfPage() {
+            let oldPage = currentPage
             currentPage = page
             menuBar?.setSelectedIndex(page, animated: animated)
             if scrollViewSize != .zero {
                 scrollView?.setContentOffset(CGPoint(CGFloat(page) * scrollViewSize.width, 0), animated: animated)
+                _onScrollTopPage(currentPage, oldPage: oldPage)
             } else {
                 willScrollToPage = currentPage
             }

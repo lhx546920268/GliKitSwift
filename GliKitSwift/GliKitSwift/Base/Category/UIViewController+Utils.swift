@@ -71,9 +71,14 @@ public extension UIViewController {
     
     ///状态栏高度
     var gkStatusBarHeight: CGFloat{
-        var height: CGFloat = 0;
+        guard let window: UIWindow = UIApplication.shared.delegate?.window ?? nil else {
+            return 20
+        }
+        
+        var height: CGFloat = window.gkSafeAreaInsets.top;
+        //iOS 14 iPhone 12 mini的导航栏和状态栏有间距
         if #available(iOS 13.0, *) {
-            if let statusBarManager = UIApplication.shared.delegate?.window??.windowScene?.statusBarManager {
+            if let statusBarManager = window.windowScene?.statusBarManager {
                 height = statusBarManager.statusBarFrame.size.height
             }
         } else {
@@ -81,7 +86,7 @@ public extension UIViewController {
         }
         
         if height == 0 {
-            if (UIApplication.shared.delegate?.window??.gkSafeAreaInsets.bottom ?? 0) > 0 {
+            if (window.gkSafeAreaInsets.bottom) > 0 {
                 height = 44;
             }else{
                 height = 20;

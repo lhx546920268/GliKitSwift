@@ -149,8 +149,6 @@ public class GKSwipeCellHelper: NSObject, UIGestureRecognizerDelegate {
         super.init()
     }
     
- 
-    
     public func setSwipeDirection(_ direction: SwipeDirection) {
         if direction != .none {
             if panGestureRecognizer == nil {

@@ -448,7 +448,8 @@ public extension BaseContainer {
             if topView != nil && !overlayArea.contains(.pageLoadingTop) {
                 make.top.equalTo(topView!.snp.bottom)
             } else {
-                if viewController != nil && safeLayoutGuide.contains(.top) {
+                let hasNavigationBar = !(viewController?.navigationController?.isNavigationBarHidden ?? true)
+                if viewController != nil && hasNavigationBar && safeLayoutGuide.contains(.top) {
                     make.top.equalTo(viewController!.gkSafeAreaLayoutGuideTop).offset(insets.top)
                 } else {
                     make.top.equalTo(self).offset(insets.top)
@@ -458,11 +459,7 @@ public extension BaseContainer {
             if bottomView != nil && !overlayArea.contains(.pageLoadingBottom) {
                 make.bottom.equalTo(bottomView!.snp.top).offset(-insets.bottom)
             } else {
-                if viewController != nil && safeLayoutGuide.contains(.bottom) {
-                    make.bottom.equalTo(viewController!.gkSafeAreaLayoutGuideBottom).offset(bottomOffset - insets.bottom)
-                } else {
-                    make.bottom.equalTo(self).offset(bottomOffset).offset(bottomOffset - insets.bottom)
-                }
+                make.bottom.equalTo(self).offset(bottomOffset).offset(bottomOffset - insets.bottom)
             }
         })
     }
