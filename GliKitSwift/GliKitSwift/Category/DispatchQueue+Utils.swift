@@ -10,28 +10,21 @@ import Foundation
 
 public extension DispatchQueue{
     
-    private static var onceTokens = Set<String>()
-    
-    ///同步锁
-    static func synchronized(token: Any, block: VoidCallback) {
-        
-        objc_sync_enter(token)
-        defer{
-            objc_sync_exit(token)
-        }
-        block()
-    }
+    private static var onceTokens: Set<String> = []
+    private static let lock: Lock = Lock()
     
     ///只执行一次 类似 objc的
     static func once(token: String, block: VoidCallback) {
         
-        synchronized(token: self) {
-            guard !onceTokens.contains(token) else {
-                return
-            }
-            onceTokens.insert(token)
-            block()
+        lock.lock()
+        defer {
+            lock.unlock()
         }
+        guard !onceTokens.contains(token) else {
+            return
+        }
+        onceTokens.insert(token)
+        block()
     }
     
     ///当前队列名称

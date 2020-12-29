@@ -30,6 +30,9 @@ open class RootViewController: TableViewController {
             RowModel(title: "Banner", cls: BannerViewController.self),
         ];
         
+        let safe = SafeLayoutGuide.all
+        print("")
+        
         registerClass(UITableViewCell.classForCoder())
         initViews()
     }

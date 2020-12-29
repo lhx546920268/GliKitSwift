@@ -67,6 +67,9 @@ open class CountDownTimer {
 
     ///代理
     private let timerProxy: TimerProxy = TimerProxy()
+    
+    ///锁
+    private let lock: Lock = Lock()
 
     init(timeToCountDown: TimeInterval, interval: TimeInterval) {
         self.timeToCountDown = timeToCountDown
@@ -84,28 +87,30 @@ open class CountDownTimer {
     ///开始倒计时
     public func start() {
         
-        DispatchQueue.synchronized(token: self) {
-            if isExcuting {
-                return
-            }
-            self.isCancelled = false
-            self.ongoingTimeInterval = 0
-            if self.timeToCountDown <= 0 || self.timeInterval <= 0 {
-                finish()
-                return
-            }
-            
-            self.timeToStop = self.timeToCountDown
-            isExcuting = true
-            
-            if shouldStartImmediately {
-                _onTick()
-            }
-            
-            if isExcuting {
-                timerProxy.startTimer(with: timeInterval)
-                addNotifications()
-            }
+        lock.lock()
+        defer {
+            lock.unlock()
+        }
+        if isExcuting {
+            return
+        }
+        self.isCancelled = false
+        self.ongoingTimeInterval = 0
+        if self.timeToCountDown <= 0 || self.timeInterval <= 0 {
+            finish()
+            return
+        }
+        
+        self.timeToStop = self.timeToCountDown
+        isExcuting = true
+        
+        if shouldStartImmediately {
+            _onTick()
+        }
+        
+        if isExcuting {
+            timerProxy.startTimer(with: timeInterval)
+            addNotifications()
         }
     }
     
@@ -129,16 +134,17 @@ open class CountDownTimer {
     
     ///结束倒计时
     public func stop() {
-        
-        DispatchQueue.synchronized(token: self) {
-            if !isExcuting || isCancelled {
-                return
-            }
-            isCancelled = true
-            isExcuting = false
-            timerProxy.stopTimer()
-            removeNotifications()
+        lock.lock()
+        defer {
+            lock.unlock()
         }
+        if !isExcuting || isCancelled {
+            return
+        }
+        isCancelled = true
+        isExcuting = false
+        timerProxy.stopTimer()
+        removeNotifications()
     }
     
     ///倒计时完成
