@@ -18,10 +18,10 @@ public struct SwipeDirection: OptionSet {
     }
     
     ///没
-    public static let none = SwipeDirection([])
+    public static let none: SwipeDirection = []
     
     ///向左
-    public static let left = SwipeDirection(rawValue: 1)
+    public static let left = SwipeDirection(rawValue: 1 << 0)
     
     ///向右
     public static let right = SwipeDirection(rawValue: 1 << 1)

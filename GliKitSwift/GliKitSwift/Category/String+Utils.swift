@@ -13,34 +13,30 @@ public extension String {
     
     ///判断字符串是否为空，会去掉 空格 \n \r
     static func isEmpty(_ string: Any?) -> Bool {
-        
-        if let str = string {
-            if str is String {
-                var result = str as! String
-                if result.count == 0 {
-                    return true
-                }
-                
-                result = result.replacingOccurrences(of: " ", with: "")
-                if result.count == 0 {
-                    return true
-                }
-                
-                result = result.replacingOccurrences(of: "\n", with: "")
-                if result.count == 0 {
-                    return true
-                }
-                
-                result = result.replacingOccurrences(of: "\r", with: "")
-                if result.count == 0 {
-                    return true
-                }
-                
-                return false
-            }
+        guard var str = string as? String else {
+            return true
         }
         
-        return true
+        if str.count == 0 {
+            return true
+        }
+        
+        str = str.replacingOccurrences(of: " ", with: "")
+        if str.count == 0 {
+            return true
+        }
+        
+        str = str.replacingOccurrences(of: "\n", with: "")
+        if str.count == 0 {
+            return true
+        }
+        
+        str = str.replacingOccurrences(of: "\r", with: "")
+        if str.count == 0 {
+            return true
+        }
+        
+        return false
     }
     
     ///获取子字符串
@@ -49,16 +45,16 @@ public extension String {
     }
     
     func substring(in range: NSRange) -> String {
-        let from = self.index(self.startIndex, offsetBy: range.location)
-        let to = self.index(self.startIndex, offsetBy: range.location + range.length)
+        let from = index(startIndex, offsetBy: range.location)
+        let to = index(startIndex, offsetBy: range.location + range.length)
         
         return String(self[from ..< to])
     }
     
     ///替换字符串
     func replaceString(in range: NSRange, with string: String) -> String {
-        let from = self.index(self.startIndex, offsetBy: range.location)
-        let to = self.index(self.startIndex, offsetBy: range.location + range.length)
+        let from = index(startIndex, offsetBy: range.location)
+        let to = index(startIndex, offsetBy: range.location + range.length)
         
         return replacingCharacters(in: from ..< to, with: string)
     }
@@ -66,7 +62,7 @@ public extension String {
     /// 获取字符串显示的大小
     /// - Parameters:
     ///   - font: 字体
-    ///   - constraintWidth: 最大宽度
+    ///   - width: 最大宽度
     func gkStringSize(font: UIFont, with width: CGFloat = CGFloat.greatestFiniteMagnitude) -> CGSize {
         
         let str = NSString(string: self)
@@ -80,8 +76,8 @@ public extension String {
     
     ///第一个字符
     var gkFirstCharacter: Character?{
-        if self.count > 0 {
-            return self[self.startIndex]
+        if count > 0 {
+            return self[startIndex]
         }
         
         return nil
@@ -89,8 +85,8 @@ public extension String {
 
     ///最后一个字符
     var gkLastCharacter: Character?{
-        if self.count > 0 {
-            return self[self.endIndex]
+        if count > 0 {
+            return self[endIndex]
         }
         
         return nil
@@ -99,11 +95,11 @@ public extension String {
     ///获取md5字符串
     var gkMD5String: String{
         
-        let cStr = self.cString(using: .utf8)
+        let cStr = cString(using: .utf8)
         
         let length = Int(CC_MD5_DIGEST_LENGTH)
         let result = UnsafeMutablePointer<UInt8>.allocate(capacity: length)
-        CC_MD5(cStr, CC_LONG(self.lengthOfBytes(using: .utf8)), result)
+        CC_MD5(cStr, CC_LONG(lengthOfBytes(using: .utf8)), result)
 
         let md5 = NSMutableString()
         for i in 0 ..< length {
@@ -111,8 +107,24 @@ public extension String {
         }
         
         result.deallocate()
-        
         return String(md5)
+    }
+    
+    ///获取sha256字符串
+    var gkSha256String: String{
+        let cStr = cString(using: .utf8)
+        
+        let length = Int(CC_SHA256_DIGEST_LENGTH)
+        let result = UnsafeMutablePointer<UInt8>.allocate(capacity: length)
+        CC_SHA256(cStr, CC_LONG(lengthOfBytes(using: .utf8)), result)
+
+        let sha256 = NSMutableString()
+        for i in 0 ..< length {
+            sha256.appendFormat("%02X", result[i])
+        }
+        
+        result.deallocate()
+        return String(sha256)
     }
 }
 

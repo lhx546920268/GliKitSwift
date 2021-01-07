@@ -132,7 +132,7 @@
 		CECB373C2429F44100C92687 /* WeakObjectContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECB373B2429F44100C92687 /* WeakObjectContainer.swift */; };
 		CECD6F68256D077600BD3DE3 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD6F67256D077600BD3DE3 /* TextField.swift */; };
 		CECD6F6A256D0B6B00BD3DE3 /* BaseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD6F69256D0B6B00BD3DE3 /* BaseObject.swift */; };
-		CECD6F6C256D113000BD3DE3 /* ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD6F6B256D113000BD3DE3 /* ObservableObject.swift */; };
+		CECD6F6C256D113000BD3DE3 /* KVOHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD6F6B256D113000BD3DE3 /* KVOHelper.swift */; };
 		CED1DFC5243DC8C700236BC1 /* UICollectionView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED1DFC4243DC8C700236BC1 /* UICollectionView+Utils.swift */; };
 		CED4CB6F245177C700369B04 /* UIView+NavigationBarUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED4CB6E245177C700369B04 /* UIView+NavigationBarUtils.swift */; };
 		CED4CB712451839000369B04 /* UINavigationItem+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED4CB702451839000369B04 /* UINavigationItem+Utils.swift */; };
@@ -290,7 +290,7 @@
 		CECB373B2429F44100C92687 /* WeakObjectContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakObjectContainer.swift; sourceTree = "<group>"; };
 		CECD6F67256D077600BD3DE3 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		CECD6F69256D0B6B00BD3DE3 /* BaseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseObject.swift; sourceTree = "<group>"; };
-		CECD6F6B256D113000BD3DE3 /* ObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableObject.swift; sourceTree = "<group>"; };
+		CECD6F6B256D113000BD3DE3 /* KVOHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KVOHelper.swift; sourceTree = "<group>"; };
 		CED1DFC4243DC8C700236BC1 /* UICollectionView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Utils.swift"; sourceTree = "<group>"; };
 		CED4CB6E245177C700369B04 /* UIView+NavigationBarUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+NavigationBarUtils.swift"; sourceTree = "<group>"; };
 		CED4CB702451839000369B04 /* UINavigationItem+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+Utils.swift"; sourceTree = "<group>"; };
@@ -849,7 +849,7 @@
 				CEFACDBB2542766D002C356E /* WeakProxy.swift */,
 				CE2D37912552604F004A8A50 /* Lock.swift */,
 				CECD6F69256D0B6B00BD3DE3 /* BaseObject.swift */,
-				CECD6F6B256D113000BD3DE3 /* ObservableObject.swift */,
+				CECD6F6B256D113000BD3DE3 /* KVOHelper.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -1002,7 +1002,7 @@
 				CEBE0963244EF7870016EEFA /* EmptyView.swift in Sources */,
 				CE52B0CC2435F2DB00B85D8D /* TabMenuBarItem.swift in Sources */,
 				CEAE532C23D14EDC0073882E /* UIViewController+SafeAreaCompatible.swift in Sources */,
-				CECD6F6C256D113000BD3DE3 /* ObservableObject.swift in Sources */,
+				CECD6F6C256D113000BD3DE3 /* KVOHelper.swift in Sources */,
 				CE34EDB7254A4F41000DB3B4 /* PhotosListCell.swift in Sources */,
 				CE6996E923D7F27B00A99469 /* PartialPresentTransitionAnimator.swift in Sources */,
 				CE58C65A24527796006A654E /* UITableView+EmptyView.swift in Sources */,

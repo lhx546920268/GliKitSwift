@@ -21,9 +21,9 @@ public struct SafeLayoutGuide: OptionSet {
         self.rawValue = rawValue
     }
     
-    public static let none = SafeLayoutGuide([])
+    public static let none: SafeLayoutGuide = []
     
-    public static let top = SafeLayoutGuide(rawValue: 1)
+    public static let top = SafeLayoutGuide(rawValue: 1 << 0)
     
     public static let left = SafeLayoutGuide(rawValue: 1 << 1)
     
@@ -31,7 +31,7 @@ public struct SafeLayoutGuide: OptionSet {
     
     public static let right = SafeLayoutGuide(rawValue: 1 << 3)
     
-    public static let all = SafeLayoutGuide(rawValue: top.rawValue | left.rawValue | bottom.rawValue | right.rawValue)
+    public static let all: SafeLayoutGuide = [.top, .left, .bottom, .right]
 }
 
 ///自动布局 loading 范围
@@ -44,28 +44,28 @@ public struct OverlayArea: OptionSet {
     }
     
     ///都不遮住 header 和 footer会看到得到
-    public static let none = OverlayArea([])
+    public static let none: OverlayArea = []
     
     ///pageloading视图将遮住header
-    public static let pageLoadingTop = OverlayArea(rawValue: 1 << 1)
+    public static let pageLoadingTop = OverlayArea(rawValue: 1 << 0)
     
     ///pageloading视图将遮住footer
-    public static let pageLoadingBottom = OverlayArea(rawValue: 1 << 2)
+    public static let pageLoadingBottom = OverlayArea(rawValue: 1 << 1)
     
     ///空视图将遮住header
-    public static let emptyViewTop = OverlayArea(rawValue: 1 << 3)
+    public static let emptyViewTop = OverlayArea(rawValue: 1 << 2)
     
     ///空视图将遮住footer
-    public static let emptyViewBottom = OverlayArea(rawValue: 1 << 4)
+    public static let emptyViewBottom = OverlayArea(rawValue: 1 << 3)
     
     ///遮住顶部
-    public static let top = OverlayArea(rawValue: pageLoadingTop.rawValue | emptyViewTop.rawValue)
+    public static let top: OverlayArea = [.pageLoadingTop, .emptyViewTop]
     
     ///遮住底部
-    public static let bottom = OverlayArea(rawValue: pageLoadingBottom.rawValue | emptyViewBottom.rawValue)
+    public static let bottom: OverlayArea = [.pageLoadingBottom, .emptyViewBottom]
     
     ///遮住所有
-    public static let all = OverlayArea(rawValue: top.rawValue | bottom.rawValue)
+    public static let all: OverlayArea = [.pageLoadingTop, .emptyViewTop, .pageLoadingBottom, .emptyViewBottom]
 }
 
 ///基础容器视图

@@ -15,6 +15,11 @@ open class BaseObject: NSObject {
         
     }
     
+    ///kvo 帮助类
+    public private(set) lazy var kvoHelper: KVOHelper = {
+       return KVOHelper(owner: self)
+    }()
+    
     /**
      通过字典创建
      

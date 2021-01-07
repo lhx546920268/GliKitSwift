@@ -21,17 +21,17 @@ public extension JSONSerialization{
      */
     class func gkObject(_ data: Data?) -> Any?{
         
-        if data == nil {
+        guard let data = data else {
             return nil
         }
-        
+
         do {
-            let obj = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
+            let obj = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
             return obj
         } catch {
             
             #if DEBUG
-            if let str = String(data: data!, encoding: .utf8) {
+            if let str = String(data: data, encoding: .utf8) {
                 print(str)
             }
             print(error)
@@ -116,16 +116,17 @@ public extension JSONSerialization{
      */
     class func gkData(_ obj: Any?) -> Data?{
         
-        if obj != nil {
-            if JSONSerialization.isValidJSONObject(obj!) {
-                
-                do {
-                    let data = try JSONSerialization.data(withJSONObject: obj!, options: WritingOptions(rawValue: 0))
-                    return data
-                } catch {
-                    debugPrint("生成json 出错", error)
-                    return nil
-                }
+        guard let obj = obj else {
+            return nil
+        }
+        if JSONSerialization.isValidJSONObject(obj) {
+            
+            do {
+                let data = try JSONSerialization.data(withJSONObject: obj, options: WritingOptions(rawValue: 0))
+                return data
+            } catch {
+                print("生成json 出错", error)
+                return nil
             }
         }
         

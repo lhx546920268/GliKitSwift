@@ -269,18 +269,11 @@ public extension UIViewController{
     }
 }
 
-///自动布局 安全区域
-public struct NavigationItemPosition: OptionSet {
+///导航栏按钮位置
+public enum NavigationItemPosition {
     
-    public let rawValue: UInt
-    
-    public init(rawValue: UInt){
-        self.rawValue = rawValue
-    }
-    
-    public static let left = NavigationItemPosition([])
-    
-    public static let right = NavigationItemPosition(rawValue: 1)
+    case left
+    case right
 }
 
 public extension UIViewController{
@@ -349,8 +342,6 @@ public extension UIViewController{
             self.navigationItem.leftBarButtonItem = item
         case .right:
             self.navigationItem.rightBarButtonItem = item
-        default:
-            break
         }
     }
     

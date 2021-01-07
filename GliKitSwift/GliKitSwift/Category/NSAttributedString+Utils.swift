@@ -17,7 +17,10 @@ public extension NSAttributedString {
      */
     func gkBounds(constraintWidth: CGFloat = CGFloat.greatestFiniteMagnitude) -> CGSize {
         
-        return self.boundingRect(with: CGSize(width: constraintWidth, height: 8388608.0), options: [.truncatesLastVisibleLine, .usesLineFragmentOrigin, .usesFontLeading], context: nil).size
+        return boundingRect(
+            with: CGSize(width: constraintWidth, height: 8388608.0),
+            options: [.truncatesLastVisibleLine, .usesLineFragmentOrigin, .usesFontLeading],
+            context: nil).size
     }
 
 }

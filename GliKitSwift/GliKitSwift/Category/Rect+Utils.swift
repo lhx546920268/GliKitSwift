@@ -18,7 +18,7 @@ public extension UIView {
             self.frame = frame
         }
         get{
-            self.frame.origin.y
+            frame.minY
         }
     }
 
@@ -30,7 +30,7 @@ public extension UIView {
             self.frame = frame
         }
         get{
-            self.frame.origin.y + self.frame.size.height
+            frame.maxY
         }
     }
     
@@ -42,7 +42,7 @@ public extension UIView {
             self.frame = frame
         }
         get{
-            self.frame.origin.x
+            frame.minX
         }
     }
 
@@ -54,7 +54,7 @@ public extension UIView {
             self.frame = frame
         }
         get{
-            self.frame.origin.x + self.frame.size.width
+            frame.maxX
         }
     }
 
@@ -66,7 +66,7 @@ public extension UIView {
             self.frame = frame
         }
         get{
-            self.frame.size.width
+            frame.width
         }
     }
 
@@ -78,7 +78,7 @@ public extension UIView {
             self.frame = frame
         }
         get{
-            self.frame.size.height
+            frame.height
         }
     }
 
@@ -90,7 +90,7 @@ public extension UIView {
             self.frame = frame
         }
         get{
-            self.frame.size
+            frame.size
         }
     }
 
@@ -102,7 +102,7 @@ public extension UIView {
             self.center = center
         }
         get{
-            self.center.x
+            center.x
         }
     }
 
@@ -114,7 +114,7 @@ public extension UIView {
             self.center = center
         }
         get{
-            self.center.y
+            center.y
         }
     }
 }
@@ -123,17 +123,17 @@ public extension UIScreen {
     
     ///获取屏幕宽度
     static var gkWidth: CGFloat{
-        self.main.bounds.size.width
+        main.bounds.width
     }
 
     ///获取屏幕高度
     static var gkHeight: CGFloat{
-        self.main.bounds.size.height
+        main.bounds.height
     }
 
     ///获取屏幕大小
     static var gkSize: CGSize{
-        self.main.bounds.size
+        main.bounds.size
     }
 }
 

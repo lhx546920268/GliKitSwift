@@ -38,7 +38,7 @@ public typealias HttpTaskCallback = (HttpTask) -> Void
 open class HttpTask {
     
     ///锁
-    private let lock = Lock()
+    private let lock: Lock = Lock()
     
     ///保存请求队列的单例
     private static var sharedTasks = Set<HttpTask>()
@@ -92,7 +92,10 @@ open class HttpTask {
     }
     
     ///是否是自己取消
-    public private(set) var isCancelled = false
+    public private(set) var isCancelled: Bool = false
+    
+    ///是否已完成
+    private var isCompleted: Bool = false
     
     // MARK: - 回调
     
@@ -111,10 +114,10 @@ open class HttpTask {
     // MARK: - 结果
     
     ///是否是网络错误
-    public var isNetworkError = false
+    public var isNetworkError: Bool = false
     
     ///接口是否请求成功
-    public var isApiSuccess = false
+    public var isApiSuccess: Bool = false
     
     ///原始最外层字典
     public var data: JSONResult?
@@ -141,10 +144,10 @@ open class HttpTask {
     public var loadingHUDDelay: Double = 0.5
     
     ///是否要显示loading
-    public var shouldShowloadingHUD = false
+    public var shouldShowloadingHUD: Bool = false
     
     ///是否提示错误信息，default is no
-    public var shouldAlertErrorMsg = false
+    public var shouldAlertErrorMsg: Bool = false
     
     public init() {
 
@@ -181,6 +184,7 @@ open class HttpTask {
     /// 请求完成 无论是 失败 成功 或者取消
     open func onComplete(){
         
+        isCompleted = true
         if shouldShowloadingHUD {
             view?.gkDismissProgress()
         }
@@ -198,7 +202,7 @@ open class HttpTask {
         defer {
             lock.unlock()
         }
-        if !isExecuting && !isCancelled {
+        if !isExecuting && !isCancelled && !isCompleted {
             onStart()
             createRequestIfNeeded()
             request?.resume()
@@ -246,7 +250,7 @@ open class HttpTask {
         defer {
             lock.unlock()
         }
-        if(!isCancelled){
+        if !isCancelled && !isCompleted{
             isCancelled = true
             
             if isExecuting || isSuspended {
@@ -305,8 +309,12 @@ open class HttpTask {
         onSuccess()
         delegate?.taskDidSuccess(self)
         
-        dispatchAsyncMainSafe { [weak self] in
-            if let self = self, !self.isCancelled {
+        dispatchAsyncMainSafe {
+            self.lock.lock()
+            defer {
+                self.lock.unlock()
+            }
+            if !self.isCancelled {
                 self.successCallback?(self)
                 self.onComplete()
             }
@@ -315,8 +323,12 @@ open class HttpTask {
     
     ///请求失败
     public func requestDidFail() {
-        dispatchAsyncMainSafe { [weak self] in
-            if let self = self, !self.isCancelled {
+        dispatchAsyncMainSafe {
+            self.lock.lock()
+            defer {
+                self.lock.unlock()
+            }
+            if !self.isCancelled {
                 self.willFailCallback?(self)
                 self.onFail()
                 self.failCallback?(self)

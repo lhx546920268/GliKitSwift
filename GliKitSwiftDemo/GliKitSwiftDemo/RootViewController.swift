@@ -28,10 +28,10 @@ open class RootViewController: TableViewController {
             RowModel(title: "骨架层", cls: SkeletonViewController.self),
             RowModel(title: "过渡动画", cls: TransitionViewController.self),
             RowModel(title: "Banner", cls: BannerViewController.self),
-        ];
+        ]
         
         let safe = SafeLayoutGuide.all
-        print("")
+        print("contains", safe.contains(SafeLayoutGuide.left))
         
         registerClass(UITableViewCell.classForCoder())
         initViews()
