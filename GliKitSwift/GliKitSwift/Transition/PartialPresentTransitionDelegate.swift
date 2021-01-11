@@ -137,8 +137,8 @@ open class PartialPresentTransitionDelegate: NSObject, UIViewControllerTransitio
         return PartialPresentTransitionAnimator(props: self.props)
     }()
     
-    ///
-    fileprivate var controller: PartialPresentationController?
+    ///不要 strong，因为该类会strong viewController，而viewController会strong当前类
+    fileprivate weak var controller: PartialPresentationController?
     
     ///显示的viewController
     private weak var viewController: UIViewController?

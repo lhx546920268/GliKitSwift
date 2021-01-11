@@ -15,7 +15,11 @@ open class ScrollViewController: BaseViewController, UIScrollViewDelegate {
     public var scrollView: UIScrollView?{
         didSet{
             if #available(iOS 11, *) {
-                self.scrollView?.contentInsetAdjustmentBehavior = .never
+                if self.scrollView is UITableView || self.scrollView is UICollectionView {
+                    self.scrollView?.contentInsetAdjustmentBehavior = .scrollableAxes
+                } else {
+                    self.scrollView?.contentInsetAdjustmentBehavior = .never
+                }
             }
             if scrollView != oldValue {
                 scrollViewDidChange?(scrollView)

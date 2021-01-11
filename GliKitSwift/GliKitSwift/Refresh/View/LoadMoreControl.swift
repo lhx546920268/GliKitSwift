@@ -124,16 +124,13 @@ open class LoadMoreControl: DataControl {
                 return
             }
             
+            let criticalPoint = realCriticalPoint
             if autoLoadMore {
-                
-                if offset >= contentSize - size - self.criticalPoint {
-                    
+                if offset >= contentSize - size - criticalPoint {
                     beginLoadMore(false)
                 }
             } else {
-                
                 if offset >= contentSize - size {
-                    
                     if scrollView.isDragging {
                         if offset == contentSize - size {
                             state = .normal
@@ -153,6 +150,14 @@ open class LoadMoreControl: DataControl {
                 setNeedsLayout()
             }
         }
+    }
+    
+    open override var realCriticalPoint: CGFloat {
+        var point = super.realCriticalPoint
+        if #available(iOS 11, *) {
+            point += scrollView?.adjustedContentInset.bottom ?? 0
+        }
+        return point
     }
 
     // MARK: - Super Method

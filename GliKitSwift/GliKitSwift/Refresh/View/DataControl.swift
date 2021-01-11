@@ -47,6 +47,11 @@ open class DataControl: UIView {
     ///触发的临界点 default is 下拉刷新 60，上拉加载 45
     public var criticalPoint: CGFloat = 0
     
+    ///适配安全区域
+    open var realCriticalPoint: CGFloat {
+        return self.realCriticalPoint
+    }
+    
     ///原来的内容 缩进
     public var originalContentInset = UIEdgeInsets.zero
     

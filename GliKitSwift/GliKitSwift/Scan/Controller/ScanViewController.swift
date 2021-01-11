@@ -16,7 +16,7 @@ open class ScanViewController: BaseViewController {
     public var supportedTypes: [AVMetadataObject.ObjectType] = [.qr]
     
     ///扫描结果回调
-    public var scanCallback: ((_ result: String?) -> Void)?
+    public var scanCallback: ((_ result: String?, _ type: AVMetadataObject.ObjectType) -> Void)?
     
     ///是否正在暂停，暂停的时候无法开始
     public var isPausing: Bool = false {
@@ -140,7 +140,7 @@ open class ScanViewController: BaseViewController {
     }
     
     ///有结果了 会暂停扫描
-    public func onScanCode(_ code: String?) {
+    public func onScanCode(_ code: String?, type: AVMetadataObject.ObjectType) {
         
     }
     
@@ -190,7 +190,7 @@ open class ScanViewController: BaseViewController {
                 if features.count > 0,
                    let feature = features.first as? CIQRCodeFeature,
                    let result = feature.messageString {
-                    processResult(result)
+                    processResult(result, type: .qr)
                     return
                 }
             }
@@ -316,12 +316,12 @@ open class ScanViewController: BaseViewController {
     }
     
     ///处理描结果
-    private func processResult(_ result: String?) {
+    private func processResult(_ result: String?, type: AVMetadataObject.ObjectType) {
         if let callback = scanCallback {
-            callback(result)
+            callback(result, type)
             gkBack()
         } else {
-            onScanCode(result)
+            onScanCode(result, type: type)
         }
     }
 }
@@ -340,7 +340,7 @@ extension ScanViewController: AVCaptureMetadataOutputObjectsDelegate {
                     dispatchAsyncMainSafe {
                         if !self.isPausing {
                             self.isPausing = true
-                            self.processResult(codeObject.stringValue)
+                            self.processResult(codeObject.stringValue, type: object.type)
                         }
                     }
                 }

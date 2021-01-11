@@ -48,12 +48,12 @@ open class RefreshControl: DataControl {
                         if scrollView.isDragging {
                             if y == 0.0 {
                                 state = .normal
-                            }else if y > -criticalPoint {
+                            }else if y > -realCriticalPoint {
                                 state = .pulling
                             }else{
                                 state = .reachCirticalPoint
                             }
-                        }else if y <= -criticalPoint || state == .reachCirticalPoint {
+                        }else if y <= -realCriticalPoint || state == .reachCirticalPoint {
                             startLoading()
                         }
                     }
@@ -66,6 +66,14 @@ open class RefreshControl: DataControl {
         }
     }
 
+    open override var realCriticalPoint: CGFloat {
+        var point = super.realCriticalPoint
+        if #available(iOS 11, *) {
+            point += scrollView?.adjustedContentInset.top ?? 0
+        }
+        return point
+    }
+    
     // MARK: - super method
 
     open override func startLoading() {
