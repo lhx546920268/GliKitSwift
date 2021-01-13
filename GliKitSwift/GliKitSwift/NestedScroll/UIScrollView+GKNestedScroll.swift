@@ -84,7 +84,7 @@ public extension UIScrollView {
         }
     }
 
-    ///当前嵌套滑动的子视图 需要手动设置，有多个时要动态设置 可通过 self.scrollView.gkNestedParentScrollView.gkNestedChildScrollView = self.scrollView 来设置
+    ///当前嵌套滑动的子视图 需要手动设置，有多个时要动态设置 可通过 `self.scrollView.gkNestedParentScrollView.gkNestedChildScrollView = self.scrollView` 来设置
     var gkNestedChildScrollView: UIScrollView? {
         set{
             let container: WeakObjectContainer? = newValue != nil ? WeakObjectContainer(weakObject: newValue!) : nil

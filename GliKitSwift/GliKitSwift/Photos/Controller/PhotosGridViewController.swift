@@ -179,7 +179,7 @@ class PhotosGridViewController : CollectionViewController, PhotosGridCellDelegat
 
     ///使用图片
     private func useAssets(_ assets: [PHAsset]) {
-        gkShowProgress()
+        gkShowLoadingToast()
         gkBackBarButtonItem?.isEnabled = false
         navigationItem.rightBarButtonItem?.isEnabled = false
         
@@ -210,7 +210,7 @@ class PhotosGridViewController : CollectionViewController, PhotosGridCellDelegat
             }
             
             DispatchQueue.main.async {
-                self.gkDismissProgress()
+                self.gkDismissLoadingToast()
                 self.photosOptions.completion?(results)
                 self.dismiss(animated: true, completion: nil)
             }
@@ -219,7 +219,7 @@ class PhotosGridViewController : CollectionViewController, PhotosGridCellDelegat
 
     ///裁剪图片
     private func cropImage(asset: PHAsset) {
-        gkShowProgress()
+        gkShowLoadingToast()
         gkBackBarButtonItem?.isEnabled = false
         navigationItem.rightBarButtonItem?.isEnabled = false
         
@@ -228,7 +228,7 @@ class PhotosGridViewController : CollectionViewController, PhotosGridCellDelegat
             self.navigationItem.rightBarButtonItem?.isEnabled = true
             
             if data != nil {
-                self.gkDismissProgress()
+                self.gkDismissLoadingToast()
                 self.photosOptions.cropSettings?.image = UIImage(data: data!, scale: self.photosOptions.scale)
                 self.goToCropImage()
             } else {

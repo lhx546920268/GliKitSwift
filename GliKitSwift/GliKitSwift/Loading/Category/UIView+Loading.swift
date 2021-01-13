@@ -11,7 +11,7 @@ import UIKit
 private var pageLoadingViewKey: UInt8 = 0
 private var pageLoadingViewInsetsKey: UInt8 = 0
 private var reloadCallbackKey: UInt8 = 0
-private var progressHUDKey: UInt8 = 0
+private var toastKey: UInt8 = 0
 
 ///loading相关扩展
 public extension UIView {
@@ -135,35 +135,35 @@ public extension UIView {
         }
     }
 
-    ///当前hud
-    var  gkProgressHUD: ProgressHUDProtocol?{
+    ///当前toast
+    var  gkToast: ToastProtocol?{
         set{
-            self.gkProgressHUD?.removeFromSuperview()
-            objc_setAssociatedObject(self, &progressHUDKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            self.gkToast?.removeFromSuperview()
+            objc_setAssociatedObject(self, &toastKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         get{
-            objc_getAssociatedObject(self, &progressHUDKey) as? ProgressHUDProtocol
+            objc_getAssociatedObject(self, &toastKey) as? ToastProtocol
         }
     }
     
     func gkShowSuccessText(_ text: String, duration: TimeInterval = 2) {
-        gkShowProgressHUD(text: text, status: .success, delay: duration)
+        gkShowToast(text: text, status: .success, delay: duration)
     }
     
     func gkShowErrorText(_ text: String, duration: TimeInterval = 2) {
-        gkShowProgressHUD(text: text, status: .error, delay: duration)
+        gkShowToast(text: text, status: .error, delay: duration)
     }
     
     func gkShowWarningText(_ text: String, duration: TimeInterval = 2) {
-        gkShowProgressHUD(text: text, status: .warning, delay: duration)
+        gkShowToast(text: text, status: .warning, delay: duration)
     }
     
-    func gkShowProgress(text: String? = nil, delay: TimeInterval = 0) {
-        gkShowProgressHUD(text: text, status: .loading, delay: delay)
+    func gkShowLoadingToast(text: String? = nil, delay: TimeInterval = 0) {
+        gkShowToast(text: text, status: .loading, delay: delay)
     }
 
-    ///显示hud
-    private func gkShowProgressHUD(text: String?, status: ProgressHUDStatus, delay: TimeInterval, in view: UIView? = nil){
+    ///显示toast
+    private func gkShowToast(text: String?, status: ToastStatus, delay: TimeInterval, in view: UIView? = nil){
         
         let keyboardWindow = UIApplication.shared.windows.last
         var targetView = view ?? self
@@ -182,18 +182,18 @@ public extension UIView {
             keyboardWindow?.gkDismissText()
         }
         
-        var hud = targetView.gkProgressHUD
-        if hud == nil {
-            hud = ProgressHUD()
-            targetView.gkProgressHUD = hud
+        var toast = targetView.gkToast
+        if toast == nil {
+            toast = Toast()
+            targetView.gkToast = toast
             
-            hud!.dismissCallback = { [weak targetView] in
-                targetView?.gkProgressHUD = nil
+            toast!.dismissCallback = { [weak targetView] in
+                targetView?.gkToast = nil
             }
             
-            targetView.addSubview(hud!)
+            targetView.addSubview(toast!)
             
-            hud!.snp.makeConstraints { (maker) in
+            toast!.snp.makeConstraints { (maker) in
                 maker.edges.equalTo(0)
                 
                 //scrollView 需要确定滑动范围
@@ -203,27 +203,27 @@ public extension UIView {
             }
         }
         
-        hud!.delay = delay
-        hud!.text = text
-        hud!.status = status
-        hud!.show()
+        toast!.delay = delay
+        toast!.text = text
+        toast!.status = status
+        toast!.show()
     }
 
-    ///隐藏加载中hud
-    func gkDismissProgress(in view: UIView? = nil){
+    ///隐藏加载中
+    func gkDismissLoadingToast(in view: UIView? = nil){
         if view != nil {
-            view?.gkProgressHUD?.gkDismissProgress()
+            view?.gkToast?.gkDismissLoadingToast()
         }else{
-            self.gkProgressHUD?.gkDismissProgress()
+            self.gkToast?.gkDismissLoadingToast()
         }
     }
 
-    ///隐藏提示信息hud
+    ///隐藏提示信息
     func gkDismissText(in view: UIView? = nil){
         if view != nil {
-            view?.gkProgressHUD?.gkDismissText()
+            view?.gkToast?.gkDismissText()
         }else{
-            self.gkProgressHUD?.gkDismissText()
+            self.gkToast?.gkDismissText()
         }
     }
 }

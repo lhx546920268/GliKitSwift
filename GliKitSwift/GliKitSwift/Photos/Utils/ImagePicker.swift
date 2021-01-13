@@ -104,12 +104,12 @@ public class ImagePicker: NSObject, UIImagePickerControllerDelegate, UINavigatio
         picker.dismiss(animated: false, completion: nil)
         
         if let originalImage = info[.originalImage] as? UIImage {
-            parent.gkShowProgress()
+            parent.gkShowLoadingToast()
             DispatchQueue.global(qos: .default).async {
                 let image = UIImage.gkFixOrientation(with: originalImage)
                 if self.options.cropSettings != nil {
                     DispatchQueue.main.async {
-                        self.parent.gkDismissProgress()
+                        self.parent.gkDismissLoadingToast()
                         self.options.cropSettings?.image = image
                         let imageCrop = ImageCropViewController(options: self.options)
                         self.parent.navigationController?.pushViewController(imageCrop, animated: true)
@@ -117,7 +117,7 @@ public class ImagePicker: NSObject, UIImagePickerControllerDelegate, UINavigatio
                 } else {
                     let result = PhotosPickResult(image: image, options: self.options)
                     DispatchQueue.main.async {
-                        self.parent.gkDismissProgress()
+                        self.parent.gkDismissLoadingToast()
                         self.completion?([result])
                     }
                 }

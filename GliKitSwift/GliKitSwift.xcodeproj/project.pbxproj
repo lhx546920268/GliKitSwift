@@ -114,7 +114,7 @@
 		CEBE0965244EFDAD0016EEFA /* UIView+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBE0964244EFDAD0016EEFA /* UIView+EmptyView.swift */; };
 		CEBEB51F23D54336000B8CBF /* Collection+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBEB51E23D54336000B8CBF /* Collection+Utils.swift */; };
 		CEBEB52423D54BB4000B8CBF /* PageLoadingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBEB52323D54BB4000B8CBF /* PageLoadingContainer.swift */; };
-		CEBEB52623D55F7A000B8CBF /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBEB52523D55F7A000B8CBF /* ProgressHUD.swift */; };
+		CEBEB52623D55F7A000B8CBF /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBEB52523D55F7A000B8CBF /* Toast.swift */; };
 		CEBEB52823D58CC7000B8CBF /* Rect+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBEB52723D58CC7000B8CBF /* Rect+Utils.swift */; };
 		CEBEB52A23D59564000B8CBF /* UIView+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBEB52923D59564000B8CBF /* UIView+Loading.swift */; };
 		CEBEB52D23D5AB48000B8CBF /* KeyboardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBEB52C23D5AB48000B8CBF /* KeyboardHelper.swift */; };
@@ -272,7 +272,7 @@
 		CEBE0964244EFDAD0016EEFA /* UIView+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+EmptyView.swift"; sourceTree = "<group>"; };
 		CEBEB51E23D54336000B8CBF /* Collection+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Utils.swift"; sourceTree = "<group>"; };
 		CEBEB52323D54BB4000B8CBF /* PageLoadingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLoadingContainer.swift; sourceTree = "<group>"; };
-		CEBEB52523D55F7A000B8CBF /* ProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHUD.swift; sourceTree = "<group>"; };
+		CEBEB52523D55F7A000B8CBF /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		CEBEB52723D58CC7000B8CBF /* Rect+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rect+Utils.swift"; sourceTree = "<group>"; };
 		CEBEB52923D59564000B8CBF /* UIView+Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Loading.swift"; sourceTree = "<group>"; };
 		CEBEB52C23D5AB48000B8CBF /* KeyboardHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHelper.swift; sourceTree = "<group>"; };
@@ -812,7 +812,7 @@
 			isa = PBXGroup;
 			children = (
 				CEBEB52323D54BB4000B8CBF /* PageLoadingContainer.swift */,
-				CEBEB52523D55F7A000B8CBF /* ProgressHUD.swift */,
+				CEBEB52523D55F7A000B8CBF /* Toast.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1073,7 +1073,7 @@
 				CE0E62EB253EEAB000F934FB /* AlertUtils.swift in Sources */,
 				CE0594C32437121900510AD2 /* TabMenuBarCell.swift in Sources */,
 				CE2D69EC254ACB18004B120F /* PhotosViewController.swift in Sources */,
-				CEBEB52623D55F7A000B8CBF /* ProgressHUD.swift in Sources */,
+				CEBEB52623D55F7A000B8CBF /* Toast.swift in Sources */,
 				CE6996EB23D81ED100A99469 /* UIViewControlelr+Transition.swift in Sources */,
 				CE2D37922552604F004A8A50 /* Lock.swift in Sources */,
 				CE308FFD254FF07F0078E383 /* BadgeValueView.swift in Sources */,

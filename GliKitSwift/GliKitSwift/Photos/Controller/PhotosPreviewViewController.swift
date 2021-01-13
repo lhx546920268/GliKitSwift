@@ -176,7 +176,7 @@ class PhotosPreviewViewController: CollectionViewController, PhotosPreviewCellDe
     
     ///使用
     @objc private func handleUse() {
-        gkShowProgress()
+        gkShowLoadingToast()
         gkBackBarButtonItem?.isEnabled = false
         navigationItem.rightBarButtonItem?.isEnabled = false
         
@@ -209,7 +209,7 @@ class PhotosPreviewViewController: CollectionViewController, PhotosPreviewCellDe
             }
             
             DispatchQueue.main.async {
-                self.gkDismissProgress()
+                self.gkDismissLoadingToast()
                 self.photosOptions.completion?(results)
                 self.dismiss(animated: true, completion: nil)
             }

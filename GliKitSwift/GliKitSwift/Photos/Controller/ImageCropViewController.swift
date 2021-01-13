@@ -248,9 +248,9 @@ class ImageCropViewController: BaseViewController {
         didSet{
             if oldValue != showProgress {
                 if showProgress {
-                    gkShowProgress()
+                    gkShowLoadingToast()
                 } else {
-                    gkDismissProgress()
+                    gkDismissLoadingToast()
                 }
             }
         }

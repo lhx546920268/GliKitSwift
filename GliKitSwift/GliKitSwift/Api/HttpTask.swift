@@ -141,10 +141,10 @@ open class HttpTask {
     public weak var view: UIView?
     
     ///loading显示延迟
-    public var loadingHUDDelay: Double = 0.5
+    public var loadingToastDelay: Double = 0.5
     
     ///是否要显示loading
-    public var shouldShowloadingHUD: Bool = false
+    public var shouldShowloadingToast: Bool = false
     
     ///是否提示错误信息，default is no
     public var shouldAlertErrorMsg: Bool = false
@@ -158,9 +158,9 @@ open class HttpTask {
     /// 请求开始了
     open func onStart(){
         HttpTask.sharedTasks.insert(self)
-        if shouldShowloadingHUD {
+        if shouldShowloadingToast {
             UIApplication.shared.gkKeyWindow?.endEditing(true)
-            view?.gkShowProgress(delay: loadingHUDDelay)
+            view?.gkShowLoadingToast(delay: loadingToastDelay)
         }
     }
     
@@ -185,8 +185,8 @@ open class HttpTask {
     open func onComplete(){
         
         isCompleted = true
-        if shouldShowloadingHUD {
-            view?.gkDismissProgress()
+        if shouldShowloadingToast {
+            view?.gkDismissLoadingToast()
         }
         delegate?.taskDidComplete(self)
         request = nil
@@ -373,7 +373,7 @@ public extension HttpTask {
     
     func attach(_ view: UIView, loading: Bool = true, error: Bool = true) -> Self {
         self.view = view
-        shouldShowloadingHUD = loading
+        shouldShowloadingToast = loading
         shouldAlertErrorMsg = error
         
         return self

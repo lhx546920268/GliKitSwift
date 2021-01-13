@@ -41,7 +41,7 @@ public extension UIViewController {
         }
     }
     
-    ///页面加载偏移量 default is UIEdgeInsetZero
+    ///页面加载偏移量 default `zero`
     var gkPageLoadingViewInsets: UIEdgeInsets{
         set{
             self.gkContentView.gkPageLoadingViewInsets = newValue
@@ -79,16 +79,16 @@ public extension UIViewController {
         self.gkContentView.gkShowWarningText(text, duration: duration)
     }
     
-    func gkShowProgress(text: String? = nil, delay: TimeInterval = 0) {
-        self.gkContentView.gkShowProgress(text: text, delay: delay)
+    func gkShowLoadingToast(text: String? = nil, delay: TimeInterval = 0) {
+        self.gkContentView.gkShowLoadingToast(text: text, delay: delay)
     }
 
-    ///隐藏加载中hud
-    func gkDismissProgress(in view: UIView? = nil){
-        self.gkContentView.gkDismissProgress(in: view)
+    ///隐藏加载中
+    func gkDismissLoadingToast(in view: UIView? = nil){
+        self.gkContentView.gkDismissLoadingToast(in: view)
     }
 
-    ///隐藏提示信息hud
+    ///隐藏提示信息
     func gkDismissText(in view: UIView? = nil){
         self.gkContentView.gkDismissText(in: view)
     }

@@ -1,5 +1,5 @@
 //
-//  ProgressHUD.swift
+//  Toast.swift
 //  GliKitSwift
 //
 //  Created by 罗海雄 on 2020/1/20.
@@ -9,7 +9,7 @@
 import UIKit
 
 ///状态
-public enum ProgressHUDStatus {
+public enum ToastStatus {
     
     ///隐藏 什么都没
     case none
@@ -28,7 +28,7 @@ public enum ProgressHUDStatus {
 }
 
 ///加载指示器代理
-public protocol ProgressHUDProtocol: UIView {
+public protocol ToastProtocol: UIView {
     
     ///提示信息
     var text: String? {get set}
@@ -37,7 +37,7 @@ public protocol ProgressHUDProtocol: UIView {
     var delay: Double {get set}
     
     ///状态
-    var status: ProgressHUDStatus {get set}
+    var status: ToastStatus {get set}
     
     ///消失回调
     var dismissCallback: (() -> Void)? {get set}
@@ -46,23 +46,23 @@ public protocol ProgressHUDProtocol: UIView {
     func show()
     
     ///关闭 loading
-    func dismissProgress()
+    func dismissLoading()
     
     ///关闭所有
     func dismiss()
 }
 
 ///加载指示器 和 提示信息
-open class ProgressHUD: UIView, ProgressHUDProtocol {
+open class Toast: UIView, ToastProtocol {
     
     ///垂直间距
-    private static let progressHUDVerticalSpacing: CGFloat = 12
+    private static let verticalSpacing: CGFloat = 12
 
     ///水平间距
-    private static let progressHUDHorizontalSpacing: CGFloat = 12
+    private static let horizontalSpacing: CGFloat = 12
 
     ///文字间距
-    private static let progressHUDLabelSpacing: CGFloat = 8
+    private static let labelSpacing: CGFloat = 8
     
     ///黑色半透明背景视图
     public private(set) lazy var translucentView: UIView = {
@@ -126,7 +126,7 @@ open class ProgressHUD: UIView, ProgressHUDProtocol {
     ///计时器延迟
     private var timer: Timer?
     
-    // MARK: - ProgressHUDProtocol
+    // MARK: - ToastProtocol
     
     public var text: String? {
         didSet{
@@ -138,7 +138,7 @@ open class ProgressHUD: UIView, ProgressHUDProtocol {
     
     public var delay: TimeInterval = 0
     
-    public var status: ProgressHUDStatus = .none{
+    public var status: ToastStatus = .none{
         didSet{
             if oldValue != status {
                 statusDidChange()
@@ -170,7 +170,7 @@ open class ProgressHUD: UIView, ProgressHUDProtocol {
         }
     }
     
-    public func dismissProgress() {
+    public func dismissLoading() {
         
         if status == .loading {
             dismiss()
@@ -233,12 +233,12 @@ open class ProgressHUD: UIView, ProgressHUDProtocol {
     private func textDidChange() {
         
         if text != nil {
-            textSize = text!.gkStringSize(font: font, with: maximumSize.width - ProgressHUD.progressHUDHorizontalSpacing * 2)
+            textSize = text!.gkStringSize(font: font, with: maximumSize.width - Toast.horizontalSpacing * 2)
         } else {
             textSize = CGSize.zero
         }
         
-        textSize.width = max(minimumSize.width - ProgressHUD.progressHUDHorizontalSpacing * 2, textSize.width)
+        textSize.width = max(minimumSize.width - Toast.horizontalSpacing * 2, textSize.width)
         textSize.height = min(maximumSize.height, textSize.height)
       
         textLabel.text = text
@@ -274,7 +274,7 @@ open class ProgressHUD: UIView, ProgressHUDProtocol {
             let indicatorUse = status == .loading
             let textUse = !String.isEmpty(text)
             
-            var realContentWidth = ProgressHUD.progressHUDHorizontalSpacing * 2
+            var realContentWidth = Toast.horizontalSpacing * 2
             var realConetnHeight: CGFloat = 0
             
             if imageUse {
@@ -286,11 +286,11 @@ open class ProgressHUD: UIView, ProgressHUDProtocol {
             }
             
             if textUse {
-                realConetnHeight += ProgressHUD.progressHUDLabelSpacing + textSize.height
+                realConetnHeight += Toast.labelSpacing + textSize.height
             }
             
             let contentWidth = max(realContentWidth, minimumSize.width)
-            let contentHeight = max(minimumSize.height, realConetnHeight + ProgressHUD.progressHUDVerticalSpacing * 2)
+            let contentHeight = max(minimumSize.height, realConetnHeight + Toast.verticalSpacing * 2)
             
             translucentView.frame = CGRect(x: (self.gkWidth - contentWidth) / 2.0, y: (self.gkHeight - contentHeight) / 2.0, width: contentWidth, height: contentHeight)
             
@@ -304,7 +304,7 @@ open class ProgressHUD: UIView, ProgressHUDProtocol {
             }
             
             if(textUse){
-                textLabel.frame = CGRect(x: (contentWidth - realContentWidth) / 2, y: y + ProgressHUD.progressHUDLabelSpacing, width: textSize.width, height: textSize.height)
+                textLabel.frame = CGRect(x: (contentWidth - realContentWidth) / 2, y: y + Toast.labelSpacing, width: textSize.width, height: textSize.height)
             }
         }
     }
