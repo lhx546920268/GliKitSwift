@@ -9,7 +9,7 @@
 import Foundation
 
 ///可复制协议 在属性前面加上@objc，或者在类的上面加上@objcMembers，否则会抛出异常 不支持结构体、枚举、可选的基本数据类型
-public protocol Copyable{
+public protocol Copyable: AnyObject{
     
     func gkCopy() -> Self
 }

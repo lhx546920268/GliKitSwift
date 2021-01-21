@@ -25,10 +25,10 @@ open class PopoverMenuItem {
 }
 
 ///弹窗按钮cell
-open class PopoverMenuCell: UITableViewCell{
+fileprivate class PopoverMenuCell: UITableViewCell{
     
     ///按钮
-    public lazy var button: Button = {
+    lazy var button: Button = {
         
         let btn = Button()
         btn.contentHorizontalAlignment = .left
@@ -46,7 +46,7 @@ open class PopoverMenuCell: UITableViewCell{
     }()
     
     ///分割线
-    public lazy var divider: Divider = {
+    lazy var divider: Divider = {
         
         let divider = Divider(vertical: false)
         self.contentView.addSubview(divider)

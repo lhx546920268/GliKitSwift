@@ -49,7 +49,7 @@ open class DataControl: UIView {
     
     ///适配安全区域
     open var realCriticalPoint: CGFloat {
-        return self.realCriticalPoint
+        criticalPoint
     }
     
     ///原来的内容 缩进

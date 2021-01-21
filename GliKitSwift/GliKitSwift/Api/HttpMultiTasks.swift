@@ -27,7 +27,7 @@ open class HttpMultiTasks {
     public var completion: ((HttpMultiTasks, Bool) -> Void)?
     
     ///任务列表
-    private var tasks = Array<HttpTask>()
+    private var tasks = ContiguousArray<HttpTask>()
 
     ///是否有请求失败
     private var hasFail = false

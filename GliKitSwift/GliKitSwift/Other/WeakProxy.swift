@@ -22,7 +22,7 @@ class WeakProxy: NSObject {
     }
     
     deinit {
-        print("WeakProxy")
+        print("WeakProxy deinit")
     }
 }
 

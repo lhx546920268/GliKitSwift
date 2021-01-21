@@ -9,7 +9,7 @@
 import UIKit
 
 ///菜单按钮信息
-class TabMenuBarItem: MenuBarItem {
+open class TabMenuBarItem: MenuBarItem {
     
     ///标题
     public var title: String?

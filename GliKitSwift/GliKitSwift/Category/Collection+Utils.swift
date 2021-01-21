@@ -22,6 +22,20 @@ public extension Array where Array.Element: Equatable {
     }
 }
 
+public extension ContiguousArray where ContiguousArray.Element: Equatable {
+    
+    ///删除元素
+    @discardableResult
+    mutating func remove(_ obj: Element) -> Int? {
+        
+        if let index = firstIndex(of: obj) {
+            remove(at: index)
+            return index
+        }
+        return nil
+    }
+}
+
 public extension Dictionary{
     
     ///去空获取对象 并且如果对象是数字将会转化成字符串

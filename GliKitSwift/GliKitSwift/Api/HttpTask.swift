@@ -157,11 +157,16 @@ open class HttpTask {
     
     /// 请求开始了
     open func onStart(){
+        
+    }
+    
+    private func _onStart(){
         HttpTask.sharedTasks.insert(self)
         if shouldShowloadingToast {
             UIApplication.shared.gkKeyWindow?.endEditing(true)
             view?.gkShowLoadingToast(delay: loadingToastDelay)
         }
+        onStart()
     }
     
     /// 子类实现这个校验接口返回的数据
@@ -184,6 +189,9 @@ open class HttpTask {
     /// 请求完成 无论是 失败 成功 或者取消
     open func onComplete(){
         
+    }
+    
+    private func _onComplete(){
         isCompleted = true
         if shouldShowloadingToast {
             view?.gkDismissLoadingToast()
@@ -191,19 +199,20 @@ open class HttpTask {
         delegate?.taskDidComplete(self)
         request = nil
         HttpTask.sharedTasks.remove(self)
+        onComplete()
     }
     
     // MARK: - 外部调用方法
     
     /// 开始请求
     @discardableResult
-    open func start() -> Self{
+    public func start() -> Self{
         lock.lock()
         defer {
             lock.unlock()
         }
         if !isExecuting && !isCancelled && !isCompleted {
-            onStart()
+            _onStart()
             createRequestIfNeeded()
             request?.resume()
         }
@@ -245,7 +254,7 @@ open class HttpTask {
     }
     
     /// 取消
-    open func cancel(){
+    public func cancel(){
         lock.lock()
         defer {
             lock.unlock()
@@ -257,14 +266,14 @@ open class HttpTask {
                 request?.cancel()
             }
             
-            onComplete()
+            _onComplete()
         }
     }
     
     // MARK: - 处理结果
     
     ///处理http请求请求成功的结果
-    open func processSuccessResult(_ result: JSONResult){
+    private func processSuccessResult(_ result: JSONResult){
         
         data = result
         isApiSuccess = onLoadData(result)
@@ -278,7 +287,7 @@ open class HttpTask {
     }
     
     ///处理请求失败错误
-    open func processError(_ error: Error?){
+    private func processError(_ error: Error?){
         
         //是自己取消的  因为服务端取消的也会被标记成 NSURLErrorCancelled
         if isCancelled {
@@ -316,7 +325,7 @@ open class HttpTask {
             }
             if !self.isCancelled {
                 self.successCallback?(self)
-                self.onComplete()
+                self._onComplete()
             }
         }
     }
@@ -333,7 +342,7 @@ open class HttpTask {
                 self.onFail()
                 self.failCallback?(self)
                 self.delegate?.taskDidFail(self)
-                self.onComplete()
+                self._onComplete()
             }
         }
     }
@@ -386,7 +395,7 @@ public extension HttpTask {
 }
 
 ///可取消的
-public protocol HttpTaskCancelable {
+public protocol HttpTaskCancelable: AnyObject {
     
     /**
      添加需要取消的请求 在 deInit

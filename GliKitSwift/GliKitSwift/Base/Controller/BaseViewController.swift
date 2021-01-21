@@ -103,7 +103,7 @@ open class BaseViewController: UIViewController, UIGestureRecognizerDelegate, Em
     }
 
     ///设置导航栏隐藏
-    open func setNavigatonBarHidden(_ hidden: Bool, animated: Bool = false){
+    public func setNavigatonBarHidden(_ hidden: Bool, animated: Bool = false){
         
         if animated {
             if !hidden {
@@ -172,7 +172,7 @@ open class BaseViewController: UIViewController, UIGestureRecognizerDelegate, Em
     
     // MARK: - View Life Cycle
 
-    open override func loadView() {
+    public override func loadView() {
         
         //如果有 xib 则加载对应的xib
         if Bundle.main.path(forResource: self.gkNameOfClass, ofType: "nib") != nil {

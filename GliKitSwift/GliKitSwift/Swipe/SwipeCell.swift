@@ -51,7 +51,7 @@ public protocol SwipeCell: UIView {
 }
 
 ///代理
-public protocol SwipeCellDelegate {
+public protocol SwipeCellDelegate: AnyObject {
     
     ///获取按钮
     func swipeCell(_ cell: SwipeCell, swipeButtonsForDirection direction: SwipeDirection) -> [UIView]
@@ -124,7 +124,7 @@ public class GKSwipeCellHelper: NSObject, UIGestureRecognizerDelegate {
     private var snapshotView: UIImageView?
 
     ///当前按钮
-    private var currentSwipeItems: [SwipeItem]?
+    private var currentSwipeItems: ContiguousArray<SwipeItem>?
 
     ///滑动的最大位置
     private var maxTranslationX: CGFloat = 0
@@ -338,7 +338,7 @@ public class GKSwipeCellHelper: NSObject, UIGestureRecognizerDelegate {
         if cell.swipeDirection.contains(direction) {
             
             let buttons = cell.delegate!.swipeCell(cell, swipeButtonsForDirection: direction)
-            var items = [SwipeItem]()
+            var items = ContiguousArray<SwipeItem>()
             for view in buttons {
                 items.append(SwipeItem(view: view))
             }

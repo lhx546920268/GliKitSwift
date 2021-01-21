@@ -9,7 +9,7 @@
 import UIKit
 
 private var reusableIdentifierKey: UInt8 = 0
-private var pageIndexKey: UInt8 = 0;
+private var pageIndexKey: UInt8 = 0
 
 ///主要用于翻页视图 子视图重用
 fileprivate extension UIView {
@@ -317,7 +317,7 @@ open class PageView: UIView, UIScrollViewDelegate {
                 scrollTo(0, animated: false)
             }
             layoutItems()
-            startAnimate()
+            startAnimating()
         }
     }
     
@@ -559,17 +559,17 @@ open class PageView: UIView, UIScrollViewDelegate {
     open override func willMove(toWindow newWindow: UIWindow?) {
         if !bounds.size.equalTo(.zero) {
             if newWindow != nil {
-                startAnimate()
+                startAnimating()
             }else{
-                stopAnimate()
+                stopAnimating()
             }
         }
     }
     
     ///开始动画
-    private func startAnimate() {
+    private func startAnimating() {
         if !shouldScrollInfinitely || !autoPlay {
-            stopAnimate()
+            stopAnimating()
             return
         }
         
@@ -586,7 +586,7 @@ open class PageView: UIView, UIScrollViewDelegate {
     }
     
     ///结束动画
-    private func stopAnimate() {
+    private func stopAnimating() {
         if timer != nil && timer!.isExcuting {
             timer?.stop();
         }
@@ -684,20 +684,20 @@ extension PageView {
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         contentOffset = scrollView.contentOffset
-        stopAnimate()
+        stopAnimating()
     }
     
     public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
             contentOffset = .zero
-            startAnimate()
+            startAnimating()
         }
     }
     
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if !scrollView.isDragging {
             contentOffset = .zero
-            startAnimate()
+            startAnimating()
         }
     }
 }

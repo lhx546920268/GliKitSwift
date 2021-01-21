@@ -9,7 +9,7 @@
 import UIKit
 
 ///tabBar控制器协议
-public protocol TabBarControllerProtocol {
+public protocol TabBarControllerProtocol: AnyObject {
     
     ///当前显示的 viewController
     var selectedViewController: UIViewController? {

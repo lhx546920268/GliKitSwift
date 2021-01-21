@@ -82,9 +82,9 @@ open class BannerView: UIView, UICollectionViewDataSource, UICollectionViewDeleg
     public var enableAutoScroll: Bool = true {
         didSet {
             if self.enableAutoScroll && !self.isDecelerating && !self.isDragging {
-                startAnimate()
+                startAnimating()
             }else{
-                stopAnimate()
+                stopAnimating()
             }
         }
     }
@@ -171,15 +171,18 @@ open class BannerView: UIView, UICollectionViewDataSource, UICollectionViewDeleg
         collectionView.backgroundColor = .clear
         collectionView.dataSource = self;
         collectionView.scrollsToTop = false
+        if #available(iOS 11.0, *) {
+            collectionView.contentInsetAdjustmentBehavior = .never
+        }
         addSubview(collectionView)
     }
     
     open override func willMove(toWindow newWindow: UIWindow?) {
         if isLayoutSubviews {
             if newWindow != nil {
-                startAnimate()
+                startAnimating()
             } else {
-                stopAnimate()
+                stopAnimating()
             }
         }
     }
@@ -208,7 +211,7 @@ open class BannerView: UIView, UICollectionViewDataSource, UICollectionViewDeleg
         if numberOfItems > 0 {
             scrollTo(index: 0, animated: false)
         }
-        startAnimate()
+        startAnimating()
     }
 
     ///重新加载数据
@@ -248,10 +251,10 @@ open class BannerView: UIView, UICollectionViewDataSource, UICollectionViewDeleg
 extension BannerView {
     
     ///开始动画
-    private func startAnimate() {
+    private func startAnimating() {
         
         if !self.shouldScrollInfinitly || !self.enableAutoScroll {
-            stopAnimate()
+            stopAnimating()
             return
         }
         
@@ -269,7 +272,7 @@ extension BannerView {
     }
 
     ///停止动画
-    private func stopAnimate(){
+    private func stopAnimating(){
         if self.timer != nil && self.timer!.isExcuting {
             self.timer!.stop()
         }
@@ -380,14 +383,14 @@ extension BannerView {
 extension BannerView {
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        stopAnimate()
+        stopAnimating()
         contentOffset = scrollView.contentOffset
     }
     
     public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         
         if !decelerate {
-            startAnimate()
+            startAnimating()
             contentOffset = .zero
         }
     }
@@ -395,7 +398,7 @@ extension BannerView {
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
         if !scrollView.isDragging {
-            startAnimate()
+            startAnimating()
             contentOffset = .zero
         }
     }
