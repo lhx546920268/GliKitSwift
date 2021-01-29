@@ -49,7 +49,7 @@ fileprivate class KVOCallbackModel {
     ///重置
     func reset() {
         hasOldValue = false
-        oldValue = nil
+        _oldValue = nil
         newValue = nil
     }
 }

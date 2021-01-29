@@ -51,11 +51,7 @@ public extension UITableView {
             if identifier == nil {
                 identifier = String(describing: type)
             }
-            var cell: Item? = gkCell(for: identifier!)
-            if cell == nil {
-                //有时候cell没有注册，而是直接创建的
-                cell = dequeueReusableCell(withIdentifier: identifier!) as? Item
-            }
+            let cell: Item? = gkCell(for: identifier!, isHeaderFooter: false)
             return gkRowHeight(forCell: cell!, model: model)
         }
         return model.rowHeight!
@@ -120,11 +116,7 @@ public extension UITableView {
             if identifier == nil {
                 identifier = String(describing: type)
             }
-            var cell: Item? = gkCell(for: identifier!)
-            if cell == nil {
-                //有时候cell没有注册，而是直接创建的
-                cell = dequeueReusableHeaderFooterView(withIdentifier: identifier!) as? Item
-            }
+            let cell: Item? = gkCell(for: identifier!, isHeaderFooter: true)
             return gkRowHeight(forHeaderFooter: cell!, model: model)
         }
         return model.rowHeight!
@@ -145,58 +137,9 @@ public extension UITableView {
     }
     
     // MARK: - 注册的 cells
-    
-    internal static func swizzleTableViewRowHeight(){
-        
-        let selectors: [String] = [
-            "registerNib:forCellReuseIdentifier:",
-            "registerClass:forCellReuseIdentifier:",
-            "registerNib:forHeaderFooterViewReuseIdentifier:",
-            "registerClass:forHeaderFooterViewReuseIdentifier:"
-        ]
-
-        for selector in selectors {
-            swizzling(selector1: Selector(selector), selector2: Selector("gkRowHeight_\(selector)"), cls1: self)
-        }
-    }
-    
-    @objc private func gkRowHeight_registerClass(_ cls: AnyClass?, forCellReuseIdentifier identifier: String) {
-        gkRowHeight_registerClass(cls, forCellReuseIdentifier: identifier)
-        gkRegisterObjects[identifier] = cls
-    }
-
-    @objc private func gkRowHeight_registerNib(_ nib: UINib?, forCellReuseIdentifier identifier: String) {
-        gkRowHeight_registerNib(nib, forCellReuseIdentifier: identifier)
-        gkRegisterObjects[identifier] = nib;
-    }
-
-    @objc private func gkRowHeight_registerClass(_ cls: AnyClass?, forHeaderFooterViewReuseIdentifier identifier: String) {
-        gkRowHeight_registerClass(cls, forHeaderFooterViewReuseIdentifier: identifier)
-        gkRegisterObjects[identifier] = cls
-    }
-
-    @objc private func gkRowHeight_registerNib(_ nib: UINib?, forHeaderFooterViewReuseIdentifier identifier: String) {
-        gkRowHeight_registerNib(nib, forHeaderFooterViewReuseIdentifier: identifier)
-        gkRegisterObjects[identifier] = nib;
-    }
-
-    ///注册的 class nib
-    private var gkRegisterObjects: NSMutableDictionary {
-        get{
-            var objects = objc_getAssociatedObject(self, &registerObjectsKey) as? NSMutableDictionary
-            if objects == nil {
-                objects = NSMutableDictionary()
-                objc_setAssociatedObject(self, &registerObjectsKey, objects, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            }
-            return objects!
-        }
-    }
 
     ///注册的cells header footer 用来计算
-    private func gkCell<Item: TableConfigurableItem>(for identifier: String) -> Item? {
-        /**
-         不用 dequeueReusableCellWithIdentifier 是因为会创建N个cell
-         */
+    private func gkCell<Item: TableConfigurableItem>(for identifier: String, isHeaderFooter: Bool) -> Item? {
         var cells = objc_getAssociatedObject(self, &registerCellsKey) as? NSMutableDictionary
         if cells == nil {
             cells = NSMutableDictionary()
@@ -206,16 +149,12 @@ public extension UITableView {
         if let cells = cells {
             var view = cells[identifier] as? Item
             if view == nil {
-                let obj = gkRegisterObjects[identifier]
-                if obj is UINib {
-                    let nib: UINib = obj as! UINib
-                    view = nib.instantiate(withOwner: nil, options: nil).first as? Item
-                    cells[identifier] = view
-                } else if obj is AnyClass {
-                    let cls = obj as! Item.Type
-                    view = cls.init()
-                    cells[identifier] = view
+                if isHeaderFooter {
+                    view = dequeueReusableHeaderFooterView(withIdentifier: identifier) as? Item
+                } else {
+                    view = dequeueReusableCell(withIdentifier: identifier) as? Item
                 }
+                cells[identifier] = view
             }
             
             return view

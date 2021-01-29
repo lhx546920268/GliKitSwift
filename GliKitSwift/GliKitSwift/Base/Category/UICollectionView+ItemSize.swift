@@ -60,7 +60,11 @@ public extension UICollectionView {
         model: Item.Model,
         constraintSize: CGSize = .zero,
         identifier: String? = nil) -> CGSize {
+        
         if model.itemSize == nil {
+            if self.frame.size.hasZero {
+                return .zero
+            }
             //计算大小
             var identifier = identifier
             if identifier == nil {
