@@ -64,9 +64,15 @@ public extension UITableView {
     /// - Returns: cell 高度
     func gkRowHeight<Item: TableConfigurableItem>(forCell cell: Item, model: Item.Model) -> CGFloat {
         if model.rowHeight == nil {
-            var width = self.frame.width
             
+            //设置 UITableView的某些属性会触发 获取高度代理，比如layoutMargins，tableHeaderView, 这时如果还没设置frame，直接返回0
+            if frame.size.hasZero {
+                return 0
+            }
+            
+            var width = self.frame.width
             let item = cell as! UITableViewCell
+            
             //当使用系统的accessoryView时，content宽度会向右偏移
             if item.accessoryView != nil {
                 width -= 16.0 + item.accessoryView!.frame.width
@@ -95,6 +101,7 @@ public extension UITableView {
             
             cell.model = model
             var height = item.contentView.gkSizeThatFits(CGSize(width, 0), type: .height).height
+            
             //如果有分割线 加上1px
             if separatorStyle != .none {
                 height += 1.0 / UIScreen.main.scale
@@ -112,6 +119,12 @@ public extension UITableView {
     /// - Returns: header footer 高度
     func gkHeaderFooterHeight<Item: TableConfigurableItem>(forType type: Item.Type, model: Item.Model, identifier: String? = nil) -> CGFloat {
         if model.rowHeight == nil {
+            
+            //设置 UITableView的某些属性会触发 获取高度代理，比如layoutMargins，tableHeaderView, 这时如果还没设置frame，直接返回0
+            if frame.size.hasZero {
+                return 0
+            }
+            
             var identifier = identifier
             if identifier == nil {
                 identifier = String(describing: type)

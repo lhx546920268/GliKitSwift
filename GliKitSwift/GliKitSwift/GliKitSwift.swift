@@ -16,7 +16,6 @@ public struct GliKitSwift {
     public static func initialize(){
         DispatchQueue.once(token: "GliKitSwift.initialize"){
             UIView.swizzleNavigationBarMargins()
-            UITableView.swizzleTableViewRowHeight()
             UICollectionView.swizzleCollectionViewItemSize()
             UIViewController.swizzleForDialog()
             UIView.swizzleSkeletonMethod()

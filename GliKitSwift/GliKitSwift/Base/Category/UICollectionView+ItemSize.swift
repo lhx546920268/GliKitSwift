@@ -62,7 +62,7 @@ public extension UICollectionView {
         identifier: String? = nil) -> CGSize {
         
         if model.itemSize == nil {
-            if self.frame.size.hasZero {
+            if frame.size.hasZero {
                 return .zero
             }
             //计算大小
@@ -144,6 +144,8 @@ public extension UICollectionView {
     private func gkCell<Item: CollectionConfigurableItem>(for identifier: String) -> Item {
         /**
          不用 dequeueReusableCellWithIdentifier 是因为会创建N个cell
+         不用 dequeueReusableCellWithReuseIdentifier 是因为会创建N个cell，并且会报下面的警告
+         [CollectionView] An attempt to prepare a layout while a prepareLayout call was already in progress
          */
         var cells = objc_getAssociatedObject(self, &registerCellsKey) as? NSMutableDictionary
         if cells == nil {

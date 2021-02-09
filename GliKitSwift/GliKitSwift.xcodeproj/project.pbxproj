@@ -17,6 +17,7 @@
 		CE0594C72437146200510AD2 /* UIView+AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0594C62437146200510AD2 /* UIView+AutoLayout.swift */; };
 		CE0594C924373D5D00510AD2 /* TabMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0594C824373D5D00510AD2 /* TabMenuBar.swift */; };
 		CE0E62EB253EEAB000F934FB /* AlertUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E62EA253EEAB000F934FB /* AlertUtils.swift */; };
+		CE1100B425D145D10005046F /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1100B325D145D10005046F /* Router.swift */; };
 		CE160E1D242462BD008E7392 /* NavigationItemHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E1C242462BD008E7392 /* NavigationItemHelper.swift */; };
 		CE160E1F242471E7008E7392 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E1E242471E7008E7392 /* BaseViewModel.swift */; };
 		CE160E212424A350008E7392 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE160E202424A350008E7392 /* BaseNavigationController.swift */; };
@@ -174,6 +175,7 @@
 		CE0594C62437146200510AD2 /* UIView+AutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AutoLayout.swift"; sourceTree = "<group>"; };
 		CE0594C824373D5D00510AD2 /* TabMenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuBar.swift; sourceTree = "<group>"; };
 		CE0E62EA253EEAB000F934FB /* AlertUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertUtils.swift; sourceTree = "<group>"; };
+		CE1100B325D145D10005046F /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		CE160E1C242462BD008E7392 /* NavigationItemHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationItemHelper.swift; sourceTree = "<group>"; };
 		CE160E1E242471E7008E7392 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		CE160E202424A350008E7392 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
@@ -823,6 +825,7 @@
 				CEBEB52C23D5AB48000B8CBF /* KeyboardHelper.swift */,
 				CE0E62EA253EEAB000F934FB /* AlertUtils.swift */,
 				CE2D69DA254AA7FE004B120F /* AppUtils.swift */,
+				CE1100B325D145D10005046F /* Router.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1034,6 +1037,7 @@
 				CEFACDBF25427946002C356E /* UIScrollView+GKNestedScroll.swift in Sources */,
 				CEB6D2C823D3F0CD00457164 /* UIImage+Theme.swift in Sources */,
 				CED4CB6F245177C700369B04 /* UIView+NavigationBarUtils.swift in Sources */,
+				CE1100B425D145D10005046F /* Router.swift in Sources */,
 				CE20FF3C253FE11F0084D596 /* UIView+Skeleton.swift in Sources */,
 				CE0594C12436C53900510AD2 /* NSAttributedString+Utils.swift in Sources */,
 				CE160E1D242462BD008E7392 /* NavigationItemHelper.swift in Sources */,

@@ -22,6 +22,24 @@ public extension Array where Array.Element: Equatable {
     }
 }
 
+public extension Array where Array.Element: NSObjectProtocol {
+    
+    ///删除元素
+    @discardableResult
+    mutating func removeObject(_ obj: Element) -> Int? {
+        
+        let index = firstIndex { element -> Bool in
+            return element.isEqual(obj)
+        }
+        if index != nil {
+            remove(at: index!)
+            return index!
+        }
+        
+        return nil
+    }
+}
+
 public extension ContiguousArray where ContiguousArray.Element: Equatable {
     
     ///删除元素

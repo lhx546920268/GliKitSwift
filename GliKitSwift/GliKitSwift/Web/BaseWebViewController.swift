@@ -26,6 +26,18 @@ private let sharedProcessPool = WKProcessPool()
 ///基础Web 视图控制器
 open class BaseWebViewController: BaseViewController {
     
+    init(urlString: String?) {
+        if let urlString = urlString {
+            self.url = URL(string: urlString)
+        }
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required public init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     ///网页视图
     public private(set) lazy var webView: WKWebView = {
         let webView = WKWebView(frame: .zero, configuration: configuration)

@@ -484,14 +484,3 @@ extension BaseViewController: HttpTaskCancelable{
         }
     }
 }
-
-///路由
-public extension BaseViewController{
-    
-    /**
-     设置路由参数，如果参数名和属性名一致，则不需要处理这个
-     */
-    @objc func setRouterParams(_ params: Dictionary<String, Any>?){
-        
-    }
-}
