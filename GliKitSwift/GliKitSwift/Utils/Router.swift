@@ -246,7 +246,6 @@ public class Router: NSObject {
                 cannotFound(props: props)
             }
         } else if let routeParams = props.routeParams, routeParams.count > 0 {
-            setProperty(for: viewController!, data: routeParams)
             viewController?.setRouterParams(routeParams)
         }
         
@@ -413,43 +412,6 @@ public class Router: NSObject {
     private func isSupport(scheme: String) -> Bool {
         let scheme = "\(scheme)://"
         return scheme == appScheme || scheme == "http://" || scheme == "https://"
-    }
-
-    // MARK: - Property
-    
-    private func setProperty(for viewController: UIViewController, data: RouteParameters) {
-        setProperty(for: viewController, data: data, cls: viewController.classForCoder)
-    }
-    
-    private func setProperty(for viewController: UIViewController, data: RouteParameters, cls: AnyClass) {
-        if cls == UIViewController.self {
-            return
-        }
-        
-        //获取当前类的所有属性，该方法无法获取父类或者子类的属性
-        var count: UInt32 = 0
-         if let properties = class_copyPropertyList(cls, &count) {
-             for i in 0 ..< Int(count) {
-                 let property = properties[i]
-                 guard let name = String(cString: property_getName(property), encoding: .utf8) else {
-                     continue
-                 }
-                 guard let attributes = property_getAttributes(property), let attr = String(cString: attributes, encoding: .utf8) else {
-                     continue
-                 }
-                 //判断是否是只读属性
-                 let attrs = attr.components(separatedBy: ",")
-                if attrs.count > 0 && !attrs.contains("R") {
-                    setValue(data[name], forKey: name)
-                 }
-             }
-             free(properties)
-         }
-        
-        //递归获取父类的属性
-        if let superCls = cls.superclass() {
-            setProperty(for: viewController, data: data, cls: superCls)
-         }
     }
 }
 

@@ -28,12 +28,5 @@ func swizzling(selector1: Selector, cls1: AnyClass, selector2: Selector, cls2: A
         return
     }
     
-    //添加失败 说明 方法2已存在，直接交换实现
-    if(class_addMethod(cls1, selector2, method_getImplementation(method2), method_getTypeEncoding(method2))){
-        
-        //添加成功 替换方法1的实现
-        class_replaceMethod(cls1, selector1, method_getImplementation(method2), method_getTypeEncoding(method2))
-    }else{
-        method_exchangeImplementations(method1, method2)
-    }
+    method_exchangeImplementations(method1, method2)
 }
