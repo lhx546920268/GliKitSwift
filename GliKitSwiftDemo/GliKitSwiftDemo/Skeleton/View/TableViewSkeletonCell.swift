@@ -13,5 +13,6 @@ class TableViewSkeletonCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
     }
 }

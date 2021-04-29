@@ -29,7 +29,7 @@ open class RootViewController: TableViewController {
             RowModel(title: "过渡动画", cls: TransitionViewController.self),
             RowModel(title: "Banner", cls: BannerViewController.self),
         ]
-        
+
         let safe = SafeLayoutGuide.all
         print("contains", safe.contains(SafeLayoutGuide.left))
         
