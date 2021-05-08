@@ -54,10 +54,7 @@ open class BaseViewController: UIViewController, UIGestureRecognizerDelegate, Em
     // MARK: - Task
     
     ///用来在delloc之前 要取消的请求
-    private lazy var currentTasks: Set<WeakObjectContainer> = {
-      
-        return Set()
-    }()
+    private var currentTasks: Set<WeakObjectContainer>?
     
     // MARK: - 内容视图
 
@@ -430,8 +427,11 @@ extension BaseViewController: HttpTaskCancelable{
      @param cancel 是否取消相同的任务 通过 task.name 来判断
      */
     public func addCancelableTask(_ task: HttpTask, cancelTheSame cancel: Bool = false){
+        if currentTasks == nil {
+            currentTasks = Set()
+        }
         self.removeInvalidTasks(cancelTheSame: cancel, name: task.name)
-        self.currentTasks.insert(WeakObjectContainer(weakObject: task))
+        self.currentTasks?.insert(WeakObjectContainer(weakObject: task))
     }
 
     /**
@@ -441,8 +441,11 @@ extension BaseViewController: HttpTaskCancelable{
      */
     public func addCancelableTasks(_ tasks: HttpMultiTasks){
         
+        if currentTasks == nil {
+            currentTasks = Set()
+        }
         self.removeInvalidTasks(cancelTheSame: false, name: nil)
-        self.currentTasks.insert(WeakObjectContainer(weakObject: tasks))
+        self.currentTasks?.insert(WeakObjectContainer(weakObject: tasks))
     }
     
     /**
@@ -453,10 +456,10 @@ extension BaseViewController: HttpTaskCancelable{
     */
     private func removeInvalidTasks(cancelTheSame: Bool, name: String?){
         
-        if self.currentTasks.count > 0 {
+        if let tasks = self.currentTasks, tasks.count > 0 {
             
             var toRemoveTasks = Set<WeakObjectContainer>()
-            for obj in self.currentTasks {
+            for obj in tasks {
                 
                 if obj.weakObject == nil {
                     toRemoveTasks.insert(obj)
@@ -468,18 +471,20 @@ extension BaseViewController: HttpTaskCancelable{
                 }
             }
             
-            self.currentTasks.remove(toRemoveTasks)
+            self.currentTasks?.remove(toRemoveTasks)
         }
     }
     
-    ///取消正在执行的请求
+    ///取消所有请求
     fileprivate func cancelAllTasks(){
         
-        for obj in self.currentTasks {
-            if let task = obj.weakObject as? HttpTask {
-                task.cancel()
-            } else if let tasks = obj.weakObject as? HttpMultiTasks {
-                tasks.cancelAllTasks()
+        if let tasks = self.currentTasks, tasks.count > 0 {
+            for obj in tasks {
+                if let task = obj.weakObject as? HttpTask {
+                    task.cancel()
+                } else if let multiTasks = obj.weakObject as? HttpMultiTasks {
+                    multiTasks.cancelAllTasks()
+                }
             }
         }
     }
