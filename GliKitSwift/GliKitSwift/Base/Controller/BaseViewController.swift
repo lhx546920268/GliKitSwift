@@ -426,7 +426,7 @@ extension BaseViewController: HttpTaskCancelable{
      @param task 请求
      @param cancel 是否取消相同的任务 通过 task.name 来判断
      */
-    public func addCancelableTask(_ task: HttpTask, cancelTheSame cancel: Bool = false){
+    public func addCancelableTask(_ task: HttpTask, cancelTheSame cancel: Bool = true){
         if currentTasks == nil {
             currentTasks = Set()
         }
@@ -444,7 +444,7 @@ extension BaseViewController: HttpTaskCancelable{
         if currentTasks == nil {
             currentTasks = Set()
         }
-        self.removeInvalidTasks(cancelTheSame: false, name: nil)
+        self.removeInvalidTasks(cancelTheSame: true, name: nil)
         self.currentTasks?.insert(WeakObjectContainer(weakObject: tasks))
     }
     
@@ -463,7 +463,7 @@ extension BaseViewController: HttpTaskCancelable{
                 
                 if obj.weakObject == nil {
                     toRemoveTasks.insert(obj)
-                } else if let task = obj.weakObject as? HttpTask {
+                } else if cancelTheSame, let task = obj.weakObject as? HttpTask {
                     if task.name == name {
                         task.cancel()
                         toRemoveTasks.insert(obj)

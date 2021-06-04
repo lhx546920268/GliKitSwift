@@ -134,12 +134,6 @@ public class Router: NSObject {
     ///单例
     public static let sharedRouter = Router()
     
-    ///app default @"app://"
-    public var appScheme: String = "app://"
-    
-    ///当scheme不支持时，是否用 UIApplication 打开
-    public var openURLWhileSchemeNotSupport: Bool = true
-    
     ///失败回调
     public var failureCallback: ((_ URLString: String, _ routeParams: RouteParameters?) -> Void)?
     
@@ -207,7 +201,7 @@ public class Router: NSObject {
         if let urlString = props.urlString {
             props.urlComponents = NSURLComponents(string: urlString)
         } else if let path = props.path {
-            props.urlComponents = NSURLComponents(string: "\(appScheme)\(path)")
+            props.urlComponents = NSURLComponents(string: path)
         }
         open(props: props)
     }
@@ -220,25 +214,16 @@ public class Router: NSObject {
         var viewController: UIViewController? = nil
         var processBySelf: Bool = false
         
-        guard let components = props.urlComponents else {
-            return viewController
-        }
         
-        let scheme = "\(components.scheme ?? "")://"
-        if scheme == appScheme {
-            
-            if let host = components.host, let registration = registrations[host] {
-                if let callback = registration.callback {
-                    viewController = callback(props.routeParams)
-                    processBySelf = true
-                } else if let cls = registration.cls as? UIViewController.Type {
-                    viewController = cls.init()
-                } else if let cls = NSClassFromString(host) as? UIViewController.Type {
-                    viewController = cls.init()
-                }
+        if let path = props.path, let registration = registrations[path] {
+            if let callback = registration.callback {
+                viewController = callback(props.routeParams)
+                processBySelf = true
+            } else if let cls = registration.cls as? UIViewController.Type {
+                viewController = cls.init()
+            } else if let cls = NSClassFromString(path) as? UIViewController.Type {
+                viewController = cls.init()
             }
-        } else if scheme == "http://" || scheme == "https://" {
-            viewController = BaseWebViewController(urlString: components.string)
         }
         
         if viewController == nil {
@@ -320,13 +305,11 @@ public class Router: NSObject {
 
     ///跳转
     private func continueRoute(_ props: RouteProps) {
-        guard let components = props.urlComponents,
-              let host = components.host,
-              let scheme = components.scheme else {
+        guard let path = props.path else {
             return
         }
         
-        if let index = tabBarIndex(for: host) {
+        if let index = tabBarIndex(for: path) {
             gkCurrentViewController.gkBack(animated: false) {
                 guard let controller = UIApplication.shared.delegate?.window??.rootViewController as? UITabBarController else {
                     return
@@ -338,9 +321,6 @@ public class Router: NSObject {
         }
         
         guard var viewController = viewController(for: props) else {
-            if openURLWhileSchemeNotSupport && !isSupport(scheme: scheme) {
-                AppUtils.openCompatURL(components.url)
-            }
             return
         }
         
@@ -406,12 +386,6 @@ public class Router: NSObject {
         print("Can not found viewControlelr for \(urlString!)")
         #endif
         failureCallback?(urlString!, props.extras)
-    }
-
-    ///判断scheme是否支持
-    private func isSupport(scheme: String) -> Bool {
-        let scheme = "\(scheme)://"
-        return scheme == appScheme || scheme == "http://" || scheme == "https://"
     }
 }
 
