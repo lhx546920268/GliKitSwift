@@ -86,15 +86,11 @@ public extension Dictionary{
     ///去空获取对象 并且如果对象是数字将会转化成字符串，如果 == nil 返回 ""
     func get(_ key: Key) -> String{
         
-        var value: String? = get(key)
-        if value == nil {
-            value = ""
-        }
-        return value!
+        return get(key) ?? ""
     }
     
     ///获取整数
-    func get(_ key: Key) -> Int{
+    func get(_ key: Key, _ defaultValue: Int = 0) -> Int{
         
         let value = self[key]
         if let intValue = value as? Int {
@@ -114,14 +110,14 @@ public extension Dictionary{
         }
         
         if let stringValue = value as? String {
-            return Int(stringValue) ?? 0
+            return Int(stringValue) ?? defaultValue
         }
         
-        return 0
+        return defaultValue
     }
     
     ///获取小数点
-    func get(_ key: Key) -> Float{
+    func get(_ key: Key, _ defaultValue: Float = 0) -> Float{
         
         let value = self[key]
         if let intValue = value as? Int {
@@ -141,14 +137,14 @@ public extension Dictionary{
         }
         
         if let stringValue = value as? String {
-            return Float(stringValue) ?? 0
+            return Float(stringValue) ?? defaultValue
         }
         
-        return 0
+        return defaultValue
     }
     
     ///获取小数点
-    func get(_ key: Key) -> Double{
+    func get(_ key: Key, _ defaultValue: Double = 0) -> Double{
         
         let value = self[key]
         if let intValue = value as? Int {
@@ -168,14 +164,14 @@ public extension Dictionary{
         }
         
         if let stringValue = value as? String {
-            return Double(stringValue) ?? 0
+            return Double(stringValue) ?? defaultValue
         }
         
-        return 0
+        return defaultValue
     }
     
     ///获取布尔
-    func get(_ key: Key) -> Bool{
+    func get(_ key: Key, _ defaultValue: Bool = false) -> Bool{
         
         let value = self[key]
         if let intValue = value as? Int {
@@ -195,10 +191,10 @@ public extension Dictionary{
         }
         
         if let stringValue = value as? String {
-            return Bool(stringValue) ?? false
+            return Bool(stringValue) ?? defaultValue
         }
         
-        return false
+        return defaultValue
     }
     
     ///获取字典
