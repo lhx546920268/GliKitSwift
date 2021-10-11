@@ -11,19 +11,6 @@ import CoreImage
 
 public extension UIImage {
     
-    ///图片等比例缩小方式
-    enum FitType {
-        
-        ///宽和高 宽高有一个大于指定值都会整体缩放
-        case size
-        
-        ///宽 只有宽度大于指定宽度时，才缩放
-        case width
-        
-        ///高 只有高度度大于指定宽度时，才缩放
-        case height
-    }
-    
     ///二维码容错率
     enum QRCodeCorrectionLevel: String {
         
@@ -79,34 +66,41 @@ public extension UIImage {
     
     /**
      通过给定的大小，获取等比例缩小后的图片尺寸
-     *@param size 要缩小的图片最大尺寸
-     *@param type 缩小方式
+     *@param size 要缩小的图片最大尺寸 小于等于0不缩放，比如高度小于0，先按宽度缩放，高度再根据宽度的比例来缩放
      *@return 返回要缩小的图片尺寸
      */
-    func gkFit(with size: CGSize, type: FitType) -> CGSize {
-        return UIImage.gkFitImageSize(self.size, size: size, type: type)
+    func gkFit(with size: CGSize) -> CGSize {
+        return UIImage.gkFitImageSize(self.size, size: size)
     }
     
     /**
      通过给定的大小，获取等比例缩小后的图片尺寸
      *@param imageSize 要缩小的图片大小
-     *@param size 要缩小的图片最大尺寸
-     *@param type 缩小方式
+     *@param size 要缩小的图片最大尺寸 小于等于0不缩放，比如高度小于0，先按宽度缩放，高度再根据宽度的比例来缩放
      *@return 返回要缩小的图片尺寸
      */
-    class func gkFitImageSize(_ imageSize: CGSize, size: CGSize, type: FitType) -> CGSize {
+    class func gkFitImageSize(_ imageSize: CGSize, size: CGSize) -> CGSize {
+        if size.width <= 0 && size.height <= 0 {
+            return imageSize
+        }
+        
         var width = imageSize.width
         var height = imageSize.height
         
         if width == height {
-            width = min(width, size.width > size.height ? size.height : size.width)
+            var value: CGFloat;
+            if (size.width > 0 && size.height > 0) {
+                value = min(size.width, size.height)
+            } else {
+                value = max(size.width, size.height)
+            }
+            width = min(value, width)
             height = width
         } else {
-            let heightScale = height / size.height
-            let widthScale = width / size.width
             
-            switch type {
-            case .size :
+            if size.width > 0 && size.height > 0 {
+                let heightScale = height / size.height
+                let widthScale = width / size.width
                 if height >= size.height && width >= size.width {
                     if heightScale > widthScale {
                         height = floor(height / heightScale)
@@ -124,15 +118,15 @@ public extension UIImage {
                         width = floor(width / widthScale)
                     }
                 }
-                
-            case .width :
+            } else if size.width > 0 {
                 if width > size.width {
+                    let widthScale = width / size.width
                     height = floor(height / widthScale)
                     width = floor(width / widthScale)
                 }
-                
-            case .height :
+            } else {
                 if height > size.height {
+                    let heightScale = height / size.height
                     height = floor(height / heightScale)
                     width = floor(width / heightScale)
                 }
@@ -152,7 +146,7 @@ public extension UIImage {
         let width = self.size.width
         let height = self.size.height
         
-        let size = UIImage.gkFitImageSize(CGSize(width, height), size: size, type: .size)
+        let size = UIImage.gkFitImageSize(CGSize(width, height), size: size)
         
         if(size.height >= height || size.width >= width) {
             return self

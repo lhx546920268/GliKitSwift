@@ -118,7 +118,7 @@ class PhotosPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
     private func rectFromImage(_ image: UIImage) -> CGRect{
         
         if let _asset = asset {
-            let size = UIImage.gkFitImageSize(CGSize(_asset.pixelWidth, _asset.pixelHeight), size: scrollView.frame.size, type: .width)
+            let size = UIImage.gkFitImageSize(CGSize(_asset.pixelWidth, _asset.pixelHeight), size: scrollView.frame.size)
             return CGRect(max(0, (bounds.width - size.width) / 2), max((bounds.size.height - size.height) / 2, 0), size.width, size.height)
         } else {
             return .zero

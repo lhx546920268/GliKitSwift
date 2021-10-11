@@ -329,9 +329,11 @@ class ImageCropViewController: BaseViewController {
         case .began, .changed :
             let absCenterX = cropFrame.midX
             let absCenterY = cropFrame.midY
-            let scale = showImageView.gkWidth / cropFrame.width
-            let acceleratorX: CGFloat = 1 - abs(absCenterX - showImageView.gkCenterX) / (scale * absCenterX)
-            let acceleratorY: CGFloat = 1 -  abs(absCenterY - showImageView.gkCenterY) / (scale * absCenterY)
+            let widthScale = showImageView.gkWidth / cropFrame.width
+            let heightScale = showImageView.gkHeight / cropFrame.height
+            
+            let acceleratorX: CGFloat = 1 - abs(absCenterX - showImageView.gkCenterX) / (widthScale * absCenterX)
+            let acceleratorY: CGFloat = 1 -  abs(absCenterY - showImageView.gkCenterY) / (heightScale * absCenterY)
             
             let translation = pan.translation(in: showImageView.superview)
             

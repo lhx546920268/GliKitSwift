@@ -302,7 +302,7 @@ class PhotosPreviewViewController: CollectionViewController, PhotosPreviewCellDe
         let asset = assets[indexPath.item]
         cell.asset = asset
         
-        let size = UIImage.gkFitImageSize(CGSize(asset.pixelWidth, asset.pixelHeight), size: CGSize(collectionView.gkWidth * photosOptions.scale, 0), type: .width)
+        let size = UIImage.gkFitImageSize(CGSize(asset.pixelWidth, asset.pixelHeight), size: CGSize(collectionView.gkWidth * photosOptions.scale, 0))
         PHImageManager.default().requestImage(for: asset, targetSize: size, contentMode: .aspectFit, options: imageRequestOptions) { (image, _) in
             if asset.localIdentifier == cell.asset?.localIdentifier {
                 cell.onLoadImage(image)

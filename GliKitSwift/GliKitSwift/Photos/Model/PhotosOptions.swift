@@ -52,7 +52,7 @@ public struct PhotosPickResult {
                 
                 if !options.compressedImageSize.hasZeroOrNegative {
                     var size = CGSize(options.compressedImageSize.width * scale, options.compressedImageSize.height * scale)
-                    size = UIImage.gkFitImageSize(imageSize, size: size, type: .width)
+                    size = UIImage.gkFitImageSize(imageSize, size: size)
                     
                     let dic: [CFString: Any] = [
                         kCGImageSourceThumbnailMaxPixelSize: max(size.width, size.height),
@@ -66,7 +66,7 @@ public struct PhotosPickResult {
                 
                 if !options.thumbnailSize.hasZeroOrNegative {
                     var size = CGSize(options.thumbnailSize.width * scale, options.thumbnailSize.height * scale)
-                    size = UIImage.gkFitImageSize(imageSize, size: size, type: .width)
+                    size = UIImage.gkFitImageSize(imageSize, size: size)
                     
                     let dic: [CFString: Any] = [
                         kCGImageSourceThumbnailMaxPixelSize: max(size.width, size.height),
