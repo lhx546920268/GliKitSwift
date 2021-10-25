@@ -127,6 +127,11 @@ public class BaseNavigationController: UINavigationController, UINavigationContr
         
         return false
     }
+    
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        //避免和其他手势冲突，比如在有UIScrollView的页面，比较难侧滑返回
+        return gestureRecognizer == interactivePopGestureRecognizer
+    }
 
     // MARK: - UIStatusBar
     
