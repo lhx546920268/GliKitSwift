@@ -289,6 +289,7 @@ extension BannerView {
         }
         
         if index < count {
+            contentOffset = collectionView.contentOffset
             switch scrollDirection {
             case .horizontal :
                 collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: animated)
@@ -296,6 +297,10 @@ extension BannerView {
                 collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredVertically, animated: animated)
             @unknown default:
                 fatalError()
+            }
+            
+            if !animated {
+                adjustItemPosition()
             }
         }
     }
@@ -391,7 +396,7 @@ extension BannerView {
         
         if !decelerate {
             startAnimating()
-            contentOffset = .zero
+            adjustItemPosition()
         }
     }
    
@@ -399,11 +404,20 @@ extension BannerView {
         
         if !scrollView.isDragging {
             startAnimating()
-            contentOffset = .zero
+            adjustItemPosition()
         }
     }
     
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        adjustItemPosition()
+    }
+    
+    //调整位置
+    private func adjustItemPosition() {
+        
+        guard let scrollView = collectionView else {
+            return
+        }
         
         switch scrollDirection {
         case .horizontal :
@@ -413,8 +427,7 @@ extension BannerView {
             if shouldScrollInfinitly {
                 if page == 0 {
                     if contentOffset.x > scrollView.contentOffset.x {
-                        collectionView .scrollRectToVisible(CGRect(pageWidth * (numberOfItems + 1).cgFloatValue, 0, pageWidth, scrollView.gkHeight), animated: false) // 最后+1,循环到第1页
-                        contentOffset = CGPoint(pageWidth * (numberOfItems + 1).cgFloatValue, 0)
+                        collectionView .scrollRectToVisible(CGRect(pageWidth * numberOfItems.cgFloatValue, 0, pageWidth, scrollView.gkHeight), animated: false) // 最后+1,循环到第1页
                         pageControl?.currentPage = numberOfItems - 1
                     }
                 } else if page >= (numberOfItems + 1) {
@@ -436,8 +449,7 @@ extension BannerView {
             if shouldScrollInfinitly {
                 if page == 0 {
                     if contentOffset.y > scrollView.contentOffset.y {
-                        collectionView.scrollRectToVisible(CGRect(0, pageHeight * (numberOfItems + 1).cgFloatValue, scrollView.gkWidth, pageHeight), animated: false) // 最后+1,循环到第1页
-                        contentOffset = CGPoint(0, pageHeight * (numberOfItems + 1).cgFloatValue)
+                        collectionView.scrollRectToVisible(CGRect(0, pageHeight * numberOfItems.cgFloatValue, scrollView.gkWidth, pageHeight), animated: false) // 最后+1,循环到第1页
                         pageControl?.currentPage = numberOfItems - 1
                     }
                 } else if page >= (numberOfItems + 1) {
@@ -454,5 +466,7 @@ extension BannerView {
         @unknown default:
             fatalError()
         }
+        
+        contentOffset = .zero
     }
 }

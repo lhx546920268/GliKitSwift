@@ -263,6 +263,10 @@ open class PageView: UIView, UIScrollViewDelegate {
             case .none :
                 break
             }
+            
+            if !animated {
+                adjustItemPosition()
+            }
         }
     }
     
@@ -625,7 +629,31 @@ extension PageView {
 
 extension PageView {
     
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        contentOffset = scrollView.contentOffset
+        stopAnimating()
+    }
+    
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            startAnimating()
+            adjustItemPosition()
+        }
+    }
+    
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if !scrollView.isDragging {
+            startAnimating()
+            adjustItemPosition()
+        }
+    }
+    
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        adjustItemPosition()
+    }
+    
+    ///调整位置
+    private func adjustItemPosition() {
         switch scrollDirection {
         case .horizontal :
             
@@ -634,15 +662,13 @@ extension PageView {
             if shouldScrollInfinitely {
                 if page == 0 {
                     if contentOffset.x > scrollView.contentOffset.x {
-                        contentOffset = CGPoint(offset(for: numberOfItems + 1), 0)
-                        scrollView.contentOffset = contentOffset // 最后+1,循环到第1页
+                        scrollView.contentOffset = CGPoint(offset(for: numberOfItems), 0) // 最后+1,循环到第1页
                         currentPage = 0
                     }
                 }else if page >= (numberOfItems + 1) {
                     
                     if contentOffset.x < scrollView.contentOffset.x {
-                        contentOffset = CGPoint(offset(for: 1), 0)
-                        scrollView.contentOffset = contentOffset // 最后+1,循环第1页
+                        scrollView.contentOffset = CGPoint(offset(for: 1), 0) // 最后+1,循环第1页
                         currentPage = numberOfItems - 1
                     }
                 }else{
@@ -658,14 +684,12 @@ extension PageView {
             if shouldScrollInfinitely {
                 if page == 0 {
                     if contentOffset.y > scrollView.contentOffset.y {
-                        contentOffset = CGPoint(0, offset(for: numberOfItems + 1))
-                        scrollView.contentOffset = contentOffset // 最后+1,循环到第1页
+                        scrollView.contentOffset = CGPoint(0, offset(for: numberOfItems)) // 最后+1,循环到第1页
                         currentPage = 0
                     }
                 }else if page >= (numberOfItems + 1) {
                     if contentOffset.y < scrollView.contentOffset.y {
-                        contentOffset = CGPoint(0, offset(for: 1))
-                        scrollView.contentOffset = contentOffset // 最后+1,循环第1页
+                        scrollView.contentOffset = CGPoint(0, offset(for: 1)) // 最后+1,循环第1页
                         currentPage = numberOfItems - 1
                     }
                 }else{
@@ -680,24 +704,6 @@ extension PageView {
         }
         
         layoutItems()
-    }
-    
-    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        contentOffset = scrollView.contentOffset
-        stopAnimating()
-    }
-    
-    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate {
-            contentOffset = .zero
-            startAnimating()
-        }
-    }
-    
-    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if !scrollView.isDragging {
-            contentOffset = .zero
-            startAnimating()
-        }
+        contentOffset = .zero
     }
 }
