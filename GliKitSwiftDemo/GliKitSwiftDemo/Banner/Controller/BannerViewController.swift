@@ -7,8 +7,9 @@
 //
 
 import GliKitSwift
+import UIKit
 
-class BannerViewController: BaseViewController, PageViewDelegate {
+class BannerViewController: BaseViewController, PageViewDelegate, URLSessionTaskDelegate {
     
     var horizontalPageView: PageView!
     var verticalPageView: PageView!
@@ -80,5 +81,18 @@ class BannerViewController: BaseViewController, PageViewDelegate {
         verticalPageView.scrollTo(index, animated: true)
         
         print("Scroll to \(index)")
+    }
+    
+    @available(iOS 15.0.0, *)
+    private func loadImage() async -> UIImage? {
+        
+        do {
+            let url = URL(string: "xx")!
+            let result = try await URLSession.shared.data(from:url, delegate: nil)
+            
+            return UIImage(data: result.0)
+        } catch {
+            return nil
+        }
     }
 }

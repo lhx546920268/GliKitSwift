@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let queue = DispatchQueue(label: "xx", attributes: .concurrent)
 
         queue.async {
-            for _ in 0..<1000 {
+            for _ in 0..<10000 {
                 let time = Date.gkCurrentTime(format: Date.dateFormatYMd)
                 if time.count != 10 {
                     print("10 diff", time)
@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         queue.async {
-            for _ in 0..<1000 {
+            for _ in 0..<10000 {
                 let time = Date.gkCurrentTime(format: Date.dateFormatYMdHm)
                 if time.count != 16 {
                     print("16 diff", time)
@@ -52,4 +52,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 }
-

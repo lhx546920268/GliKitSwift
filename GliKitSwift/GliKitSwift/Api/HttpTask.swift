@@ -29,7 +29,7 @@ public protocol HttpTaskDelegate: AnyObject {
 public let GKHttpFirstPage = 1
 
 ///回调
-public typealias HttpTaskCallback = (Self) -> Void
+public typealias HttpTaskCallback = (HttpTask) -> Void
 
 /**
  单个http请求任务 子类可重写对应的方法

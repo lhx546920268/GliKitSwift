@@ -98,7 +98,7 @@ class PhotosBrowseCell: UICollectionViewCell, UIScrollViewDelegate {
     
     ///计算imageView的位置大小
     func rectFromImage(_ image: UIImage) -> CGRect {
-        let size = image.gkFit(with: scrollView.frame.size, type: .width)
+        let size = image.gkFit(with: scrollView.frame.size)
         return CGRect(max(0, (gkWidth - size.width) / 2.0), max((gkHeight - size.height) / 2.0, 0), size.width, size.height)
     }
     

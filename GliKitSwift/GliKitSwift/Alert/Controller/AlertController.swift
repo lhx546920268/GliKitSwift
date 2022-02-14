@@ -264,7 +264,7 @@ public class AlertController: BaseViewController {
             if icon != nil {
                 header.imageView.image = icon
                 if icon!.size.width > constraintWidth {
-                    let size = icon!.gkFit(with: CGSize(constraintWidth, 0), type: .width)
+                    let size = icon!.gkFit(with: CGSize(constraintWidth, 0))
                     header.imageView.frame = CGRect((header.gkWidth - size.width) / 2, y, icon!.size.width, icon!.size.height)
                 } else {
                     header.imageView.frame = CGRect((header.gkWidth - icon!.size.width) / 2, y, icon!.size.width, icon!.size.height)
