@@ -7,28 +7,35 @@
 //
 
 import GliKitSwift
+import CoreGraphics
 
 class CollectionSkeletonViewController: CollectionViewController {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    func oneDeWhy() {
+//        super.viewDidLoad()
+//
+//        view.backgroundColor = UIColor.gkGrayBackgroundColor
+//        registerClass(CollectionViewSkeletonCell.self)
+//        registerHeaderClass(CollectionViewSkeletonHeader.self)
         
-        view.backgroundColor = UIColor.gkGrayBackgroundColor
-        registerClass(CollectionViewSkeletonCell.self)
-        registerHeaderClass(CollectionViewSkeletonHeader.self)
+        let spacing: CGFloat = 10.0
+        let count: CGFloat = 4.0
+        let row: CGFloat = 3.0
+        let used = spacing * count
+        let width: CGFloat = UIScreen.gkWidth - used
+        let size: CGFloat = width / row
+        print(size)
+//        flowLayout.itemSize = CGSize(size, size)
+//        flowLayout.minimumLineSpacing = spacing
+//        flowLayout.minimumInteritemSpacing = spacing
+//        flowLayout.sectionInset = UIEdgeInsets.all(spacing)
+//        flowLayout.headerReferenceSize = CGSize(UIScreen.gkWidth, 50)
         
-        let size = (UIScreen.gkWidth - 10 * 4) / 3
-        flowLayout.itemSize = CGSize(size, size)
-        flowLayout.minimumLineSpacing = 10
-        flowLayout.minimumInteritemSpacing = 10
-        flowLayout.sectionInset = UIEdgeInsets.all(10)
-        flowLayout.headerReferenceSize = CGSize(UIScreen.gkWidth, 50)
-        
-        initViews()
-        
-        collectionView.gkShowSkeleton(duration: 2) {
-            self.collectionView.gkHideSkeleton(animate: true)
-        }
+//        initViews()
+//
+//        collectionView.gkShowSkeleton(duration: 2.0) {
+//            self.collectionView.gkHideSkeleton(animate: true)
+//        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

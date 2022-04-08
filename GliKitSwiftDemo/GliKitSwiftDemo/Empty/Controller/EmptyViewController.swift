@@ -11,7 +11,7 @@ import GliKitSwift
 class EmptyViewController: TableViewController {
     
     var models: [RowModel]!
-    
+    var value: Int = 0
     open override func viewDidLoad() {
         super.viewDidLoad()
         style = .grouped

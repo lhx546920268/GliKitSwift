@@ -90,7 +90,7 @@ class EmptyCollectionViewController: CollectionViewController {
     
     override func emptyViewWillAppear(_ view: EmptyView) {
         super.emptyViewWillAppear(view)
-        if view.gestureRecognizers?.count ?? 0 == 0 {
+        if view.gestureRecognizers?.count == 0 {
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapEmpty)))
         }
     }

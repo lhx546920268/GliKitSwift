@@ -23,21 +23,15 @@ public extension Date{
     
     ///DateFormatter 的单例 因为频繁地创建 DateFormatter 是非常耗资源的、耗时的，不要修改 dateFormat，这样有多个线程同时访问时，会格式不对
     private static let sharedDateFormatters = NSMutableDictionary()
-    private static let lock = Lock()
     static func sharedDateFormatter(for format: String) -> DateFormatter {
 
         var formatter = sharedDateFormatters[format] as? DateFormatter
         if formatter == nil {
-            lock.lock()
-            formatter = sharedDateFormatters[format] as? DateFormatter
-            if formatter == nil {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = format
-                dateFormatter.locale = .current
-                sharedDateFormatters[format] = dateFormatter
-                formatter = dateFormatter
-            }
-            lock.unlock()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = format
+            dateFormatter.locale = .current
+            sharedDateFormatters[format] = dateFormatter
+            formatter = dateFormatter
         }
         return formatter!
     }
