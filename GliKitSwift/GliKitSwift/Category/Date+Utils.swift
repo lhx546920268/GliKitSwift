@@ -21,16 +21,17 @@ public extension Date{
     //yyyy-MM-dd
     static let dateFormatYMd = "yyyy-MM-dd"
     
-    ///DateFormatter 的单例 因为频繁地创建 DateFormatter 是非常耗资源的、耗时的，不要修改 dateFormat，这样有多个线程同时访问时，会格式不对
-    private static let sharedDateFormatters = NSMutableDictionary()
+    ///DateFormatter 的单例 因为频繁地创建 DateFormatter 是非常耗资源的、耗时的，不要修改 dateFormat，这样有多个线程同时访问时，会格式不对 NSMutableDictionary 多线程会闪退
+    private static let sharedDateFormatters = NSCache<NSString, DateFormatter>()
     static func sharedDateFormatter(for format: String) -> DateFormatter {
-
-        var formatter = sharedDateFormatters[format] as? DateFormatter
+        
+        let key = format as NSString
+        var formatter = sharedDateFormatters.object(forKey: key)
         if formatter == nil {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = format
             dateFormatter.locale = .current
-            sharedDateFormatters[format] = dateFormatter
+            sharedDateFormatters.setObject(dateFormatter, forKey: key)
             formatter = dateFormatter
         }
         return formatter!
