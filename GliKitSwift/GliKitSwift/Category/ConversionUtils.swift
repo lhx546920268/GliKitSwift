@@ -63,10 +63,6 @@ public extension BinaryFloatingPoint{
         Float64(self)
     }
     
-    var float80Value: Float80{
-        Float80(self)
-    }
-    
     var doubleValue: Double{
         Double(self)
     }
@@ -136,10 +132,6 @@ public extension BinaryInteger{
     
     var float64Value: Float64{
         Float64(self)
-    }
-    
-    var float80Value: Float80{
-        Float80(self)
     }
     
     var doubleValue: Double{
@@ -219,10 +211,6 @@ public extension String{
     
     var float64Value: Float64{
         Float64(self) ?? 0
-    }
-    
-    var float80Value: Float80{
-        Float80(self) ?? 0
     }
     
     var doubleValue: Double{

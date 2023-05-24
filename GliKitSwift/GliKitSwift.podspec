@@ -9,7 +9,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "GliKitSwift"
-  spec.version      = "0.0.1"
+  spec.version      = "1.0.0"
   spec.summary      = "A short description of GliKitSwift."
 
   spec.description  = <<-DESC
@@ -21,12 +21,12 @@ Pod::Spec.new do |spec|
 
   spec.author             = "luohaixiong"
 
-  spec.platform     = :ios, "10.0"
+  spec.platform     = :ios, "12.0"
 
   spec.source = { :git => "https://github.com/lhx546920268/GliKitSwift.git", :tag => "v#{spec.version}" }
   spec.source_files  = "GliKitSwift/**/*.{swift}"
-  spec.dependency 'SnapKit', '~> 5.0.1'
-  spec.dependency 'Kingfisher', '~> 5.15.6'
-  spec.dependency 'Alamofire', '~> 5.2.2'
-  spec.dependency 'KeychainAccess', '~> 4.2.1'
+  spec.dependency 'SnapKit', '~> 5.6.0'
+  spec.dependency 'Kingfisher', '~> 7.6.2'
+  spec.dependency 'Alamofire', '~> 5.7.0'
+  spec.dependency 'KeychainAccess', '~> 4.2.2'
 end

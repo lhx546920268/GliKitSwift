@@ -29,7 +29,7 @@ extension UIViewController {
     // MARK: - Partial present
 
     ///部分显示 属性
-    open var partialPresentProps: PartialPresentProps {
+    public var partialPresentProps: PartialPresentProps {
         var props = objc_getAssociatedObject(self, &partialPresentPropsKey) as? PartialPresentProps
         if props == nil {
             props = PartialPresentProps()
@@ -40,24 +40,24 @@ extension UIViewController {
     }
 
     ///返回要显示的viewController 默认是self
-    open var partialViewController: UIViewController{
+    @objc open var partialViewController: UIViewController{
         self
     }
 
     ///从底部部分显示
-    open func partialPresentFromBottom(){
+    @objc open func partialPresentFromBottom(){
         partialPresentProps.transitionStyle = .fromBottom
         partialPresent()
     }
 
     ///从顶部部分显示
-    open func partialPresentFromTop(){
+    @objc open func partialPresentFromTop(){
         partialPresentProps.transitionStyle = .fromTop
         partialPresent()
     }
     
     ///部分显示
-    open func partialPresent(with completion: (() -> Void)? = nil) {
+    @objc open func partialPresent(with completion: (() -> Void)? = nil) {
         
         let viewController = partialViewController
         let props = partialPresentProps

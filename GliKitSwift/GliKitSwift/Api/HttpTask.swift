@@ -9,9 +9,6 @@
 import UIKit
 import Alamofire
 
-///json 结果
-public typealias JSONResult = Dictionary<String, Any>
-
 ///代理
 public protocol HttpTaskDelegate: AnyObject {
     
@@ -30,6 +27,9 @@ public let GKHttpFirstPage = 1
 
 ///回调
 public typealias HttpTaskCallback = (HttpTask) -> Void
+
+///回调队列
+private let completionQueue = DispatchQueue(label: "com.glikit.swift.completion.queue")
 
 /**
  单个http请求任务 子类可重写对应的方法
@@ -120,7 +120,7 @@ open class HttpTask {
     public var isApiSuccess: Bool = false
     
     ///原始最外层字典
-    public var data: JSONResult?
+    public var data: JSONDictionary?
     
     ///提示的信息
     public var message: String?
@@ -172,7 +172,7 @@ open class HttpTask {
     /// 子类实现这个校验接口返回的数据
     /// - Parameter data: 原始字典数据
     /// - Returns: 接口是否请求成功
-    open func onLoadData(_ data: JSONResult) -> Bool{
+    open func onLoadData(_ data: JSONDictionary) -> Bool{
         return true
     }
     
@@ -223,14 +223,13 @@ open class HttpTask {
     ///创建请求
     private func createRequestIfNeeded() {
         if request == nil {
-            let completion: (Alamofire.AFDataResponse<Any>) -> Void = { [weak self] (response: AFDataResponse<Any>) in
+            let completion: (Alamofire.AFDataResponse<Data>) -> Void = { [weak self] (response: AFDataResponse<Data>) in
                 
                 if let self = self {
                     
                     if case .success(let value) = response.result {
-                        if value is JSONResult {
-                            let result = value as! JSONResult
-                            self.processSuccessResult(result)
+                        if let json = JSONSerialization.gkDictionary(value) {
+                            self.processSuccessResult(json)
                         } else {
                             self.processError(HttpError.resultFormatError)
                         }
@@ -245,10 +244,10 @@ open class HttpTask {
                     for (key, filePath) in uploadFiles {
                         formData.append(URL(fileURLWithPath: filePath), withName: key)
                     }
-                }, to: requestURL, headers: headers).responseJSON(completionHandler: completion)
+                }, to: requestURL, headers: headers).responseDecodable(queue: completionQueue, completionHandler: completion)
             } else {
                 
-                request = AF.request(requestURL, method: httpMethod, parameters: params, headers: headers).responseJSON(completionHandler: completion)
+                request = AF.request(requestURL, method: httpMethod, parameters: params, headers: headers).responseData(queue: completionQueue, completionHandler: completion)
             }
         }
     }
@@ -273,7 +272,7 @@ open class HttpTask {
     // MARK: - 处理结果
     
     ///处理http请求请求成功的结果
-    private func processSuccessResult(_ result: JSONResult){
+    private func processSuccessResult(_ result: JSONDictionary){
         
         data = result
         isApiSuccess = onLoadData(result)

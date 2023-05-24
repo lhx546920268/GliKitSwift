@@ -29,8 +29,9 @@ class TransitionViewController: BaseViewController {
         vc.navigationItem.title = btn.currentTitle
         
         let nav = vc.gkCreateWithNavigationController
-        nav.partialPresentProps.contentSize = CGSize(UIScreen.gkWidth, 400)
-        nav.partialPresentProps.cornerRadius = 10
+        let props = nav.partialPresentProps
+        props.contentSize = CGSize(UIScreen.gkWidth, 400)
+        props.cornerRadius = 10
         nav.partialPresentFromBottom()
     }
 }

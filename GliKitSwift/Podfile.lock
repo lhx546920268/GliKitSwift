@@ -1,16 +1,14 @@
 PODS:
-  - Alamofire (5.2.2)
-  - KeychainAccess (4.2.1)
-  - Kingfisher (5.15.6):
-    - Kingfisher/Core (= 5.15.6)
-  - Kingfisher/Core (5.15.6)
-  - SnapKit (5.0.1)
+  - Alamofire (5.7.1)
+  - KeychainAccess (4.2.2)
+  - Kingfisher (7.6.2)
+  - SnapKit (5.6.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 5.2.2)
-  - KeychainAccess
-  - Kingfisher (~> 5.15.6)
-  - SnapKit (~> 5.0.1)
+  - Alamofire (~> 5.7.0)
+  - KeychainAccess (~> 4.2.2)
+  - Kingfisher (~> 7.6.2)
+  - SnapKit (~> 5.6.0)
 
 SPEC REPOS:
   trunk:
@@ -20,11 +18,11 @@ SPEC REPOS:
     - SnapKit
 
 SPEC CHECKSUMS:
-  Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
-  KeychainAccess: 9b07f665298d13c3a85881bd3171f6f49b8151c1
-  Kingfisher: b3554e7bf6106115b44e8795300bad580ef2fdc7
-  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
+  KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
+  Kingfisher: 6c5449c6450c5239166510ba04afe374a98afc4f
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
 
-PODFILE CHECKSUM: 7703aac3b0bbf0da3350daabfd3b134c451de0e9
+PODFILE CHECKSUM: 3524068f2c0d3036a3d7b9445db9514dfa8b3759
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.12.0

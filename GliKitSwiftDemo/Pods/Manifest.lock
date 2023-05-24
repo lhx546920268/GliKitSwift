@@ -1,24 +1,22 @@
 PODS:
-  - Alamofire (5.2.2)
-  - GliKitSwift (0.0.1):
-    - Alamofire (~> 5.2.2)
-    - KeychainAccess (~> 4.2.1)
-    - Kingfisher (~> 5.15.6)
-    - SnapKit (~> 5.0.1)
-  - KeychainAccess (4.2.1)
-  - Kingfisher (5.15.6):
-    - Kingfisher/Core (= 5.15.6)
-  - Kingfisher/Core (5.15.6)
-  - PromiseKit (6.13.1):
-    - PromiseKit/CorePromise (= 6.13.1)
-    - PromiseKit/Foundation (= 6.13.1)
-    - PromiseKit/UIKit (= 6.13.1)
-  - PromiseKit/CorePromise (6.13.1)
-  - PromiseKit/Foundation (6.13.1):
+  - Alamofire (5.7.1)
+  - GliKitSwift (1.0.0):
+    - Alamofire (~> 5.7.0)
+    - KeychainAccess (~> 4.2.2)
+    - Kingfisher (~> 7.6.2)
+    - SnapKit (~> 5.6.0)
+  - KeychainAccess (4.2.2)
+  - Kingfisher (7.6.2)
+  - PromiseKit (6.18.1):
+    - PromiseKit/CorePromise (= 6.18.1)
+    - PromiseKit/Foundation (= 6.18.1)
+    - PromiseKit/UIKit (= 6.18.1)
+  - PromiseKit/CorePromise (6.18.1)
+  - PromiseKit/Foundation (6.18.1):
     - PromiseKit/CorePromise
-  - PromiseKit/UIKit (6.13.1):
+  - PromiseKit/UIKit (6.18.1):
     - PromiseKit/CorePromise
-  - SnapKit (5.0.1)
+  - SnapKit (5.6.0)
 
 DEPENDENCIES:
   - GliKitSwift (from `../GliKitSwift`)
@@ -37,13 +35,13 @@ EXTERNAL SOURCES:
     :path: "../GliKitSwift"
 
 SPEC CHECKSUMS:
-  Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
-  GliKitSwift: d1d9d0aa53d682387b954343a09e490acf5afd70
-  KeychainAccess: 9b07f665298d13c3a85881bd3171f6f49b8151c1
-  Kingfisher: b3554e7bf6106115b44e8795300bad580ef2fdc7
-  PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
-  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
+  GliKitSwift: 707b9fc75383986bde9e6f2adb65ef9de853df93
+  KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
+  Kingfisher: 6c5449c6450c5239166510ba04afe374a98afc4f
+  PromiseKit: 49d70c53d5d20e346beaea4b276b5dd2ab446bb4
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
 
-PODFILE CHECKSUM: b2993fc7f9124c001ec948241164f1a03d1b416d
+PODFILE CHECKSUM: 061b6324e2f047b7e8d9188a4709aa5c08628278
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.12.0
