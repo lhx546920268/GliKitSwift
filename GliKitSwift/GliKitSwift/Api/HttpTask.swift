@@ -29,7 +29,13 @@ public let GKHttpFirstPage = 1
 public typealias HttpTaskCallback = (HttpTask) -> Void
 
 ///回调队列
-private let completionQueue = DispatchQueue(label: "com.glikit.swift.completion.queue")
+private let completionQueue = DispatchQueue(label: "com.glikit.swift.completion.queue", attributes: .concurrent)
+
+//默认的session
+private let defaultSession = Session(serializationQueue: completionQueue)
+
+///保存请求队列的单例
+private var sharedTasks = Set<HttpTask>()
 
 /**
  单个http请求任务 子类可重写对应的方法
@@ -39,9 +45,6 @@ open class HttpTask {
     
     ///锁
     private let lock: Lock = Lock()
-    
-    ///保存请求队列的单例
-    private static var sharedTasks = Set<HttpTask>()
     
     ///唯一标识符
     public let id: UUID = UUID()
@@ -161,7 +164,7 @@ open class HttpTask {
     }
     
     private func _onStart(){
-        HttpTask.sharedTasks.insert(self)
+        sharedTasks.insert(self)
         if shouldShowloadingToast {
             UIApplication.shared.gkKeyWindow?.endEditing(true)
             view?.gkShowLoadingToast(delay: loadingToastDelay)
@@ -198,7 +201,7 @@ open class HttpTask {
         }
         delegate?.taskDidComplete(self)
         request = nil
-        HttpTask.sharedTasks.remove(self)
+        sharedTasks.remove(self)
         onComplete()
     }
     
@@ -240,14 +243,14 @@ open class HttpTask {
             }
             if let uploadFiles = files, uploadFiles.count > 0 {
                 
-                request = AF.upload(multipartFormData: { formData in
+                request = defaultSession.upload(multipartFormData: { formData in
                     for (key, filePath) in uploadFiles {
                         formData.append(URL(fileURLWithPath: filePath), withName: key)
                     }
                 }, to: requestURL, headers: headers).responseData(queue: completionQueue, completionHandler: completion)
             } else {
-                
-                request = AF.request(requestURL, method: httpMethod, parameters: params, headers: headers).responseData(queue: completionQueue, completionHandler: completion)
+         
+                request = defaultSession.request(requestURL, method: httpMethod, parameters: params, headers: headers).responseData(queue: completionQueue, completionHandler: completion)
             }
         }
     }
