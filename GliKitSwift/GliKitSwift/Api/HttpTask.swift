@@ -244,7 +244,7 @@ open class HttpTask {
                     for (key, filePath) in uploadFiles {
                         formData.append(URL(fileURLWithPath: filePath), withName: key)
                     }
-                }, to: requestURL, headers: headers).responseDecodable(queue: completionQueue, completionHandler: completion)
+                }, to: requestURL, headers: headers).responseData(queue: completionQueue, completionHandler: completion)
             } else {
                 
                 request = AF.request(requestURL, method: httpMethod, parameters: params, headers: headers).responseData(queue: completionQueue, completionHandler: completion)
